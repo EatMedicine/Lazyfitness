@@ -229,6 +229,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="设计数据\建表.sql" />
     <EntityDeploy Include="Models\DataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
@@ -261,6 +262,18 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="设计数据\lazyfitness.xmind" />
+    <Content Include="设计数据\逻辑图\10问答专区管理.vsdx" />
+    <Content Include="设计数据\逻辑图\11充值管理.vsdx" />
+    <Content Include="设计数据\逻辑图\1小懒人健身网站功能.vsdx" />
+    <Content Include="设计数据\逻辑图\2主页.vsdx" />
+    <Content Include="设计数据\逻辑图\3论坛专区.vsdx" />
+    <Content Include="设计数据\逻辑图\4资源文章专区.vsdx" />
+    <Content Include="设计数据\逻辑图\5问答专区.vsdx" />
+    <Content Include="设计数据\逻辑图\6充值账户系统.vsdx" />
+    <Content Include="设计数据\逻辑图\7用户管理.vsdx" />
+    <Content Include="设计数据\逻辑图\8资源文章专区管理.vsdx" />
+    <Content Include="设计数据\逻辑图\9论坛管理.vsdx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
