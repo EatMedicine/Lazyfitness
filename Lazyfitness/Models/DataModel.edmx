@@ -1,0 +1,590 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LazyfitnessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="backManager">
+          <Key>
+            <PropertyRef Name="managerId" />
+          </Key>
+          <Property Name="managerId" Type="int" Nullable="false" />
+          <Property Name="managerPwd" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="postArea">
+          <Key>
+            <PropertyRef Name="areaId" />
+          </Key>
+          <Property Name="areaId" Type="int" Nullable="false" />
+          <Property Name="areaName" Type="nvarchar" MaxLength="50" />
+          <Property Name="areaBrief" Type="text" />
+        </EntityType>
+        <EntityType Name="postInfo">
+          <Key>
+            <PropertyRef Name="areaId" />
+            <PropertyRef Name="postId" />
+          </Key>
+          <Property Name="areaId" Type="int" Nullable="false" />
+          <Property Name="postId" Type="int" Nullable="false" />
+          <Property Name="postTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="userId" Type="int" />
+          <Property Name="postTime" Type="datetime" />
+          <Property Name="pageView" Type="int" />
+          <Property Name="isPost" Type="int" />
+          <Property Name="isPay" Type="int" />
+          <Property Name="amount" Type="int" />
+          <Property Name="postStatus" Type="int" />
+          <Property Name="postContent" Type="text" />
+        </EntityType>
+        <EntityType Name="postReply">
+          <Key>
+            <PropertyRef Name="postId" />
+          </Key>
+          <Property Name="postId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="replyTime" Type="datetime" />
+          <Property Name="replyContent" Type="text" />
+        </EntityType>
+        <EntityType Name="quesAnswInfo">
+          <Key>
+            <PropertyRef Name="areaId" />
+            <PropertyRef Name="quesAnswId" />
+          </Key>
+          <Property Name="areaId" Type="int" Nullable="false" />
+          <Property Name="quesAnswId" Type="int" Nullable="false" />
+          <Property Name="quesAnswTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="userId" Type="int" />
+          <Property Name="quesAnswTime" Type="datetime" />
+          <Property Name="pageView" Type="int" />
+          <Property Name="isPost" Type="int" />
+          <Property Name="quesAnswStatus" Type="int" />
+          <Property Name="amount" Type="int" />
+          <Property Name="quesAnswContent" Type="text" />
+        </EntityType>
+        <EntityType Name="quesAnswReply">
+          <Key>
+            <PropertyRef Name="quesAnswId" />
+          </Key>
+          <Property Name="quesAnswId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="replyTime" Type="datetime" />
+          <Property Name="replyContent" Type="text" />
+          <Property Name="isAgree" Type="int" />
+        </EntityType>
+        <EntityType Name="quesArea">
+          <Key>
+            <PropertyRef Name="areaId" />
+          </Key>
+          <Property Name="areaId" Type="int" Nullable="false" />
+          <Property Name="areaName" Type="nvarchar" MaxLength="50" />
+          <Property Name="areaBrief" Type="text" />
+        </EntityType>
+        <EntityType Name="recharge">
+          <Key>
+            <PropertyRef Name="rechargeId" />
+          </Key>
+          <Property Name="rechargeId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="rechargePwd" Type="nvarchar" MaxLength="50" />
+          <Property Name="amount" Type="int" />
+          <Property Name="isAvailable" Type="int" />
+        </EntityType>
+        <EntityType Name="resourceArea">
+          <Key>
+            <PropertyRef Name="areaId" />
+          </Key>
+          <Property Name="areaId" Type="int" Nullable="false" />
+          <Property Name="areaName" Type="nvarchar" MaxLength="50" />
+          <Property Name="areaBrief" Type="text" />
+        </EntityType>
+        <EntityType Name="resourceInfo">
+          <Key>
+            <PropertyRef Name="areaId" />
+            <PropertyRef Name="resourceId" />
+          </Key>
+          <Property Name="areaId" Type="int" Nullable="false" />
+          <Property Name="resourceId" Type="int" Nullable="false" />
+          <Property Name="resourceName" Type="nvarchar" MaxLength="50" />
+          <Property Name="userId" Type="int" />
+          <Property Name="resourceTime" Type="datetime" />
+          <Property Name="pageView" Type="int" />
+          <Property Name="isTop" Type="int" />
+          <Property Name="resourceContent" Type="text" />
+        </EntityType>
+        <EntityType Name="userInfo">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="userName" Type="nvarchar" MaxLength="50" />
+          <Property Name="userAge" Type="int" />
+          <Property Name="userSex" Type="int" />
+          <Property Name="userTel" Type="nvarchar" MaxLength="11" />
+          <Property Name="userStatus" Type="int" />
+          <Property Name="userAccount" Type="int" />
+        </EntityType>
+        <EntityType Name="userSecurity">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="userPwd" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__postInfo__areaId__1A14E395">
+          <End Role="postArea" Type="Self.postArea" Multiplicity="1" />
+          <End Role="postInfo" Type="Self.postInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="postArea">
+              <PropertyRef Name="areaId" />
+            </Principal>
+            <Dependent Role="postInfo">
+              <PropertyRef Name="areaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__quesAnswI__areaI__22AA2996">
+          <End Role="quesArea" Type="Self.quesArea" Multiplicity="1" />
+          <End Role="quesAnswInfo" Type="Self.quesAnswInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quesArea">
+              <PropertyRef Name="areaId" />
+            </Principal>
+            <Dependent Role="quesAnswInfo">
+              <PropertyRef Name="areaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__resourceI__areaI__15502E78">
+          <End Role="resourceArea" Type="Self.resourceArea" Multiplicity="1" />
+          <End Role="resourceInfo" Type="Self.resourceInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="resourceArea">
+              <PropertyRef Name="areaId" />
+            </Principal>
+            <Dependent Role="resourceInfo">
+              <PropertyRef Name="areaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__userInfo__userId__0519C6AF">
+          <End Role="userSecurity" Type="Self.userSecurity" Multiplicity="1" />
+          <End Role="userInfo" Type="Self.userInfo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="userSecurity">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="userInfo">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LazyfitnessModelStoreContainer">
+          <EntitySet Name="backManager" EntityType="Self.backManager" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="postArea" EntityType="Self.postArea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="postInfo" EntityType="Self.postInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="postReply" EntityType="Self.postReply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="quesAnswInfo" EntityType="Self.quesAnswInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="quesAnswReply" EntityType="Self.quesAnswReply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="quesArea" EntityType="Self.quesArea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="recharge" EntityType="Self.recharge" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="resourceArea" EntityType="Self.resourceArea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="resourceInfo" EntityType="Self.resourceInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userInfo" EntityType="Self.userInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userSecurity" EntityType="Self.userSecurity" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__postInfo__areaId__1A14E395" Association="Self.FK__postInfo__areaId__1A14E395">
+            <End Role="postArea" EntitySet="postArea" />
+            <End Role="postInfo" EntitySet="postInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__quesAnswI__areaI__22AA2996" Association="Self.FK__quesAnswI__areaI__22AA2996">
+            <End Role="quesArea" EntitySet="quesArea" />
+            <End Role="quesAnswInfo" EntitySet="quesAnswInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__resourceI__areaI__15502E78" Association="Self.FK__resourceI__areaI__15502E78">
+            <End Role="resourceArea" EntitySet="resourceArea" />
+            <End Role="resourceInfo" EntitySet="resourceInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__userInfo__userId__0519C6AF" Association="Self.FK__userInfo__userId__0519C6AF">
+            <End Role="userSecurity" EntitySet="userSecurity" />
+            <End Role="userInfo" EntitySet="userInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LazyfitnessModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="backManager">
+          <Key>
+            <PropertyRef Name="managerId" />
+          </Key>
+          <Property Name="managerId" Type="Int32" Nullable="false" />
+          <Property Name="managerPwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="postArea">
+          <Key>
+            <PropertyRef Name="areaId" />
+          </Key>
+          <Property Name="areaId" Type="Int32" Nullable="false" />
+          <Property Name="areaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="areaBrief" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="postInfo" Relationship="Self.FK__postInfo__areaId__1A14E395" FromRole="postArea" ToRole="postInfo" />
+        </EntityType>
+        <EntityType Name="postInfo">
+          <Key>
+            <PropertyRef Name="areaId" />
+            <PropertyRef Name="postId" />
+          </Key>
+          <Property Name="areaId" Type="Int32" Nullable="false" />
+          <Property Name="postId" Type="Int32" Nullable="false" />
+          <Property Name="postTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="postTime" Type="DateTime" Precision="3" />
+          <Property Name="pageView" Type="Int32" />
+          <Property Name="isPost" Type="Int32" />
+          <Property Name="isPay" Type="Int32" />
+          <Property Name="amount" Type="Int32" />
+          <Property Name="postStatus" Type="Int32" />
+          <Property Name="postContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="postArea" Relationship="Self.FK__postInfo__areaId__1A14E395" FromRole="postInfo" ToRole="postArea" />
+        </EntityType>
+        <EntityType Name="postReply">
+          <Key>
+            <PropertyRef Name="postId" />
+          </Key>
+          <Property Name="postId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="replyTime" Type="DateTime" Precision="3" />
+          <Property Name="replyContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="quesAnswInfo">
+          <Key>
+            <PropertyRef Name="areaId" />
+            <PropertyRef Name="quesAnswId" />
+          </Key>
+          <Property Name="areaId" Type="Int32" Nullable="false" />
+          <Property Name="quesAnswId" Type="Int32" Nullable="false" />
+          <Property Name="quesAnswTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="quesAnswTime" Type="DateTime" Precision="3" />
+          <Property Name="pageView" Type="Int32" />
+          <Property Name="isPost" Type="Int32" />
+          <Property Name="quesAnswStatus" Type="Int32" />
+          <Property Name="amount" Type="Int32" />
+          <Property Name="quesAnswContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="quesArea" Relationship="Self.FK__quesAnswI__areaI__22AA2996" FromRole="quesAnswInfo" ToRole="quesArea" />
+        </EntityType>
+        <EntityType Name="quesAnswReply">
+          <Key>
+            <PropertyRef Name="quesAnswId" />
+          </Key>
+          <Property Name="quesAnswId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="replyTime" Type="DateTime" Precision="3" />
+          <Property Name="replyContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="isAgree" Type="Int32" />
+        </EntityType>
+        <EntityType Name="quesArea">
+          <Key>
+            <PropertyRef Name="areaId" />
+          </Key>
+          <Property Name="areaId" Type="Int32" Nullable="false" />
+          <Property Name="areaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="areaBrief" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="quesAnswInfo" Relationship="Self.FK__quesAnswI__areaI__22AA2996" FromRole="quesArea" ToRole="quesAnswInfo" />
+        </EntityType>
+        <EntityType Name="recharge">
+          <Key>
+            <PropertyRef Name="rechargeId" />
+          </Key>
+          <Property Name="rechargeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="rechargePwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="amount" Type="Int32" />
+          <Property Name="isAvailable" Type="Int32" />
+        </EntityType>
+        <EntityType Name="resourceArea">
+          <Key>
+            <PropertyRef Name="areaId" />
+          </Key>
+          <Property Name="areaId" Type="Int32" Nullable="false" />
+          <Property Name="areaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="areaBrief" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="resourceInfo" Relationship="Self.FK__resourceI__areaI__15502E78" FromRole="resourceArea" ToRole="resourceInfo" />
+        </EntityType>
+        <EntityType Name="resourceInfo">
+          <Key>
+            <PropertyRef Name="areaId" />
+            <PropertyRef Name="resourceId" />
+          </Key>
+          <Property Name="areaId" Type="Int32" Nullable="false" />
+          <Property Name="resourceId" Type="Int32" Nullable="false" />
+          <Property Name="resourceName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="resourceTime" Type="DateTime" Precision="3" />
+          <Property Name="pageView" Type="Int32" />
+          <Property Name="isTop" Type="Int32" />
+          <Property Name="resourceContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="resourceArea" Relationship="Self.FK__resourceI__areaI__15502E78" FromRole="resourceInfo" ToRole="resourceArea" />
+        </EntityType>
+        <EntityType Name="userInfo">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userAge" Type="Int32" />
+          <Property Name="userSex" Type="Int32" />
+          <Property Name="userTel" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="userStatus" Type="Int32" />
+          <Property Name="userAccount" Type="Int32" />
+          <NavigationProperty Name="userSecurity" Relationship="Self.FK__userInfo__userId__0519C6AF" FromRole="userInfo" ToRole="userSecurity" />
+        </EntityType>
+        <EntityType Name="userSecurity">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="userPwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="userInfo" Relationship="Self.FK__userInfo__userId__0519C6AF" FromRole="userSecurity" ToRole="userInfo" />
+        </EntityType>
+        <Association Name="FK__postInfo__areaId__1A14E395">
+          <End Role="postArea" Type="Self.postArea" Multiplicity="1" />
+          <End Role="postInfo" Type="Self.postInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="postArea">
+              <PropertyRef Name="areaId" />
+            </Principal>
+            <Dependent Role="postInfo">
+              <PropertyRef Name="areaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__quesAnswI__areaI__22AA2996">
+          <End Role="quesArea" Type="Self.quesArea" Multiplicity="1" />
+          <End Role="quesAnswInfo" Type="Self.quesAnswInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quesArea">
+              <PropertyRef Name="areaId" />
+            </Principal>
+            <Dependent Role="quesAnswInfo">
+              <PropertyRef Name="areaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__resourceI__areaI__15502E78">
+          <End Role="resourceArea" Type="Self.resourceArea" Multiplicity="1" />
+          <End Role="resourceInfo" Type="Self.resourceInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="resourceArea">
+              <PropertyRef Name="areaId" />
+            </Principal>
+            <Dependent Role="resourceInfo">
+              <PropertyRef Name="areaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__userInfo__userId__0519C6AF">
+          <End Role="userSecurity" Type="Self.userSecurity" Multiplicity="1" />
+          <End Role="userInfo" Type="Self.userInfo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="userSecurity">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="userInfo">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LazyfitnessEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="backManager" EntityType="Self.backManager" />
+          <EntitySet Name="postArea" EntityType="Self.postArea" />
+          <EntitySet Name="postInfo" EntityType="Self.postInfo" />
+          <EntitySet Name="postReply" EntityType="Self.postReply" />
+          <EntitySet Name="quesAnswInfo" EntityType="Self.quesAnswInfo" />
+          <EntitySet Name="quesAnswReply" EntityType="Self.quesAnswReply" />
+          <EntitySet Name="quesArea" EntityType="Self.quesArea" />
+          <EntitySet Name="recharge" EntityType="Self.recharge" />
+          <EntitySet Name="resourceArea" EntityType="Self.resourceArea" />
+          <EntitySet Name="resourceInfo" EntityType="Self.resourceInfo" />
+          <EntitySet Name="userInfo" EntityType="Self.userInfo" />
+          <EntitySet Name="userSecurity" EntityType="Self.userSecurity" />
+          <AssociationSet Name="FK__postInfo__areaId__1A14E395" Association="Self.FK__postInfo__areaId__1A14E395">
+            <End Role="postArea" EntitySet="postArea" />
+            <End Role="postInfo" EntitySet="postInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__quesAnswI__areaI__22AA2996" Association="Self.FK__quesAnswI__areaI__22AA2996">
+            <End Role="quesArea" EntitySet="quesArea" />
+            <End Role="quesAnswInfo" EntitySet="quesAnswInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__resourceI__areaI__15502E78" Association="Self.FK__resourceI__areaI__15502E78">
+            <End Role="resourceArea" EntitySet="resourceArea" />
+            <End Role="resourceInfo" EntitySet="resourceInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__userInfo__userId__0519C6AF" Association="Self.FK__userInfo__userId__0519C6AF">
+            <End Role="userSecurity" EntitySet="userSecurity" />
+            <End Role="userInfo" EntitySet="userInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LazyfitnessModelStoreContainer" CdmEntityContainer="LazyfitnessEntities">
+          <EntitySetMapping Name="backManager">
+            <EntityTypeMapping TypeName="LazyfitnessModel.backManager">
+              <MappingFragment StoreEntitySet="backManager">
+                <ScalarProperty Name="managerId" ColumnName="managerId" />
+                <ScalarProperty Name="managerPwd" ColumnName="managerPwd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="postArea">
+            <EntityTypeMapping TypeName="LazyfitnessModel.postArea">
+              <MappingFragment StoreEntitySet="postArea">
+                <ScalarProperty Name="areaId" ColumnName="areaId" />
+                <ScalarProperty Name="areaName" ColumnName="areaName" />
+                <ScalarProperty Name="areaBrief" ColumnName="areaBrief" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="postInfo">
+            <EntityTypeMapping TypeName="LazyfitnessModel.postInfo">
+              <MappingFragment StoreEntitySet="postInfo">
+                <ScalarProperty Name="areaId" ColumnName="areaId" />
+                <ScalarProperty Name="postId" ColumnName="postId" />
+                <ScalarProperty Name="postTitle" ColumnName="postTitle" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="postTime" ColumnName="postTime" />
+                <ScalarProperty Name="pageView" ColumnName="pageView" />
+                <ScalarProperty Name="isPost" ColumnName="isPost" />
+                <ScalarProperty Name="isPay" ColumnName="isPay" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="postStatus" ColumnName="postStatus" />
+                <ScalarProperty Name="postContent" ColumnName="postContent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="postReply">
+            <EntityTypeMapping TypeName="LazyfitnessModel.postReply">
+              <MappingFragment StoreEntitySet="postReply">
+                <ScalarProperty Name="postId" ColumnName="postId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="replyTime" ColumnName="replyTime" />
+                <ScalarProperty Name="replyContent" ColumnName="replyContent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quesAnswInfo">
+            <EntityTypeMapping TypeName="LazyfitnessModel.quesAnswInfo">
+              <MappingFragment StoreEntitySet="quesAnswInfo">
+                <ScalarProperty Name="areaId" ColumnName="areaId" />
+                <ScalarProperty Name="quesAnswId" ColumnName="quesAnswId" />
+                <ScalarProperty Name="quesAnswTitle" ColumnName="quesAnswTitle" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="quesAnswTime" ColumnName="quesAnswTime" />
+                <ScalarProperty Name="pageView" ColumnName="pageView" />
+                <ScalarProperty Name="isPost" ColumnName="isPost" />
+                <ScalarProperty Name="quesAnswStatus" ColumnName="quesAnswStatus" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="quesAnswContent" ColumnName="quesAnswContent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quesAnswReply">
+            <EntityTypeMapping TypeName="LazyfitnessModel.quesAnswReply">
+              <MappingFragment StoreEntitySet="quesAnswReply">
+                <ScalarProperty Name="quesAnswId" ColumnName="quesAnswId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="replyTime" ColumnName="replyTime" />
+                <ScalarProperty Name="replyContent" ColumnName="replyContent" />
+                <ScalarProperty Name="isAgree" ColumnName="isAgree" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quesArea">
+            <EntityTypeMapping TypeName="LazyfitnessModel.quesArea">
+              <MappingFragment StoreEntitySet="quesArea">
+                <ScalarProperty Name="areaId" ColumnName="areaId" />
+                <ScalarProperty Name="areaName" ColumnName="areaName" />
+                <ScalarProperty Name="areaBrief" ColumnName="areaBrief" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="recharge">
+            <EntityTypeMapping TypeName="LazyfitnessModel.recharge">
+              <MappingFragment StoreEntitySet="recharge">
+                <ScalarProperty Name="rechargeId" ColumnName="rechargeId" />
+                <ScalarProperty Name="rechargePwd" ColumnName="rechargePwd" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="isAvailable" ColumnName="isAvailable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="resourceArea">
+            <EntityTypeMapping TypeName="LazyfitnessModel.resourceArea">
+              <MappingFragment StoreEntitySet="resourceArea">
+                <ScalarProperty Name="areaId" ColumnName="areaId" />
+                <ScalarProperty Name="areaName" ColumnName="areaName" />
+                <ScalarProperty Name="areaBrief" ColumnName="areaBrief" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="resourceInfo">
+            <EntityTypeMapping TypeName="LazyfitnessModel.resourceInfo">
+              <MappingFragment StoreEntitySet="resourceInfo">
+                <ScalarProperty Name="areaId" ColumnName="areaId" />
+                <ScalarProperty Name="resourceId" ColumnName="resourceId" />
+                <ScalarProperty Name="resourceName" ColumnName="resourceName" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="resourceTime" ColumnName="resourceTime" />
+                <ScalarProperty Name="pageView" ColumnName="pageView" />
+                <ScalarProperty Name="isTop" ColumnName="isTop" />
+                <ScalarProperty Name="resourceContent" ColumnName="resourceContent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userInfo">
+            <EntityTypeMapping TypeName="LazyfitnessModel.userInfo">
+              <MappingFragment StoreEntitySet="userInfo">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="userAge" ColumnName="userAge" />
+                <ScalarProperty Name="userSex" ColumnName="userSex" />
+                <ScalarProperty Name="userTel" ColumnName="userTel" />
+                <ScalarProperty Name="userStatus" ColumnName="userStatus" />
+                <ScalarProperty Name="userAccount" ColumnName="userAccount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userSecurity">
+            <EntityTypeMapping TypeName="LazyfitnessModel.userSecurity">
+              <MappingFragment StoreEntitySet="userSecurity">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="userPwd" ColumnName="userPwd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
