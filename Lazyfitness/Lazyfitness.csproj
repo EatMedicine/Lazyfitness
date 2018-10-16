@@ -210,6 +210,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\MainStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -261,7 +262,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="设计数据\lazyfitness.xmind" />
     <Content Include="设计数据\逻辑图\10问答专区管理.vsdx" />
     <Content Include="设计数据\逻辑图\11充值管理.vsdx" />
@@ -274,6 +274,8 @@
     <Content Include="设计数据\逻辑图\7用户管理.vsdx" />
     <Content Include="设计数据\逻辑图\8资源文章专区管理.vsdx" />
     <Content Include="设计数据\逻辑图\9论坛管理.vsdx" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_MainStyle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,49 @@
+﻿/*总设置 用来被覆盖*/
+article, aside, blockquote, body, button, code, dd, details, div, dl, dt, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, hr, input, legend, li, menu, nav, ol, p, pre, section, td, textarea, th, ul {
+    margin: 0;
+    padding: 0;
+}
+a{
+    text-decoration:none;
+}
+a:visited,a:link,a:active,a:hover{
+    color:black;
+}
+/*li小圆点消失*/
+li{
+    list-style:none;
+}
+/*向左浮动*/
+.fl{
+    float:left
+}
+
+/*导航栏 白色透明 */
+.nav{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:50px;
+    background-color:rgba(255, 0, 0, 0.5);
+}
+/*导航栏项目 向左浮动*/
+.nav-menu{
+    width:1000px;
+    height:50px;   
+    margin:0 auto/*水平垂直居中*/
+}
+
+.nav-submenu1{
+
+}
+/*导航栏每个项的基础*/
+.nav-item{
+    float:left;
+    text-align:center;
+    height:50px;
+    line-height:50px;
+    position:relative;
+    padding-left:10px;
+}
+

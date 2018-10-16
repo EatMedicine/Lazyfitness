@@ -10,12 +10,14 @@ namespace Lazyfitness.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Title = "小懒人健身网站";
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+
+            ViewBag.Message = Request.Form["shuru"];
 
             return View();
         }
