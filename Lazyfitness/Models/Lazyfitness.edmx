@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LazyfitnessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="LazyfitnessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="backManager">
           <Key>
             <PropertyRef Name="managerId" />
@@ -127,10 +127,11 @@
           <Key>
             <PropertyRef Name="userId" />
           </Key>
-          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="loginId" Type="nvarchar" MaxLength="50" />
           <Property Name="userPwd" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK__postInfo__areaId__1A14E395">
+        <Association Name="FK__postInfo__areaId__1DE57479">
           <End Role="postArea" Type="Self.postArea" Multiplicity="1" />
           <End Role="postInfo" Type="Self.postInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -154,7 +155,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__resourceI__areaI__15502E78">
+        <Association Name="FK__resourceI__areaI__1B0907CE">
           <End Role="resourceArea" Type="Self.resourceArea" Multiplicity="1" />
           <End Role="resourceInfo" Type="Self.resourceInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -166,7 +167,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__userInfo__userId__0519C6AF">
+        <Association Name="FK__userInfo__userId__1273C1CD">
           <End Role="userSecurity" Type="Self.userSecurity" Multiplicity="1" />
           <End Role="userInfo" Type="Self.userInfo" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -191,7 +192,7 @@
           <EntitySet Name="resourceInfo" EntityType="Self.resourceInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userInfo" EntityType="Self.userInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userSecurity" EntityType="Self.userSecurity" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__postInfo__areaId__1A14E395" Association="Self.FK__postInfo__areaId__1A14E395">
+          <AssociationSet Name="FK__postInfo__areaId__1DE57479" Association="Self.FK__postInfo__areaId__1DE57479">
             <End Role="postArea" EntitySet="postArea" />
             <End Role="postInfo" EntitySet="postInfo" />
           </AssociationSet>
@@ -199,11 +200,11 @@
             <End Role="quesArea" EntitySet="quesArea" />
             <End Role="quesAnswInfo" EntitySet="quesAnswInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__resourceI__areaI__15502E78" Association="Self.FK__resourceI__areaI__15502E78">
+          <AssociationSet Name="FK__resourceI__areaI__1B0907CE" Association="Self.FK__resourceI__areaI__1B0907CE">
             <End Role="resourceArea" EntitySet="resourceArea" />
             <End Role="resourceInfo" EntitySet="resourceInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__userInfo__userId__0519C6AF" Association="Self.FK__userInfo__userId__0519C6AF">
+          <AssociationSet Name="FK__userInfo__userId__1273C1CD" Association="Self.FK__userInfo__userId__1273C1CD">
             <End Role="userSecurity" EntitySet="userSecurity" />
             <End Role="userInfo" EntitySet="userInfo" />
           </AssociationSet>
@@ -227,7 +228,7 @@
           <Property Name="areaId" Type="Int32" Nullable="false" />
           <Property Name="areaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="areaBrief" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="postInfo" Relationship="Self.FK__postInfo__areaId__1A14E395" FromRole="postArea" ToRole="postInfo" />
+          <NavigationProperty Name="postInfo" Relationship="Self.FK__postInfo__areaId__1DE57479" FromRole="postArea" ToRole="postInfo" />
         </EntityType>
         <EntityType Name="postInfo">
           <Key>
@@ -245,7 +246,7 @@
           <Property Name="amount" Type="Int32" />
           <Property Name="postStatus" Type="Int32" />
           <Property Name="postContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="postArea" Relationship="Self.FK__postInfo__areaId__1A14E395" FromRole="postInfo" ToRole="postArea" />
+          <NavigationProperty Name="postArea" Relationship="Self.FK__postInfo__areaId__1DE57479" FromRole="postInfo" ToRole="postArea" />
         </EntityType>
         <EntityType Name="postReply">
           <Key>
@@ -308,7 +309,7 @@
           <Property Name="areaId" Type="Int32" Nullable="false" />
           <Property Name="areaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="areaBrief" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="resourceInfo" Relationship="Self.FK__resourceI__areaI__15502E78" FromRole="resourceArea" ToRole="resourceInfo" />
+          <NavigationProperty Name="resourceInfo" Relationship="Self.FK__resourceI__areaI__1B0907CE" FromRole="resourceArea" ToRole="resourceInfo" />
         </EntityType>
         <EntityType Name="resourceInfo">
           <Key>
@@ -323,7 +324,7 @@
           <Property Name="pageView" Type="Int32" />
           <Property Name="isTop" Type="Int32" />
           <Property Name="resourceContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="resourceArea" Relationship="Self.FK__resourceI__areaI__15502E78" FromRole="resourceInfo" ToRole="resourceArea" />
+          <NavigationProperty Name="resourceArea" Relationship="Self.FK__resourceI__areaI__1B0907CE" FromRole="resourceInfo" ToRole="resourceArea" />
         </EntityType>
         <EntityType Name="userInfo">
           <Key>
@@ -336,17 +337,18 @@
           <Property Name="userTel" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
           <Property Name="userStatus" Type="Int32" />
           <Property Name="userAccount" Type="Int32" />
-          <NavigationProperty Name="userSecurity" Relationship="Self.FK__userInfo__userId__0519C6AF" FromRole="userInfo" ToRole="userSecurity" />
+          <NavigationProperty Name="userSecurity" Relationship="Self.FK__userInfo__userId__1273C1CD" FromRole="userInfo" ToRole="userSecurity" />
         </EntityType>
         <EntityType Name="userSecurity">
           <Key>
             <PropertyRef Name="userId" />
           </Key>
-          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="loginId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="userPwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="userInfo" Relationship="Self.FK__userInfo__userId__0519C6AF" FromRole="userSecurity" ToRole="userInfo" />
+          <NavigationProperty Name="userInfo" Relationship="Self.FK__userInfo__userId__1273C1CD" FromRole="userSecurity" ToRole="userInfo" />
         </EntityType>
-        <Association Name="FK__postInfo__areaId__1A14E395">
+        <Association Name="FK__postInfo__areaId__1DE57479">
           <End Role="postArea" Type="Self.postArea" Multiplicity="1" />
           <End Role="postInfo" Type="Self.postInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -370,7 +372,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__resourceI__areaI__15502E78">
+        <Association Name="FK__resourceI__areaI__1B0907CE">
           <End Role="resourceArea" Type="Self.resourceArea" Multiplicity="1" />
           <End Role="resourceInfo" Type="Self.resourceInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -382,7 +384,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__userInfo__userId__0519C6AF">
+        <Association Name="FK__userInfo__userId__1273C1CD">
           <End Role="userSecurity" Type="Self.userSecurity" Multiplicity="1" />
           <End Role="userInfo" Type="Self.userInfo" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -407,7 +409,7 @@
           <EntitySet Name="resourceInfo" EntityType="Self.resourceInfo" />
           <EntitySet Name="userInfo" EntityType="Self.userInfo" />
           <EntitySet Name="userSecurity" EntityType="Self.userSecurity" />
-          <AssociationSet Name="FK__postInfo__areaId__1A14E395" Association="Self.FK__postInfo__areaId__1A14E395">
+          <AssociationSet Name="FK__postInfo__areaId__1DE57479" Association="Self.FK__postInfo__areaId__1DE57479">
             <End Role="postArea" EntitySet="postArea" />
             <End Role="postInfo" EntitySet="postInfo" />
           </AssociationSet>
@@ -415,11 +417,11 @@
             <End Role="quesArea" EntitySet="quesArea" />
             <End Role="quesAnswInfo" EntitySet="quesAnswInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__resourceI__areaI__15502E78" Association="Self.FK__resourceI__areaI__15502E78">
+          <AssociationSet Name="FK__resourceI__areaI__1B0907CE" Association="Self.FK__resourceI__areaI__1B0907CE">
             <End Role="resourceArea" EntitySet="resourceArea" />
             <End Role="resourceInfo" EntitySet="resourceInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__userInfo__userId__0519C6AF" Association="Self.FK__userInfo__userId__0519C6AF">
+          <AssociationSet Name="FK__userInfo__userId__1273C1CD" Association="Self.FK__userInfo__userId__1273C1CD">
             <End Role="userSecurity" EntitySet="userSecurity" />
             <End Role="userInfo" EntitySet="userInfo" />
           </AssociationSet>
@@ -560,6 +562,7 @@
             <EntityTypeMapping TypeName="LazyfitnessModel.userSecurity">
               <MappingFragment StoreEntitySet="userSecurity">
                 <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="loginId" ColumnName="loginId" />
                 <ScalarProperty Name="userPwd" ColumnName="userPwd" />
               </MappingFragment>
             </EntityTypeMapping>

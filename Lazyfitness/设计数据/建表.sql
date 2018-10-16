@@ -17,7 +17,8 @@ DROP TABLE userSecurity
 GO
 CREATE TABLE userSecurity
 (
-	userId INT PRIMARY KEY,
+	userId INT PRIMARY KEY IDENTITY(1, 1),
+	loginId NVARCHAR(50),
 	userPwd NVARCHAR(50)
 )
 GO
@@ -204,3 +205,13 @@ CREATE TABLE backManager
 	managerId INT PRIMARY KEY,
 	managerPwd NVARCHAR(50)
 )
+/*
+select * from userInfo
+go
+select * from userSecurity
+go
+
+insert userSecurity(userPwd) values('wqe')
+insert userInfo(userId) values(762441)
+*/
+--select userPwd from userSecurity where userId = (select userId from userInfo where userName = 'test1')
