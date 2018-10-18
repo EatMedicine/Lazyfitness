@@ -1,8 +1,13 @@
 ﻿
+@model Lazyfitness.Models.userSecurity
 <h2>login</h2>
 
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
 <form action="~/account/account/login" method="post">
-    <input type="text" id="loginId" name="loginId" />
+    @Html.TextBoxFor(x => x.loginId, new { @class = "abc", @id = "cccc" }) @Html.ValidationMessageFor(x => x.loginId) <br />
     <input type="password" id="userPwd" name="userPwd" />
     <input type="submit" id="postData" name="postData" />
 </form>

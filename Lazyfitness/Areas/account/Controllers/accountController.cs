@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Lazyfitness.Models;
 namespace Lazyfitness.Areas.account.Controllers
@@ -77,6 +78,10 @@ namespace Lazyfitness.Areas.account.Controllers
                     userSecurity obSurePwd = dbSecuritySurePwd.FirstOrDefault();
                     if (obSurePwd != null)
                     {
+                        HttpCookie cookieName = new HttpCookie("loginId");
+                        cookieName.Value = security.loginId.Trim();
+                        cookieName.Expires = DateTime.Now.AddHours(1);
+                        Response.Cookies.Add(cookieName);                        
                         return "登录成功";
                     }
                     else
@@ -91,5 +96,18 @@ namespace Lazyfitness.Areas.account.Controllers
             }
         }
         #endregion
+
+        public ActionResult Index()
+        {
+            if (Request.Cookies["loginId"] != null)
+            {
+                HttpCookie cookieName = Request.Cookies["loginId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+                return Content(cookieText);
+            }
+            return Content("未登录");
+                    
+        }
+        
     }
 }

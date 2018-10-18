@@ -11,10 +11,12 @@ namespace Lazyfitness.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class userSecurity
     {
+        
         public int userId { get; set; }
+        [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "用户名长度")]
         public string loginId { get; set; }
         public string userPwd { get; set; }
     
