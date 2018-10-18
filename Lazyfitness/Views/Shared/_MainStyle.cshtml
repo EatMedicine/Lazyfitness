@@ -1,0 +1,41 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Css/MainStyle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <!--顶栏-->
+    <div id="head">
+        <!--底图-->
+        <div class="head-picture">
+            <img src="@Url.Content("~/Resource/picture/head.png")" style="width:100%;height:auto" />
+        </div>
+        <!--导航栏-->
+        <div class="nav shadow">
+            <div class="nav-menu">
+                <div class="nav-submenu1 fl">
+                    <ul>
+                        <li class="nav-item"><a href="#">主页</a></li>
+                        <li class="nav-item"><a href="#">资源</a></li>
+                        <li class="nav-item"><a href="#">问答</a></li>
+                        <li class="nav-item"><a href="#">论坛</a></li>
+                    </ul>
+                </div>
+                <div class="nav-search fr">
+                    @Html.TextBox("Keyword", "", new { @placeholder = "搜索" })
+                </div>
+            </div>
+        </div>
+
+    </div>
+    @RenderBody()
+</body>
+</html>
