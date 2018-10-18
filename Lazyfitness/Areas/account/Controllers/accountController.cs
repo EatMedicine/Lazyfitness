@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Lazyfitness.Models;
 namespace Lazyfitness.Areas.account.Controllers
 {
-    public class accountSysController : Controller
+    public class accountController : Controller
     {
         #region 注册
         // GET: account/register
@@ -25,22 +23,22 @@ namespace Lazyfitness.Areas.account.Controllers
                 {
                     userSecurity obSecurity = new userSecurity
                     {
-                        loginId = info.userName,
-                        userPwd = security.userPwd,
+                        loginId = info.userName.Trim(),
+                        userPwd = MD5Helper.MD5Helper.encrypt(security.userPwd.Trim()),
                     };               
                     db.userSecurity.Add(obSecurity);
                     db.SaveChanges();                               
                     int uniformId;
-                    DbQuery<userSecurity> dbSecuritySureUserId = db.userSecurity.Where(u => u.loginId == info.userName) as DbQuery<userSecurity>;
+                    DbQuery<userSecurity> dbSecuritySureUserId = db.userSecurity.Where(u => u.loginId == info.userName.Trim()) as DbQuery<userSecurity>;
                     userSecurity dbSecurity = dbSecuritySureUserId.FirstOrDefault();
                     uniformId = dbSecurity.userId;
                     userInfo obInfo = new userInfo
                     {
                         userId = uniformId,
-                        userName = info.userName,
+                        userName = info.userName.Trim(),
                         userAge = info.userAge,
                         userSex = info.userSex,
-                        userTel = info.userTel,
+                        userTel = info.userTel.Trim(),
                         userStatus = 1,
                         userAccount = 0
                     };
@@ -68,13 +66,14 @@ namespace Lazyfitness.Areas.account.Controllers
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    DbQuery<userSecurity> dbSecuritySureId = db.userSecurity.Where(u => u.loginId == security.loginId) as DbQuery<userSecurity>;
+                    DbQuery<userSecurity> dbSecuritySureId = db.userSecurity.Where(u => u.loginId == security.loginId.Trim()) as DbQuery<userSecurity>;
                     userSecurity obSureId = dbSecuritySureId.FirstOrDefault();
+                string MD5Pwd = MD5Helper.MD5Helper.encrypt(security.userPwd.Trim());
                     if (obSureId == null)
                     {
                         return "未注册";
                     }
-                    DbQuery<userSecurity> dbSecuritySurePwd = db.userSecurity.Where(u => u.loginId == security.loginId).Where(u => u.userPwd == security.userPwd) as DbQuery<userSecurity>;
+                    DbQuery<userSecurity> dbSecuritySurePwd = db.userSecurity.Where(u => u.loginId == security.loginId.Trim()).Where(u => u.userPwd == MD5Pwd) as DbQuery<userSecurity>;
                     userSecurity obSurePwd = dbSecuritySurePwd.FirstOrDefault();
                     if (obSurePwd != null)
                     {
@@ -86,9 +85,9 @@ namespace Lazyfitness.Areas.account.Controllers
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return "登录失败";
+                return ex.ToString();
             }
         }
         #endregion
