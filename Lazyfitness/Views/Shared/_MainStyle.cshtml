@@ -15,9 +15,12 @@
     <!--顶栏-->
     <div class="head">
         <!--底图-->
+        @if ((bool)ViewData["IsHeadPic"] == true)
+        {
         <div class="head-picture">
             <img src="@Url.Content("~/Resource/picture/head.png")" style="width:100%;height:auto" />
         </div>
+        }
         <!--导航栏-->
         <div class="nav shadow">
             <div class="nav-menu">
@@ -30,13 +33,17 @@
                     </ul>
                 </div>
                 <div class="nav-headPic fr">
-                    <img src="@Url.Content("~/Resource/picture/DefaultHeadPic.jpg")" style="width:40px;height:40px"/>
+                    <img src="@Url.Content("~/Resource/picture/DefaultHeadPic.jpg")" style="width:40px;height:40px" />
                 </div>
             </div>
         </div>
+        @if ((bool)ViewData["IsSearch"] == true)
+    {
         <div class="nav-search">
             @Html.TextBox("Keyword", "", new { @placeholder = "搜索" })
         </div>
+}
+
     </div>
     <div class="content-body">
         @RenderBody()

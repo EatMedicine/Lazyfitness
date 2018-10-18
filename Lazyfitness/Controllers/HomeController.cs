@@ -8,6 +8,12 @@ namespace Lazyfitness.Controllers
 {
     public class HomeController : Controller
     {
+
+        public ActionResult Hello()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             ViewBag.Title = "小懒人健身网站";
