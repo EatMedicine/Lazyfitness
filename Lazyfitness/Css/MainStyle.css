@@ -23,6 +23,9 @@ li{
     float:right
 }
 
+.head{
+    position:relative;
+}
 /*导航栏 白色透明 */
 .nav {
     position: absolute;
@@ -73,10 +76,13 @@ li{
     vertical-align:middle;
 }
 
-.nav-search{
-    height:20px;
-    width:200px;
-    margin:15px;
+.nav-search {
+    height: 20px;
+    width: 200px;
+    margin: 15px;
+    position: absolute;
+    left: 70%;
+    top: 75%;
 }
 
 .nav-search input{
@@ -84,4 +90,17 @@ li{
     border-style:hidden;
     border-radius:5px 5px;
     font-size:15px;
+}
+
+.nav-headPic{
+    margin:5px;
+    overflow:hidden;
+    border-radius:40px;
+}
+
+.content-body{
+    position:relative;
+    width:70%;
+    min-width:1000px;
+    margin:0 auto;
 }

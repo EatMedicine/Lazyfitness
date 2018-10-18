@@ -9,11 +9,11 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link href="~/Css/MainStyle.css" rel="stylesheet" type="text/css"/>
+    <link href="~/Css/MainStyle.css?v=1810181410" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <!--顶栏-->
-    <div id="head">
+    <div class="head">
         <!--底图-->
         <div class="head-picture">
             <img src="@Url.Content("~/Resource/picture/head.png")" style="width:100%;height:auto" />
@@ -29,13 +29,20 @@
                         <li class="nav-item"><a href="#">论坛</a></li>
                     </ul>
                 </div>
-                <div class="nav-search fr">
-                    @Html.TextBox("Keyword", "", new { @placeholder = "搜索" })
+                <div class="nav-headPic fr">
+                    <img src="@Url.Content("~/Resource/picture/DefaultHeadPic.jpg")" style="width:40px;height:40px"/>
                 </div>
             </div>
         </div>
-
+        <div class="nav-search">
+            @Html.TextBox("Keyword", "", new { @placeholder = "搜索" })
+        </div>
     </div>
-    @RenderBody()
+    <div class="content-body">
+        @RenderBody()
+    </div>
+    <div id="footer">
+        @RenderSection("footer",false)
+    </div>
 </body>
 </html>
