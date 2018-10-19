@@ -6,4 +6,20 @@
 }
 
 <!DOCTYPE html>
-
+<link href="~/Css/Index.css?v=1201810200427" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/IndexJs.js"></script>
+<!--滚动栏-->
+<div class="scroll-box">
+    <div class="panel" id="panel" onmousemove="cancelScroll()" onmouseout="startScroll()">
+        <ul class="picture fl">
+            <li><img src="@Url.Content("~/Resource/picture/pic1.jpg")" /></li>
+            <li><img src="@Url.Content("~/Resource/picture/pic2.jpg?v=111")" /></li>
+            <li><img src="@Url.Content("~/Resource/picture/pic3.png")" /></li>
+        </ul>
+        <ul class="dot" id="dot">
+            <li><img  onclick="clickDot(1)" src="@Url.Content("~/Resource/picture/dot1.png")"></li>
+            <li><img  onclick="clickDot(2)" src="@Url.Content("~/Resource/picture/dot2.png")"></li>
+            <li><img  onclick="clickDot(3)" src="@Url.Content("~/Resource/picture/dot2.png")"></li>
+        </ul>
+    </div>
+</div>

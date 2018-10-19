@@ -208,6 +208,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\Index.css" />
     <Content Include="Css\MainStyle.css" />
     <Content Include="Css\Hello.css" />
     <Content Include="favicon.ico" />
@@ -230,6 +231,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\IndexJs.js" />
     <Content Include="设计数据\建表.sql" />
     <Content Include="Areas\account\Views\account\register.cshtml" />
     <Content Include="Areas\account\Web.config" />

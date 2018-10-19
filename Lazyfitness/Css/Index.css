@@ -1,0 +1,46 @@
+﻿.scroll-box{
+    position:relative;
+    margin-top:20px;
+    margin:20px auto;
+    width:500px;
+    height:300px;
+    border-radius:5px;
+    overflow:hidden;
+    background-color:transparent;
+}
+.panel {
+    overflow: hidden;
+    margin-top: 0px;
+}
+.picture img{
+    width:500px;
+    height:300px;
+    float:left;
+}
+.picture li {
+    position: relative;
+
+    width: 500px;
+    height: 300px;
+}
+.dot{
+    position:absolute;
+    bottom:5px;
+    right:20px;
+    height:20px;
+    width:60px;
+    z-index:10;
+}
+.dot li{
+    width:20px;
+    height:20px;
+    background-color:transparent;
+    float:left;
+}
+.dot img{
+    width:20px;
+    height:20px;
+}
+.on{
+    background-image:url("~/Resource/picture/dot1.png");
+}
