@@ -145,8 +145,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\account\accountAreaRegistration.cs" />
-    <Compile Include="Areas\account\Controllers\accountController.cs" />
+    <Compile Include="Areas\account\Controllers\userManagerController.cs" />
     <Compile Include="Areas\account\Controllers\passwordManagerController.cs" />
+    <Compile Include="Areas\backStage\backStageAreaRegistration.cs" />
+    <Compile Include="Areas\backStage\Controllers\userManagerController.cs" />
     <Compile Include="Areas\MD5Helper\MD5Helper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -230,9 +232,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="设计数据\建表.sql" />
-    <Content Include="Areas\account\Views\account\register.cshtml" />
+    <Content Include="Areas\account\Views\userManager\register.cshtml" />
     <Content Include="Areas\account\Web.config" />
-    <Content Include="Areas\account\Views\account\login.cshtml" />
+    <Content Include="Areas\account\Views\userManager\login.cshtml" />
     <EntityDeploy Include="Models\Lazyfitness.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Lazyfitness.Designer.cs</LastGenOutput>
@@ -244,6 +246,10 @@
     <Content Include="Areas\account\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\account\Views\passwordManager\findPassword.cshtml" />
     <Content Include="Areas\account\Views\passwordManager\chagePassword.cshtml" />
+    <Content Include="Areas\backStage\Views\web.config" />
+    <Content Include="Areas\backStage\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\backStage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\backStage\Views\userManager\login.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -289,6 +295,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\account\Models\" />
+    <Folder Include="Areas\backStage\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
