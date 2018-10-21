@@ -26,9 +26,9 @@ namespace Lazyfitness.Areas.account.Controllers
                     {
                         loginId = info.userName.Trim(),
                         userPwd = MD5Helper.MD5Helper.encrypt(security.userPwd.Trim()),
-                    };               
+                    };
                     db.userSecurity.Add(obSecurity);
-                    db.SaveChanges();                               
+                    db.SaveChanges();
                     int uniformId;
                     DbQuery<userSecurity> dbSecuritySureUserId = db.userSecurity.Where(u => u.loginId == info.userName.Trim()) as DbQuery<userSecurity>;
                     userSecurity dbSecurity = dbSecuritySureUserId.FirstOrDefault();

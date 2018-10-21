@@ -6,20 +6,118 @@
 }
 
 <!DOCTYPE html>
-<link href="~/Css/Index.css?v=1201810200427" rel="stylesheet" type="text/css" />
-<script src="~/Scripts/IndexJs.js"></script>
-<!--滚动栏-->
-<div class="scroll-box">
-    <div class="panel" id="panel" onmousemove="cancelScroll()" onmouseout="startScroll()">
-        <ul class="picture fl">
-            <li><img src="@Url.Content("~/Resource/picture/pic1.jpg")" /></li>
-            <li><img src="@Url.Content("~/Resource/picture/pic2.jpg?v=111")" /></li>
-            <li><img src="@Url.Content("~/Resource/picture/pic3.png")" /></li>
-        </ul>
-        <ul class="dot" id="dot">
-            <li><img  onclick="clickDot(1)" src="@Url.Content("~/Resource/picture/dot1.png")"></li>
-            <li><img  onclick="clickDot(2)" src="@Url.Content("~/Resource/picture/dot2.png")"></li>
-            <li><img  onclick="clickDot(3)" src="@Url.Content("~/Resource/picture/dot2.png")"></li>
-        </ul>
+<link href="~/Css/Index.css?v=2018-1022-0017" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/IndexJs.js?v=2021-1021-2305"></script>
+@Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+<script type="text/javascript">
+    $(function () {
+        $("#button").click(function () {
+            $.get("/Home/AjaxTest", function (data, status) {
+                var result = $.parseJSON(data);
+                $.each(result, function (key, value) {
+                    $("#data").append(result[key].userId);
+                });
+            });
+        });
+    });
+</script>
+<div class="scroll-notic">
+    <!--滚动栏-->
+    <div class="scroll-box fl">
+        <div class="panel" id="panel" onmousemove="cancelScroll()" onmouseout="startScroll()">
+            <ul class="picture fl">
+                @foreach (string url in ViewBag.Scrollpic as string[])
+                {
+                    <li><img src=@url /></li>
+                }
+            </ul>
+            <ul class="dot" id="dot">
+                <li><img onclick="clickDot(1)" src="@Url.Content("~/Resource/picture/dot1.png")"></li>
+                <li><img onclick="clickDot(2)" src="@Url.Content("~/Resource/picture/dot2.png")"></li>
+                <li><img onclick="clickDot(3)" src="@Url.Content("~/Resource/picture/dot2.png")"></li>
+            </ul>
+        </div>
+        <div class="scroll-title">
+            @{
+                string[] title = ViewBag.NoticeTitle as string[];
+            }
+            @for (int count = 0; count < 3; count++)
+            {
+                if (count == 0)
+                {
+                    <div class="scroll-title-item vis" id="scroll-title-@count"><p>@title[count]</p></div>
+                }
+                else
+                {
+                    <div class="scroll-title-item unvis" id="scroll-title-@count"><p>@title[count]</p></div>
+                }
+            }
+        </div>
+    </div>
+    <!--公告栏-->
+    <div class="notice fr">
+        <div class="notice-head">
+            公告
+        </div>
+        <div class="notice-items">
+            @{
+                string[] Nname = ViewBag.NoticeName as string[];
+                string[] Nurl = ViewBag.NoticeUrl as string[];
+            }
+            @for (int count = 0; count < 5; count++)
+            {
+                <p><a href="@Nurl[count]">@Nname[count]</a></p>
+            }
+        </div>
     </div>
 </div>
+<!--资源区信息-->
+<div class="partition-data">
+    <div class="partition-title">
+        <div class="partition-title-name">
+            <h2>资源区</h2>
+        </div>
+        <div class="partition-title-more">
+            <h3><a href="#">更多</a></h3>
+        </div>
+    </div>
+    <div class="partition-content">
+    </div>
+</div>
+<!--问答区信息-->
+<div class="partition-data">
+    <div class="partition-title">
+        <div class="partition-title-name">
+            <h2>问答区</h2>
+        </div>
+        <div class="partition-title-more">
+            <h3><a href="#">更多</a></h3>
+        </div>
+    </div>
+    <div class="partition-content">
+    </div>
+</div>
+<!--论坛信息-->
+<div class="partition-data">
+    <div class="partition-title">
+        <div class="partition-title-name">
+            <h2>论坛</h2>
+        </div>
+        <div class="partition-title-more">
+            <h3><a href="#">更多</a></h3>
+        </div>
+    </div>
+    <div class="partition-content">
+    </div>
+</div>
+
+@section footer{
+
+    <div class="footer">
+        <div class="footer-content">
+            <p>小懒人健身网站运营团队荣誉出品</p>
+            <p>联系方式：xxx</p>
+        </div>
+    </div>
+    
+}

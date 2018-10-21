@@ -104,3 +104,9 @@ li{
     min-width:1000px;
     margin:0 auto;
 }
+.head-reg-log{
+    height:50px;
+    margin:0 auto;
+    text-align:center;
+    line-height:50px;
+}

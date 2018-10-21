@@ -15,8 +15,9 @@ function setMargin() {
     obj = document.getElementById("dot");
     for (var i = 0; i <= 2; i++) {
         obj.children[i].children[0].src = "/Resource/picture/dot2.png";
+        document.getElementById("scroll-title-" + i).className = "scroll-title-item unvis"
     }
-
+    document.getElementById("scroll-title-" + count).className = "scroll-title-item vis"
     obj.children[count].children[0].src = "/Resource/picture/dot1.png";
     count++;
 }
