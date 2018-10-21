@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using Lazyfitness.Models;
 namespace Lazyfitness.Areas.backStage.Controllers
 {
-    public class userManagerController : Controller
+    public class managerController : Controller
     {
         // GET: backStage/userManager
         public ActionResult login()
@@ -17,14 +17,14 @@ namespace Lazyfitness.Areas.backStage.Controllers
         [HttpPost]
         public string login(backManager manager)
         {
-            //try
-            //{
+            try
+            {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
                     DbQuery<backManager> dbManager = db.backManager.Where(u => u.managerId == manager.managerId) as DbQuery<backManager>;
                     backManager obManager = dbManager.FirstOrDefault();
-                    string MD5Pwd = MD5Helper.MD5Helper.encrypt(obManager.managerPwd.Trim());
-                    if (MD5Pwd == null)
+                    string MD5Pwd = MD5Helper.MD5Helper.encrypt(manager.managerPwd.Trim());
+                    if (obManager == null)
                     {
                         return "无效用户名";
                     }
@@ -43,11 +43,11 @@ namespace Lazyfitness.Areas.backStage.Controllers
                         return "密码错误";
                     }
                 }
-            //}
-            //catch (Exception ex)
-            //{
-            //    return ex.ToString();
-            //}
         }
+            catch
+            {
+                return "登录失败";
+            }
+}
     }
 }

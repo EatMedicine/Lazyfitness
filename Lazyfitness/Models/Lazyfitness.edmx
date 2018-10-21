@@ -131,7 +131,7 @@
           <Property Name="loginId" Type="nvarchar" MaxLength="50" />
           <Property Name="userPwd" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK__postInfo__areaId__1DE57479">
+        <Association Name="FK__postInfo__areaId__1FCDBCEB">
           <End Role="postArea" Type="Self.postArea" Multiplicity="1" />
           <End Role="postInfo" Type="Self.postInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -143,7 +143,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__quesAnswI__areaI__22AA2996">
+        <Association Name="FK__quesAnswI__areaI__24927208">
           <End Role="quesArea" Type="Self.quesArea" Multiplicity="1" />
           <End Role="quesAnswInfo" Type="Self.quesAnswInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -155,7 +155,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__resourceI__areaI__1B0907CE">
+        <Association Name="FK__resourceI__areaI__1CF15040">
           <End Role="resourceArea" Type="Self.resourceArea" Multiplicity="1" />
           <End Role="resourceInfo" Type="Self.resourceInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -192,15 +192,15 @@
           <EntitySet Name="resourceInfo" EntityType="Self.resourceInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userInfo" EntityType="Self.userInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userSecurity" EntityType="Self.userSecurity" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__postInfo__areaId__1DE57479" Association="Self.FK__postInfo__areaId__1DE57479">
+          <AssociationSet Name="FK__postInfo__areaId__1FCDBCEB" Association="Self.FK__postInfo__areaId__1FCDBCEB">
             <End Role="postArea" EntitySet="postArea" />
             <End Role="postInfo" EntitySet="postInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__quesAnswI__areaI__22AA2996" Association="Self.FK__quesAnswI__areaI__22AA2996">
+          <AssociationSet Name="FK__quesAnswI__areaI__24927208" Association="Self.FK__quesAnswI__areaI__24927208">
             <End Role="quesArea" EntitySet="quesArea" />
             <End Role="quesAnswInfo" EntitySet="quesAnswInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__resourceI__areaI__1B0907CE" Association="Self.FK__resourceI__areaI__1B0907CE">
+          <AssociationSet Name="FK__resourceI__areaI__1CF15040" Association="Self.FK__resourceI__areaI__1CF15040">
             <End Role="resourceArea" EntitySet="resourceArea" />
             <End Role="resourceInfo" EntitySet="resourceInfo" />
           </AssociationSet>
@@ -228,7 +228,7 @@
           <Property Name="areaId" Type="Int32" Nullable="false" />
           <Property Name="areaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="areaBrief" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="postInfo" Relationship="Self.FK__postInfo__areaId__1DE57479" FromRole="postArea" ToRole="postInfo" />
+          <NavigationProperty Name="postInfo" Relationship="Self.FK__postInfo__areaId__1FCDBCEB" FromRole="postArea" ToRole="postInfo" />
         </EntityType>
         <EntityType Name="postInfo">
           <Key>
@@ -246,7 +246,7 @@
           <Property Name="amount" Type="Int32" />
           <Property Name="postStatus" Type="Int32" />
           <Property Name="postContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="postArea" Relationship="Self.FK__postInfo__areaId__1DE57479" FromRole="postInfo" ToRole="postArea" />
+          <NavigationProperty Name="postArea" Relationship="Self.FK__postInfo__areaId__1FCDBCEB" FromRole="postInfo" ToRole="postArea" />
         </EntityType>
         <EntityType Name="postReply">
           <Key>
@@ -272,7 +272,7 @@
           <Property Name="quesAnswStatus" Type="Int32" />
           <Property Name="amount" Type="Int32" />
           <Property Name="quesAnswContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="quesArea" Relationship="Self.FK__quesAnswI__areaI__22AA2996" FromRole="quesAnswInfo" ToRole="quesArea" />
+          <NavigationProperty Name="quesArea" Relationship="Self.FK__quesAnswI__areaI__24927208" FromRole="quesAnswInfo" ToRole="quesArea" />
         </EntityType>
         <EntityType Name="quesAnswReply">
           <Key>
@@ -291,7 +291,7 @@
           <Property Name="areaId" Type="Int32" Nullable="false" />
           <Property Name="areaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="areaBrief" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="quesAnswInfo" Relationship="Self.FK__quesAnswI__areaI__22AA2996" FromRole="quesArea" ToRole="quesAnswInfo" />
+          <NavigationProperty Name="quesAnswInfo" Relationship="Self.FK__quesAnswI__areaI__24927208" FromRole="quesArea" ToRole="quesAnswInfo" />
         </EntityType>
         <EntityType Name="recharge">
           <Key>
@@ -309,7 +309,7 @@
           <Property Name="areaId" Type="Int32" Nullable="false" />
           <Property Name="areaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="areaBrief" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="resourceInfo" Relationship="Self.FK__resourceI__areaI__1B0907CE" FromRole="resourceArea" ToRole="resourceInfo" />
+          <NavigationProperty Name="resourceInfo" Relationship="Self.FK__resourceI__areaI__1CF15040" FromRole="resourceArea" ToRole="resourceInfo" />
         </EntityType>
         <EntityType Name="resourceInfo">
           <Key>
@@ -324,7 +324,7 @@
           <Property Name="pageView" Type="Int32" />
           <Property Name="isTop" Type="Int32" />
           <Property Name="resourceContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="resourceArea" Relationship="Self.FK__resourceI__areaI__1B0907CE" FromRole="resourceInfo" ToRole="resourceArea" />
+          <NavigationProperty Name="resourceArea" Relationship="Self.FK__resourceI__areaI__1CF15040" FromRole="resourceInfo" ToRole="resourceArea" />
         </EntityType>
         <EntityType Name="userInfo">
           <Key>
@@ -348,7 +348,7 @@
           <Property Name="userPwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="userInfo" Relationship="Self.FK__userInfo__userId__1273C1CD" FromRole="userSecurity" ToRole="userInfo" />
         </EntityType>
-        <Association Name="FK__postInfo__areaId__1DE57479">
+        <Association Name="FK__postInfo__areaId__1FCDBCEB">
           <End Role="postArea" Type="Self.postArea" Multiplicity="1" />
           <End Role="postInfo" Type="Self.postInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -360,7 +360,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__quesAnswI__areaI__22AA2996">
+        <Association Name="FK__quesAnswI__areaI__24927208">
           <End Role="quesArea" Type="Self.quesArea" Multiplicity="1" />
           <End Role="quesAnswInfo" Type="Self.quesAnswInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -372,7 +372,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__resourceI__areaI__1B0907CE">
+        <Association Name="FK__resourceI__areaI__1CF15040">
           <End Role="resourceArea" Type="Self.resourceArea" Multiplicity="1" />
           <End Role="resourceInfo" Type="Self.resourceInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -409,15 +409,15 @@
           <EntitySet Name="resourceInfo" EntityType="Self.resourceInfo" />
           <EntitySet Name="userInfo" EntityType="Self.userInfo" />
           <EntitySet Name="userSecurity" EntityType="Self.userSecurity" />
-          <AssociationSet Name="FK__postInfo__areaId__1DE57479" Association="Self.FK__postInfo__areaId__1DE57479">
+          <AssociationSet Name="FK__postInfo__areaId__1FCDBCEB" Association="Self.FK__postInfo__areaId__1FCDBCEB">
             <End Role="postArea" EntitySet="postArea" />
             <End Role="postInfo" EntitySet="postInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__quesAnswI__areaI__22AA2996" Association="Self.FK__quesAnswI__areaI__22AA2996">
+          <AssociationSet Name="FK__quesAnswI__areaI__24927208" Association="Self.FK__quesAnswI__areaI__24927208">
             <End Role="quesArea" EntitySet="quesArea" />
             <End Role="quesAnswInfo" EntitySet="quesAnswInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__resourceI__areaI__1B0907CE" Association="Self.FK__resourceI__areaI__1B0907CE">
+          <AssociationSet Name="FK__resourceI__areaI__1CF15040" Association="Self.FK__resourceI__areaI__1CF15040">
             <End Role="resourceArea" EntitySet="resourceArea" />
             <End Role="resourceInfo" EntitySet="resourceInfo" />
           </AssociationSet>

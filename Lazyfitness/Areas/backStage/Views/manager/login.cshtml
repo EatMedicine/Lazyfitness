@@ -4,7 +4,7 @@
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <form action="~/backStage/userManager/login" method="post">
+    <form action="~/backStage/manager/login" method="post">
         @Html.TextBoxFor(x => x.managerId) @Html.ValidationMessageFor(x => x.managerId) <br />
         @Html.TextBoxFor(x => x.managerPwd, new {@type="password" }) @Html.ValidationMessageFor(x => x.managerPwd) <br />
         <input type="submit" id="postData" name="postData" />

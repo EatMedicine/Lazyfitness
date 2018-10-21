@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Lazyfitness.Models;
 namespace Lazyfitness.Areas.account.Controllers
 {
-    public class userManagerController : Controller
+    public class userManagementController : Controller
     {
         #region 注册
         // GET: account/register
@@ -22,10 +22,11 @@ namespace Lazyfitness.Areas.account.Controllers
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    var isLoginID = db.userSecurity.Where(u => u.loginId == info.userName.Trim());
-                    if (isLoginID.ToList() != null)
+                    var isLoginID = db.userSecurity.Where<userSecurity>(u => u.loginId == info.userName.Trim());
+                    if (isLoginID.ToList().Count != 0)
                     {
-                        return "此账户已经注册";
+                       
+                        return "已经有账户";
                     }
                     userSecurity obSecurity = new userSecurity
                     {
@@ -44,9 +45,7 @@ namespace Lazyfitness.Areas.account.Controllers
                         userName = info.userName.Trim(),
                         userAge = info.userAge,
                         userSex = info.userSex,
-                        userTel = info.userTel.Trim(),
-                        userStatus = 1,
-                        userAccount = 0
+                        userTel = info.userTel.Trim(),                    
                     };
                     db.userInfo.Add(obInfo);
                     db.SaveChanges();

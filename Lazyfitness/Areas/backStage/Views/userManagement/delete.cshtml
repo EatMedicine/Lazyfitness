@@ -1,0 +1,19 @@
+﻿@using Lazyfitness.Models
+
+@{ 
+    foreach (userInfo item in ViewBag.allData)
+    {
+        <table>
+            <tr>
+                <td>
+                    用户名 <p> @item.userName</p>
+                </td>                             
+            </tr>
+        </table>
+    }
+}
+
+<form method="post" action="~/backStage/userManagement/delete">
+    <label>输入删除的用户名：<input name="userName" id="userName" type="text"/></label>
+    <input type="submit"/>
+</form>

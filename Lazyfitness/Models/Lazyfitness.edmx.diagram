@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="05f4a6f28e2d49dba11a3de77d91c1f8" Name="Diagram1">
+      <Diagram DiagramId="11d3e9ecb33a469b82de763adc3788c2" Name="Diagram1">
         <EntityTypeShape EntityType="LazyfitnessModel.backManager" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LazyfitnessModel.postArea" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LazyfitnessModel.postInfo" Width="1.5" PointX="8" PointY="6" IsExpanded="true" />
@@ -17,9 +17,9 @@
         <EntityTypeShape EntityType="LazyfitnessModel.resourceInfo" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="LazyfitnessModel.userInfo" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="LazyfitnessModel.userSecurity" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <AssociationConnector Association="LazyfitnessModel.FK__postInfo__areaId__1DE57479" ManuallyRouted="false" />
-        <AssociationConnector Association="LazyfitnessModel.FK__quesAnswI__areaI__22AA2996" ManuallyRouted="false" />
-        <AssociationConnector Association="LazyfitnessModel.FK__resourceI__areaI__1B0907CE" ManuallyRouted="false" />
+        <AssociationConnector Association="LazyfitnessModel.FK__postInfo__areaId__1FCDBCEB" ManuallyRouted="false" />
+        <AssociationConnector Association="LazyfitnessModel.FK__quesAnswI__areaI__24927208" ManuallyRouted="false" />
+        <AssociationConnector Association="LazyfitnessModel.FK__resourceI__areaI__1CF15040" ManuallyRouted="false" />
         <AssociationConnector Association="LazyfitnessModel.FK__userInfo__userId__1273C1CD" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

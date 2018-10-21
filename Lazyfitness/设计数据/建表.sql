@@ -34,8 +34,8 @@ CREATE TABLE userInfo
 	userAge INT,--0~999岁
 	userSex INT,--男或女
 	userTel NVARCHAR(11),--11位电话号码
-	userStatus INT,
-	userAccount INT
+	userStatus INT DEFAULT 1,
+	userAccount INT DEFAULT 0
 )
 GO
 
@@ -209,6 +209,8 @@ CREATE TABLE backManager
 select * from userInfo
 go
 select * from userSecurity
+go
+select * from resourceInfo
 go
 
 insert userSecurity(userPwd) values('wqe')
