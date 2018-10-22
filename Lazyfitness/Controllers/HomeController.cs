@@ -33,7 +33,11 @@ namespace Lazyfitness.Controllers
                 "美女荷官在线发牌",
                 "来贪玩蓝月，你从未见过的船新版本",
                 "女朋友失误，竟炼出史前尸鲲",
-                "想不出要说啥了但这里估计也看不到（"
+                "想不出要说啥了但这里估计也看不到（",
+                "但现在 你看到了",
+                "因为 增加到第10个了",
+                "这里是第九个",
+                "终于编完了嘤"
             };
             ViewBag.NoticeUrl = new string[]
             {
@@ -42,7 +46,11 @@ namespace Lazyfitness.Controllers
                 "#",
                 "#",
                 "#",
-                "#"
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
             };
             ViewBag.NoticeTitle = new string[]
             {
@@ -51,7 +59,8 @@ namespace Lazyfitness.Controllers
                 "美女荷官在线发牌",
                 "来贪玩蓝月，你从未见过的船新版本",
                 "女朋友失误，竟炼出史前尸鲲",
-                "想不出要说啥了但这里估计也看不到（"
+                "想不出要说啥了但这里估计也看不到（",
+
             };
 
             return View();
