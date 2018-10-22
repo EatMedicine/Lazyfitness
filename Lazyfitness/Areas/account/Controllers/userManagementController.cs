@@ -10,53 +10,93 @@ namespace Lazyfitness.Areas.account.Controllers
     {
         #region 注册
         // GET: account/register
-        public ActionResult register()
+        public ActionResult registerUser()
         {
             return View();
         }
         [HttpPost]
-        public string register(userSecurity security, userInfo info)
+        public string registerUser(userSecurity security)
         {
+            Session["loginId"] = null;
             //使用entity framework 进行数据的插入
             try
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    var isLoginID = db.userSecurity.Where<userSecurity>(u => u.loginId == info.userName.Trim());
+                    //先把用户写入userSecurity表
+                    var isLoginID = db.userSecurity.Where<userSecurity>(u => u.loginId == security.loginId.Trim());
                     if (isLoginID.ToList().Count != 0)
                     {
-                       
+
                         return "已经有账户";
                     }
                     userSecurity obSecurity = new userSecurity
                     {
-                        loginId = info.userName.Trim(),
+                        loginId = security.loginId.Trim(),
                         userPwd = MD5Helper.MD5Helper.encrypt(security.userPwd.Trim()),
-                    };               
+                    };
                     db.userSecurity.Add(obSecurity);
-                    db.SaveChanges();                               
+                    db.SaveChanges();
+
+                    //把userInfo表写入默认数据
                     int uniformId;
-                    DbQuery<userSecurity> dbSecuritySureUserId = db.userSecurity.Where(u => u.loginId == info.userName.Trim()) as DbQuery<userSecurity>;
+                    DbQuery<userSecurity> dbSecuritySureUserId = db.userSecurity.Where(u => u.loginId == security.loginId.Trim()) as DbQuery<userSecurity>;
                     userSecurity dbSecurity = dbSecuritySureUserId.FirstOrDefault();
                     uniformId = dbSecurity.userId;
                     userInfo obInfo = new userInfo
                     {
                         userId = uniformId,
-                        userName = info.userName.Trim(),
-                        userAge = info.userAge,
-                        userSex = info.userSex,
-                        userTel = info.userTel.Trim(),                    
+                        userName = security.loginId.Trim(),
+                        userAge = 0,
+                        userSex = 0,
+                        userTel = null,
+                        userStatus = 1,
+                        userAccount = 0,
                     };
                     db.userInfo.Add(obInfo);
                     db.SaveChanges();
                 }
-                return "T";
+                Session["loginId"] = security.loginId.Trim();
+                RedirectToRoute(new { controller = "userManagerment", action = "registerInfo" });
+                Response.Redirect("~/account/userManagement/registerInfo");
+                    return "Ok";
+            }
+            catch (Exception EX)
+            {
+                return EX.ToString();
+            }
+        }
+
+        public ActionResult registerInfo()
+        {
+            return View();
+        }
+        [HttpPost]
+        public string registerInfo(userInfo info)
+        {
+            try
+            {
+                if (Session["loginId"] == null)
+                {
+                    return "F";
+                }
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    string userName = Session["loginId"].ToString();
+                    userInfo obInfo = db.userInfo.Where(u => u.userName == userName).FirstOrDefault();
+                    obInfo.userAge = info.userAge;
+                    obInfo.userSex = info.userSex;
+                    obInfo.userTel = info.userTel;
+                    db.SaveChanges();
+                    return "T";
+                }
             }
             catch(Exception ex)
             {
                 return ex.ToString();
             }
         }
+
         #endregion
 
         #region 登录

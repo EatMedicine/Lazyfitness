@@ -1,0 +1,15 @@
+﻿@model Lazyfitness.Models.userSecurity
+<h2>register</h2>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Areas/jQuery/showPwd.js"></script>
+
+<form method="post" action="~/account/userManagement/registerUser">
+    <label>登录名</label> @Html.TextBoxFor(u => u.loginId) @Html.ValidationMessageFor(x => x.loginId)<br />
+    <label>密码</label> <div style="border: 1px solid silver; width: 200px;height: 30px">
+        @Html.TextBoxFor(u => u.userPwd, new { @type = "password", @style = "border:0px; padding: 0px; margin-top: 7px" })
+        <img id="imgEnter" src="~/Areas/img/show.jpg" style="height: 28px; width: 40px; float: right; border: none;">
+    </div>@Html.ValidationMessageFor(x => x.userPwd)<br />
+    <input type="submit" />
+</form>
