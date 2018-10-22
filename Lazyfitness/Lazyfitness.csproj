@@ -148,6 +148,7 @@
     <Compile Include="Areas\account\Controllers\userManagementController.cs" />
     <Compile Include="Areas\account\Controllers\passwordManagerController.cs" />
     <Compile Include="Areas\backStage\backStageAreaRegistration.cs" />
+    <Compile Include="Areas\backStage\Controllers\articleManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\userManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\managerController.cs" />
     <Compile Include="Areas\MD5Helper\MD5Helper.cs" />
@@ -254,6 +255,7 @@
       <DependentUpon>Lazyfitness.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\backStage\Views\userManagement\delete.cshtml" />
+    <Content Include="Areas\backStage\Views\articleManagement\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

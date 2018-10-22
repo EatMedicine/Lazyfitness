@@ -9,17 +9,3 @@
     Tel:<input type="text" id="userTel" name="userTel" />
     <input type="submit" id="postData" name="postData" />
 </form>
-
-
-@model Lazyfitness.Models.userSecurity
-<h2>register</h2>
-
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-<form action="~/account/userManagement/register" method="post">
-    @Html.TextBoxFor(x => x.loginId) @Html.ValidationMessageFor(x => x.loginId) <br />
-    <input type="password" id="userPwd" name="userPwd" />
-    <input type="submit" id="postData" name="postData" />
-</form>
