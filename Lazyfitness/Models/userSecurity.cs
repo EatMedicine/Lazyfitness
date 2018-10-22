@@ -11,8 +11,7 @@ namespace Lazyfitness.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
+    
     public partial class userSecurity
     {
         public int userId { get; set; }
@@ -20,6 +19,7 @@ namespace Lazyfitness.Models
         public string loginId { get; set; }
         [Required, StringLength(maximumLength: 50, MinimumLength = 6, ErrorMessage = "密码必须大于六位")]
         public string userPwd { get; set; }
+    
         public virtual userInfo userInfo { get; set; }
     }
 }

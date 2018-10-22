@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "add";
+}
+
+<h2>add</h2>
+
+<h2>添加用户</h2>
+<form action="~/backStage/userManagement/add" method="post">
+    LoginId:<input type="text" id="loginId" name="loginId" /><br />
+    Pwd:<input type="password" id="userPwd" name="userPwd" /><br />
+    <input type="submit" id="postData" name="postData" value="添加" />
+</form>

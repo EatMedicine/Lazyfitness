@@ -246,6 +246,12 @@
     <Content Include="Areas\backStage\Views\_ViewStart.cshtml" />
     <Content Include="Areas\backStage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\backStage\Views\manager\login.cshtml" />
+    <Content Include="Areas\backStage\Views\userManagement\Index.cshtml" />
+    <Content Include="Areas\backStage\Views\articleManagement\Index.cshtml" />
+    <Content Include="Areas\backStage\Views\userManagement\add.cshtml" />
+    <Content Include="Areas\backStage\Views\userManagement\search.cshtml" />
+    <Content Include="Areas\backStage\Views\userManagement\update.cshtml" />
+    <Content Include="Areas\backStage\Views\userManagement\delete.cshtml" />
     <EntityDeploy Include="Models\Lazyfitness.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Lazyfitness.Designer.cs</LastGenOutput>
