@@ -11,9 +11,7 @@ namespace Lazyfitness.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel;
-
+    
     public partial class userInfo
     {
         public int userId { get; set; }
@@ -22,7 +20,8 @@ namespace Lazyfitness.Models
         public Nullable<int> userSex { get; set; }
         public string userTel { get; set; }
         public Nullable<int> userStatus { get; set; }
-        public Nullable<int> userAccount { get; set; }  
+        public Nullable<int> userAccount { get; set; }
+    
         public virtual userSecurity userSecurity { get; set; }
     }
 }
