@@ -213,7 +213,9 @@
     <Content Include="Areas\jQuery\showPwd.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\Index.css" />
     <Content Include="Css\MainStyle.css" />
+    <Content Include="Css\Hello.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -234,6 +236,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\IndexJs.js" />
     <Content Include="设计数据\建表.sql" />
     <Content Include="Areas\account\Views\userManagement\registerUser.cshtml" />
     <Content Include="Areas\account\Web.config" />
@@ -303,6 +306,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_MainStyle.cshtml" />
     <Content Include="设计数据\数据字典.docx" />
+    <Content Include="Views\Home\Hello.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

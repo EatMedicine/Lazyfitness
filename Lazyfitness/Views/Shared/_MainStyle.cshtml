@@ -9,15 +9,18 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link href="~/Css/MainStyle.css?v=1810181410" rel="stylesheet" type="text/css" />
+    <link href="~/Css/MainStyle.css?v=1810211947" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <!--顶栏-->
     <div class="head">
         <!--底图-->
+        @if ((bool)ViewData["IsHeadPic"] == true)
+        {
         <div class="head-picture">
             <img src="@Url.Content("~/Resource/picture/head.png")" style="width:100%;height:auto" />
         </div>
+        }
         <!--导航栏-->
         <div class="nav shadow">
             <div class="nav-menu">
@@ -29,14 +32,33 @@
                         <li class="nav-item"><a href="#">论坛</a></li>
                     </ul>
                 </div>
-                <div class="nav-headPic fr">
-                    <img src="@Url.Content("~/Resource/picture/DefaultHeadPic.jpg")" style="width:40px;height:40px"/>
-                </div>
+                <!--登录注册/头像-->
+                @if (ViewBag.IsLogin == true)
+                {
+                    <div class="nav-headPic fr">
+                        <img src=@ViewBag.headPicadr style="width:40px;height:40px" />
+                    </div>
+                }
+                else
+                {
+                    <div class="head-reg-log fr">
+                        <div>
+                            @Html.ActionLink("登陆", "login", "account", new { area = "account" }, new { })
+                            /
+                            @Html.ActionLink("注册", "register", "account", new { area = "account" }, new { })
+                        </div>
+                    </div>
+                }
+
             </div>
         </div>
+        @if ((bool)ViewData["IsSearch"] == true)
+    {
         <div class="nav-search">
             @Html.TextBox("Keyword", "", new { @placeholder = "搜索" })
         </div>
+}
+
     </div>
     <div class="content-body">
         @RenderBody()
