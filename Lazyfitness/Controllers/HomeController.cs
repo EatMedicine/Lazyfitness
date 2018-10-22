@@ -60,7 +60,6 @@ namespace Lazyfitness.Controllers
                 "来贪玩蓝月，你从未见过的船新版本",
                 "女朋友失误，竟炼出史前尸鲲",
                 "想不出要说啥了但这里估计也看不到（",
-
             };
 
             return View();
