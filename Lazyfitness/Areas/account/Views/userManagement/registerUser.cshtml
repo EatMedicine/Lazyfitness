@@ -1,15 +1,46 @@
 ﻿@model Lazyfitness.Models.userSecurity
-<h2>register</h2>
+
+@{
+    ViewData["IsSearch"] = true;
+    ViewData["IsHeadPic"] = true;
+    Layout = "~/Views/Shared/_MainStyle.cshtml";
+}
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Areas/jQuery/showPwd.js"></script>
+<link href="~/Css/Input.css" rel="stylesheet" type="text/css" />
+@*
+    <form method="post" action="~/account/userManagement/registerUser">
+        <label>登录名</label> @Html.TextBoxFor(u => u.loginId) @Html.ValidationMessageFor(x => x.loginId)<br />
+        <label>密码</label> <div style="border: 1px solid silver; width: 200px;height: 30px">
+            @Html.TextBoxFor(u => u.userPwd, new { @type = "password", @style = "border:0px; padding: 0px; margin-top: 7px" })
+            <img id="imgEnter" src="~/Areas/img/show.jpg" style="height: 28px; width: 40px; float: right; border: none;">
+        </div>@Html.ValidationMessageFor(x => x.userPwd)<br />
+        <input type="submit" />
+    </form>*@
 
-<form method="post" action="~/account/userManagement/registerUser">
-    <label>登录名</label> @Html.TextBoxFor(u => u.loginId) @Html.ValidationMessageFor(x => x.loginId)<br />
-    <label>密码</label> <div style="border: 1px solid silver; width: 200px;height: 30px">
-        @Html.TextBoxFor(u => u.userPwd, new { @type = "password", @style = "border:0px; padding: 0px; margin-top: 7px" })
-        <img id="imgEnter" src="~/Areas/img/show.jpg" style="height: 28px; width: 40px; float: right; border: none;">
-    </div>@Html.ValidationMessageFor(x => x.userPwd)<br />
-    <input type="submit" />
-</form>
+<div class="login-input">
+    <form method="post" action="~/account/userManagement/registerUser" autocomplete="off">
+        <div class="login-input-content">
+            <p>注册</p>
+            <div class="input-item">
+                <div class="input-text-border">
+                    @Html.TextBoxFor(u => u.loginId, new { @class = "input-text", @placeholder = "      用户名" })
+                </div>
+                <div class="message-style">
+                    @Html.ValidationMessageFor(x => x.loginId)
+                </div>
+            </div>
+            <div class="input-item">
+                <div class="input-text-border">
+                    @Html.TextBoxFor(u => u.userPwd, new { @type = "password", @class = "input-text", @placeholder = "       密码" })
+                </div>
+                <div class="message-style">
+                    @Html.ValidationMessageFor(x => x.userPwd)
+                </div>
+            </div>
+            <input type="submit" id="postData" name="postData" class="input-btn login-loginbtn-pos" />
+        </div>
+    </form>
+</div>

@@ -214,6 +214,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Css\Index.css" />
+    <Content Include="Css\Input.css" />
     <Content Include="Css\MainStyle.css" />
     <Content Include="Css\Hello.css" />
     <Content Include="favicon.ico" />
@@ -312,7 +313,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\account\Models\" />
     <Folder Include="Areas\backStage\Models\" />
-    <Folder Include="Areas\backStage\Views\userManagement\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

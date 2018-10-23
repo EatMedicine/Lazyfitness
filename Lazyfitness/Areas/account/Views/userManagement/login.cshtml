@@ -1,15 +1,38 @@
-﻿@*@{ 
+﻿@model Lazyfitness.Models.userSecurity
+
+@{
+    ViewData["IsSearch"] = true;
+    ViewData["IsHeadPic"] = true;
     Layout = "~/Views/Shared/_MainStyle.cshtml";
-}*@
-@model Lazyfitness.Models.userSecurity
-<h2>login</h2>
+}
+<link href="~/Css/Input.css" rel="stylesheet" type="text/css" />
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
-<form action="~/account/userManagement/login" method="post">
-    @Html.TextBoxFor(x => x.loginId) @Html.ValidationMessageFor(x => x.loginId) <br />
-    @Html.TextBoxFor(x => x.userPwd) @Html.ValidationMessageFor(x => x.userPwd)<br/>
-    <input type="submit" id="postData" name="postData" />
-</form>
+<div class="login-input">
+    <form action="~/account/userManagement/login" method="post" autocomplete="off">
+        <div class="login-input-content">
+            <p>登录</p>
+            <div class="input-item">
+                <div class="input-text-border">
+                    @Html.TextBoxFor(x => x.loginId, new { @class = "input-text" ,@placeholder="      用户名"})
+                </div>
+                <div class="message-style">
+                    @Html.ValidationMessageFor(x => x.loginId)
+                </div>
+            </div>
+            <div class="input-item">
+                <div class="input-text-border">
+                    @Html.TextBoxFor(x => x.userPwd, new { @type = "password" ,@class = "input-text" ,@placeholder= "       密码" })
+                </div>
+                <div class="message-style">
+                    @Html.ValidationMessageFor(x => x.userPwd)
+                </div>
+            </div>
+            <input type="submit" id="postData" name="postData" class="input-btn login-loginbtn-pos" />
+        </div>
+    </form>
+</div>
+

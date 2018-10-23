@@ -1,0 +1,84 @@
+﻿.input-text{
+    position:relative;
+    top:15px;
+    left:125px;
+    border:0px;
+    background-color:inherit;
+    margin:0 auto;
+    margin-left:-100px;
+    margin-top:-20px;
+    width:200px;
+    height:40px;
+    outline:none;
+    font-size:20px;
+    font-weight:bold;
+    font-family:YouYuan;
+}
+.input-text-border{
+    width:250px;
+    height:50px;
+    background-color:rgb(240, 240, 240);
+    border-radius:50px;
+    border:1px solid rgb(187, 187, 187);
+    margin:0 0 0px 25px;
+
+}
+
+.input-btn {
+    border: 0px;
+    font-family: 'Microsoft YaHei';
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    margin: 0 0 50px 50px;
+    border-radius: 10px;
+    background-color: rgb(46, 214, 0);
+    border: 1px solid rgb(50, 234, 0);
+    outline: none;
+}
+.input-btn:hover {
+    background-color: rgb(38, 179, 0);
+}
+.input-btn:active{
+    background-color: rgb(53, 251, 0);
+}
+.login-input{
+    width:500px;
+    height:500px;
+    margin:0 auto;
+}
+.login-input-content{
+    margin:0 auto;
+    width:300px;
+    height:500px;
+    margin-top:100px;
+}
+.login-input-content p{
+    font-family:YouYuan;
+    font-size:60px;
+    text-align:center;
+}
+.login-LoginName-pos{
+    position:absolute;
+    top:100px;
+
+}
+.login-Loginpwd-pos {
+    position: absolute;
+    top:200px;
+}
+.login-loginbtn-pos{
+    position:absolute;
+    top:300px;
+}
+.input-item{
+    width:300px;
+    height:75px;
+    margin-top:25px;
+}
+
+.message-style {
+    color: rgb(224, 0, 0);
+    text-align: center;
+}
+
