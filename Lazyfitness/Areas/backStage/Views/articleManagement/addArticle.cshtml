@@ -1,0 +1,33 @@
+﻿@model Lazyfitness.Models.resourceInfo
+@{
+    ViewBag.Title = "addArticle";
+}
+
+<h2>addArticle</h2>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<form method="post" action="~/backStage/articleManagement/addArticle">
+    <div>
+        <p>
+            选择你文章所属的分区
+        </p>
+        @{
+            foreach (var item in ViewBag.areaList)
+            {
+                <input type="radio" id="areaId" name="areaId" value="@item.areaId" /> <label>@item.areaName</label>
+            }
+        }
+    </div>
+    <label>文章名</label><input type="text" id="resourceName" name="resourceName" />
+    <div>
+        <label>是否置顶</label>
+       @* <input type="radio" id="isTop" name="isTop" value="0"/> <label>否</label>*@
+        @Html.RadioButtonFor(u=>u.isTop, new { @value='0'}) <label>否</label> @Html.ValidationMessageFor(u=>u.isTop)
+        @Html.RadioButtonFor(u=>u.isTop, new { @value='1'}) <label>是</label>
+        @*<input type="radio" id="isTop" name="isTop" value="1" /> <label>是</label>*@
+    </div>   
+    <label>请输入文章内容</label><textarea id="resourceContent" name="resourceContent"></textarea>
+    <input type="submit" value="增加"/>
+</form>

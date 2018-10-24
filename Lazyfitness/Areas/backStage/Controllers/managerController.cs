@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Lazyfitness.Models;
 namespace Lazyfitness.Areas.backStage.Controllers
 {
+    #region 后台用户登录
     public class managerController : Controller
     {
         // GET: backStage/userManager
@@ -33,7 +34,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     if (obSurePwd != null)
                     {
                         HttpCookie cookieName = new HttpCookie("managerId");
-                        cookieName.Value = manager.managerId.ToString();
+                        cookieName.Value = manager.managerId.ToString().Trim();
                         cookieName.Expires = DateTime.Now.AddHours(1);
                         Response.Cookies.Add(cookieName);
                         return "登录成功";
@@ -50,4 +51,5 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
 }
     }
+    #endregion
 }

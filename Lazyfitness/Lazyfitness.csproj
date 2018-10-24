@@ -148,8 +148,10 @@
     <Compile Include="Areas\account\Controllers\userManagementController.cs" />
     <Compile Include="Areas\account\Controllers\passwordManagerController.cs" />
     <Compile Include="Areas\backStage\backStageAreaRegistration.cs" />
+    <Compile Include="Areas\backStage\Controllers\articleManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\userManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\managerController.cs" />
+    <Compile Include="Areas\CookiesHelper\CookiesHelper.cs" />
     <Compile Include="Areas\MD5Helper\MD5Helper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -251,11 +253,14 @@
     <Content Include="Areas\backStage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\backStage\Views\manager\login.cshtml" />
     <Content Include="Areas\backStage\Views\userManagement\Index.cshtml" />
-    <Content Include="Areas\backStage\Views\articleManagement\Index.cshtml" />
     <Content Include="Areas\backStage\Views\userManagement\add.cshtml" />
     <Content Include="Areas\backStage\Views\userManagement\search.cshtml" />
     <Content Include="Areas\backStage\Views\userManagement\update.cshtml" />
     <Content Include="Areas\backStage\Views\userManagement\delete.cshtml" />
+    <Content Include="Areas\account\Views\userManagement\registerInfo.cshtml" />
+    <Content Include="Areas\backStage\Views\articleManagement\Index.cshtml" />
+    <Content Include="Areas\backStage\Views\articleManagement\areaManagement.cshtml" />
+    <Content Include="Areas\backStage\Views\articleManagement\addArea.cshtml" />
     <EntityDeploy Include="Models\Lazyfitness.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Lazyfitness.Designer.cs</LastGenOutput>
@@ -263,9 +268,10 @@
     <Content Include="Models\Lazyfitness.edmx.diagram">
       <DependentUpon>Lazyfitness.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\backStage\Views\articleManagement\Index.cshtml" />
-    <Content Include="Areas\backStage\Views\articleManagement\areaManagement.cshtml" />
-    <Content Include="Areas\account\Views\userManagement\registerInfo.cshtml" />
+    <Content Include="Areas\backStage\Views\articleManagement\deleteArea.cshtml" />
+    <Content Include="Areas\backStage\Views\articleManagement\findArea.cshtml" />
+    <Content Include="Areas\backStage\Views\articleManagement\changeArea.cshtml" />
+    <Content Include="Areas\backStage\Views\articleManagement\addArticle.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -313,6 +319,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\account\Models\" />
     <Folder Include="Areas\backStage\Models\" />
+    <Folder Include="System\Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

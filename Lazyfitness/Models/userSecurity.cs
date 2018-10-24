@@ -11,8 +11,7 @@ namespace Lazyfitness.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class userSecurity
     {
         public int userId { get; set; }

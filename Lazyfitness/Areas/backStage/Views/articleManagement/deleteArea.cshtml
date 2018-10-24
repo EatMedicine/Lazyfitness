@@ -1,0 +1,12 @@
+﻿@model Lazyfitness.Models.resourceArea
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<form method="post" action="~/backStage/articleManagement/deleteArea">
+    <label>要删除的分区名</label>
+    @Html.TextBoxFor(t => t.areaName) @Html.ValidationMessageFor(t => t.areaName)
+    <input type="submit" value="删除" />
+</form>

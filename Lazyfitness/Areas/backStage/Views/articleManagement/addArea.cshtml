@@ -1,0 +1,17 @@
+﻿@model Lazyfitness.Models.resourceArea
+@{
+    ViewBag.Title = "addArea";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<h2>addArea</h2>
+
+<form method="post" action="~/backStage/articleManagement/addArea">
+    <input type="text" id="areaId" name="areaId" readonly="readonly" value="@ViewBag.Id"  />
+    <label>分区名：</label>   @Html.TextBoxFor(t=>t.areaName) @Html.ValidationMessageFor(t=>t.areaName)
+    <label>分区简介：</label> @Html.TextAreaFor(t=>t.areaBrief) @Html.ValidationMessageFor(t=>t.areaBrief)
+    <input type="submit" value="增加" />
+</form>

@@ -11,10 +11,13 @@ namespace Lazyfitness.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     public partial class backManager
     {
+        [Required]
         public int managerId { get; set; }
+        [Required, StringLength(maximumLength:50, MinimumLength =6, ErrorMessage ="密码长度必须大于6位")]
         public string managerPwd { get; set; }
     }
 }
