@@ -245,7 +245,7 @@
     <Content Include="Areas\account\Views\_ViewStart.cshtml" />
     <Content Include="Areas\account\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\account\Views\passwordManager\findPassword.cshtml" />
-    <Content Include="Areas\account\Views\passwordManager\chagePassword.cshtml" />
+    <Content Include="Areas\account\Views\passwordManager\changePassword.cshtml" />
     <Content Include="Areas\backStage\Views\web.config" />
     <Content Include="Areas\backStage\Views\_ViewStart.cshtml" />
     <Content Include="Areas\backStage\Views\Shared\_Layout.cshtml" />

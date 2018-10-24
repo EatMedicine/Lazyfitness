@@ -21,7 +21,7 @@
     border-radius:50px;
     border:1px solid rgb(187, 187, 187);
     margin:0 0 0px 25px;
-
+    box-shadow:1px 1px 2px #c7c7c7
 }
 
 .input-btn {
@@ -82,3 +82,59 @@
     text-align: center;
 }
 
+/*----------radiobtn*/
+.radiobtn-content{
+    width:80px;
+    height:20px;
+    position:relative;
+    overflow:hidden;
+    margin:0;
+
+}
+.radioclass{
+    opacity:0;
+}
+.radiobtn-content-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url("../Resource/picture/radbtn0.png");
+}
+.radiobtn-content-pic {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url("../Resource/picture/radbtn0.png");
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 5;
+
+}
+.radiobtn-content-text{
+    position:absolute;
+    top:0;
+    left:20px;
+    width:60px;
+    height:20px;
+    text-align:center;
+
+}
+.on {
+    background-image: url("../Resource/picture/radbtn1.png");
+}
+/*-----------------end*/
+.li-fl li{
+    float:left
+}
+.radio-pos{
+    width:240px;
+    height:20px;
+    margin:0 auto;
+}

@@ -28,7 +28,7 @@ function clickDot(num) {
 }
 
 function cancelScroll() {
-    clearInterval(eventNum);
+    clearInterval();
 }
 
 function startScroll() {

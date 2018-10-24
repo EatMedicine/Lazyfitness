@@ -43,12 +43,12 @@ namespace Lazyfitness.Areas.account.Controllers
         #endregion
 
         #region 修改密码
-        public ActionResult chagePassword()
+        public ActionResult changePassword()
         {
             return View();
         }
         [HttpPost]
-        public string chagePassword(userSecurity security, string userNewPwd)
+        public string changePassword(userSecurity security, string userNewPwd)
         {
             try
             {
