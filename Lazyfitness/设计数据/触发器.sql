@@ -2,10 +2,10 @@ USE Lazyfitness
 GO
 
 --当管理员删除用户的时候删除全部信息
-IF (OBJECT_ID('T_DeleteALL', 'TR') IS NOT NULL)
-DROP TRIGGER T_DeleteALL
+IF (OBJECT_ID('T_DeleteUser', 'TR') IS NOT NULL)
+DROP TRIGGER T_DeleteUser
 GO
-CREATE TRIGGER T_DeleteALL
+CREATE TRIGGER T_DeleteUser
 ON userSecurity
 INSTEAD OF DELETE
 AS
@@ -22,4 +22,19 @@ BEGIN
 
 END
 GO
-delete from userSecurity where userId = 2
+--delete from userSecurity where userId = 2
+
+--当管理员删除资源分区的时候删除全部信息
+IF (OBJECT_ID('T_DeleteResourceArea', 'TR') IS NOT NULL)
+DROP TRIGGER T_DeleteResourceArea
+GO
+CREATE TRIGGER T_DeleteResourceArea
+ON resourceArea
+INSTEAD OF DELETE
+AS
+DECLARE @areaId INT
+BEGIN
+	SELECT @areaId = deleted.areaId FROM deleted
+	DELETE FROM resourceInfo WHERE areaId = @areaId
+END
+GO

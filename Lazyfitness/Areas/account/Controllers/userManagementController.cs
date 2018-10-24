@@ -145,6 +145,7 @@ namespace Lazyfitness.Areas.account.Controllers
         {
             if (Request.Cookies["loginId"] != null)
             {
+                //获取Cookies的值
                 HttpCookie cookieName = Request.Cookies["loginId"];
                 var cookieText = Server.HtmlEncode(cookieName.Value);
                 return Content(cookieText);
