@@ -15,6 +15,14 @@ namespace Lazyfitness.Controllers
             return View();
         }
 
+        public ActionResult Error()
+        {
+            ViewBag.IsRefresh = true;
+            ViewBag.OtherHtml = Url.Action("Index", "Home", new { area = "" });
+            ViewBag.ErrorMsg = "没错这就是错误页面";
+            return View("~/Views/Shared/err.cshtml");
+        }
+
         public ActionResult Index()
         {
             ViewBag.Title = "小懒人健身网站";
