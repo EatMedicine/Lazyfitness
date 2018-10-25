@@ -1,7 +1,36 @@
 ﻿
 @{
     Layout = null;
+    if(ViewBag.Title == null)
+    {
+        ViewBag.Title = "默认标题";
+    }
+    if (ViewData["IsHeadPic"] == null)
+    {
+        ViewData["IsHeadPic"] = true;
+    }
+    if (ViewBag.IsLogin == null)
+    {
+        ViewBag.IsLogin = false;
+    }
+    if (ViewData["IsSearch"] == null)
+    {
+        ViewBag.Title = true;
+    }
+    if (ViewBag.IsDefaultContent == null)
+    {
+        ViewBag.IsDefaultContent = true ;
+    }
 }
+@*
+本页变量：
+    ViewBag.Title 用于设置网页Title
+    ViewData["IsHeadPic"] 用于设置要不要头图
+    ViewBag.IsLogin 用于设置是否显示登录头像（测试用）
+    ViewData["IsSearch"] 用于设置是否显示搜索栏
+    ViewBag.IsDefaultContent 用于设置是否使用居中1000px的内容渲染Body
+*@
+
 
 <!DOCTYPE html>
 
@@ -53,16 +82,26 @@
             </div>
         </div>
         @if ((bool)ViewData["IsSearch"] == true)
-    {
+         {
         <div class="nav-search">
             @Html.TextBox("Keyword", "", new { @placeholder = "搜索" })
         </div>
-}
+         }
 
     </div>
-    <div class="content-body">
-        @RenderBody()
-    </div>
+    @if(ViewBag.IsDefaultContent == true)
+    {
+        <div class="content-body">
+            @RenderBody()
+        </div>
+    }
+    else
+    {
+        <div>
+            @RenderBody()
+        </div>
+    }
+
     <div id="footer">
         @RenderSection("footer",false)
     </div>

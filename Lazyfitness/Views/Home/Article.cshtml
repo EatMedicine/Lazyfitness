@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["IsSearch"] = false;
+    ViewData["IsHeadPic"] = false;
+    ViewBag.IsDefaultContent = false;
+    ViewBag.Title = "文章区";
+    Layout = "~/Views/Shared/_MainStyle.cshtml";
+
+    string[] urls = ViewBag.Scrollpic as string[];
+}
+@Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+<link href="~/Css/Article.css?v=2018-1022-0017" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/ArticleJs.js?v=2021-1021-2305"></script>
+@*文章区*@
+
+<div class="body-content">
+    <div class="scroll-notic">
+        <!--滚动栏-->
+        <div class="scroll-box fl">
+            <div class="panel" id="panel" onmousemove="cancelScroll()" onmouseout="startScroll()">
+                <div class="picture" id="picture">
+                    @for (int count = 1; count <= 3; count++)
+                    {
+                        if (count == 1)
+                        {
+                            <img class="vis" src=@urls[count-1] />
+                        }
+                        else
+                        {
+                            <img class="unvis" src=@urls[count-1] />
+                        }
+
+
+                    }
+                </div>
+                <ul class="dot" id="dot">
+                    <li><img onclick="clickDot(1)" src="@Url.Content("~/Resource/picture/square1.png")"></li>
+                    <li><img onclick="clickDot(2)" src="@Url.Content("~/Resource/picture/square0.png")"></li>
+                    <li><img onclick="clickDot(3)" src="@Url.Content("~/Resource/picture/square0.png")"></li>
+                </ul>
+            </div>
+            <div class="scroll-title">
+                @{
+                    string[] title = ViewBag.NoticeTitle as string[];
+                }
+                @for (int count = 0; count < 3; count++)
+                {
+                    if (count == 0)
+                    {
+                        <div class="scroll-title-item vis" id="scroll-title-@count"><p>@title[count]</p></div>
+                    }
+                    else
+                    {
+                        <div class="scroll-title-item unvis" id="scroll-title-@count"><p>@title[count]</p></div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

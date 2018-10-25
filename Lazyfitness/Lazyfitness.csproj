@@ -219,6 +219,7 @@
     <Content Include="Css\Input.css" />
     <Content Include="Css\MainStyle.css" />
     <Content Include="Css\Hello.css" />
+    <Content Include="Css\Article.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -234,6 +235,7 @@
       <LastGenOutput>Lazyfitness.cs</LastGenOutput>
     </Content>
     <Content Include="Resource\picture\head.png" />
+    <Content Include="Scripts\ArticleJs.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -315,6 +317,7 @@
     <Content Include="设计数据\数据字典.docx" />
     <Content Include="Views\Home\Hello.cshtml" />
     <Content Include="Views\Shared\err.cshtml" />
+    <Content Include="Views\Home\Article.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
