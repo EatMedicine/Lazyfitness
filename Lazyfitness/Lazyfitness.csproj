@@ -208,6 +208,7 @@
     <Compile Include="Models\userSecurity.cs">
       <DependentUpon>Lazyfitness.tt</DependentUpon>
     </Compile>
+    <Compile Include="MyClass\ArticleItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

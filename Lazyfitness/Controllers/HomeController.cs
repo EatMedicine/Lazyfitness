@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Lazyfitness.MyClass;
 
 namespace Lazyfitness.Controllers
 {
@@ -76,6 +77,7 @@ namespace Lazyfitness.Controllers
 
         public ActionResult Article()
         {
+
             #region 数据
             ViewBag.Title = "小懒人健身网站";
             ViewBag.IsLogin = true;
@@ -123,6 +125,20 @@ namespace Lazyfitness.Controllers
             };
             #endregion
             return View();
+        }
+
+        public JsonResult ArticleItemContent()
+        {
+            ArticleItem[] items = new ArticleItem[5];
+            for (int count = 0; count < 5; count++)
+            {
+                items[count] = new ArticleItem();
+                items[count].Name = count.ToString() + "名字";
+                items[count].Title = count.ToString() + "标题";
+                items[count].HeadAdr = "/Resource/picture/DefaultHeadPic.jpg";
+                items[count].Introduction = count.ToString() + "简介";
+            }
+            return Json(items, JsonRequestBehavior.AllowGet);
         }
         #region Test
         public ActionResult About()
