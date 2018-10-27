@@ -11,11 +11,19 @@
 <link href="~/Css/Article.css?v=2018-1022-0017" rel="stylesheet" type="text/css" />
 <script src="~/Scripts/ArticleJs.js?v=2021-1021-2305"></script>
 @*文章区*@
+@*
+本页需要的变量：
+    ViewBag.Scrollpic 轮播图的url string[]
+    ViewBag.NoticeName 轮播图的名字 string[]
+    ViewBag.NoticeUrl 轮播图的Url string[]
+    ViewBag.AreasName 分区的名字 string[]
+    ViewBag.AreasUrl 分区的Url string[]
+*@
 
 <div class="body-content">
     <div class="scroll-notic">
         <!--滚动栏-->
-        <div class="scroll-box fl">
+        <div class="scroll-box">
             <div class="panel" id="panel" onmousemove="cancelScroll()" onmouseout="startScroll()">
                 <div class="picture" id="picture">
                     @for (int count = 1; count <= 3; count++)
@@ -60,7 +68,7 @@
     <div class="main">
         <div class="main-content">
             <div style="width:100%">
-                <h2 style="font-family:YouYuan;position:relative;left:270px">随便看看</h2>
+                <h2 style="font-family:YouYuan;position:relative;padding-left:120px;width:200px;">随便看看</h2>
                 <div class="article-list">
                     @*
                     <div class="article-list-item">
@@ -84,12 +92,24 @@
                 </div>
 
             </div>
-            <div class="sidebar">
-                这是分区
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-title">
+                    分区
+                </div>
+                <ul>
+                    @{ 
+                        string[] AreasName = ViewBag.AreasName as string[];
+                        string[] AreasUrl = ViewBag.AreasUrl as string[];
+                    }
+                    @for(int count = 0; count < AreasName.Length; count++)
+                    {
+                        <li><a href="@AreasUrl[count]">@AreasName[count]</a></li>
+                    }
+                </ul>
             </div>
         </div>
     </div>
     <div class="go-top unvis" id="top-btn">
-
+        <a href="#"><img src="~/Resource/picture/gotoTop.png"/></a>
     </div>
 </div>

@@ -51,11 +51,15 @@ $(function () {
             viewH = $(this).height(),//可见高度
             contentH = $(document).outerHeight(),//内容高度
             scrollTop = $(this).scrollTop();//滚动高度
+        var sidebar = document.getElementById("sidebar")
         if (scrollTop > 600) {
             $("#top-btn").removeClass("unvis").addClass("vis");
+            sidebar.style.position = "fixed";
+
         }
         else {
             $("#top-btn").removeClass("vis").addClass("unvis");
+            sidebar.style.position = "absolute";
         }
 
         if (scrollTop / (contentH - viewH) >= 0.99) {
@@ -76,7 +80,7 @@ function loadContent() {
                     '<div class="article-list-item" >' +
                     '<div class="item-con">' +
                     '<div class="item-title">' +
-                    '<h3>' + data[count].Title + '</h3>' +
+                    '<h3><a href="#">' + data[count].Title + '</a></h3>' +
                     '</div>' +
                     '<div class="item-introduction">' +
                     '<p>' + data[count].Introduction + '</p>' +

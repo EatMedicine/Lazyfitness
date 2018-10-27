@@ -123,6 +123,25 @@ namespace Lazyfitness.Controllers
                 "女朋友失误，竟炼出史前尸鲲",
                 "想不出要说啥了但这里估计也看不到（",
             };
+            ViewBag.AreasName = new string[]
+            {
+                "食物",
+                "器材",
+                "技巧",
+            };
+            ViewBag.AreasUrl = new string[]
+            {
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+            };
             #endregion
             return View();
         }
