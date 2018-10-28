@@ -22,7 +22,7 @@ CREATE TABLE userSecurity
 	userPwd NVARCHAR(50)
 )
 GO
-
+select * from userSecurity
 --*******创建用户个人信息表*******--
 IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'userInfo')
 DROP TABLE userInfo
@@ -75,6 +75,7 @@ CREATE TABLE quesArea
 	areaBrief TEXT
 )
 GO
+select * from quesArea
 
 --*******创建论坛分区表*******--
 IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'postArea')
@@ -87,7 +88,7 @@ CREATE TABLE postArea
 	areaBrief TEXT
 )
 GO
-
+select * from postArea
 
 
 --*******创建文章表（文章这个称呼不恰当）暂定__资源信息表__*******--
@@ -130,7 +131,7 @@ CREATE TABLE postInfo
 	Foreign Key (areaId) References postArea(areaId)
 )
 GO
-
+select * from postInfo
 --*******创建帖子回复表*******--
 IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'postReply')
 DROP TABLE postReply
@@ -167,6 +168,7 @@ CREATE TABLE quesAnswInfo
 	Foreign Key (areaId) References quesArea(areaId)
 )
 GO
+select * from quesAnswInfo
 
 --*******创建问答回帖表*******--
 IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'quesAnswReply')

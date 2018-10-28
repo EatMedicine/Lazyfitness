@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "forumAreaSearch";
+}
+
+@model Lazyfitness.Models.postArea
+
+<h2>forumAreaSearch</h2>
+<h2>论坛分区查询</h2>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<form method="post" action="~/backStage/forumManagement/forumAreaSearch">
+    <label>分区名称</label> @Html.TextBoxFor(u => u.areaName) @Html.ValidationMessageFor(x => x.areaName)<br />
+    <input type="submit" id="postData" name="postData" value="查询" />
+</form>
+<br /><a href="~/backStage/forumManagement/Index">返回</a><br />

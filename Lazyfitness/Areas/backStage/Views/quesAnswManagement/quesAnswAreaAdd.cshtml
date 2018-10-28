@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "quesAnswAreaAdd";
+}
+
+@model Lazyfitness.Models.quesArea
+
+<h2>quesAnswAreaAdd</h2>
+<h2>问答分区增加</h2>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<form method="post" action="~/backStage/quesAnswManagement/quesAnswAreaAdd">
+    <label>分区ID</label> @Html.TextBoxFor(u => u.areaId) @Html.ValidationMessageFor(x => x.areaId)<br />
+    <label>分区名称</label>@Html.TextBoxFor(u => u.areaName) @Html.ValidationMessageFor(x => x.areaName)<br />
+    <label>分区描述</label>@Html.TextBoxFor(u => u.areaBrief) @Html.ValidationMessageFor(x => x.areaBrief)<br />
+    <input type="submit" id="postData" name="postData" value="增加" />
+</form>
+<br /><a href="~/backStage/quesAnswManagement/Index">返回</a><br />
+

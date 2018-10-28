@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "quesAnswAreaUpdate";
+}
+
+@model Lazyfitness.Models.quesArea
+
+<h2>quesAnswAreaUpdate</h2>
+<h2>论坛分区修改</h2>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<form method="post" action="~/backStage/quesAnswManagement/quesAnswAreaUpdate">
+    <label>查询成功:</label> @ViewBag.IsSearchSuccess<br />
+    <label>分区ID</label> @Html.TextBoxFor(u => u.areaId, new { @Value = @ViewBag.areaId }) @Html.ValidationMessageFor(x => x.areaId)<br />
+    <label>分区名称</label>@Html.TextBoxFor(u => u.areaName, new { @Value = @ViewBag.areaName }) @Html.ValidationMessageFor(x => x.areaName)<br />
+    <label>分区描述</label>@Html.TextBoxFor(u => u.areaBrief, new { @Value = @ViewBag.areaBrief }) @Html.ValidationMessageFor(x => x.areaBrief)<br />
+    <input type="submit" id="postData" name="postData" value="修改" />
+</form>
+<br /><a href="~/backStage/quesAnswManagement/Index">返回</a><br />
+

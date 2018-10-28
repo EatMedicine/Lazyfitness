@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "quesAnswAreaDelete";
+}
+
+@model Lazyfitness.Models.quesArea
+
+<h2>quesAnswAreaDelete</h2>
+<h2>问答分区删除</h2>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<form method="post" action="~/backStage/quesAnswManagement/quesAnswAreaDelete">
+    <label>分区名称</label> @Html.TextBoxFor(u => u.areaName) @Html.ValidationMessageFor(x => x.areaName)<br />
+    <input type="submit" id="postData" name="postData" value="删除" />
+</form>
+<br /><a href="~/backStage/quesAnswManagement/Index">返回</a><br />
+

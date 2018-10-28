@@ -148,6 +148,8 @@
     <Compile Include="Areas\account\Controllers\userManagementController.cs" />
     <Compile Include="Areas\account\Controllers\passwordManagerController.cs" />
     <Compile Include="Areas\backStage\backStageAreaRegistration.cs" />
+    <Compile Include="Areas\backStage\Controllers\forumManagementController.cs" />
+    <Compile Include="Areas\backStage\Controllers\quesAnswManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\userManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\managerController.cs" />
     <Compile Include="Areas\MD5Helper\MD5Helper.cs" />
@@ -265,6 +267,24 @@
     <Content Include="Areas\backStage\Views\articleManagement\Index.cshtml" />
     <Content Include="Areas\backStage\Views\articleManagement\areaManagement.cshtml" />
     <Content Include="Areas\account\Views\userManagement\registerInfo.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumAreaAdd.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumAreaSearch.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumAreaDelete.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumAreaUpdate.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumInvitationAdd.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumInvitationSearch.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumInvitationDelete.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumInvitationUpdate.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswAreaAdd.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswAreaSearch.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswAreaDelete.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswAreaUpdate.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswInvitationAdd.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswInvitationSearch.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswInvitationDelete.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswInvitationUpdate.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\Index.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -312,7 +332,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\account\Models\" />
     <Folder Include="Areas\backStage\Models\" />
-    <Folder Include="Areas\backStage\Views\userManagement\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

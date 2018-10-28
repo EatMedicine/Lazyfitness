@@ -73,7 +73,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
 
                     DbQuery<userInfo> dbInfo = db.userInfo.Where(u => u.userName == userName.Trim()) as DbQuery<userInfo>;
                     userInfo obInfo = dbInfo.FirstOrDefault();
-
+                    if(obInfo == null)
+                    {
+                        return "删除的用户不存在";
+                    }
                     //创建一个要删除的对象
                     userSecurity deleSecurity = new userSecurity
                     {

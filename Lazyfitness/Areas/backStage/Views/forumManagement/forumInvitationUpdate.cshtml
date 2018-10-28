@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "forumInvitationUpdate";
+}
+
+@model Lazyfitness.Models.postInfo
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input:radio[name = 'isPost'][value = '@ViewBag.isPost']").attr("checked", true);
+        $("input:radio[name = 'isPay'][value = '@ViewBag.isPay']").attr("checked", true);
+        $("input:radio[name = 'postStatus'][value = '@ViewBag.postStatus']").attr("checked", true);
+    })
+</script>
+
+<h2>forumInvitationUpdate</h2>
+<h2>论坛帖子修改</h2>
+<form method="post" action="~/backStage/forumManagement/forumInvitationUpdate">
+    <label>查询成功:</label> @ViewBag.IsSearchSuccess<br />
+    <label>分区ID</label> @Html.TextBoxFor(u => u.areaId, new { @Value = @ViewBag.areaId }) @Html.ValidationMessageFor(x => x.areaId)<br />
+    <label>帖子ID</label>@Html.TextBoxFor(u => u.postId, new { @Value = @ViewBag.postId }) @Html.ValidationMessageFor(x => x.postId)<br />
+    <label>帖子标题</label>@Html.TextBoxFor(u => u.postTitle, new { @Value = @ViewBag.postTitle }) @Html.ValidationMessageFor(x => x.postTitle)<br />
+    <label>用户ID</label>@Html.TextBoxFor(u => u.userId, new { @Value = @ViewBag.userId }) @Html.ValidationMessageFor(x => x.userId)<br />
+    <label>是否置顶</label>
+    <input type="radio" id="isPost" name="isPost" value="0" />否
+    <input type="radio" id="isPost" name="isPost" value="1" />是
+    <br />
+    <label>是否付费</label>
+    <input type="radio" id="isPay" name="isPay" value="0" />否
+    <input type="radio" id="isPay" name="isPay" value="1" />是
+    <br />
+    <label>帖子状态</label>
+    <input type="radio" id="postStatus" name="postStatus" value="0" />所有人可见
+    <input type="radio" id="postStatus" name="postStatus" value="1" />好友可见
+    <input type="radio" id="postStatus" name="postStatus" value="2" />仅自己可见
+    <input type="radio" id="postStatus" name="postStatus" value="3" />隐藏
+    <br />
+    <label>帖子内容</label>@Html.TextBoxFor(u => u.postContent, new { @Value = @ViewBag.postContent }) @Html.ValidationMessageFor(x => x.postContent)<br />
+    <input type="submit" id="postData" name="postData" value="修改" />
+</form>
+
+<br /><a href="~/backStage/forumManagement/Index">返回</a><br />
