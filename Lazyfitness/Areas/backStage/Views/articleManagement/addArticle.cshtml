@@ -24,8 +24,8 @@
     <div>
         <label>是否置顶</label>
        @* <input type="radio" id="isTop" name="isTop" value="0"/> <label>否</label>*@
-        @Html.RadioButtonFor(u=>u.isTop, new { @value='0'}) <label>否</label> @Html.ValidationMessageFor(u=>u.isTop)
-        @Html.RadioButtonFor(u=>u.isTop, new { @value='1'}) <label>是</label>
+        @Html.RadioButtonFor(u=>u.isTop, value:0) <label>否</label> @Html.ValidationMessageFor(u=>u.isTop)
+        @Html.RadioButtonFor(u=>u.isTop, value:1) <label>是</label>
         @*<input type="radio" id="isTop" name="isTop" value="1" /> <label>是</label>*@
     </div>   
     <label>请输入文章内容</label><textarea id="resourceContent" name="resourceContent"></textarea>

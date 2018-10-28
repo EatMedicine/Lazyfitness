@@ -1,0 +1,46 @@
+﻿@model Lazyfitness.Models.resourceInfo
+@{
+    /**/
+
+    /**/
+
+    ViewBag.Title = "fingArticle";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Areas/jQuery/articleManagement.js"></script>
+<h2>fingArticle</h2>
+<table border="1">
+    <tr>
+        <th>分区编号</th>
+        <th>文章编号</th>
+        <th>文章名称</th>
+        <th>发布者编号</th>
+        <th>发布时间</th>
+        <th>浏览量</th>
+        <th>是否置顶</th>
+        <th>内容</th>
+    </tr>
+    @{ foreach (var item in @ViewBag.allInfo)
+        {
+            <tr>
+                <th><input type="text" value="@item.areaId" readonly /> </th>
+                <th id="resourceId">@item.resourceId</th>
+                <th>@item.resourceName</th>
+                <th>@item.userId</th>
+                <th>@item.resourceTime</th>
+                <th>@item.pageView</th>
+                <th>@item.isTop</th>
+                <th>@item.resourceContent</th>                
+                <th>
+                    <form method="get" action="~/backStage/articleManagement/changeArticle">
+                        <input type="text" name="resourceId" id="resourceId" value="@item.resourceId" hidden="hidden" />
+                        <input class="changeArticle" type="submit" value="修改">
+                    </form>
+                </th>
+                <th><button class="deleteArticle" value="@item.resourceId">删除</button></th>
+            </tr>
+        }
+    }
+</table>

@@ -11,12 +11,32 @@ namespace Lazyfitness.Areas.backStage.Controllers
         // GET: backStage/articleManagement
         public ActionResult Index()
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return Content("未登录");
+            }
             return View();
         }
 
         #region 资源文章分区管理
         public ActionResult areaManagement()
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return Content("未登录");
+            }
             return View();
         }
 
@@ -35,10 +55,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                int Id = db.resourceArea.Max(u=>u.areaId);
+                int Id = db.resourceArea.Max(u => u.areaId);
                 ViewBag.Id = Id + 1;
             }
-                return View();
+            return View();
         }
         [HttpPost]
         public string addArea(resourceArea area)
@@ -64,7 +84,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     return "success";
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return ex.ToString();
             }
@@ -93,12 +113,12 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 //先看有没有这个分区
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
-                {                    
-                    var isExist = db.resourceArea.Where(u => u.areaName == area.areaName.Trim()). ToList();
+                {
+                    var isExist = db.resourceArea.Where(u => u.areaName == area.areaName.Trim()).ToList();
                     if (isExist.Count == 0)
                     {
                         return "not find";
-                    }               
+                    }
                     //标记为删除状态
                     db.resourceArea.Remove(isExist.FirstOrDefault());
                     //执行删除的sql语句
@@ -138,7 +158,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 var info = db.resourceArea.Where(u => u.areaName == areaName.Trim()).ToList();
                 if (info.Count == 0)
                 {
-                    return View("changeArea");     
+                    return View("changeArea");
                 }
                 resourceArea obArea = info.FirstOrDefault();
                 ViewBag.info = obArea;
@@ -170,7 +190,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 db.SaveChanges();
                 return Content("修改成功");
             }
-            
+
         }
         #endregion
 
@@ -179,6 +199,16 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #region 增加资源文章
         public ActionResult addArticle()
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return Content("未登录");
+            }
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 //获得所有分区列表
@@ -190,7 +220,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         [HttpPost]
         public ActionResult addArticle(resourceInfo resource)
         {
-            string cookieText = null; 
+            string cookieText = null;
             if (Request.Cookies["managerId"] != null)
             {
                 //获取Cookies的值
@@ -221,6 +251,101 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 db.resourceInfo.Add(resource);
                 db.SaveChanges();
                 return Content("增加成功");
+            }
+        }
+        #endregion
+
+        #region 查询文章
+        public ActionResult findArticle()
+        {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return Content("未登录");
+            }
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var allInfo = db.resourceInfo.ToList();
+                ViewBag.allInfo = allInfo;
+                return View();
+            }
+        }
+
+        #endregion
+
+        #region 删除文章
+        [HttpPost]
+        public string deleteArticle(int resourceId)
+        {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return "未登录";
+            }
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var obDelete = db.resourceInfo.Where(u => u.resourceId == resourceId).FirstOrDefault();
+                //标记为删除对象
+                db.resourceInfo.Remove(obDelete);
+                //执行删除sql语句
+                db.SaveChanges();
+                return "success";
+            }
+        }
+        #endregion
+
+        #region 修改文章
+        public ActionResult changeArticle(int resourceId)
+        {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return Content("未登录");
+            }
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                resourceInfo obResource = db.resourceInfo.Where(u => u.resourceId == resourceId).FirstOrDefault();
+                ViewBag.allInfo = obResource;
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult changeArticle(resourceInfo resource)
+        {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return Content("未登录");
+            }
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var obResource = db.resourceInfo.Where(u => u.resourceId == resource.resourceId).FirstOrDefault();
+                obResource.resourceName = resource.resourceName;
+                obResource.resourceTime = DateTime.Now;
+                obResource.isTop = resource.isTop;
+                obResource.resourceContent = resource.resourceContent;
+                db.SaveChanges();
+                return Content("修改成功!");
             }
         }
         #endregion

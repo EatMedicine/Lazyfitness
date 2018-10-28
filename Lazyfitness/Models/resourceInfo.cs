@@ -21,7 +21,7 @@ namespace Lazyfitness.Models
         public Nullable<int> userId { get; set; }
         public Nullable<System.DateTime> resourceTime { get; set; }
         public Nullable<int> pageView { get; set; }
-        [Required]
+        [Required(ErrorMessage ="必须选择置顶与否")]
         public Nullable<int> isTop { get; set; }
         public string resourceContent { get; set; }
     

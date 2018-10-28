@@ -49,14 +49,14 @@ namespace Lazyfitness.Areas.account.Controllers
                         userName = security.loginId.Trim(),
                         userAge = 0,
                         userSex = 0,
-                        userTel = null,
+                        userTel = "00000000000",
                         userStatus = 1,
                         userAccount = 0,
                     };
                     db.userInfo.Add(obInfo);
                     db.SaveChanges();
                 }
-                Session["loginId"] = security.loginId.Trim();
+                Session["loginId"] = security.loginId;
                 RedirectToRoute(new { controller = "userManagerment", action = "registerInfo" });
                 Response.Redirect("~/account/userManagement/registerInfo");
                     return "Ok";

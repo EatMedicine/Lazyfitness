@@ -22,7 +22,7 @@ namespace Lazyfitness.Models
         }
     
         public int areaId { get; set; }
-        [Required, StringLength(maximumLength:50, MinimumLength =1, ErrorMessage ="分区名过长")]
+        [Required(ErrorMessage ="分区名不能为空"), StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessage = "分区名过长")]
         public string areaName { get; set; }
         public string areaBrief { get; set; }
     

@@ -1,0 +1,31 @@
+﻿@model Lazyfitness.Models.resourceInfo
+@{
+    ViewBag.Title = "changeArticle";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<h2>changeArticle</h2>
+
+<form method="post" action="~/backStage/articleManagement/changeArticle">
+    @Html.TextBoxFor(u => u.resourceId, new { value = ViewBag.allInfo.resourceId, hidden = "hidden" })
+    @Html.TextBoxFor(u => u.resourceName, new { Value = ViewBag.allInfo.resourceName })
+    <div>
+        <label>是否置顶</label>
+        @{
+            if (ViewBag.allInfo.isTop == 0)
+            {
+                @Html.RadioButtonFor(u => u.isTop, 0, new { @checked = "checked" }) <label> 否 </label>
+                @Html.RadioButtonFor(u => u.isTop, value: 1) <label>是</label>
+            }
+            else
+            {
+                @Html.RadioButtonFor(u => u.isTop, value: 0) <label> 否 </label>
+                @Html.RadioButtonFor(u => u.isTop, 1, new { @checked = "checked" }) <label>是</label>
+            }
+        }
+
+    </div>
+    @Html.TextBoxFor(u => u.resourceContent, new { Value = ViewBag.allInfo.resourceContent })
+    <input type="submit" value="保存修改" />
+</form>

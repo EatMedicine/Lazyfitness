@@ -8,7 +8,7 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<link href="~/Css/Input.css?v=2018-10-24-16-26" rel="stylesheet" type="text/css" />
+<link href="~/Css/Input.css?v=2018-10-25-12-36" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     $(function () {
         $(".radiobtn-content-btn").click(function () {
@@ -55,7 +55,8 @@
                     <li>
                         <div class="radiobtn-content">
                             <div class="radiobtn-content-btn" id="radio1">
-                                <input class="radioclass" type="radio" name="userSex" value="0" checked="checked" />
+                                @*<input class="radioclass" type="radio" name="userSex" value="0" id="userSex" checked="checked" />*@
+                                @Html.RadioButtonFor(u => u.userSex, 0, new {@class="radioclass"} )
                             </div>
                             <div class="radiobtn-content-text">
                                 男
@@ -65,7 +66,8 @@
                     <li>
                         <div class="radiobtn-content">
                             <div class="radiobtn-content-btn" id="radio2">
-                                <input class="radioclass" type="radio" name="userSex" value="1" />
+                                @Html.RadioButtonFor(u => u.userSex, 1, new { @class = "radioclass" })
+                                @*<input class="radioclass" type="radio" name="userSex" id="userSex" value="1" />*@
                             </div>
                             <div class="radiobtn-content-text">
                                 女
@@ -75,19 +77,23 @@
                     <li>
                         <div class="radiobtn-content">
                             <div class="radiobtn-content-btn" id="radio3">
-                                <input class="radioclass" type="radio" name="userSex" value="2" />
+                                @Html.RadioButtonFor(u => u.userSex, 2, new { @class = "radioclass" })
+                                @*<input class="radioclass" type="radio" name="userSex" id="userSex" value="2" />*@
                             </div>
                             <div class="radiobtn-content-text">
                                 保密
                             </div>
                         </div>
                     </li>
-                </ul>
+                </ul>               
+            </div>   
+            @**********需要加一个验证错误信息！！！！！！！！！！！！！！！！！！***********@
+            <div class="message-style  pos2 ">
+                @Html.ValidationMessageFor(x => x.userSex)
             </div>
 
 
-
-            <input type="submit" id="postData" name="postData" class="input-btn login-loginbtn-pos" />
+            <input type="submit" id="postData" name="postData" class="input-btn login-loginbtn-pos pos1" value="完成注册" />
         </div>
     </form>
 </div>
