@@ -8,8 +8,9 @@
 
 <h2>findUser</h2>
 
-<form method="post" action="~/backStage/userAccountManagement/findUser">
+<form method="post" action="~/backStage/payManagement/changeAccount">
+    @Html.TextBoxFor(u => u.userId, new { Value = ViewBag.allInfo.userId, @hidden = "hidden" })  @Html.ValidationMessageFor(u => u.userId)
     @Html.TextBoxFor(u => u.userName, new { @value = ViewBag.allInfo.userName, @readonly = "readonly" }) @Html.ValidationMessageFor(u => u.userName)
-    @Html.TextBoxFor(u => u.userAccount, new { @value = ViewBag.allInfo.userAccount}) @Html.ValidationMessageFor(u => u.userAccount)
-    <input type="submit" value="确定修改"/>
+    @Html.TextBoxFor(u => u.userAccount, new { Value = ViewBag.allInfo.userAccount }) @Html.ValidationMessageFor(u => u.userAccount)
+    <input type="submit" value="确定修改" />
 </form>

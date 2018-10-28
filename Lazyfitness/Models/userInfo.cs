@@ -22,7 +22,7 @@ namespace Lazyfitness.Models
         public Nullable<int> userAge { get; set; }
         [Required(ErrorMessage ="必须选择一个性别")]
         public Nullable<int> userSex { get; set; }
-        [Required(ErrorMessage ="电话号码不能为空"), StringLength(maximumLength:11, MinimumLength =11, ErrorMessage ="请输入正确的11位电话号码")]
+        [StringLength(maximumLength:11, MinimumLength =11, ErrorMessage ="请输入正确的11位电话号码")]
         public string userTel { get; set; }
         public Nullable<int> userStatus { get; set; }
         public Nullable<int> userAccount { get; set; }

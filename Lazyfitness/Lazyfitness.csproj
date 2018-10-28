@@ -151,7 +151,7 @@
     <Compile Include="Areas\backStage\Controllers\articleManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\userManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\managerController.cs" />
-    <Compile Include="Areas\backStage\payManagementController.cs" />
+    <Compile Include="Areas\backStage\Controllers\payManagementController.cs" />
     <Compile Include="Areas\CookiesHelper\CookiesHelper.cs" />
     <Compile Include="Areas\MD5Helper\MD5Helper.cs" />
     <Compile Include="Controllers\HomeController.cs" />

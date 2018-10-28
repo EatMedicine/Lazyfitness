@@ -48,7 +48,20 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
         }
         #endregion
-
+        #region 修改信息
+        [HttpPost]
+        public string changeAccount(int userId, int userAccount)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var allInfo = db.userInfo.Where(u => u.userId == userId);
+                userInfo Info = allInfo.FirstOrDefault();
+                Info.userAccount = userAccount;
+                db.SaveChanges();
+                return "修改成功";
+            }
+        }
+        #endregion
         #endregion
     }
 }
