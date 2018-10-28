@@ -151,6 +151,7 @@
     <Compile Include="Areas\backStage\Controllers\articleManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\userManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\managerController.cs" />
+    <Compile Include="Areas\backStage\payManagementController.cs" />
     <Compile Include="Areas\CookiesHelper\CookiesHelper.cs" />
     <Compile Include="Areas\MD5Helper\MD5Helper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -275,6 +276,10 @@
     </Content>
     <Content Include="Areas\backStage\Views\articleManagement\findArticle.cshtml" />
     <Content Include="Areas\backStage\Views\articleManagement\changeArticle.cshtml" />
+    <Content Include="Areas\backStage\Views\payManagement\findUser.cshtml" />
+    <Content Include="Areas\backStage\Views\payManagement\Index.cshtml" />
+    <Content Include="Areas\backStage\Views\payManagement\refillCardManagement.cshtml" />
+    <Content Include="Areas\backStage\Views\payManagement\userAccountManagement.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

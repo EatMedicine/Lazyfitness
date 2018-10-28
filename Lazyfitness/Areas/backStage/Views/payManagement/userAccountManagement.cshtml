@@ -1,0 +1,37 @@
+﻿@model Lazyfitness.Models.userInfo
+@{
+    ViewBag.Title = "userAccountManagement";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<h2>userAccountManagement</h2>
+
+<form method="post" action="~/backStage/payManagement/findUser">
+    @Html.TextBoxFor(u => u.userName) @Html.ValidationMessageFor(u=>u.userName)
+    <input type="submit" value="查询" />
+</form>
+
+@{
+    if (ViewBag.allList != null)
+    {
+        <table border="1">
+            <tr>
+                <td>用户名</td>
+                <td>账户余额</td>
+                <td colspan="2" style="text-align:center">可用操作</td>
+            </tr>
+            @foreach (var item in ViewBag.allList)
+            {
+                <tr>
+                    <td>@item.userName</td>
+                    <td>@item.userAccount</td>
+                    <td><button id="changeAccount" name="changeAccount" value="@item.userId">修改余额</button></td>
+                    <td><button id="resetAccount" name="resetAccount" value="@item.userId">余额清零</button></td>
+                </tr>
+
+            }
+        </table>
+    }
+}

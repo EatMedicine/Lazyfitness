@@ -1,0 +1,15 @@
+﻿@model Lazyfitness.Models.userInfo
+@{
+    ViewBag.Title = "findUser";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<h2>findUser</h2>
+
+<form method="post" action="~/backStage/userAccountManagement/findUser">
+    @Html.TextBoxFor(u => u.userName, new { @value = ViewBag.allInfo.userName, @readonly = "readonly" }) @Html.ValidationMessageFor(u => u.userName)
+    @Html.TextBoxFor(u => u.userAccount, new { @value = ViewBag.allInfo.userAccount}) @Html.ValidationMessageFor(u => u.userAccount)
+    <input type="submit" value="确定修改"/>
+</form>
