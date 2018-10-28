@@ -148,6 +148,7 @@
     <Compile Include="Areas\account\Controllers\userManagementController.cs" />
     <Compile Include="Areas\account\Controllers\passwordManagerController.cs" />
     <Compile Include="Areas\backStage\backStageAreaRegistration.cs" />
+    <Compile Include="Areas\backStage\Controllers\commentManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\forumManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\quesAnswManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\userManagementController.cs" />
@@ -285,6 +286,11 @@
     <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswInvitationUpdate.cshtml" />
     <Content Include="Areas\backStage\Views\quesAnswManagement\Index.cshtml" />
     <Content Include="Areas\backStage\Views\forumManagement\Index.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\forumcommentShield.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\forumcommentDelete.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\quesAnswcommentShield.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\quesAnswcommentDelete.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

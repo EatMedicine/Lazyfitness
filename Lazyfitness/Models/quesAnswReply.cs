@@ -11,10 +11,13 @@ namespace Lazyfitness.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class quesAnswReply
     {
+        [Required(ErrorMessage = "问答帖子ID是必填项！")]
         public int quesAnswId { get; set; }
+        [Required(ErrorMessage = "评论者ID是必填项！")]
         public Nullable<int> userId { get; set; }
         public Nullable<System.DateTime> replyTime { get; set; }
         public string replyContent { get; set; }

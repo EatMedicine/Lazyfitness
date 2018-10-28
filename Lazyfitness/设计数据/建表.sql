@@ -145,7 +145,8 @@ CREATE TABLE postReply
 	Primary Key (postId)
 )
 GO
-
+insert into postReply values(12,1,GETDATE(),'嗨，你好呀！')
+select * from postReply
 
 
 --*******创建问答帖子表*******--
@@ -184,7 +185,8 @@ CREATE TABLE quesAnswReply
 	Primary Key(quesAnswId)
 )
 GO
-
+insert into quesAnswReply values(13,1,GETDATE(),'嗨，你好呀！',1)
+select * from quesAnswReply
 --*******创建点卡充值表*******--
 IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'recharge')
 DROP TABLE recharge
