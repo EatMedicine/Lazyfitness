@@ -1,4 +1,4 @@
-﻿@model Lazyfitness.Models.userInfo
+﻿@model Lazyfitness.Areas.DbTable.tables
 @{
     ViewData["IsSearch"] = true;
     ViewData["IsHeadPic"] = true;
@@ -17,23 +17,22 @@
             <div class="input-item">
                 <div class="input-text-border">
                     @*<input type="text" id="userName" name="userName" class="input-text" placeholder="      用户名" />*@
-                    @Html.TextBoxFor(u=>u.userName, new { @class= "input-text", @placeholder = "      用户名" })
+                    @Html.TextBoxFor(u=>u.Info.userName, new { @class= "input-text", @placeholder = "      用户名" })                
                 </div>
-                <div class="message-style">
-                    @Html.ValidationMessageFor(u=>u.userName)
+                <div class="message-style">                  
+                    @Html.ValidationMessageFor(u=>u.Info.userName)
                 </div>
             </div>
             <div class="input-item">
                 <div class="input-text-border">
                     @*<input type="text" id="userTel" name="userTel" class="input-text" placeholder="       电话" />*@
-                    @Html.TextBoxFor(u => u.userTel, new { @class = "input-text", @placeholder = "       电话" })
-
+                    @Html.TextBoxFor(u => u.Info.userTel, new { @class = "input-text", @placeholder = "       电话" })
                 </div>
                 <div class="message-style">
-                    @Html.ValidationMessageFor(u => u.userTel)
+                    @Html.ValidationMessageFor(u => u.Info.userTel)
                 </div>
             </div>
-            <input type="submit" id="postData" name="postData" class="input-btn" />
+            <input type="submit" id="postData" name="postData" class="input-btn" value="下一步" />
         </div>
     </form>
 </div>

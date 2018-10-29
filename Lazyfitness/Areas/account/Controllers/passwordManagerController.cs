@@ -16,6 +16,10 @@ namespace Lazyfitness.Areas.account.Controllers
             return View();
         }
         #region 验证身份信息
+        public ActionResult VerifyInfo()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult VerifyInfo(userSecurity security, userInfo info)
         {
@@ -41,6 +45,7 @@ namespace Lazyfitness.Areas.account.Controllers
         #endregion
 
         #region 身份验证成功后修改密码
+        [HttpPost]
         public string findPassword(string userPwd)
         {
             if (Session["findPassword"] == null)

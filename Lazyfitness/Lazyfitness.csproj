@@ -153,6 +153,7 @@
     <Compile Include="Areas\backStage\Controllers\managerController.cs" />
     <Compile Include="Areas\backStage\Controllers\payManagementController.cs" />
     <Compile Include="Areas\CookiesHelper\CookiesHelper.cs" />
+    <Compile Include="Areas\DbTable\tables.cs" />
     <Compile Include="Areas\MD5Helper\MD5Helper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -250,7 +251,6 @@
     <Content Include="Areas\account\Views\userManagement\login.cshtml" />
     <Content Include="Areas\account\Views\_ViewStart.cshtml" />
     <Content Include="Areas\account\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\account\Views\passwordManager\findPassword.cshtml" />
     <Content Include="Areas\account\Views\passwordManager\changePassword.cshtml" />
     <Content Include="Areas\backStage\Views\web.config" />
     <Content Include="Areas\backStage\Views\_ViewStart.cshtml" />
@@ -284,6 +284,7 @@
     <Content Include="Areas\backStage\Views\payManagement\userAccountManagement.cshtml" />
     <Content Include="Areas\backStage\Views\payManagement\findCardId.cshtml" />
     <Content Include="Areas\account\Views\passwordManager\VerifyInfo.cshtml" />
+    <Content Include="Areas\account\Views\passwordManager\findPassword.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
