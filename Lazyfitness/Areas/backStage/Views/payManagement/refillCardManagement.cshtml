@@ -1,7 +1,52 @@
-﻿
+﻿@model Lazyfitness.Models.recharge
 @{
     ViewBag.Title = "refillCardManagement";
 }
-
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Areas/jQuery/resetUnAvailable.js"></script>
 <h2>refillCardManagement</h2>
 
+<form method="post" action="~/backStage/payManagement/findCardId">
+    @Html.TextBoxFor(u => u.rechargeId) @Html.ValidationMessageFor(u => u.rechargeId)
+    <input type="submit" value="查询" />
+</form>
+<button type="submit" id="resetUnAvailable" name="resetUnAvailable">清空所有不可用充值卡</button>
+@if (ViewBag.allList != null)
+{
+    <table border="1">
+        <tr>
+            <td>卡号</td>
+            <td>卡密</td>
+            <td>充值的金额</td>
+            <td colspan="2">是否可用</td>
+        </tr>
+        @{
+            foreach (var item in ViewBag.allList)
+            {
+                <tr>
+                    <td>
+                        @item.rechargeId
+                    </td>
+                    <td>
+                        @item.rechargePwd
+                    </td>
+                    <td>
+                        @item.amount
+                    </td>
+                    <td>
+                        @if (item.isAvailable == 0)
+                        {
+                            <label>否</label>
+                        }
+                        @if (item.isAvailable == 1)
+                        {
+                            <label>是</label>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+}        

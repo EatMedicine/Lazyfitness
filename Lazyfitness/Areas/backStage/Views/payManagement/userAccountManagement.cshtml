@@ -5,7 +5,7 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
+<script src="~/Areas/jQuery/resetAccout.js"></script>
 <h2>userAccountManagement</h2>
 
 <form method="post" action="~/backStage/payManagement/findUser">
@@ -26,9 +26,14 @@
             {
                 <tr>
                     <td>@item.userName</td>
-                    <td>@item.userAccount</td>
-                    <td><button id="changeAccount" name="changeAccount" value="@item.userId">修改余额</button></td>
-                    <td><button id="resetAccount" name="resetAccount" value="@item.userId">余额清零</button></td>
+                    <td>@item.userAccount</td>                   
+                    <td>
+                        <form method="post" action="~/backStage/payManagement/findUser"> 
+                            <input type="text" id="userName" name="userName" value=@item.userName hidden="hidden" />
+                            <button type="submit" id="changeAccount" name="changeAccount" value="@item.userId">修改余额</button>
+                        </form>
+                    </td>
+                    <td><button class="resetAccount" id="resetAccount" name="resetAccount" value="@item.userId">余额清零</button></td>
                 </tr>
 
             }

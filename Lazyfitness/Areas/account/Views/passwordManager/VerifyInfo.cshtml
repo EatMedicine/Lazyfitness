@@ -1,0 +1,39 @@
+﻿@model Lazyfitness.Models.userInfo
+@{
+    ViewData["IsSearch"] = true;
+    ViewData["IsHeadPic"] = true;
+    Layout = "~/Views/Shared/_MainStyle.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<link href="~/Css/Input.css" rel="stylesheet" type="text/css" />
+
+<div class="login-input">
+    <form action="~/account/passwordManager/VerifyInfo" method="post" autocomplete="off">
+        <div class="login-input-content">
+            <p>验证信息</p>
+            <div class="input-item">
+                <div class="input-text-border">
+                    @*<input type="text" id="userName" name="userName" class="input-text" placeholder="      用户名" />*@
+                    @Html.TextBoxFor(u=>u.userName, new { @class= "input-text", @placeholder = "      用户名" })
+                </div>
+                <div class="message-style">
+                    @Html.ValidationMessageFor(u=>u.userName)
+                </div>
+            </div>
+            <div class="input-item">
+                <div class="input-text-border">
+                    @*<input type="text" id="userTel" name="userTel" class="input-text" placeholder="       电话" />*@
+                    @Html.TextBoxFor(u => u.userTel, new { @class = "input-text", @placeholder = "       电话" })
+
+                </div>
+                <div class="message-style">
+                    @Html.ValidationMessageFor(u => u.userTel)
+                </div>
+            </div>
+            <input type="submit" id="postData" name="postData" class="input-btn" />
+        </div>
+    </form>
+</div>

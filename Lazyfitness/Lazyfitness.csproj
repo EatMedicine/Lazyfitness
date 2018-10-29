@@ -214,6 +214,8 @@
   <ItemGroup>
     <Content Include="Areas\img\show.jpg" />
     <Content Include="Areas\jQuery\articleManagement.js" />
+    <Content Include="Areas\jQuery\resetAccout.js" />
+    <Content Include="Areas\jQuery\resetUnAvailable.js" />
     <Content Include="Areas\jQuery\showPwd.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -280,6 +282,8 @@
     <Content Include="Areas\backStage\Views\payManagement\Index.cshtml" />
     <Content Include="Areas\backStage\Views\payManagement\refillCardManagement.cshtml" />
     <Content Include="Areas\backStage\Views\payManagement\userAccountManagement.cshtml" />
+    <Content Include="Areas\backStage\Views\payManagement\findCardId.cshtml" />
+    <Content Include="Areas\account\Views\passwordManager\VerifyInfo.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

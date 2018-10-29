@@ -1,0 +1,35 @@
+﻿@model Lazyfitness.Models.recharge
+@{
+    ViewBag.Title = "findCardId";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<h2>findCardId</h2>
+@{
+    if (ViewBag.allInfo != null)
+    {
+        <form method="post" action="~/backStage/payManagement/changeCardInfo">
+            <div><label>卡号：</label>  @Html.TextBoxFor(u => u.rechargeId, new { Value = ViewBag.allInfo.rechargeId, @readonly = "readonly" })  @Html.ValidationMessageFor(u => u.rechargeId)</div>
+            <div><label>密码：</label>  @Html.TextBoxFor(u => u.rechargePwd, new { Value = ViewBag.allInfo.rechargePwd, })  @Html.ValidationMessageFor(u => u.rechargePwd)</div>
+            <div><label>充值金额：</label>  @Html.TextBoxFor(u => u.amount, new { Value = ViewBag.allInfo.amount, })  @Html.ValidationMessageFor(u => u.amount)</div>
+            <div>
+                <label>是否可用：</label>
+                @{
+                    if (ViewBag.allInfo.isAvailable == 0)
+                    {
+                        @Html.RadioButtonFor(u => u.isAvailable, 0, new { @checked = "checked" }) <label>否</label>
+                        @Html.RadioButtonFor(u => u.isAvailable, 1)<label>是</label>
+                    }
+                    if (ViewBag.allInfo.isAvailable == 1)
+                    {
+                        @Html.RadioButtonFor(u => u.isAvailable, 0) <label>否</label>
+                        @Html.RadioButtonFor(u => u.isAvailable, 1, new { @checked = "checked" })<label>是</label>
+                    }
+                }
+                @Html.ValidationMessageFor(u => u.isAvailable)
+            </div>
+            <div><input type="submit" value="确定修改" /></div>
+        </form>
+    }
+}
