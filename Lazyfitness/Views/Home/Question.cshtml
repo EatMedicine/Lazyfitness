@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewData["IsSearch"] = false;
+    ViewData["IsHeadPic"] = true;
+    ViewBag.IsDefaultContent = true;
+    ViewBag.Title = "问答区";
+    Layout = "~/Views/Shared/_MainStyle.cshtml";
+}
+
+@*
+    本页需要的变量：
+        ViewBag.PartList 分区名字列表 string[]
+        ViewBag.PartUrl 分区Url列表 string[]
+
+*@
+@Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+<link href="~/Css/Question.css?v=2018-1028-1926" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/QuestionJs.js?v=2018-1028-1926"></script>
+
+
+<div class="part-list">
+    @{
+        string[] partName = ViewBag.PartList as string[];
+        string[] partUrl = ViewBag.PartUrl as string[];
+    }
+    <ul class="part-list-item">
+        @for (int count = 0; count < partName.Length && count < partUrl.Length; count++)
+        {
+            <li><a href="@partUrl[count]">@partName[count]</a></li>
+        }
+    </ul>
+</div>
+<div class="content">
+    <span class="content-title fl">热门精选</span>
+    <a href="#">
+        <div class="content-askQues-btn">
+            <span class="content-askQues-btn-text">我要提问</span>
+        </div>
+    </a>
+
+</div>
+<div class="content-ques">
+    <div class="content-list-bar">
+        <div class="ques-list">
+            @*
+            <div class="ques-list-item">
+                <div class="item-con">
+                    <div class="item-title">
+                        <h3>这是标题</h3>
+                    </div>
+                    <div class="item-introduction">
+                        <p>这是内容简介</p>
+                    </div>
+                    <div class="item-user">
+                        <div class="user-pic fl">
+                            <img src="~/Resource/picture/DefaultHeadPic.jpg" />
+                        </div>
+                        <div class="user-name fl">
+                            <p>这是名字</p>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        </div>
+        <div class="right-bar">
+            ssss
+        </div>
+    </div>
+    <div class="go-top unvis" id="top-btn">
+        <a href="#"><img src="~/Resource/picture/gotoTop.png"/></a>
+    </div>
+</div>

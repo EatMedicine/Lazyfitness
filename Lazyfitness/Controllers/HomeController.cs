@@ -159,6 +159,25 @@ namespace Lazyfitness.Controllers
             }
             return Json(items, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Question()
+        {
+            ViewBag.PartList = new string[]
+            {
+                "首页",
+                "已解决",
+                "未解决",
+                "我提出的问题",
+            };
+            ViewBag.PartUrl = new string[]
+            {
+                "#",
+                "#",
+                "#",
+                "#",
+            };
+            return View();
+        }
         #region Test
         public ActionResult About()
         {
