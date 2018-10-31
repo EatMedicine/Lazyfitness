@@ -150,6 +150,7 @@
     <Compile Include="Areas\backStage\backStageAreaRegistration.cs" />
     <Compile Include="Areas\backStage\Controllers\commentManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\forumManagementController.cs" />
+    <Compile Include="Areas\backStage\Controllers\pageViewController.cs" />
     <Compile Include="Areas\backStage\Controllers\quesAnswManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\userManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\managerController.cs" />
@@ -291,6 +292,7 @@
     <Content Include="Areas\backStage\Views\commentManagement\quesAnswcommentShield.cshtml" />
     <Content Include="Areas\backStage\Views\commentManagement\quesAnswcommentDelete.cshtml" />
     <Content Include="Areas\backStage\Views\commentManagement\Index.cshtml" />
+    <Content Include="Areas\backStage\Views\pageView\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

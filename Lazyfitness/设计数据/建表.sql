@@ -64,6 +64,9 @@ CREATE TABLE resourceArea
 )
 GO
 
+insert into resourceArea values(12315,'Unknown','Unknown')
+select * from resourceArea
+
 --*******创建问答分区表*******--
 IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'quesArea')
 DROP TABLE quesArea
@@ -109,6 +112,22 @@ CREATE TABLE resourceInfo
 	Foreign Key (areaId) References resourceArea(areaId)
 )
 GO
+
+insert into resourceInfo values(12315,110,'NO.1',1,GETDATE(),0,0,'Num')
+insert into resourceInfo values(12315,111,'NO.2',1,GETDATE(),0,0,'mm')
+insert into resourceInfo values(12315,112,'NO.3',1,GETDATE(),0,0,'nn')
+insert into resourceInfo values(12315,113,'NO.4',1,GETDATE(),100,0,'nn')
+insert into resourceInfo values(12315,114,'NO.5',1,GETDATE(),50,0,'nn')
+insert into resourceInfo values(12315,115,'NO.6',1,GETDATE(),500,0,'nn')
+insert into resourceInfo values(12315,116,'NO.7',1,GETDATE(),10,0,'nn')
+insert into resourceInfo values(12315,117,'NO.8',1,GETDATE(),20,0,'nn')
+insert into resourceInfo values(12315,118,'NO.9',1,GETDATE(),30,0,'nn')
+insert into resourceInfo values(12315,119,'NO.10',1,GETDATE(),5000,0,'nn')
+insert into resourceInfo values(12315,120,'NO.11',1,GETDATE(),200,0,'nn')
+insert into resourceInfo values(12315,122,'NO.12',1,GETDATE(),110,0,'nn')
+insert into resourceInfo values(12315,123,'NO.13',1,GETDATE(),120,0,'nn')
+
+select * from resourceInfo
 
 --*******创建帖子信息表*******--
 IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'postInfo')

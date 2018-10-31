@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<form method="post" action="~/backStage/pageView/Index">
+    <h2>资源文章人气</h2>
+    <br />
+    <label>查询结果:</label>@ViewBag.resourceconfirm
+    <table>
+        <tr>
+            <td>文章名称</td>
+            <td>发稿人</td>
+            <td>人气</td>
+        </tr>
+        @foreach (var info in ViewBag.resource)
+        {
+            <tr>
+                <td>@info.resourceName</td>
+                <td>@info.userId</td>
+                <td>@info.pageView</td>
+            </tr>
+        }
+    </table>
+    <br />
+    <h2>论坛帖子人气</h2>
+    <br />
+    <label>查询结果:</label>@ViewBag.postconfirm
+    <table>
+        <tr>
+            <td>帖子名称</td>
+            <td>发稿人</td>
+            <td>人气</td>
+        </tr>
+        @foreach (var info in ViewBag.post)
+        {
+            <tr>
+                <td>@info.postTitle</td>
+                <td>@info.userId</td>
+                <td>@info.pageView</td>
+            </tr>
+        }
+    </table>
+    <br />
+    <h2>问答帖子人气</h2>
+    <br />
+    <label>查询结果:</label>@ViewBag.quesAnswconfirm
+    <table>
+        <tr>
+            <td>帖子名称</td>
+            <td>发稿人</td>
+            <td>人气</td>
+        </tr>
+        @foreach (var info in ViewBag.quesAnsw)
+        {
+            <tr>
+                <td>@info.quesAnswTitle</td>
+                <td>@info.userId</td>
+                <td>@info.pageView</td>
+            </tr>
+        }
+    </table>
+</form>
