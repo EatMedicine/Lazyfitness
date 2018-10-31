@@ -1,12 +1,46 @@
 ﻿@model Lazyfitness.Models.backManager
-    <h2>login</h2>
-
+<html>
+<head>
+    <link href="~/Css/backStageLoginLayout.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <form action="~/backStage/manager/login" method="post">
-        @Html.TextBoxFor(x => x.managerId) @Html.ValidationMessageFor(x => x.managerId) <br />
-        @Html.TextBoxFor(x => x.managerPwd, new {@type="password" }) @Html.ValidationMessageFor(x => x.managerPwd) <br />
-        <input type="submit" id="postData" name="postData" />
-    </form>
+    <title>小懒人后台管理系统</title>
+</head>
+<body>
+    <div class="backgroundPic">
+        <div class="placeholder"></div>
+        <div class="login-content">
+        </div>
 
+        <div class="ab-position">
+            <div class="content-body">
+                <div class="login-header-title">
+                    Lazyfitness
+                </div>
+                <form action="~/backStage/manager/login" method="post" autocomplete="off">
+                    <div class="login-title">
+                        后台管理登录
+                    </div>
+                    <div class="input-box">
+                        @Html.TextBoxFor(x => x.managerId, new { @class = "input-text", @placeholder = "      用户名" })
+                    </div>
+                    <div class="message-style">
+                        @Html.ValidationMessageFor(x => x.managerId)
+                    </div>
+                    <div class="input-box">
+                        @Html.TextBoxFor(x => x.managerPwd, new { @type = "password", @class = "input-text", @placeholder = "       密码" })
+                    </div>
+                    <div class="message-style">
+                        @Html.ValidationMessageFor(x => x.managerPwd)
+                    </div>
+                    <div class="input-box">
+                        <input type="submit" id="postData" name="postData" class="input-btn" value="登录" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>

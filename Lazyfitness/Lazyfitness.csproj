@@ -220,6 +220,8 @@
     <Content Include="Areas\jQuery\showPwd.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\backStageIndexLayout.css" />
+    <Content Include="Css\backStageLoginLayout.css" />
     <Content Include="Css\Index.css" />
     <Content Include="Css\Input.css" />
     <Content Include="Css\MainStyle.css" />
@@ -238,6 +240,7 @@
       <DependentUpon>Lazyfitness.edmx</DependentUpon>
       <LastGenOutput>Lazyfitness.cs</LastGenOutput>
     </Content>
+    <Content Include="Resource\picture\background.jpg" />
     <Content Include="Resource\picture\head.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -250,11 +253,8 @@
     <Content Include="Areas\account\Web.config" />
     <Content Include="Areas\account\Views\userManagement\login.cshtml" />
     <Content Include="Areas\account\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\account\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\account\Views\passwordManager\changePassword.cshtml" />
     <Content Include="Areas\backStage\Views\web.config" />
-    <Content Include="Areas\backStage\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\backStage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\backStage\Views\manager\login.cshtml" />
     <Content Include="Areas\backStage\Views\userManagement\Index.cshtml" />
     <Content Include="Areas\backStage\Views\userManagement\add.cshtml" />
@@ -285,6 +285,7 @@
     <Content Include="Areas\backStage\Views\payManagement\findCardId.cshtml" />
     <Content Include="Areas\account\Views\passwordManager\VerifyInfo.cshtml" />
     <Content Include="Areas\account\Views\passwordManager\findPassword.cshtml" />
+    <Content Include="Areas\backStage\Views\manager\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -331,7 +332,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\account\Models\" />
+    <Folder Include="Areas\account\Views\Shared\" />
     <Folder Include="Areas\backStage\Models\" />
+    <Folder Include="Areas\backStage\Views\Shared\" />
     <Folder Include="System\Data\" />
   </ItemGroup>
   <ItemGroup>

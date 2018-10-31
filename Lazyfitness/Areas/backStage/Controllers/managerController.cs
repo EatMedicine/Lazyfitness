@@ -6,10 +6,10 @@ using System.Web;
 using System.Web.Mvc;
 using Lazyfitness.Models;
 namespace Lazyfitness.Areas.backStage.Controllers
-{
-    #region 后台用户登录
+{    
     public class managerController : Controller
     {
+        #region 后台用户登录
         // GET: backStage/userManager
         public ActionResult login()
         {
@@ -44,12 +44,20 @@ namespace Lazyfitness.Areas.backStage.Controllers
                         return "密码错误";
                     }
                 }
-        }
+            }
             catch
             {
                 return "登录失败";
             }
-}
+        }
+        #endregion
+
+        #region 登录后默认的界面
+        public ActionResult Index()
+        {
+            return View();
+        }
+        #endregion
     }
-    #endregion
+
 }
