@@ -1,19 +1,112 @@
-﻿
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>小懒人后台管理系统</title>
-    <link href="" rel="stylesheet" type="text/css"/>
+    <meta charset="UTF-8">
+    <title>小懒人后台管理</title>
+    <link rel="stylesheet" type="text/css" href="~/Css/backStageIndexLayout.css">
+    <link rel="stylesheet" type="text/css" href="~/Css/backStageBarLayout.css">
 </head>
 <body>
-    <ul>
-        <li>用户管理</li>
-        <li>资源文章专区管理</li>
-        <li>论坛管理</li>
-        <li>问答专区管理</li>
-        <li>充值管理</li>
-        <li>评论管理</li>
-        <li>统计报表管理</li>
-    </ul>
+    <div class="topbar-wrap white topbar-inner">
+        <div class="topbar-inner clearfix">
+            <div class="topbar-logo-wrap clearfix">
+                <ul class="navbar-list clearfix">
+                    <li><a class="on" href="#">首页</a></li>
+                </ul>
+            </div>
+            <div class="top-info-wrap">
+                <ul class="top-info-list clearfix">
+                    <li>@Html.ActionLink("管理员登录", "login", "manager")</li>
+                    <li><a href="#">退出</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container clearfix">
+        <div class="sidebar-wrap">
+            <div class="sidebar-title">
+                <h1>菜单</h1>
+            </div>
+            <div class="sidebar-content">
+                <ul class="sidebar-list">
+                    <li>
+                        <ul class="sub-menu">
+                            <li>@Html.ActionLink("用户管理", "Index", "userManagement")</li>
+                            <li>@Html.ActionLink("资源文章管理", "Index", "articleManagement")</li>
+                            <li><a href=""><i class="icon-font"></i>论坛管理</a></li>
+                            <li><a href=""><i class="icon-font"></i>问答专区管理</a></li>
+                            <li><a href=""><i class="icon-font"></i>评论管理</a></li>
+                            <li>@Html.ActionLink("充值管理", "Index", "payManagement")</li>
+                            <li><a href=""><i class="icon-font"></i>统计报表管理</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--/sidebar-->
+        <div class="main-wrap">
+            <div class="crumb-wrap">
+                <div class="crumb-list"><i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span></div>
+            </div>
+        </div>
+        <!-------------------------------------------以下内容每个页面不同-------------------------------------------------->
+        <div content="index-content ">
+            <div class="user-number content-container">
+                <div class="box-title">
+                    <span>用户数量</span>
+                </div>
+                <div class="box-data-total">
+                    1000
+                </div>
+                <div class="day-register-number">
+                    <span>日注册量</span>
+                    <span class="day-number">1000</span>
+                </div>
+            </div>
+            <div class="article-number content-container">
+                <div class="box-title">
+                    <span>文章数量</span>
+                </div>
+                <div class="box-data-total">
+                    1000
+                </div>
+                <div class="day-register-number">
+                    <span>日注册量</span>
+                    <span class="day-number">1000</span>
+                </div>
+            </div>
+            <div class="question-answer-number content-container">
+                <div class="box-title">
+                    <span>论坛数量</span>
+                </div>
+                <div class="box-data-total">
+                    1000
+                </div>
+                <div class="day-register-number">
+                    <span>日注册量</span>
+                    <span class="day-number">1000</span>
+                </div>
+            </div>
+            <div class="forum-number content-container">
+                <div class="box-title">
+                    <span>问答数量</span>
+                </div>
+                <div class="box-data-total">
+                    1000
+                </div>
+                <div class="day-register-number">
+                    <span>日注册量</span>
+                    <span class="day-number">1000</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-designer">
+            <i>Lazyfitness was designed by: Oliver，Kaimar and Eason</i>
+        </div>
+    </div>
+
+
 
 </body>
 </html>

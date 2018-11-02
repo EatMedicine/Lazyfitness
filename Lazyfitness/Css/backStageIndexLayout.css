@@ -1,1 +1,35 @@
-﻿
+.content-container{
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 100px;
+    width: 400px;
+    height: 200px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.box-title{
+    color: rgba(0, 0, 0, 0.45);
+    line-height: 50px;
+    font-size: 20px;
+    margin-left: 40px;
+}
+.box-data-total{
+    margin-top: 20px;
+    font-size: 35px;
+    margin-left: 100px;
+}
+.day-register-number{
+    margin-top: 40px;
+    margin-left: 40px;
+    padding: 8px;
+    border-top: 1px solid #e8e8e8;
+    width: 250px;
+}
+.box-designer{
+    font-size: 15px;
+    float: left;
+    margin-top: 330px;
+    margin-left: 600px;
+    color:#666666;
+
+}
