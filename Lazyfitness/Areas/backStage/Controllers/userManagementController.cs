@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using Lazyfitness.Models;
@@ -9,8 +10,73 @@ namespace Lazyfitness.Areas.backStage.Controllers
 {
     public class userManagementController : Controller
     {
-        public ActionResult Index()
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">页容量</param>
+        /// <param name="whereLambda">条件 lambda表达式</param>
+        /// <param name="orderBy">排列 lambda表达式</param>
+        /// <returns></returns>
+        public List<userInfo> GetPagedList<TKey>(int pageIndex, int pageSize/*, Expression<Func<userInfo, bool>> whereLambda*/, Expression<Func<userInfo, TKey>> orderBy)
         {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                //分页时一定注意：Skip之前一定要OrderBy
+                return db.userInfo/*.Where(whereLambda)*/.OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            }
+        }
+
+
+        public int GetSumPage(int pageSize)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                int listSum = db.userInfo.ToList().Count;
+                return ((listSum / pageSize) + 1);
+            }
+        }
+
+        public ActionResult Index()
+        {         
+            ViewBag.managerId = null;
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+                ViewBag.managerId = cookieText.ToString();
+            }
+            else
+            {
+                return Content("未登录");
+            }
+            ViewBag.nowPage = 1;
+            ViewBag.sumPage = GetSumPage(10);
+            ViewBag.allInfo = GetPagedList(1, 10, u => u.userId);
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Index(int id)
+        {        
+            ViewBag.managerId = null;
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+                ViewBag.managerId = cookieText.ToString();
+            }
+            else
+            {
+                return Content("未登录");
+            }         
+            ViewBag.nowPage = id;
+            ViewBag.sumPage = GetSumPage(10);
+            ViewBag.allInfo = GetPagedList(Convert.ToInt32(id), 10, u => u.userId);
             return View();
         }
 
@@ -23,6 +89,16 @@ namespace Lazyfitness.Areas.backStage.Controllers
         [HttpPost]
         public string add(userSecurity security)
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return "未登录";
+            }
             try
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
@@ -53,25 +129,28 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #region 删除用户
         public ActionResult delete()
         {
-            //显示用户
-            //ViewBag.allData = null;
-            //using (LazyfitnessEntities db = new LazyfitnessEntities())
-            //{
-            //    List<userInfo> data = db.userInfo.ToList<userInfo>();
-            //    ViewBag.allData = data;
-            //}
             return View();
         }
         [HttpPost]
-        public string delete(string userName)
+        public string delete(userInfo info)
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return "未登录";
+            }
             try
             {
                 //根据不可重复的用户名找到userSecurity里面的userId,将其删除
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
 
-                    DbQuery<userInfo> dbInfo = db.userInfo.Where(u => u.userName == userName.Trim()) as DbQuery<userInfo>;
+                    DbQuery<userInfo> dbInfo = db.userInfo.Where(u => u.userName == info.userName.Trim()) as DbQuery<userInfo>;
                     userInfo obInfo = dbInfo.FirstOrDefault();
 
                     //创建一个要删除的对象
@@ -87,9 +166,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     return "删除成功";
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                return "删除失败";
+                return ex.ToString();
             }
         }
         #endregion
@@ -97,17 +176,38 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #region 查询用户
         public ActionResult search()
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+                @ViewBag.managerId = cookieText.ToString();
+            }
+            else
+            {
+                return Content("未登录");
+            }         
             return View();
         }
         [HttpPost]
         public ActionResult search(userInfo info)
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return Content("未登录");
+            }
             try
             {
                 ViewBag.IsSearchSuccess = false;
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    DbQuery<userInfo> dbInfosearch = db.userInfo.Where(u => u.userName == info.userName) as DbQuery<userInfo>;
+                    DbQuery<userInfo> dbInfosearch = db.userInfo.Where(u => u.userName == info.userName.Trim()) as DbQuery<userInfo>;
                     userInfo _userInfo = dbInfosearch.FirstOrDefault();
                     DbQuery<userSecurity> dbSecuritysearch = db.userSecurity.Where(u => u.userId == _userInfo.userId) as DbQuery<userSecurity>;
                     userSecurity _userSecurity = dbSecuritysearch.FirstOrDefault();
@@ -122,6 +222,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                         ViewBag.userTel = _userInfo.userTel;
                         ViewBag.userStatus = _userInfo.userStatus;
                         ViewBag.userAccount = _userInfo.userAccount;
+                        //db.SaveChanges();
                     }
                     else
                     {
@@ -139,13 +240,40 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #endregion
 
         #region 修改用户信息
-        public ActionResult update()
+        public ActionResult update(userInfo info)
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return Content("未登录");
+            }
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var userInfo = db.userInfo.Where(u => u.userName == info.userName.Trim()).FirstOrDefault();
+                var userSecurity = db.userSecurity.Where(u => u.loginId == info.userName.Trim()).FirstOrDefault();
+                ViewBag.userInfo = userInfo;
+                ViewBag.userSecurity = userSecurity;
+            }
             return View();
         }
         [HttpPost]
         public string update(userInfo info, userSecurity security)
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return "未登录";
+            }
             try
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
@@ -155,10 +283,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     DbQuery<userSecurity> dbSecuritysearch = db.userSecurity.Where(u => u.userId == _userInfo.userId) as DbQuery<userSecurity>;
                     userSecurity _userSecurity = dbSecuritysearch.FirstOrDefault();
                     //将要修改的值，放到数据上下文中
-                    _userSecurity.userId = security.userId;
-                    _userSecurity.loginId = security.loginId;
-                    _userSecurity.userPwd = security.userPwd;
-                    _userInfo.userId = info.userId;
+                    //_userSecurity.userId = security.userId;
+                    //_userSecurity.loginId = security.loginId;
+                    //_userSecurity.userPwd = security.userPwd;
+                    //_userInfo.userId = info.userId;
                     _userInfo.userName = info.userName;
                     _userInfo.userAge = info.userAge;
                     _userInfo.userSex = info.userSex;
@@ -169,9 +297,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 }
                 return "修改成功";
             }
-            catch
+            catch(Exception ex)
             {
-                return "修改失败";
+                return ex.ToString();
             }
         }
         #endregion

@@ -1,4 +1,4 @@
-﻿@model Lazyfitness.Models.userSecurity
+﻿@model Lazyfitness.Areas.DbTable.tables
 
 @{
     ViewData["IsSearch"] = true;
@@ -10,15 +10,16 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Areas/jQuery/showPwd.js"></script>
 <link href="~/Css/Input.css" rel="stylesheet" type="text/css" />
-@*
-    <form method="post" action="~/account/userManagement/registerUser">
-        <label>登录名</label> @Html.TextBoxFor(u => u.loginId) @Html.ValidationMessageFor(x => x.loginId)<br />
-        <label>密码</label> <div style="border: 1px solid silver; width: 200px;height: 30px">
-            @Html.TextBoxFor(u => u.userPwd, new { @type = "password", @style = "border:0px; padding: 0px; margin-top: 7px" })
-            <img id="imgEnter" src="~/Areas/img/show.jpg" style="height: 28px; width: 40px; float: right; border: none;">
-        </div>@Html.ValidationMessageFor(x => x.userPwd)<br />
-        <input type="submit" />
-    </form>*@
+<script type="text/javascript">
+    $(function () {
+        $(".radiobtn-content-btn").click(function () {
+            $("#radio1").removeClass("on");
+            $("#radio2").removeClass("on");
+            $("#radio3").removeClass("on");
+            $(this).addClass("on");
+        });
+    });
+</script>
 
 <div class="login-input">
     <form method="post" action="~/account/userManagement/registerUser" autocomplete="off">
@@ -26,21 +27,75 @@
             <p>注册</p>
             <div class="input-item">
                 <div class="input-text-border">
-                    @Html.TextBoxFor(u => u.loginId, new { @class = "input-text", @placeholder = "      用户名" })
+                    @Html.TextBoxFor(u => u.Security.loginId, new { @class = "input-text", @placeholder = "      用户名" })
                 </div>
                 <div class="message-style">
-                    @Html.ValidationMessageFor(x => x.loginId)
+                    @Html.ValidationMessageFor(x => x.Security.loginId)
                 </div>
             </div>
             <div class="input-item">
                 <div class="input-text-border">
-                    @Html.TextBoxFor(u => u.userPwd, new { @type = "password", @class = "input-text", @placeholder = "       密码" })
+                    @Html.TextBoxFor(u => u.Security.userPwd, new { @type = "password", @class = "input-text", @placeholder = "       密码" })
                 </div>
                 <div class="message-style">
-                    @Html.ValidationMessageFor(x => x.userPwd)
+                    @Html.ValidationMessageFor(x => x.Security.userPwd)
                 </div>
             </div>
-            <input type="submit" id="postData" name="postData" class="input-btn login-loginbtn-pos" value="下一步" />
+            <div class="input-item">
+                <div class="input-text-border">
+                    @Html.TextBoxFor(u => u.Info.userAge, new { @class = "input-text", @placeholder = "       年龄" })
+                </div>
+                <div class="message-style">
+                    @Html.ValidationMessageFor(x => x.Info.userAge)
+                </div>
+            </div>
+            <div class="input-item">
+                <div class="input-text-border">
+                    @Html.TextBoxFor(u => u.Info.userTel, new { @type = "text", @class = "input-text", @placeholder = "     电话号码" })
+                </div>
+                <div class="message-style">
+                    @Html.ValidationMessageFor(x => x.Info.userTel)
+                </div>
+            </div>
+            <div class="radio-pos">
+                <ul class="li-fl">
+                    <li>
+                        <div class="radiobtn-content">
+                            <div class="radiobtn-content-btn" id="radio1">
+                                @Html.RadioButtonFor(u => u.Info.userSex, 0, new { @class = "radioclass" })
+                            </div>
+                            <div class="radiobtn-content-text">
+                                男
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="radiobtn-content">
+                            <div class="radiobtn-content-btn" id="radio2">
+                                @Html.RadioButtonFor(u => u.Info.userSex, 1, new { @class = "radioclass" })
+                            </div>
+                            <div class="radiobtn-content-text">
+                                女
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="radiobtn-content">
+                            <div class="radiobtn-content-btn" id="radio3">
+                                @Html.RadioButtonFor(u => u.Info.userSex, 2, new { @class = "radioclass" })
+                            </div>
+                            <div class="radiobtn-content-text">
+                                保密
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="message-style  pos2 ">
+                @Html.ValidationMessageFor(x => x.Info.userSex)
+            </div>
+
+            <input type="submit" id="postData" name="postData" class="input-btn login-loginbtn-pos" value="完成注册" />
         </div>
     </form>
 </div>

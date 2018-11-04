@@ -215,6 +215,7 @@
   <ItemGroup>
     <Content Include="Areas\img\show.jpg" />
     <Content Include="Areas\jQuery\articleManagement.js" />
+    <Content Include="Areas\jQuery\sendPageIndex.js" />
     <Content Include="Areas\jQuery\resetAccout.js" />
     <Content Include="Areas\jQuery\resetUnAvailable.js" />
     <Content Include="Areas\jQuery\showPwd.js" />
@@ -223,6 +224,7 @@
     <Content Include="Css\backStageBarLayout.css" />
     <Content Include="Css\backStageIndexLayout.css" />
     <Content Include="Css\backStageLoginLayout.css" />
+    <Content Include="Css\backStageTableLayout.css" />
     <Content Include="Css\Index.css" />
     <Content Include="Css\Input.css" />
     <Content Include="Css\MainStyle.css" />

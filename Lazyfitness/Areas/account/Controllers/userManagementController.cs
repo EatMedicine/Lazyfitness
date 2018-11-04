@@ -15,7 +15,7 @@ namespace Lazyfitness.Areas.account.Controllers
             return View();
         }
         [HttpPost]
-        public string registerUser(userSecurity security)
+        public string registerUser(userSecurity security, userInfo info)
         {
             Session["loginId"] = null;
             //使用entity framework 进行数据的插入
@@ -47,19 +47,19 @@ namespace Lazyfitness.Areas.account.Controllers
                     {
                         userId = uniformId,
                         userName = security.loginId.Trim(),
-                        userAge = 0,
-                        userSex = 0,
-                        userTel = "00000000000",
+                        userAge = info.userAge,
+                        userSex = info.userSex,
+                        userTel = info.userTel,
                         userStatus = 1,
                         userAccount = 0,
                     };
                     db.userInfo.Add(obInfo);
                     db.SaveChanges();
                 }
-                Session["loginId"] = security.loginId;
-                RedirectToRoute(new { controller = "userManagerment", action = "registerInfo" });
-                Response.Redirect("~/account/userManagement/registerInfo");
-                    return "Ok";
+                //Session["loginId"] = security.loginId;
+                //RedirectToRoute(new { controller = "userManagerment", action = "registerInfo" });
+                Response.Redirect("/");
+                return "Ok";
             }
             catch (Exception EX)
             {
@@ -67,35 +67,35 @@ namespace Lazyfitness.Areas.account.Controllers
             }
         }
 
-        public ActionResult registerInfo()
-        {
-            return View();
-        }
-        [HttpPost]
-        public string registerInfo(userInfo info)
-        {
-            try
-            {
-                if (Session["loginId"] == null)
-                {
-                    return "F";
-                }
-                using (LazyfitnessEntities db = new LazyfitnessEntities())
-                {
-                    string userName = Session["loginId"].ToString();
-                    userInfo obInfo = db.userInfo.Where(u => u.userName == userName).FirstOrDefault();
-                    obInfo.userAge = info.userAge;
-                    obInfo.userSex = info.userSex;
-                    obInfo.userTel = info.userTel;
-                    db.SaveChanges();
-                    return "T";
-                }
-            }
-            catch(Exception ex)
-            {
-                return ex.ToString();
-            }
-        }
+        //public ActionResult registerInfo()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //public string registerInfo(userInfo info)
+        //{
+        //    try
+        //    {
+        //        if (Session["loginId"] == null)
+        //        {
+        //            return "F";
+        //        }
+        //        using (LazyfitnessEntities db = new LazyfitnessEntities())
+        //        {
+        //            string userName = Session["loginId"].ToString();
+        //            userInfo obInfo = db.userInfo.Where(u => u.userName == userName).FirstOrDefault();
+        //            obInfo.userAge = info.userAge;
+        //            obInfo.userSex = info.userSex;
+        //            obInfo.userTel = info.userTel;
+        //            db.SaveChanges();
+        //            return "T";
+        //        }
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        return ex.ToString();
+        //    }
+        //}
 
         #endregion
 
