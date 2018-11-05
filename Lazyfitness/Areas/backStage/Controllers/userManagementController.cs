@@ -51,6 +51,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             else
             {
+                Response.Redirect("/backStage/manager/login");
                 return Content("未登录");
             }
             ViewBag.nowPage = 1;
@@ -163,7 +164,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     //标记为删除--标记当前对象为删除状态
                     db.userSecurity.Remove(deleSecurity);
                     db.SaveChanges();
-                    return "删除成功";
+                    return "success";
                 }
             }
             catch(Exception ex)

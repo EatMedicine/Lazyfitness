@@ -15,7 +15,7 @@
 .btn-submit:hover{color:red}
 .text-summer{border:0; padding:0; background:none;margin-right:5px;font-size:19px}
 
-.insert-tab{border-collapse:collapse;border:1px solid /*#eee*/;}
+.insert-tab{border-collapse:collapse;border:1px solid #eee;}
 .insert-tab th,.insert-tab td{border:1px solid #eee;}
 .insert-tab tr{line-height:60px;}
 .insert-tab th{text-align:right;font-weight:normal;padding-right:10px;font-size:14px;}
@@ -28,3 +28,6 @@
 .radio-dis{margin-left:25px; margin-right:5px;}
 .dropdown-list{width:280px; height:35px;}
 .error-mes{height:20px; font-size:15px; max-height:20px; line-height:5px}
+.show-title{font-size:20px;background-color:floralwhite}
+.index-btn{color: #3e5667;border:none;background:none; font-size:16px}
+.index-btn:hover{color:red; cursor:pointer}

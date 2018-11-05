@@ -8,6 +8,7 @@
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Areas/jQuery/userManagement.js"></script>
 </head>
 <body>
     <div class="topbar-wrap white topbar-inner">
@@ -144,10 +145,10 @@
                             <td>
                                 <form method="get" action="~/backStage/userManagement/update">
                                     <input type="text" name="userName" id="userName" value=@item.userName hidden="hidden" />
-                                    <input class="changeArticle" type="submit" value="修改">
+                                    <input class="index-btn" type="submit" value="修改">
                                 </form>
                             </td>
-                            <td><input type="button" deleteArticle" value="删除"></td>
+                            <td><button class="index-btn delete-data" type="button" value=@item.userName>删除</button></td>
                         </tr>
                     }
                 }
