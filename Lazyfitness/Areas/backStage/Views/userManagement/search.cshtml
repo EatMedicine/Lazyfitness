@@ -1,13 +1,103 @@
-﻿
-@{
-    ViewBag.Title = "search";
-}
-
-<h2>search</h2>
-
-<h2>查询用户</h2>
-<form action="~/backStage/userManagement/search" method="post">
-    UserName:<input type="text" id="userName" name="userName" /> <br />
-    <input type="submit" id="postData" name="postData" value="查询" />
-</form>
-
+﻿@model Lazyfitness.Areas.DbTable.tables
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小懒人后台管理</title>
+    <link rel="stylesheet" type="text/css" href="~/Css/backStageBarLayout.css">
+    <link rel="stylesheet" type="text/css" href="~/Css/backStageTableLayout.css" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</head>
+<body>
+    <div class="topbar-wrap white topbar-inner">
+        <div class="topbar-inner clearfix">
+            <div class="topbar-logo-wrap clearfix">
+                <ul class="navbar-list clearfix">
+                    <li>@Html.ActionLink("首页", "Index", "manager")</li>
+                </ul>
+            </div>
+            <div class="top-info-wrap">
+                <ul class="top-info-list clearfix">
+                    @{
+                        if (ViewBag.managerId == null)
+                        {
+                            <li>@Html.ActionLink("管理员登录", "login", "manager")</li>
+                        }
+                        else
+                        {
+                            <li>@ViewBag.managerId</li>
+                            <li>@Html.ActionLink("退出", "loginOut", "manager")</li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container clearfix">
+        <div class="sidebar-wrap">
+            <div class="sidebar-title">
+                <h1>菜单</h1>
+            </div>
+            <div class="sidebar-content">
+                <ul class="sidebar-list">
+                    <li>
+                        <ul class="sub-menu">
+                            <li>@Html.ActionLink("用户管理", "Index", "userManagement")</li>
+                            <li>@Html.ActionLink("资源文章管理", "Index", "articleManagement")</li>
+                            <li><a href=""><i class="icon-font"></i>论坛管理</a></li>
+                            <li><a href=""><i class="icon-font"></i>问答专区管理</a></li>
+                            <li><a href=""><i class="icon-font"></i>评论管理</a></li>
+                            <li>@Html.ActionLink("充值管理", "Index", "payManagement")</li>
+                            <li><a href=""><i class="icon-font"></i>统计报表管理</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--/sidebar-->
+        <div class="main-wrap">
+            <div class="crumb-wrap">
+                <div class="crumb-list">
+                    <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+                </div>
+            </div>
+            <div class="result-wrap">
+                <div class="result-title">
+                    <h1>可选操作</h1>
+                </div>
+                <div class="result-content">
+                    <div class="short-wrap">
+                        @Html.ActionLink("增加用户", "add", "userManagement")
+                        @Html.ActionLink("删除用户", "delete", "userManagement")
+                        @Html.ActionLink("修改用户信息", "search", "userManagement")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="result-content">
+            <form action="~/backStage/userManagement/update" method="get">                
+                <table class="insert-tab">
+                    <tr><th></th><td class="show-title">修改用户信息</td></tr>
+                    <tr>
+                        <th>
+                            用户名
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.Info.userName, new { @type = "text", @class = "input-content" })
+                            <div class="error-mes">@Html.ValidationMessageFor(u => u.Info.userName)</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="查询" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

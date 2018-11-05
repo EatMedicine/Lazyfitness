@@ -1,22 +1,197 @@
-﻿
-@{
-    ViewBag.Title = "update";
-}
-
-<h2>update</h2>
-
-<h2>修改用户资料</h2>
-查询成功:@ViewBag.IsSearchSuccess
-<form action="~/backStage/userManagement/update" method="post">
-    UserId:<input type="text" id="userId" name="userId" value="@ViewBag.userId" /><br />
-    LoginId:<input type="text" id="loginId" name="loginId" value="@ViewBag.loginId" /><br />
-    UserPwd:<input type="password" id="userPwd" name="userPwd" value="@ViewBag.userPwd" /><br />
-    UserName:<input type="text" id="userName" name="userName" value="@ViewBag.userName" /><br />
-    Age:<input type="text" id="userAge" name="userAge" value="@ViewBag.userAge" /><br />
-    Sex:<input type="text" id="userSex" name="userSex" value="@ViewBag.userSex" /><br />
-    Tel:<input type="text" id="userTel" name="userTel" value="@ViewBag.userTel" /><br />
-    Status:<input type="text" id="userTel" name="userStatus" value="@ViewBag.userStatus" /><br />
-    Account:<input type="text" id="userTel" name="userAccount" value="@ViewBag.userAccount" /><br />
-    <input type="submit" id="postData" name="postData" value="修改" />
-</form>
-
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小懒人后台管理</title>
+    <link rel="stylesheet" type="text/css" href="~/Css/backStageBarLayout.css">
+    <link rel="stylesheet" type="text/css" href="~/Css/backStageTableLayout.css" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</head>
+<body>
+    <div class="topbar-wrap white topbar-inner">
+        <div class="topbar-inner clearfix">
+            <div class="topbar-logo-wrap clearfix">
+                <ul class="navbar-list clearfix">
+                    <li>@Html.ActionLink("首页", "Index", "manager")</li>
+                </ul>
+            </div>
+            <div class="top-info-wrap">
+                <ul class="top-info-list clearfix">
+                    @{
+                        if (ViewBag.managerId == null)
+                        {
+                            <li>@Html.ActionLink("管理员登录", "login", "manager")</li>
+                        }
+                        else
+                        {
+                            <li>@ViewBag.managerId</li>
+                            <li>@Html.ActionLink("退出", "loginOut", "manager")</li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container clearfix">
+        <div class="sidebar-wrap">
+            <div class="sidebar-title">
+                <h1>菜单</h1>
+            </div>
+            <div class="sidebar-content">
+                <ul class="sidebar-list">
+                    <li>
+                        <ul class="sub-menu">
+                            <li>@Html.ActionLink("用户管理", "Index", "userManagement")</li>
+                            <li>@Html.ActionLink("资源文章管理", "Index", "articleManagement")</li>
+                            <li><a href=""><i class="icon-font"></i>论坛管理</a></li>
+                            <li><a href=""><i class="icon-font"></i>问答专区管理</a></li>
+                            <li><a href=""><i class="icon-font"></i>评论管理</a></li>
+                            <li>@Html.ActionLink("充值管理", "Index", "payManagement")</li>
+                            <li><a href=""><i class="icon-font"></i>统计报表管理</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--/sidebar-->
+        <div class="main-wrap">
+            <div class="crumb-wrap">
+                <div class="crumb-list">
+                    <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+                </div>
+            </div>
+            <div class="result-wrap">
+                <div class="result-title">
+                    <h1>可选操作</h1>
+                </div>
+                <div class="result-content">
+                    <div class="short-wrap">
+                        @Html.ActionLink("增加用户", "add", "userManagement")
+                        @Html.ActionLink("删除用户", "delete", "userManagement")
+                        @Html.ActionLink("修改用户信息", "search", "userManagement")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="result-content">
+            <form action="~/backStage/userManagement/update" method="post">
+                <table class="insert-tab">
+                    <tbody>
+                        <tr><th></th><td class="show-title">修改用户信息</td></tr>
+                        <tr>
+                            <th>
+                                用户名
+                            </th>
+                            <td>
+                                <input class="input-content txt-unchange" type="text" id="userName" name="userName" readonly="readonly" value="@ViewBag.userInfo.userName" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                年龄
+                            </th>
+                            <td>
+                                <input class="input-content" type="text" id="userAge" name="userAge" value="@ViewBag.userInfo.userAge" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                性别
+                            </th>
+                            <td>
+                                @if (ViewBag.userInfo.userSex == 0)
+                                {
+                                    <input class="radio-dis" type="radio" id="userSex" name="userSex" value="0" checked="checked" /><label>男</label>
+                                    <input class="radio-dis" type="radio" id="userSex" name="userSex" value="1" /><label>女</label>
+                                    <input class="radio-dis" type="radio" id="userSex" name="userSex" value="2" /><label>保密</label>
+                                }
+                                @if (ViewBag.userInfo.userSex == 1)
+                                {
+                                    <input class="radio-dis" type="radio" id="userSex" name="userSex" value="0" /><label>男</label>
+                                    <input class="radio-dis" type="radio" id="userSex" name="userSex" value="1" checked="checked" /><label>女</label>
+                                    <input class="radio-dis" type="radio" id="userSex" name="userSex" value="2" /><label>保密</label>
+                                }
+                                @if (ViewBag.userInfo.userSex == 2)
+                                {
+                                    <input class="radio-dis" type="radio" id="userSex" name="userSex" value="0" /><label>男</label>
+                                    <input class="radio-dis" type="radio" id="userSex" name="userSex" value="1" /><label>女</label>
+                                    <input class="radio-dis" type="radio" id="userSex" name="userSex" value="2" checked="checked" /><label>保密</label>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                电话
+                            </th>
+                            <td>
+                                <input class="input-content" type="text" id="userTel" name="userTel" value="@ViewBag.userInfo.userTel" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                状态
+                            </th>
+                            <td>
+                                @{
+                                    if (ViewBag.userInfo.userStatus == 0)
+                                    {
+                                        <select name="userStatus">
+                                            <option class="dropdown-list" value="0" id="userStatus" name="userStatus">禁止发言</option>
+                                            <option class="dropdown-list" value="1" id="userStatus" name="userStatus">注册会员</option>
+                                            <option class="dropdown-list" value="2" id="userStatus" name="userStatus">正式会员</option>
+                                            <option class="dropdown-list" value="3" id="userStatus" name="userStatus">管理员</option>
+                                        </select>
+                                    }
+                                    if (ViewBag.userInfo.userStatus == 1)
+                                    {
+                                        <select name="userStatus">
+                                            <option class="dropdown-list" value="1" id="userStatus" name="userStatus">注册会员</option>
+                                            <option class="dropdown-list" value="0" id="userStatus" name="userStatus">禁止发言</option>
+                                            <option class="dropdown-list" value="2" id="userStatus" name="userStatus">正式会员</option>
+                                            <option class="dropdown-list" value="3" id="userStatus" name="userStatus">管理员</option>
+                                        </select>
+                                    }
+                                    if (ViewBag.userInfo.userStatus == 2)
+                                    {
+                                        <select name="userStatus">
+                                            <option class="dropdown-list" value="2" id="userStatus" name="userStatus">正式会员</option>
+                                            <option class="dropdown-list" value="0" id="userStatus" name="userStatus">禁止发言</option>
+                                            <option class="dropdown-list" value="1" id="userStatus" name="userStatus">注册会员</option>
+                                            <option class="dropdown-list" value="3" id="userStatus" name="userStatus">管理员</option>
+                                        </select>
+                                    }
+                                    if (ViewBag.userInfo.userStatus == 3)
+                                    {
+                                        <select name="userStatus">
+                                            <option class="dropdown-list" value="3" id="userStatus" name="userStatus">管理员</option>
+                                            <option class="dropdown-list" value="2" id="userStatus" name="userStatus">正式会员</option>
+                                            <option class="dropdown-list" value="0" id="userStatus" name="userStatus">禁止发言</option>
+                                            <option class="dropdown-list" value="1" id="userStatus" name="userStatus">注册会员</option>
+                                        </select>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                账户余额
+                            </th>
+                            <td>
+                                <input class="input-content" type="text" id="userTel" name="userAccount" value="@ViewBag.userInfo.userAccount" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="修改" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
