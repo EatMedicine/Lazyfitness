@@ -146,7 +146,79 @@ namespace Lazyfitness.Controllers
             return View();
         }
 
+        public ActionResult forum()
+        {
+            ViewBag.PartName = new string[]
+            {
+                "分区1",
+                "分区2",
+                "分区3",
+                "分区4",
+                "分区5",
+                "分区6",
+                "分区7",
+                "分区8",
+                "分区9",
+                "分区10",
+            };
+            ViewBag.PartUrl = new string[]
+            {
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+            };
+            ViewBag.PartPicUrl = new string[]
+            {
+                Url.Content("~/Resource/picture/list-style-dot-red.png"),
+                Url.Content("~/Resource/picture/list-style-dot-orange.png"),
+                Url.Content("~/Resource/picture/list-style-dot-yellow.png"),
+                Url.Content("~/Resource/picture/list-style-dot-green.png"),
+                Url.Content("~/Resource/picture/list-style-dot-cyan.png"),
+                Url.Content("~/Resource/picture/list-style-dot-blue.png"),
+                Url.Content("~/Resource/picture/list-style-dot-purple.png"),
+            };
+            ViewBag.PartSelect = -1;
+            return View();
+        }
+
         public JsonResult ArticleItemContent()
+        {
+            ArticleItem[] items = new ArticleItem[5];
+            for (int count = 0; count < 5; count++)
+            {
+                items[count] = new ArticleItem();
+                items[count].Name = count.ToString() + "名字";
+                items[count].Title = count.ToString() + "标题";
+                items[count].HeadAdr = "/Resource/picture/DefaultHeadPic.jpg";
+                items[count].Introduction = count.ToString() + "简介";
+            }
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult QuesItemContent()
+        {
+            ArticleItem[] items = new ArticleItem[5];
+            for (int count = 0; count < 5; count++)
+            {
+                items[count] = new ArticleItem();
+                items[count].Name = count.ToString() + "名字";
+                items[count].Title = count.ToString() + "标题";
+                items[count].HeadAdr = "/Resource/picture/DefaultHeadPic.jpg";
+                items[count].Introduction = count.ToString() + "简介";
+            }
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult forumItemContent()
         {
             ArticleItem[] items = new ArticleItem[5];
             for (int count = 0; count < 5; count++)

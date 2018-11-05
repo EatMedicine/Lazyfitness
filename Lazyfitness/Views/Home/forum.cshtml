@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewData["IsSearch"] = false;
+    ViewData["IsHeadPic"] = true;
+    ViewBag.IsDefaultContent = true;
+    ViewBag.Title = "论坛";
+    Layout = "~/Views/Shared/_MainStyle.cshtml";
+}
+
+@*
+    本页需要的变量：
+        ViewBag.PartName 分区名字列表 string[]
+        ViewBag.PartUrl 分区Url列表 string[]
+        ViewBag.PartPicUrl 分区列表前图片的URL string[]
+        ViewBag.PartSelect 当前网页是侧边导航栏第几项（用于加亮）（首页设置为-1） int
+
+*@
+@Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+<link href="~/Css/forum.css?v=2018-1028-1926" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/forumjs.js?v=2018-1028-1926"></script>
+
+<div class="main">
+    <div class="nav-left">
+        <div class="nav-new">
+            <a href="#">
+                <div class="nav-newbtn">
+                    <span>我要发帖</span>
+                </div>
+            </a>
+        </div>
+        <div class="nav-part-list">
+            <ul>
+
+                @{
+                    string[] partName = ViewBag.PartName as string[];
+                    string[] partUrl = ViewBag.PartUrl as string[];
+                    string[] partPicUrl = ViewBag.PartPicUrl as string[];
+                    int partSelect = ViewBag.PartSelect;
+                }
+                <li>
+                    <a href="@Url.Action("forum","Home")">
+                        <img src="~/Resource/picture/list-style-dot-grey.png" style="width:15px" />
+                        @if (partSelect == -1)
+                        {
+                            <span class="select">所有帖子</span>
+                        }
+                        else
+                        {
+                            <span class="unselect">所有帖子</span>
+                        }
+                        </a>
+                    </li>
+                    @for (int count = 0; count < partName.Length; count++)
+                    {
+                        <li>
+                            <a href="@partUrl[count]">
+                                @if (count >= partPicUrl.Length)
+                                {
+                                    int num = count;
+                                    while (num >= partPicUrl.Length)
+                                    {
+                                        num -= partPicUrl.Length;
+                                    }
+                                    <img src="@partPicUrl[num]" style="width:15px" />
+
+                                }
+                                else
+                                {
+                                    <img src="@partPicUrl[count]" style="width:15px" />
+                                }
+                                @if (count == partSelect)
+                                {
+                                    <span class="select">@partName[count]</span>
+                                }
+                                else
+                                {
+                                    <span class="unselect">@partName[count]</span>
+                                }
+                            </a>
+                        </li>
+                    }
+                </ul>
+        </div>
+    </div>
+    <div class="forum-list">
+        @*<div class="forum-list-item">
+            <div class="item-con">
+                <div class="item-title">
+                    <h3>这是标题</h3>
+                </div>
+                <div class="item-introduction">
+                    <p>这是内容简介</p>
+                </div>
+                <div class="item-user">
+                    <div class="user-pic fl">
+                        <img src="~/Resource/picture/DefaultHeadPic.jpg" />
+                    </div>
+                    <div class="user-name fl">
+                        <p>这是名字</p>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    </div>
+    <div class="go-top unvis" id="top-btn">
+        <a href="#"><img src="~/Resource/picture/gotoTop.png"/></a>
+    </div>
+</div>

@@ -216,6 +216,7 @@
     <Content Include="Areas\jQuery\showPwd.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\forum.css" />
     <Content Include="Css\Index.css" />
     <Content Include="Css\Input.css" />
     <Content Include="Css\MainStyle.css" />
@@ -243,6 +244,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\forumjs.js" />
     <Content Include="Scripts\IndexJs.js" />
     <Content Include="Scripts\QuestionJs.js" />
     <Content Include="设计数据\建表.sql" />
@@ -322,6 +324,7 @@
     <Content Include="Views\Shared\err.cshtml" />
     <Content Include="Views\Home\Article.cshtml" />
     <Content Include="Views\Home\Question.cshtml" />
+    <Content Include="Views\Home\forum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

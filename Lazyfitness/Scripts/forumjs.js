@@ -27,13 +27,13 @@ $(function () {
 
 function loadContent() {
     $.ajax({
-        url: "/Home/QuesItemContent",
+        url: "/Home/forumItemContent",
         type: "get",
         dataType: "json",
         success: function (data) {
             for (var count = 0; count < 5; count++) {
-                $(".ques-list").append(
-                    '<div class="ques-list-item" >' +
+                $(".forum-list").append(
+                    '<div class="forum-list-item" >' +
                     '<div class="item-con">' +
                     '<div class="item-title">' +
                     '<h3><a href="#">' + data[count].Title + '</a></h3>' +
