@@ -38,7 +38,7 @@ CREATE TABLE userInfo
 	userAccount INT DEFAULT 0
 )
 GO
-
+select * from userInfo
 
 --*******创建专区表*******--
 --IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'specialArea')
@@ -228,9 +228,13 @@ CREATE TABLE backManager
 	managerId INT PRIMARY KEY,
 	managerPwd NVARCHAR(50)
 )
-/*
-select * from userInfo
+
+select * from backManager
 go
+
+insert into backManager values('666', 'E10ADC3949BA59ABBE56E057F20F883E')
+
+/*
 select * from userSecurity
 go
 select * from resourceInfo

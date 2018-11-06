@@ -67,49 +67,15 @@
                 <div class="result-title">
                     <h1>可选操作</h1>
                 </div>
-                
-                <div class="result-content">
-                    <div class="short-wrap">
-                        @Html.ActionLink("增加帖子", "forumInvitationAdd", "forumManagement")
-                        @Html.ActionLink("删除帖子", "forumInvitationDelete", "forumManagement")
-                        @Html.ActionLink("修改帖子信息", "forumInvitationSearch", "forumManagement")
+                    <div class="result-content">
+                        <div class="short-wrap">
+                            @Html.ActionLink("增加帖子", "forumInvitationAdd", "forumManagement")
+                            @Html.ActionLink("删除帖子", "forumInvitationDelete", "forumManagement")
+                            @Html.ActionLink("修改帖子信息", "forumInvitationSearch", "forumManagement")
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
 </body>
 </html>
-
-<h2>forumInvitationAdd</h2>
-<h2>论坛帖子增加</h2>
-
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-<form method="post" action="~/backStage/forumManagement/forumInvitationAdd">
-    <label>分区ID</label> @Html.TextBoxFor(u => u.areaId) @Html.ValidationMessageFor(x => x.areaId)<br />
-    <label>帖子ID</label>@Html.TextBoxFor(u => u.postId) @Html.ValidationMessageFor(x => x.postId)<br />
-    <label>帖子标题</label>@Html.TextBoxFor(u => u.postTitle) @Html.ValidationMessageFor(x => x.postTitle)<br />
-    <label>用户ID</label>@Html.TextBoxFor(u => u.userId) @Html.ValidationMessageFor(x => x.userId)<br />
-    <label>是否置顶</label>
-    <input type="radio" id="isPost" name="isPost" value="0" />否
-    <input type="radio" id="isPost" name="isPost" value="1" />是
-    <br />
-    <label>是否付费</label>
-    <input type="radio" id="isPay" name="isPay" value="0" />否
-    <input type="radio" id="isPay" name="isPay" value="1" />是
-    <br />
-    <label>付费金额</label>@Html.TextBoxFor(u => u.amount, new { @id = "amount", @name = "amount", @readOnly = "false" }) @Html.ValidationMessageFor(x => x.amount)<br />
-    <label>帖子状态</label>
-    <input type="radio" id="postStatus" name="postStatus" value="0" />所有人可见
-    <input type="radio" id="postStatus" name="postStatus" value="1" />好友可见
-    <input type="radio" id="postStatus" name="postStatus" value="2" />仅自己可见
-    <input type="radio" id="postStatus" name="postStatus" value="3" />隐藏
-    <br />
-    <label>帖子内容</label>@Html.TextBoxFor(u => u.postContent) @Html.ValidationMessageFor(x => x.postContent)<br />
-    <input type="submit" id="postData" name="postData" value="增加" />
-</form>
-<br /><a href="~/backStage/forumManagement/Index">返回</a><br />
-

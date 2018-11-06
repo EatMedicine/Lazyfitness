@@ -154,6 +154,8 @@
     <Compile Include="Areas\backStage\Controllers\quesAnswManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\userManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\managerController.cs" />
+    <Compile Include="Areas\CookiesHelper\CookiesHelper.cs" />
+    <Compile Include="Areas\DbTable\tables.cs" />
     <Compile Include="Areas\MD5Helper\MD5Helper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -215,6 +217,8 @@
   <ItemGroup>
     <Content Include="Areas\img\show.jpg" />
     <Content Include="Areas\jQuery\articleManagement.js" />
+    <Content Include="Areas\jQuery\resetAccout.js" />
+    <Content Include="Areas\jQuery\resetUnAvailable.js" />
     <Content Include="Areas\jQuery\sendPageIndex.js" />
     <Content Include="Areas\jQuery\showPwd.js" />
     <Content Include="Areas\jQuery\userManagement.js" />
@@ -239,7 +243,16 @@
       <DependentUpon>Lazyfitness.edmx</DependentUpon>
       <LastGenOutput>Lazyfitness.cs</LastGenOutput>
     </Content>
+    <Content Include="Resource\picture\background.jpg" />
+    <Content Include="Resource\picture\DefaultHeadPic.jpg" />
+    <Content Include="Resource\picture\dot1.png" />
+    <Content Include="Resource\picture\dot2.png" />
     <Content Include="Resource\picture\head.png" />
+    <Content Include="Resource\picture\pic1.jpg" />
+    <Content Include="Resource\picture\pic2.jpg" />
+    <Content Include="Resource\picture\pic3.png" />
+    <Content Include="Resource\picture\radbtn0.png" />
+    <Content Include="Resource\picture\radbtn1.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -298,6 +311,8 @@
     <Content Include="Areas\backStage\Views\commentManagement\quesAnswcommentDelete.cshtml" />
     <Content Include="Areas\backStage\Views\commentManagement\Index.cshtml" />
     <Content Include="Areas\backStage\Views\pageView\Index.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumAreaIndex.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumInvitationIndex.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
