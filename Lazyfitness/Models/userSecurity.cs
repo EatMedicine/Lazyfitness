@@ -11,14 +11,11 @@ namespace Lazyfitness.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel;
+    
     public partial class userSecurity
     {
         public int userId { get; set; }
-        [Required(ErrorMessage ="用户名不能为空"), StringLength(maximumLength:50, MinimumLength =1, ErrorMessage = "用户名不能超过50位")]
         public string loginId { get; set; }
-        [Required(ErrorMessage ="密码不能为空"), StringLength(maximumLength:50, MinimumLength =6, ErrorMessage ="密码必须大于6位")]
         public string userPwd { get; set; }
     
         public virtual userInfo userInfo { get; set; }

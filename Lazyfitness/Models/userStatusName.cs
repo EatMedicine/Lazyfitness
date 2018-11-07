@@ -12,9 +12,9 @@ namespace Lazyfitness.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class backManager
+    public partial class userStatusName
     {
-        public int managerId { get; set; }
-        public string managerPwd { get; set; }
+        public int userStatus { get; set; }
+        public string statusName { get; set; }
     }
 }

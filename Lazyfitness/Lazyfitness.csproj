@@ -210,6 +210,9 @@
     <Compile Include="Models\userSecurity.cs">
       <DependentUpon>Lazyfitness.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\userStatusName.cs">
+      <DependentUpon>Lazyfitness.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -273,13 +276,6 @@
     <Content Include="Areas\backStage\Views\articleManagement\findArea.cshtml" />
     <Content Include="Areas\backStage\Views\articleManagement\changeArea.cshtml" />
     <Content Include="Areas\backStage\Views\articleManagement\addArticle.cshtml" />
-    <EntityDeploy Include="Models\Lazyfitness.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Lazyfitness.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Lazyfitness.edmx.diagram">
-      <DependentUpon>Lazyfitness.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\backStage\Views\articleManagement\findArticle.cshtml" />
     <Content Include="Areas\backStage\Views\articleManagement\changeArticle.cshtml" />
     <Content Include="Areas\backStage\Views\payManagement\findUser.cshtml" />
@@ -290,6 +286,15 @@
     <Content Include="Areas\account\Views\passwordManager\VerifyInfo.cshtml" />
     <Content Include="Areas\account\Views\passwordManager\findPassword.cshtml" />
     <Content Include="Areas\backStage\Views\manager\Index.cshtml" />
+    <EntityDeploy Include="Models\Lazyfitness.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Lazyfitness.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Lazyfitness.edmx.diagram">
+      <DependentUpon>Lazyfitness.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\backStage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\backStage\Views\articleManagement\findArticleList.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -339,7 +344,6 @@
     <Folder Include="Areas\account\Models\" />
     <Folder Include="Areas\account\Views\Shared\" />
     <Folder Include="Areas\backStage\Models\" />
-    <Folder Include="Areas\backStage\Views\Shared\" />
     <Folder Include="System\Data\" />
   </ItemGroup>
   <ItemGroup>

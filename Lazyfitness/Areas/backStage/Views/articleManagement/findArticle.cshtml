@@ -27,67 +27,24 @@
     </div>
 
     <div class="result-content">
-        <table class="result-tab">
-            <tr>
-                <th>分区编号</th>
-                <th>文章编号</th>
-                <th>文章名称</th>
-                <th>发布者编号</th>
-                <th>发布时间</th>
-                <th>浏览量</th>
-                <th>是否置顶</th>
-                <th>内容</th>
-                <th colspan="2">可选操作</th>
-            </tr>
-            @if (ViewBag.allInfo != null)
-            {
-                foreach (var item in @ViewBag.allInfo)
-                {
-                    <tr>
-                        <td><input class="no-border" type="text" value="@item.areaId" readonly /> </td>
-                        <td id="resourceId">@item.resourceId</td>
-                        <td>@item.resourceName</td>
-                        <td>@item.userId</td>
-                        <td>@item.resourceTime</td>
-                        <td>@item.pageView</td>
-                        @if (@item.isTop == 0)
-                        {
-                            <th>否</th>
-                        }
-                        @if (item.isTop != 0)
-                        {
-                            <th>是</th>
-                        }
-                        <td>@item.resourceContent</td>
-                        <td>
-                            <form method="get" action="~/backStage/articleManagement/changeArticle">
-                                <input type="text" name="resourceId" id="resourceId" value="@item.resourceId" hidden="hidden" />
-                                <input class="index-btn" type="submit" value="修改">
-                            </form>
-                        </td>
-                        <td><button class="index-btn delete-data deleteArticle" type="button" value="@item.resourceId">删除</button></td>
-                    </tr>
-                }
-            }
-        </table>
-
-        <div class="page-number">
-            <ul>
-                @{
-                    for (int i = 1; i <= ViewBag.sumPage; i++)
-                    {
-
-                        <li style="float:left">
-                            <form method="post" action="~/backStage/articleManagement/findArticle">
-                                <input class="id" id="id" name="id" type="text" value=@i hidden="hidden" />
-                                <input type="submit" class="btn-submit" value=@i />
-                            </form>
-                        </li>
-                    }
-                }
-                <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @ViewBag.nowPage 页, 共 @ViewBag.sumPage 页" /></li>
-            </ul>
-        </div>
-
+        <form method="post" action="~/backStage/articleManagement/findArticleList">
+            <input type="text" hidden="hidden" value="1" name="id"/>
+            <table class="insert-tab">
+                <tr>
+                    <th></th>
+                    <td>查找文章名字</td>
+                </tr>
+                <tr>
+                    <th>文章名字</th>
+                    <td>
+                        <input class="input-content" type="text" name="resourceName" />
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td><input class="btn-submit show-border" type="submit" value="查询" /></td>
+                </tr>
+            </table>
+        </form>        
     </div>
 </div>

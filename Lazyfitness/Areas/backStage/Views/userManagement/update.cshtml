@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="result-content">
-            <form action="~/backStage/userManagement/update" method="post">
+            <form action="~/backStage/userManagement/updateUserInfo" method="post">
                 <table class="insert-tab">
                     <tbody>
                         <tr><th></th><td class="show-title">修改用户信息</td></tr>
@@ -133,57 +133,20 @@
                             <th>
                                 状态
                             </th>
-                            <td>
-                                @foreach (var item in ViewBag.statusList)
-                                {
-                                    if (item.status == ViewBag.userInfo.userStatus)
+                            <td>            
+                                <select name="userStatus">
+                                    @foreach (var item in ViewBag.statusNameList)
                                     {
-                                        <option class="dropdown-list" selected="selected" value=item.status id="userStatus" name="userStatus">@item.statusName</option>
+                                        if (item.userStatus == ViewBag.userInfo.userStatus)
+                                        {
+                                            <option class="dropdown-list" selected="selected" value=@item.userStatus id="userStatus" name="userStatus">@item.statusName</option>
+                                        }
+                                        else
+                                        {
+                                            <option class="dropdown-list" value=@item.userStatus id="userStatus" name="userStatus">@item.statusName</option>
+                                        }
                                     }
-                                    else
-                                    {
-                                        <option class="dropdown-list"value=item.status id="userStatus" name="userStatus">@item.statusName</option>
-                                    }
-                                }
-
-                                @{
-                                    if (ViewBag.userInfo.userStatus == 0)
-                                    {
-                                        <select name="userStatus">
-                                            <option class="dropdown-list" value="0" id="userStatus" name="userStatus">禁止发言</option>
-                                            <option class="dropdown-list" value="1" id="userStatus" name="userStatus">注册会员</option>
-                                            <option class="dropdown-list" value="2" id="userStatus" name="userStatus">正式会员</option>
-                                            <option class="dropdown-list" value="3" id="userStatus" name="userStatus">管理员</option>
-                                        </select>
-                                    }
-                                    if (ViewBag.userInfo.userStatus == 1)
-                                    {
-                                        <select name="userStatus">
-                                            <option class="dropdown-list" value="1" id="userStatus" name="userStatus">注册会员</option>
-                                            <option class="dropdown-list" value="0" id="userStatus" name="userStatus">禁止发言</option>
-                                            <option class="dropdown-list" value="2" id="userStatus" name="userStatus">正式会员</option>
-                                            <option class="dropdown-list" value="3" id="userStatus" name="userStatus">管理员</option>
-                                        </select>
-                                    }
-                                    if (ViewBag.userInfo.userStatus == 2)
-                                    {
-                                        <select name="userStatus">
-                                            <option class="dropdown-list" value="2" id="userStatus" name="userStatus">正式会员</option>
-                                            <option class="dropdown-list" value="0" id="userStatus" name="userStatus">禁止发言</option>
-                                            <option class="dropdown-list" value="1" id="userStatus" name="userStatus">注册会员</option>
-                                            <option class="dropdown-list" value="3" id="userStatus" name="userStatus">管理员</option>
-                                        </select>
-                                    }
-                                    if (ViewBag.userInfo.userStatus == 3)
-                                    {
-                                        <select name="userStatus">
-                                            <option class="dropdown-list" value="3" id="userStatus" name="userStatus">管理员</option>
-                                            <option class="dropdown-list" value="2" id="userStatus" name="userStatus">正式会员</option>
-                                            <option class="dropdown-list" value="0" id="userStatus" name="userStatus">禁止发言</option>
-                                            <option class="dropdown-list" value="1" id="userStatus" name="userStatus">注册会员</option>
-                                        </select>
-                                    }
-                                }
+                                </select>                               
                             </td>
                         </tr>
                         <tr>

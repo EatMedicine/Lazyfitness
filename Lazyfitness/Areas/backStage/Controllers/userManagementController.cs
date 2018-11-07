@@ -242,6 +242,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #endregion
 
         #region 修改用户信息
+        [HttpPost]
         public ActionResult update(userInfo info)
         {
             if (Request.Cookies["managerId"] != null)
@@ -261,19 +262,14 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 ViewBag.userInfo = userInfo;
                 ViewBag.userSecurity = userSecurity;
 
-                var statusList = db.userInfo.OrderBy(u => u.userStatus).ToList();                
-            }
-            //构造和状态对应的状态名字
-            ArrayList statusNameList = new ArrayList();
-            statusNameList.Add("禁止发言");
-            statusNameList.Add("注册会员");
-            statusNameList.Add("正式会员");
-            statusNameList.Add("管理员");            
+                var statusList = db.userStatusName.ToList();
+                ViewBag.statusNameList = statusList;
+            }          
 
             return View();
         }
         [HttpPost]
-        public string update(userInfo info, userSecurity security)
+        public string updateUserInfo(userInfo info, userSecurity security)
         {
             if (Request.Cookies["managerId"] != null)
             {

@@ -20,15 +20,14 @@ namespace Lazyfitness.Areas.backStage.Controllers
         /// <param name="whereLambda">条件 lambda表达式</param>
         /// <param name="orderBy">排列 lambda表达式</param>
         /// <returns></returns>
-        public List<resourceInfo> GetPagedList<TKey>(int pageIndex, int pageSize/*, Expression<Func<userInfo, bool>> whereLambda*/, Expression<Func<resourceInfo, TKey>> orderBy)
+        public List<resourceInfo> GetPagedList<TKey>(int pageIndex, int pageSize, Expression<Func<resourceInfo, bool>> whereLambda, Expression<Func<resourceInfo, TKey>> orderBy)
         {
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 //分页时一定注意：Skip之前一定要OrderBy
-                return db.resourceInfo/*.Where(whereLambda)*/.OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                return db.resourceInfo.Where(whereLambda).OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             }
         }
-
 
         public int GetSumPage(int pageSize)
         {
@@ -38,8 +37,6 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 return ((listSum / pageSize) + 1);
             }
         }
-
-
 
 
         // GET: backStage/articleManagement
@@ -59,8 +56,8 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             ViewBag.nowPage = 1;
             ViewBag.sumPage = GetSumPage(10);            
-            ViewBag.allInfo = GetPagedList(1, 10, u => u.userId);
-            var allInfo = GetPagedList(1, 10, u => u.userId);
+            ViewBag.allInfo = GetPagedList(1, 10,x => x == x, u => u.userId);
+            var allInfo = GetPagedList(1, 10, x => x == x, u => u.userId);
             ArrayList areaNameList = new ArrayList();
             ArrayList userNameList = new ArrayList();
             using (LazyfitnessEntities db = new LazyfitnessEntities())
@@ -81,25 +78,44 @@ namespace Lazyfitness.Areas.backStage.Controllers
             ViewBag.userNameList = userNameList;
             return View();
         }
-
-        //public ActionResult Index(string id)
-        //{
-        //    if (Request.Cookies["managerId"] != null)
-        //    {
-        //        //获取Cookies的值
-        //        HttpCookie cookieName = Request.Cookies["managerId"];
-        //        var cookieText = Server.HtmlEncode(cookieName.Value);
-        //    }
-        //    else
-        //    {
-        //        Response.Redirect("/backStage/manager/login");
-        //        return Content("未登录");
-        //    }
-        //    ViewBag.nowPage = id;
-        //    ViewBag.sumPage = GetSumPage(10);
-        //    ViewBag.allInfo = GetPagedList(Convert.ToInt32(id), 10, u => u.userId);
-        //    return View();
-        //}
+        [HttpPost]
+        public ActionResult Index(string id)
+        {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                Response.Redirect("/backStage/manager/login");
+                return Content("未登录");
+            }
+            ViewBag.nowPage = id;
+            ViewBag.sumPage = GetSumPage(10);
+            var allInfo = GetPagedList(Convert.ToInt32(id), 10, x => x == x, u => u.userId);
+            ViewBag.allInfo = allInfo;
+            ArrayList areaNameList = new ArrayList();
+            ArrayList userNameList = new ArrayList();
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                for (int i = 0; i < allInfo.Count; i++)
+                {
+                    int userId = allInfo[i].userId.Value;
+                    var obUser = db.userInfo.Where(u => u.userId == userId).FirstOrDefault();
+                    string userName = obUser.userName;
+                    int areaId = allInfo[i].areaId;
+                    var obArea = db.resourceArea.Where(u => u.areaId == areaId).FirstOrDefault();
+                    string areaName = obArea.areaName;
+                    areaNameList.Add(areaName);
+                    userNameList.Add(userName);
+                }
+            }
+            ViewBag.areaNameList = areaNameList;
+            ViewBag.userNameList = userNameList;
+            return View();
+        }
 
         #region 资源文章分区管理
         public ActionResult areaManagement()
@@ -359,15 +375,13 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             else
             {
+                Response.Redirect("~/backStage/manager/login");
                 return Content("未登录");
             }
-            ViewBag.nowPage = 1;
-            ViewBag.sumPage = GetSumPage(10);
-            ViewBag.allInfo = GetPagedList(1, 10, u => u.userId);
             return View();
         }
         [HttpPost]
-        public ActionResult findArticle(int id)
+        public ActionResult findArticleList(string id, string resourceName)
         {
             if (Request.Cookies["managerId"] != null)
             {
@@ -377,15 +391,39 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             else
             {
+                Response.Redirect("/backStage/manager/login");
                 return Content("未登录");
             }
             ViewBag.nowPage = id;
             ViewBag.sumPage = GetSumPage(10);
-            ViewBag.allInfo = GetPagedList(id, 10, u => u.userId);
+            var allInfo = GetPagedList(Convert.ToInt32(id), 10, x => x.resourceName == resourceName.Trim(), u => u.userId);
+            ViewBag.allInfo = allInfo;
+            ViewBag.resourceName = resourceName;
+
+            ArrayList areaNameList = new ArrayList();
+            ArrayList userNameList = new ArrayList();
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                for (int i = 0; i < allInfo.Count; i++)
+                {
+                    int userId = allInfo[i].userId.Value;
+                    var obUser = db.userInfo.Where(u => u.userId == userId).FirstOrDefault();
+                    string userName = obUser.userName;
+                    int areaId = allInfo[i].areaId;
+                    var obArea = db.resourceArea.Where(u => u.areaId == areaId).FirstOrDefault();
+                    string areaName = obArea.areaName;
+                    areaNameList.Add(areaName);
+                    userNameList.Add(userName);
+                }
+            }
+            ViewBag.areaNameList = areaNameList;
+            ViewBag.userNameList = userNameList;
+
+
             return View();
         }
 
-
+        /*1111111111111111111111111111111111111111111111*/
         #endregion
 
         #region 删除文章
@@ -415,6 +453,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #endregion
 
         #region 修改文章
+        [HttpPost]
         public ActionResult changeArticle(int resourceId)
         {
             if (Request.Cookies["managerId"] != null)
@@ -431,13 +470,17 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 resourceInfo obResource = db.resourceInfo.Where(u => u.resourceId == resourceId).FirstOrDefault();
                 ViewBag.allInfo = obResource;
-                var obAreaName = db.resourceArea.Where(u => u.areaId == obResource.areaId).FirstOrDefault();
-                ViewBag.areaName = obAreaName.areaName;
+
+                var areaList = db.resourceArea.ToList();
+                ViewBag.areaList = areaList;
+
+                var senderName = db.userInfo.Where(u => u.userId == obResource.userId).FirstOrDefault().userName;
+                ViewBag.senderName = senderName;
                 return View();
             }
         }
         [HttpPost]
-        public ActionResult changeArticle(resourceInfo resource)
+        public ActionResult changeArticleInfo(resourceInfo resource)
         {
             if (Request.Cookies["managerId"] != null)
             {
@@ -452,8 +495,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 var obResource = db.resourceInfo.Where(u => u.resourceId == resource.resourceId).FirstOrDefault();
+                obResource.areaId = resource.areaId;
                 obResource.resourceName = resource.resourceName;
                 obResource.resourceTime = DateTime.Now;
+                obResource.pageView = resource.pageView;
                 obResource.isTop = resource.isTop;
                 obResource.resourceContent = resource.resourceContent;
                 db.SaveChanges();
