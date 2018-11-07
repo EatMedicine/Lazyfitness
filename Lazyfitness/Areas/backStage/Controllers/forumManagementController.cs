@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Lazyfitness.Models;
 using System.Data.Entity.Infrastructure;
+using Lazyfitness.Areas.DbTable;
 
 namespace Lazyfitness.Areas.backStage.Controllers
 {
@@ -176,9 +177,21 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #region 查询
         public ActionResult forumAreaSearch()
         {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var areaName = db.postArea.Select(u => u.areaName).ToList();
+                if (areaName != null)
+                {
+                    ViewBag.areaName = areaName;
+                }
+                else
+                {
+                    return View();
+                }
+            }
             return View();
         }
-        [HttpGet]
+        [HttpPost]
         public ActionResult forumAreaSearch(postArea area)
         {
             if (Request.Cookies["managerId"] != null)
@@ -201,9 +214,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     postArea _postArea = dbAreasearch.FirstOrDefault();
                     if (_postArea != null)
                     {
-                        ViewBag.areaId = _postArea.areaId;
-                        ViewBag.areaName = _postArea.areaName;
-                        ViewBag.areaBrief = _postArea.areaBrief;
+                        ViewBag.postArea = _postArea;
                     }
                     else
                     {
@@ -363,6 +374,18 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #region 查询
         public ActionResult forumInvitationSearch()
         {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var post = db.postInfo.ToList();
+                if (post != null)
+                {
+                    ViewBag.post = post;
+                }
+                else
+                {
+                    return View();
+                }
+            }
             return View();
         }
         [HttpPost]
@@ -388,17 +411,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     postInfo _postinfo = dbInvitationsearch.FirstOrDefault();
                     if (_postinfo != null)
                     {
-                        ViewBag.areaId = _postinfo.areaId;
-                        ViewBag.postId = _postinfo.postId;
-                        ViewBag.postTitle = _postinfo.postTitle;
-                        ViewBag.userId = _postinfo.userId;
-                        ViewBag.postTime = _postinfo.postTime;
-                        ViewBag.pageView = _postinfo.pageView;
-                        ViewBag.isPost = _postinfo.isPost;
-                        ViewBag.isPay = _postinfo.isPay;
-                        ViewBag.amount = _postinfo.amount;
-                        ViewBag.postStatus = _postinfo.postStatus;
-                        ViewBag.postContent = _postinfo.postContent;
+                        ViewBag.postInfo = _postinfo;
                     }
                     else
                     {

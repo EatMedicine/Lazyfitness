@@ -1,0 +1,68 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewBag.title</title>
+    <link rel="stylesheet" type="text/css" href="~/Css/backStageBarLayout.css">
+    <link rel="stylesheet" type="text/css" href="~/Css/backStageTableLayout.css" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</head>
+<body>
+    <div class="topbar-wrap white topbar-inner">
+        <div class="topbar-inner clearfix">
+            <div class="topbar-logo-wrap clearfix">
+                <ul class="navbar-list clearfix">
+                    <li>@Html.ActionLink("首页", "Index", "manager")</li>
+                </ul>
+            </div>
+            <div class="top-info-wrap">
+                <ul class="top-info-list clearfix">
+                    @{
+                        if (ViewBag.managerId == null)
+                        {
+                            <li>@Html.ActionLink("管理员登录", "login", "manager")</li>
+                        }
+                        else
+                        {
+                            <li>@ViewBag.managerId</li>
+                            <li>@Html.ActionLink("退出", "loginOut", "manager")</li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container clearfix">
+        <div class="sidebar-wrap">
+            <div class="sidebar-title">
+                <h1>菜单</h1>
+            </div>
+            <div class="sidebar-content">
+                <ul class="sidebar-list">
+                    <li>
+                        <ul class="sub-menu">
+                            <li>@Html.ActionLink("用户管理", "Index", "userManagement")</li>
+                            <li>@Html.ActionLink("资源文章管理", "Index", "articleManagement")</li>
+                            <li>@Html.ActionLink("论坛管理", "Index", "forumManagement")</li>
+                            <li><a href=""><i class="icon-font"></i>问答专区管理</a></li>
+                            <li><a href=""><i class="icon-font"></i>评论管理</a></li>
+                            <li>@Html.ActionLink("充值管理", "Index", "payManagement")</li>
+                            <li><a href=""><i class="icon-font"></i>统计报表管理</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--/sidebar-->
+        @RenderBody()
+
+    </div>
+    </body>
+</html>
+

@@ -355,6 +355,7 @@
     <Content Include="Views\Shared\_MainStyle.cshtml" />
     <Content Include="设计数据\数据字典.docx" />
     <Content Include="Views\Home\Hello.cshtml" />
+    <Content Include="Views\Shared\_backStageMainStyle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

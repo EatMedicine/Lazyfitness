@@ -27,7 +27,6 @@ namespace Lazyfitness.Models
         [StringLength(50)]
         public string areaName { get; set; }
         [Required(ErrorMessage = "分区描述必须填写")]
-        [DataType(DataType.Text)]
         public string areaBrief { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
