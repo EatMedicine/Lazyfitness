@@ -1,11 +1,122 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小懒人后台管理</title>
+    <link rel="stylesheet" type="text/css" href="~/Css/backStageBarLayout.css">
+    <link rel="stylesheet" type="text/css" href="~/Css/backStageTableLayout.css" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Areas/jQuery/userManagement.js"></script>
+</head>
+<body>
+    <div class="topbar-wrap white topbar-inner">
+        <div class="topbar-inner clearfix">
+            <div class="topbar-logo-wrap clearfix">
+                <ul class="navbar-list clearfix">
+                    <li>@Html.ActionLink("首页", "Index", "manager")</li>
+                </ul>
+            </div>
+            <div class="top-info-wrap">
+                <ul class="top-info-list clearfix">
+                    @{
+                        if (ViewBag.managerId == null)
+                        {
+                            <li>@Html.ActionLink("管理员登录", "login", "manager")</li>
+                        }
+                        else
+                        {
+                            <li>@ViewBag.managerId</li>
+                            <li>@Html.ActionLink("退出", "loginOut", "manager")</li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container clearfix">
+        <div class="sidebar-wrap">
+            <div class="sidebar-title">
+                <h1>菜单</h1>
+            </div>
+            <div class="sidebar-content">
+                <ul class="sidebar-list">
+                    <li>
+                        <ul class="sub-menu">
+                            <li>@Html.ActionLink("用户管理", "Index", "userManagement")</li>
+                            <li>@Html.ActionLink("资源文章管理", "Index", "articleManagement")</li>
+                            <li><a href=""><i class="icon-font"></i>论坛管理</a></li>
+                            <li><a href=""><i class="icon-font"></i>问答专区管理</a></li>
+                            <li><a href=""><i class="icon-font"></i>评论管理</a></li>
+                            <li>@Html.ActionLink("充值管理", "Index", "payManagement")</li>
+                            <li><a href=""><i class="icon-font"></i>统计报表管理</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--/sidebar-->
+        <div class="main-wrap">
+            <div class="crumb-wrap">
+                <div class="crumb-list">
+                    <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+                </div>
+            </div>
+            <div class="result-wrap">
+                <div class="result-title">
+                    <h1>可选操作</h1>
+                </div>
+                <div class="result-content">
+                    <div class="short-wrap">
+                        @Html.ActionLink("资源分区管理", "areaManagement", "articleManagement")
+                        @Html.ActionLink("增加文章", "addArticle", "articleManagement")
+                        @Html.ActionLink("查询文章", "findArticle", "articleManagement")
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<h2>Index</h2>
-@Html.ActionLink("资源分区管理", "areaManagement")
-@Html.ActionLink("增加文章", "addArticle")
-@Html.ActionLink("查询文章", "findArticle")
+        <div class="result-content">
+            <table class="result-tab">
+                <tr>
+                    <th>文章所处分区名称</th>
+                    <th>文章名称</th>
+                    <th>发表用户</th>
+                    <th>发布时间</th>
+                    <th>浏览量</th>
+                    <th>是否置顶</th>
+                    <th>内容</th>
+                </tr>
+                @{
+                    if (ViewBag.allInfo != null)
+                    {
+                        int counter = 0;
+                        foreach (var item in ViewBag.allInfo)
+                        {
+                            <tr>
+                                <th>@ViewBag.areaNameList[counter]</th>
+                                <th>@item.resourceName</th>
+                                <th>@ViewBag.userNameList[counter]</th>
+                                <th>@item.resourceTime</th>
+                                <th>@item.pageView</th>
+                                @if(@item.isTop == 0)
+                                {
+                                    <th>否</th>
+                                }
+                                @if (item.isTop != 0)
+                                {
+                                    <th>是</th>
+                                }
 
-
+                                <th class="hidden">@item.resourceContent</th>
+                            </tr>
+                            counter++;
+                        }
+                    }
+                }
+            </table>
+        </div>
+    </div>
+</body>
+</html>

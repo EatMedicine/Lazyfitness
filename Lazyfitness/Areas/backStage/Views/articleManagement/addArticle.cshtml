@@ -1,33 +1,90 @@
 ﻿@model Lazyfitness.Models.resourceInfo
+
 @{
-    ViewBag.Title = "addArticle";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "增加文章";
 }
+<script src="~/Areas/jQuery/userManagement.js"></script>
 
-<h2>addArticle</h2>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-<form method="post" action="~/backStage/articleManagement/addArticle">
-    <div>
-        <p>
-            选择你文章所属的分区
-        </p>
-        @{
-            foreach (var item in ViewBag.areaList)
-            {
-                <input type="radio" id="areaId" name="areaId" value="@item.areaId" /> <label>@item.areaName</label>
-            }
-        }
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
     </div>
-    <label>文章名</label><input type="text" id="resourceName" name="resourceName" />
-    <div>
-        <label>是否置顶</label>
-       @* <input type="radio" id="isTop" name="isTop" value="0"/> <label>否</label>*@
-        @Html.RadioButtonFor(u=>u.isTop, value:0) <label>否</label> @Html.ValidationMessageFor(u=>u.isTop)
-        @Html.RadioButtonFor(u=>u.isTop, value:1) <label>是</label>
-        @*<input type="radio" id="isTop" name="isTop" value="1" /> <label>是</label>*@
-    </div>   
-    <label>请输入文章内容</label><textarea id="resourceContent" name="resourceContent"></textarea>
-    <input type="submit" value="增加"/>
-</form>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("资源分区管理", "areaManagement", "articleManagement")
+                @Html.ActionLink("增加文章", "addArticle", "articleManagement")
+                @Html.ActionLink("查询文章", "findArticle", "articleManagement")
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="result-content">
+    <form method="post" action="~/backStage/articleManagement/addArticle">
+        <table class="insert-tab">
+            <tbody>
+                <tr><th></th><td class="show-title">增加文章</td></tr>
+                <tr>
+                    <th>
+                        选择你文章所属的分区
+                    </th>
+                    <td>
+                        <select name="areaId">
+                            @foreach (var item in ViewBag.areaList)
+                            {
+                                <option class="dropdown-list" value=@item.areaId id="areaId" name="areaId">@item.areaName</option>
+
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        文章名
+                    </th>
+                    <td>
+                        <input class="input-content" type="text" id="resourceName" name="resourceName" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        是否置顶
+                    </th>
+                    <td>
+                        @Html.RadioButtonFor(u => u.isTop, 0, new { @class = "radio-dis" }) <label>否</label>
+                        @Html.RadioButtonFor(u => u.isTop, 1, new { @class = "radio-dis" }) <label>是</label>
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.isTop)
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        请输入文章内容
+                    </th>
+                    <td>
+                        <textarea class="textArea" id="resourceContent" name="resourceContent"></textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th></th>
+                    <td>
+                        <input class="btn-submit show-border" type="submit" value="增加" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

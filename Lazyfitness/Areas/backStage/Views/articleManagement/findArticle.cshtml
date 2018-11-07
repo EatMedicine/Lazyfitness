@@ -1,46 +1,93 @@
 ﻿@model Lazyfitness.Models.resourceInfo
 @{
-    /**/
-
-    /**/
-
-    ViewBag.Title = "fingArticle";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "查询文章";
 }
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Areas/jQuery/articleManagement.js"></script>
-<h2>fingArticle</h2>
-<table border="1">
-    <tr>
-        <th>分区编号</th>
-        <th>文章编号</th>
-        <th>文章名称</th>
-        <th>发布者编号</th>
-        <th>发布时间</th>
-        <th>浏览量</th>
-        <th>是否置顶</th>
-        <th>内容</th>
-    </tr>
-    @{ foreach (var item in @ViewBag.allInfo)
-        {
+
+<div class="main-wrap">
+
+
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("资源分区管理", "areaManagement", "articleManagement")
+                @Html.ActionLink("增加文章", "addArticle", "articleManagement")
+                @Html.ActionLink("查询文章", "findArticle", "articleManagement")
+            </div>
+        </div>
+    </div>
+
+    <div class="result-content">
+        <table class="result-tab">
             <tr>
-                <th><input type="text" value="@item.areaId" readonly /> </th>
-                <th id="resourceId">@item.resourceId</th>
-                <th>@item.resourceName</th>
-                <th>@item.userId</th>
-                <th>@item.resourceTime</th>
-                <th>@item.pageView</th>
-                <th>@item.isTop</th>
-                <th>@item.resourceContent</th>                
-                <th>
-                    <form method="get" action="~/backStage/articleManagement/changeArticle">
-                        <input type="text" name="resourceId" id="resourceId" value="@item.resourceId" hidden="hidden" />
-                        <input class="changeArticle" type="submit" value="修改">
-                    </form>
-                </th>            
-                <th><button class="deleteArticle" value="@item.resourceId">删除</button></th>
+                <th>分区编号</th>
+                <th>文章编号</th>
+                <th>文章名称</th>
+                <th>发布者编号</th>
+                <th>发布时间</th>
+                <th>浏览量</th>
+                <th>是否置顶</th>
+                <th>内容</th>
+                <th colspan="2">可选操作</th>
             </tr>
-        }
-    }
-</table>
+            @if (ViewBag.allInfo != null)
+            {
+                foreach (var item in @ViewBag.allInfo)
+                {
+                    <tr>
+                        <td><input class="no-border" type="text" value="@item.areaId" readonly /> </td>
+                        <td id="resourceId">@item.resourceId</td>
+                        <td>@item.resourceName</td>
+                        <td>@item.userId</td>
+                        <td>@item.resourceTime</td>
+                        <td>@item.pageView</td>
+                        @if (@item.isTop == 0)
+                        {
+                            <th>否</th>
+                        }
+                        @if (item.isTop != 0)
+                        {
+                            <th>是</th>
+                        }
+                        <td>@item.resourceContent</td>
+                        <td>
+                            <form method="get" action="~/backStage/articleManagement/changeArticle">
+                                <input type="text" name="resourceId" id="resourceId" value="@item.resourceId" hidden="hidden" />
+                                <input class="index-btn" type="submit" value="修改">
+                            </form>
+                        </td>
+                        <td><button class="index-btn delete-data deleteArticle" type="button" value="@item.resourceId">删除</button></td>
+                    </tr>
+                }
+            }
+        </table>
+
+        <div class="page-number">
+            <ul>
+                @{
+                    for (int i = 1; i <= ViewBag.sumPage; i++)
+                    {
+
+                        <li style="float:left">
+                            <form method="post" action="~/backStage/articleManagement/findArticle">
+                                <input class="id" id="id" name="id" type="text" value=@i hidden="hidden" />
+                                <input type="submit" class="btn-submit" value=@i />
+                            </form>
+                        </li>
+                    }
+                }
+                <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @ViewBag.nowPage 页, 共 @ViewBag.sumPage 页" /></li>
+            </ul>
+        </div>
+
+    </div>
+</div>

@@ -134,6 +134,18 @@
                                 状态
                             </th>
                             <td>
+                                @foreach (var item in ViewBag.statusList)
+                                {
+                                    if (item.status == ViewBag.userInfo.userStatus)
+                                    {
+                                        <option class="dropdown-list" selected="selected" value=item.status id="userStatus" name="userStatus">@item.statusName</option>
+                                    }
+                                    else
+                                    {
+                                        <option class="dropdown-list"value=item.status id="userStatus" name="userStatus">@item.statusName</option>
+                                    }
+                                }
+
                                 @{
                                     if (ViewBag.userInfo.userStatus == 0)
                                     {

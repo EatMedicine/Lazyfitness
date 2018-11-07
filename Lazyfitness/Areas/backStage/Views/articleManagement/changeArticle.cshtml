@@ -1,14 +1,13 @@
 ﻿@model Lazyfitness.Models.resourceInfo
 @{
-    ViewBag.Title = "changeArticle";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "修改文章";
 }
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<h2>changeArticle</h2>
+
 
 <form method="post" action="~/backStage/articleManagement/changeArticle">
     @Html.TextBoxFor(u => u.resourceId, new { value = ViewBag.allInfo.resourceId, hidden = "hidden" })
+
     @Html.TextBoxFor(u => u.resourceName, new { Value = ViewBag.allInfo.resourceName })
     <div>
         <label>是否置顶</label>

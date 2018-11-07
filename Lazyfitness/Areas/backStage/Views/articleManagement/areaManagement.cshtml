@@ -1,16 +1,48 @@
-﻿
-@{
-    ViewBag.Title = "areaManagement";
+﻿@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "资源分区管理";
 }
-
-<h2>areaManagement</h2>
-
-@Html.ActionLink("增加分区", "addArea")
-
-@Html.ActionLink("删除分区", "deleteArea")
-
-@Html.ActionLink("查询分区", "findArea")
-
-@*@Html.ActionLink("修改分区", "changeArea")*@
-
-@Html.ActionLink("文章管理首页", "Index")
+<script src="~/Areas/jQuery/userManagement.js"></script>
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加分区", "addArea", "articleManagement")
+                @Html.ActionLink("删除分区", "deleteArea", "articleManagement")
+                @Html.ActionLink("查询分区", "findArea", "articleManagement")
+            </div>
+        </div>
+    </div>
+    <div class="result-content">
+        <table class="result-tab center">
+            <tr><th></th><td colspan="2">已有分区</td></tr>
+            <tr>
+                <td>分区编号</td>
+                <td>分区名</td>
+                <td>分区简介</td>
+            </tr>
+            @{
+                if (ViewBag.allInfo != null)
+                {
+                    foreach (var item in ViewBag.allInfo)
+                    {
+                        <tr>
+                            <td>@item.areaId</td>
+                            <td>@item.areaName</td>
+                            <td>@item.areaBrief</td>
+                        </tr>
+                    }
+                }
+            }
+        </table>
+    </div>
+</div>

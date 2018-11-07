@@ -24,6 +24,7 @@ namespace Lazyfitness.Models
         public int areaId { get; set; }
         [Required(ErrorMessage ="分区名不能为空"), StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessage = "分区名过长")]
         public string areaName { get; set; }
+        [StringLength(maximumLength: 50, MinimumLength = 0, ErrorMessage = "简介不超过50个字")]
         public string areaBrief { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

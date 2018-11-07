@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using Lazyfitness.Models;
@@ -8,7 +10,40 @@ namespace Lazyfitness.Areas.backStage.Controllers
 {
     public class articleManagementController : Controller
     {
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">页容量</param>
+        /// <param name="whereLambda">条件 lambda表达式</param>
+        /// <param name="orderBy">排列 lambda表达式</param>
+        /// <returns></returns>
+        public List<resourceInfo> GetPagedList<TKey>(int pageIndex, int pageSize/*, Expression<Func<userInfo, bool>> whereLambda*/, Expression<Func<resourceInfo, TKey>> orderBy)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                //分页时一定注意：Skip之前一定要OrderBy
+                return db.resourceInfo/*.Where(whereLambda)*/.OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            }
+        }
+
+
+        public int GetSumPage(int pageSize)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                int listSum = db.resourceInfo.ToList().Count;
+                return ((listSum / pageSize) + 1);
+            }
+        }
+
+
+
+
         // GET: backStage/articleManagement
+
         public ActionResult Index()
         {
             if (Request.Cookies["managerId"] != null)
@@ -19,10 +54,52 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             else
             {
+                Response.Redirect("/backStage/manager/login");
                 return Content("未登录");
             }
+            ViewBag.nowPage = 1;
+            ViewBag.sumPage = GetSumPage(10);            
+            ViewBag.allInfo = GetPagedList(1, 10, u => u.userId);
+            var allInfo = GetPagedList(1, 10, u => u.userId);
+            ArrayList areaNameList = new ArrayList();
+            ArrayList userNameList = new ArrayList();
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                for (int i = 0; i < allInfo.Count; i++)
+                {
+                    int userId = allInfo[i].userId.Value;
+                    var obUser = db.userInfo.Where(u => u.userId == userId).FirstOrDefault();
+                    string userName = obUser.userName;
+                    int areaId = allInfo[i].areaId;
+                    var obArea = db.resourceArea.Where(u => u.areaId == areaId).FirstOrDefault();
+                    string areaName = obArea.areaName;
+                    areaNameList.Add(areaName);
+                    userNameList.Add(userName);
+                }
+            }
+            ViewBag.areaNameList = areaNameList;
+            ViewBag.userNameList = userNameList;
             return View();
         }
+
+        //public ActionResult Index(string id)
+        //{
+        //    if (Request.Cookies["managerId"] != null)
+        //    {
+        //        //获取Cookies的值
+        //        HttpCookie cookieName = Request.Cookies["managerId"];
+        //        var cookieText = Server.HtmlEncode(cookieName.Value);
+        //    }
+        //    else
+        //    {
+        //        Response.Redirect("/backStage/manager/login");
+        //        return Content("未登录");
+        //    }
+        //    ViewBag.nowPage = id;
+        //    ViewBag.sumPage = GetSumPage(10);
+        //    ViewBag.allInfo = GetPagedList(Convert.ToInt32(id), 10, u => u.userId);
+        //    return View();
+        //}
 
         #region 资源文章分区管理
         public ActionResult areaManagement()
@@ -35,7 +112,14 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             else
             {
+                Response.Redirect("/backStage/manager/login");
                 return Content("未登录");
+            }
+
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var allInfo = db.resourceArea.ToList();
+                ViewBag.allInfo = allInfo;
             }
             return View();
         }
@@ -94,10 +178,15 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #region 删除分区
         public ActionResult deleteArea()
         {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var allInfo = db.resourceArea.ToList();
+                ViewBag.allInfo = allInfo;
+            }
             return View();
         }
         [HttpPost]
-        public string deleteArea(resourceArea area)
+        public string deleteArea(string areaName)
         {
             if (Request.Cookies["managerId"] != null)
             {
@@ -107,6 +196,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             else
             {
+                Response.Redirect("/backStage/manager/login");
                 return "未登录";
             }
             try
@@ -114,7 +204,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 //先看有没有这个分区
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    var isExist = db.resourceArea.Where(u => u.areaName == area.areaName.Trim()).ToList();
+                    var isExist = db.resourceArea.Where(u => u.areaName == areaName.Trim()).ToList();
                     if (isExist.Count == 0)
                     {
                         return "not find";
@@ -136,10 +226,17 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #region 查询分区
         public ActionResult findArea()
         {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var allInfo = db.resourceArea.ToList();
+                ViewBag.allInfo = allInfo;
+            }
             return View();
         }
-        [HttpPost]
-        public ActionResult findArea(string areaName)
+        #endregion
+
+        #region 修改分区
+        public ActionResult changeArea(int areaId)
         {
             if (Request.Cookies["managerId"] != null)
             {
@@ -149,25 +246,21 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             else
             {
+                Response.Redirect("/backStage/manager/login");
                 return Content("未登录");
             }
 
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 ViewBag.info = null;
-                var info = db.resourceArea.Where(u => u.areaName == areaName.Trim()).ToList();
-                if (info.Count == 0)
-                {
-                    return View("changeArea");
-                }
+                var info = db.resourceArea.Where(u => u.areaId == areaId).ToList();                
                 resourceArea obArea = info.FirstOrDefault();
                 ViewBag.info = obArea;
-                return View("changeArea");
             }
+            return View();
         }
-        #endregion
 
-        #region 修改分区
+
         [HttpPost]
         public ActionResult changeArea(resourceArea area)
         {
@@ -268,13 +361,30 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 return Content("未登录");
             }
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
-            {
-                var allInfo = db.resourceInfo.ToList();
-                ViewBag.allInfo = allInfo;
-                return View();
-            }
+            ViewBag.nowPage = 1;
+            ViewBag.sumPage = GetSumPage(10);
+            ViewBag.allInfo = GetPagedList(1, 10, u => u.userId);
+            return View();
         }
+        [HttpPost]
+        public ActionResult findArticle(int id)
+        {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return Content("未登录");
+            }
+            ViewBag.nowPage = id;
+            ViewBag.sumPage = GetSumPage(10);
+            ViewBag.allInfo = GetPagedList(id, 10, u => u.userId);
+            return View();
+        }
+
 
         #endregion
 
@@ -321,6 +431,8 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 resourceInfo obResource = db.resourceInfo.Where(u => u.resourceId == resourceId).FirstOrDefault();
                 ViewBag.allInfo = obResource;
+                var obAreaName = db.resourceArea.Where(u => u.areaId == obResource.areaId).FirstOrDefault();
+                ViewBag.areaName = obAreaName.areaName;
                 return View();
             }
         }

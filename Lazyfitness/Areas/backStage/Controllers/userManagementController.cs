@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -259,7 +260,16 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 var userSecurity = db.userSecurity.Where(u => u.loginId == info.userName.Trim()).FirstOrDefault();
                 ViewBag.userInfo = userInfo;
                 ViewBag.userSecurity = userSecurity;
+
+                var statusList = db.userInfo.OrderBy(u => u.userStatus).ToList();                
             }
+            //构造和状态对应的状态名字
+            ArrayList statusNameList = new ArrayList();
+            statusNameList.Add("禁止发言");
+            statusNameList.Add("注册会员");
+            statusNameList.Add("正式会员");
+            statusNameList.Add("管理员");            
+
             return View();
         }
         [HttpPost]

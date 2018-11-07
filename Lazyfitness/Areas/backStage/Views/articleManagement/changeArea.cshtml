@@ -1,28 +1,63 @@
 ﻿@model Lazyfitness.Models.resourceArea
-@*@{
-    ViewBag.Title = "changeArea";
-}*@
-
-<h2>changeArea</h2>
-
-
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
 @{
-    if (ViewBag.info != null)
-    {
-<form method="post" action="~/backStage/articleManagement/changeArea">
-    <input type="text" name="areaId" id="areaId" hidden="hidden" value="@ViewBag.info.areaId" />
-    <label>分区名：</label>   @Html.TextBoxFor(t => t.areaName, new { @value = ViewBag.info.areaName }) @Html.ValidationMessageFor(t => t.areaName)    
-    <label>简介:</label>@Html.TextBoxFor(u => u.areaBrief, new { value = ViewBag.info.areaBrief })@Html.ValidationMessageFor(t => t.areaBrief)   
-    <input type="submit" value="更改" />
-</form>		
-
-    }
-    else
-    {
-        <h2>没有此人</h2>
-    }
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "修改分区";
 }
+<script src="~/Areas/jQuery/userManagement.js"></script>
+
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加分区", "addArea", "articleManagement")
+                @Html.ActionLink("删除分区", "deleteArea", "articleManagement")
+                @Html.ActionLink("查询分区", "findArea", "articleManagement")
+            </div>
+        </div>
+    </div>
+    <div class="result-content">
+        <form method="post" action="~/backStage/articleManagement/changeArea">
+            @if (ViewBag.info.areaId != null)
+            {
+                <input type="text" name="areaId" id="areaId" hidden="hidden" value="@ViewBag.info.areaId" />
+                <table class="insert-tab">
+                    <tr><th></th><td class="show-title">修改分区</td></tr>
+                    <tr>
+                        <th>
+                            分区名
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(t => t.areaName, new { @class = "input-content", Value = @ViewBag.info.areaName })
+                            <div class="error-mes">@Html.ValidationMessageFor(t => t.areaName)</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            分区简介
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(t => t.areaBrief, new { @class = "input-content", Value = @ViewBag.info.areaBrief })
+                            <div class="error-mes">@Html.ValidationMessageFor(t => t.areaBrief)</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="更改" />
+                        </td>
+                    </tr>
+                </table>
+            }
+        </form>
+    </div>
+</div>
+

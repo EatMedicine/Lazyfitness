@@ -1,9 +1,12 @@
-﻿@model Lazyfitness.Models.resourceArea
+﻿
+@{
+    Layout = null;
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>小懒人后台管理</title>
+    <title>@ViewBag.title</title>
     <link rel="stylesheet" type="text/css" href="~/Css/backStageBarLayout.css">
     <link rel="stylesheet" type="text/css" href="~/Css/backStageTableLayout.css" />
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -58,57 +61,10 @@
             </div>
         </div>
         <!--/sidebar-->
-        <div class="main-wrap">
-            <div class="crumb-wrap">
-                <div class="crumb-list">
-                    <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
-                </div>
-            </div>
-            <div class="result-wrap">
-                <div class="result-title">
-                    <h1>可选操作</h1>
-                </div>
-                <div class="result-content">
-                    <div class="short-wrap">
-                        @Html.ActionLink("增加分区", "addArea", "articleManagement")
-                        @Html.ActionLink("删除分区", "deleteArea", "articleManagement")
-                        @Html.ActionLink("查询分区", "findArea", "articleManagement")
-                    </div>
-                </div>
-            </div>
-            <div class="result-content">
-                <form method="get" action="~/backStage/articleManagement/changeArea">                    
-                    <table class="insert-tab">
-                        <tr><th></th><td class="show-title">查询分区</td></tr>
-                        <tr>
-                            <th>
-                                要查询的分区名
-                            </th>
-                            <td>
-                                @{
-                                <select name="areaId">
-                                    @if (ViewBag.allInfo != null)
-                                    {
-                                        foreach (var item in ViewBag.allInfo)
-                                        {
-                                            <option class="dropdown-list" value=@item.areaId id="areaId" name="areaId">@item.areaName</option>
-                                        }
-                                    }
-                                </select>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td>
-                                <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="查询" />
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-            </div>
-        </div>
+        @RenderBody()       
+
+
     </div>
-</body>
+    </body>
 </html>
 
