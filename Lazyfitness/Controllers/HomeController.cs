@@ -10,7 +10,7 @@ namespace Lazyfitness.Controllers
 {
     public class HomeController : Controller
     {
-
+        //欢迎页
         public ActionResult Hello()
         {
             return View();
@@ -23,7 +23,7 @@ namespace Lazyfitness.Controllers
             ViewBag.ErrorMsg = "没错这就是错误页面";
             return View("~/Views/Shared/err.cshtml");
         }
-
+        //首页
         public ActionResult Index()
         {
             #region 数据
@@ -74,7 +74,7 @@ namespace Lazyfitness.Controllers
             #endregion
             return View();
         }
-
+        //文章资源
         public ActionResult Article()
         {
 
@@ -145,7 +145,26 @@ namespace Lazyfitness.Controllers
             #endregion
             return View();
         }
-
+        //问答
+        public ActionResult Question()
+        {
+            ViewBag.PartList = new string[]
+            {
+                "首页",
+                "已解决",
+                "未解决",
+                "我提出的问题",
+            };
+            ViewBag.PartUrl = new string[]
+            {
+                "#",
+                "#",
+                "#",
+                "#",
+            };
+            return View();
+        }
+        //论坛
         public ActionResult forum()
         {
             ViewBag.PartName = new string[]
@@ -189,7 +208,7 @@ namespace Lazyfitness.Controllers
             ViewBag.PartSelect = -1;
             return View();
         }
-
+        //文章资源区内容
         public JsonResult ArticleItemContent()
         {
             ArticleItem[] items = new ArticleItem[5];
@@ -203,7 +222,7 @@ namespace Lazyfitness.Controllers
             }
             return Json(items, JsonRequestBehavior.AllowGet);
         }
-
+        //问答区内容
         public JsonResult QuesItemContent()
         {
             ArticleItem[] items = new ArticleItem[5];
@@ -217,7 +236,7 @@ namespace Lazyfitness.Controllers
             }
             return Json(items, JsonRequestBehavior.AllowGet);
         }
-
+        //论坛区内容
         public JsonResult forumItemContent()
         {
             ArticleItem[] items = new ArticleItem[5];
@@ -232,24 +251,60 @@ namespace Lazyfitness.Controllers
             return Json(items, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Question()
+        //文章资源区分页
+        public ActionResult ArticlePart(int partId = 0, int pageNum = 1)
         {
-            ViewBag.PartList = new string[]
+            if (pageNum < 1)
             {
-                "首页",
-                "已解决",
-                "未解决",
-                "我提出的问题",
-            };
-            ViewBag.PartUrl = new string[]
+                pageNum = 1;
+            }
+            if (Request.QueryString["GoPageNum"] != null)
+            {
+                int num;
+                if (Int32.TryParse(Request.QueryString["GoPageNum"] as string, out num) == true) 
+                {
+                    pageNum = num;
+                }
+                else
+                {
+                    pageNum = 1;
+                }
+
+            }
+            ViewBag.AreasName = new string[]
+{
+                "食物",
+                "器材",
+                "技巧",
+};
+            ViewBag.AreasUrl = new string[]
             {
                 "#",
                 "#",
                 "#",
                 "#",
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
             };
+            //下面4个ViewBag是用于传入帖子信息的
+            ViewBag.ItemsName = Tools.GetArticlePartName(partId,pageNum);
+            ViewBag.ItemsTitle = Tools.GetArticlePartTitle(partId, pageNum);
+            ViewBag.ItemsUrl = Tools.GetArticlePartUrl(partId, pageNum);
+            ViewBag.ItemsHeadAdr = Tools.GetArticlePartHeadAdr(partId, pageNum);
+            ViewBag.ItemsIntroduction = Tools.GetArticlePartIntroduction(partId, pageNum);
+            //这是传入PartId的;
+            ViewBag.PartId = partId;
+            ViewBag.PageNum = pageNum;
+            ViewBag.PartName = Tools.GetArticleName(partId);
+
+
             return View();
         }
+
         #region Test
         public ActionResult About()
         {

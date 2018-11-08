@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewData["IsSearch"] = false;
+    ViewData["IsHeadPic"] = true;
+    ViewBag.IsDefaultContent = false;
+    ViewBag.Title = "文章分区";
+    Layout = "~/Views/Shared/_MainStyle.cshtml";
+}
+@*本页需要的变量：
+    ViewBag.AreasName 分区的名字 string[]
+    ViewBag.AreasUrl 分区的Url string[]
+    ViewBag.PartName 本分区名字 string
+    ViewBag.PartId 本分区的ID int
+    ViewBag.PageNum 本分区的当前页数 int
+    ViewBag.ItemsName 分区该页帖子的发帖人名 string[]
+    ViewBag.ItemsTitle 分区该页帖子的标题 string[]
+    ViewBag.ItemsUrl 分区该页帖子帖子链接 string[]
+    ViewBag.ItemsHeadAdr 分区该页帖子头像地址 string[]
+    ViewBag.ItemsIntroduction 分区该页帖子简介 string[]
+*@
+<link href="~/Css/Article.css?v=2018-1022-0017" rel="stylesheet" type="text/css" />
+<link href="~/Css/ArticlePart.css?v=2018-1022-0017" rel="stylesheet" type="text/css" />
+
+
+
+@*主要内容*@
+<div class="main">
+    <div class="main-content">
+        <div style="width:100%">
+            <h2 style="font-family:YouYuan;position:relative;padding-left:120px;width:200px;">@ViewBag.PartName</h2>
+            <div class="article-list">
+                @{
+                    string[] names = ViewBag.ItemsName as string[];
+                    string[] titles = ViewBag.ItemsTitle as string[];
+                    string[] urls = ViewBag.ItemsUrl as string[];
+                    string[] headAdrs = ViewBag.ItemsHeadAdr as string[];
+                    string[] introductions = ViewBag.ItemsIntroduction as string[];
+                }
+                @for (int count = 0; count < names.Length; count++)
+                {
+                    <div class="article-list-item">
+                        <div class="item-con">
+                            <div class="item-title">
+                                <h3><a href=@urls[count]>@titles[count]</a></h3>
+                            </div>
+                            <div class="item-introduction">
+                                <p>@introductions[count]</p>
+                            </div>
+                            <div class="item-user">
+                                <div class="user-pic fl">
+                                    <img src=@headAdrs[count] />
+                                </div>
+                                <div class="user-name fl">
+                                    <p>@names[count]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @*
+                    <div class="article-list-item">
+                        <div class="item-con">
+                            <div class="item-title">
+                                <h3><a href="#">这是标题</a></h3>
+                            </div>
+                            <div class="item-introduction">
+                                <p>这是内容简介</p>
+                            </div>
+                            <div class="item-user">
+                                <div class="user-pic fl">
+                                    <img src="~/Resource/picture/DefaultHeadPic.jpg" />
+                                </div>
+                                <div class="user-name fl">
+                                    <p>这是名字</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+
+        </div>
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-title">
+                分区
+            </div>
+            <ul>
+                @{
+                    string[] AreasName = ViewBag.AreasName as string[];
+                    string[] AreasUrl = ViewBag.AreasUrl as string[];
+                }
+                @for (int count = 0; count < AreasName.Length; count++)
+                {
+                    <li><a href="@AreasUrl[count]">@AreasName[count]</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="page-list">
+        <ul>
+            @{ 
+                int preNum = ViewBag.PageNum - 1;
+                int nextNum = ViewBag.PageNum + 1;
+                if (preNum < 1)
+                {
+                    preNum = 1;
+                }
+            }
+            <li><a href=@Url.Action("ArticlePart","Home",new { partid = preNum})><div class="page-list-item" style="width:50px">上一页</div></a></li>
+            <li><a href=@Url.Action("ArticlePart","Home",new { partid = ViewBag.PageNum})><div class="page-list-item">@ViewBag.PageNum</div></a></li>
+            <li><a href=@Url.Action("ArticlePart","Home",new { partid = nextNum})><div class="page-list-item" style="width:50px">下一页</div></a></li>
+            @using (Html.BeginForm("ArticlePart", "Home", FormMethod.Get))
+            {
+                <li>
+                    <div class="page-list-item">
+                        <input type="text" id="GoPageNum" name="GoPageNum" class="input-pageNum" autocomplete="off"/>
+                    </div>
+                    <div class="page-list-item">
+                        <input type="submit" class="input-pageNum-submit" value="跳转" />
+                    </div>
+                </li>
+
+            }
+        </ul>
+    </div>
+</div>
+<div class="go-top unvis" id="top-btn">
+    <a href="#"><img src="~/Resource/picture/gotoTop.png" /></a>
+</div>

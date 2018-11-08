@@ -210,12 +210,14 @@
     </Compile>
     <Compile Include="MyClass\ArticleItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\img\show.jpg" />
     <Content Include="Areas\jQuery\showPwd.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\ArticlePart.css" />
     <Content Include="Css\forum.css" />
     <Content Include="Css\Index.css" />
     <Content Include="Css\Input.css" />
@@ -325,6 +327,7 @@
     <Content Include="Views\Home\Article.cshtml" />
     <Content Include="Views\Home\Question.cshtml" />
     <Content Include="Views\Home\forum.cshtml" />
+    <Content Include="Views\Home\ArticlePart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
