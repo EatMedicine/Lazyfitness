@@ -1,0 +1,31 @@
+﻿.page-list {
+    margin: 0 auto;
+    width: 500px;
+    height: 50px;
+}
+
+.page-list-item {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    margin: 10px;
+    border: 1px solid rgb(220, 220, 220);
+    border-radius: 10px;
+    background-color: white;
+    text-align: center;
+    font-size: 12px;
+    float: left;
+}
+
+.input-pageNum {
+    border: 0;
+    width: 20px;
+    outline: none;
+}
+
+.input-pageNum-submit {
+    background-color: inherit;
+    outline: none;
+    border: none;
+    font-size: 12px;
+}

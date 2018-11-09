@@ -157,10 +157,10 @@ namespace Lazyfitness.Controllers
             };
             ViewBag.PartUrl = new string[]
             {
-                "#",
-                "#",
-                "#",
-                "#",
+                Url.Action("Question","Home"),
+                Url.Action("QuestionPart","Home"),
+                Url.Action("QuestionPart","Home",new{ partId=2}),
+                Url.Action("QuestionPart","Home",new{ partId=3}),
             };
             return View();
         }
@@ -302,6 +302,51 @@ namespace Lazyfitness.Controllers
             ViewBag.PartName = Tools.GetArticleName(partId);
 
 
+            return View();
+        }
+
+        //问答区分页
+        public ActionResult QuestionPart(int partId = 1, int pageNum = 1)
+         {
+            if (pageNum < 1)
+            {
+                pageNum = 1;
+            }
+            if (Request.QueryString["GoPageNum"] != null)
+            {
+                int num;
+                if (Int32.TryParse(Request.QueryString["GoPageNum"] as string, out num) == true)
+                {
+                    pageNum = num;
+                }
+                else
+                {
+                    pageNum = 1;
+                }
+
+            }
+            ViewBag.PartList = new string[]
+            {
+                "首页",
+                "已解决",
+                "未解决",
+                "我提出的问题",
+            };
+            ViewBag.PartUrl = new string[]
+            {
+                Url.Action("Question","Home"),
+                Url.Action("QuestionPart","Home"),
+                Url.Action("QuestionPart","Home",new{ partId=2}),
+                Url.Action("QuestionPart","Home",new{ partId=3}),
+            };
+            ViewBag.PartId = partId;
+            ViewBag.PageNum = pageNum;
+            ViewBag.ItemsName = Tools.GetQuestionPartName(partId, pageNum);
+            ViewBag.ItemsTitle = Tools.GetQuestionPartTitle(partId, pageNum);
+            ViewBag.ItemsUrl = Tools.GetQuestionPartUrl(partId, pageNum);
+            ViewBag.ItemsHeadAdr = Tools.GetQuestionPartHeadAdr(partId, pageNum);
+            ViewBag.ItemsIntroduction = Tools.GetQuestionPartIntroduction(partId, pageNum);
+            ViewBag.ItemsMoney = Tools.GetQuestionPartMoney(partId, pageNum);
             return View();
         }
 
