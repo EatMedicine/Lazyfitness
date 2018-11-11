@@ -125,22 +125,18 @@ namespace Lazyfitness.Controllers
             };
             ViewBag.AreasName = new string[]
             {
+                "首页",
                 "食物",
                 "器材",
                 "技巧",
             };
             ViewBag.AreasUrl = new string[]
             {
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
+                Url.Action("Article","Home"),
+                Url.Action("ArticlePart","Home",new{partId=1}),
+                Url.Action("ArticlePart","Home",new{partId=2}),
+                Url.Action("ArticlePart","Home",new{partId=3}),
+                Url.Action("ArticlePart","Home",new{partId=4}),
             };
             #endregion
             return View();
@@ -173,27 +169,13 @@ namespace Lazyfitness.Controllers
                 "分区2",
                 "分区3",
                 "分区4",
-                "分区5",
-                "分区6",
-                "分区7",
-                "分区8",
-                "分区9",
-                "分区10",
             };
             ViewBag.PartUrl = new string[]
             {
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
+                Url.Action("forumPart","Home",new {partId=1}),
+                Url.Action("forumPart","Home",new {partId=2}),
+                Url.Action("forumPart","Home",new {partId=3}),
+                Url.Action("forumPart","Home",new {partId=4}),
             };
             ViewBag.PartPicUrl = new string[]
             {
@@ -272,23 +254,19 @@ namespace Lazyfitness.Controllers
 
             }
             ViewBag.AreasName = new string[]
-{
+            {
+                "首页",
                 "食物",
                 "器材",
                 "技巧",
-};
+            };
             ViewBag.AreasUrl = new string[]
             {
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
+                Url.Action("Article","Home"),
+                Url.Action("ArticlePart","Home",new{partId=1}),
+                Url.Action("ArticlePart","Home",new{partId=2}),
+                Url.Action("ArticlePart","Home",new{partId=3}),
+                Url.Action("ArticlePart","Home",new{partId=4}),
             };
             //下面4个ViewBag是用于传入帖子信息的
             ViewBag.ItemsName = Tools.GetArticlePartName(partId,pageNum);
@@ -347,6 +325,60 @@ namespace Lazyfitness.Controllers
             ViewBag.ItemsHeadAdr = Tools.GetQuestionPartHeadAdr(partId, pageNum);
             ViewBag.ItemsIntroduction = Tools.GetQuestionPartIntroduction(partId, pageNum);
             ViewBag.ItemsMoney = Tools.GetQuestionPartMoney(partId, pageNum);
+            return View();
+        }
+
+        //问答区分页
+        public ActionResult forumPart(int partId = 1, int pageNum = 1)
+        {
+            if (pageNum < 1)
+            {
+                pageNum = 1;
+            }
+            if (Request.QueryString["GoPageNum"] != null)
+            {
+                int num;
+                if (Int32.TryParse(Request.QueryString["GoPageNum"] as string, out num) == true)
+                {
+                    pageNum = num;
+                }
+                else
+                {
+                    pageNum = 1;
+                }
+
+            }
+            ViewBag.PartName = new string[]
+            {
+                "分区1",
+                "分区2",
+                "分区3",
+                "分区4",
+            };
+            ViewBag.PartUrl = new string[]
+            {
+                Url.Action("forumPart","Home",new {partId=1}),
+                Url.Action("forumPart","Home",new {partId=2}),
+                Url.Action("forumPart","Home",new {partId=3}),
+                Url.Action("forumPart","Home",new {partId=4}),
+            };
+            ViewBag.PartPicUrl = new string[]
+            {
+                Url.Content("~/Resource/picture/list-style-dot-red.png"),
+                Url.Content("~/Resource/picture/list-style-dot-orange.png"),
+                Url.Content("~/Resource/picture/list-style-dot-yellow.png"),
+                Url.Content("~/Resource/picture/list-style-dot-green.png"),
+                Url.Content("~/Resource/picture/list-style-dot-cyan.png"),
+                Url.Content("~/Resource/picture/list-style-dot-blue.png"),
+                Url.Content("~/Resource/picture/list-style-dot-purple.png"),
+            };
+            ViewBag.PartId = partId;
+            ViewBag.PageNum = pageNum;
+            ViewBag.ItemsName = Tools.GetQuestionPartName(partId, pageNum);
+            ViewBag.ItemsTitle = Tools.GetQuestionPartTitle(partId, pageNum);
+            ViewBag.ItemsUrl = Tools.GetQuestionPartUrl(partId, pageNum);
+            ViewBag.ItemsHeadAdr = Tools.GetQuestionPartHeadAdr(partId, pageNum);
+            ViewBag.ItemsIntroduction = Tools.GetQuestionPartIntroduction(partId, pageNum);
             return View();
         }
 

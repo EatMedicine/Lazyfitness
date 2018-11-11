@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewData["IsSearch"] = false;
+    ViewData["IsHeadPic"] = true;
+    ViewBag.IsDefaultContent = true;
+    ViewBag.Title = "论坛";
+    Layout = "~/Views/Shared/_MainStyle.cshtml";
+}
+
+@*
+    本页需要的变量：
+        ViewBag.PartName 分区名字列表 string[]
+        ViewBag.PartUrl 分区Url列表 string[]
+        ViewBag.PartPicUrl 分区列表前图片的URL string[]
+        ViewBag.PartId 本分区的ID int
+        ViewBag.PageNum 本分区的当前页数 int
+        ViewBag.ItemsName 分区该页帖子的发帖人名 string[]
+        ViewBag.ItemsTitle 分区该页帖子的标题 string[]
+        ViewBag.ItemsUrl 分区该页帖子帖子链接 string[]
+        ViewBag.ItemsHeadAdr 分区该页帖子头像地址 string[]
+        ViewBag.ItemsIntroduction 分区该页帖子简介 string[]
+
+*@
+@Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+<link href="~/Css/forum.css?v=2018-1028-1926" rel="stylesheet" type="text/css" />
+<link href="~/Css/forumPart.css?v=2018-1028-1926" rel="stylesheet" type="text/css" />
+
+<div class="main">
+    <div class="nav-left">
+        <div class="nav-new">
+            <a href="#">
+                <div class="nav-newbtn">
+                    <span>我要发帖</span>
+                </div>
+            </a>
+        </div>
+        <div class="nav-part-list">
+            <ul>
+
+                @{
+                    string[] partName = ViewBag.PartName as string[];
+                    string[] partUrl = ViewBag.PartUrl as string[];
+                    string[] partPicUrl = ViewBag.PartPicUrl as string[];
+                    int partSelect = ViewBag.PartId;
+                }
+                <li>
+                    <a href="@Url.Action("forum","Home")">
+                        <img src="~/Resource/picture/list-style-dot-grey.png" style="width:15px" />
+                        <span class="unselect">所有帖子</span>
+                    </a>
+                </li>
+                @*分区IDPartID从1开始计数*@
+                @for (int count = 0; count < partName.Length; count++)
+                {
+                    <li>
+                        <a href="@partUrl[count]">
+                            @if (count >= partPicUrl.Length)
+                            {
+                                int num = count;
+                                while (num >= partPicUrl.Length)
+                                {
+                                    num -= partPicUrl.Length;
+                                }
+                                <img src="@partPicUrl[num]" style="width:15px" />
+
+                            }
+                            else
+                            {
+                                <img src="@partPicUrl[count]" style="width:15px" />
+                            }
+                            @if (count + 1 == partSelect)
+                            {
+                                <span class="select">@partName[count]</span>
+                            }
+                            else
+                            {
+                                <span class="unselect">@partName[count]</span>
+                            }
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="forum-list">
+        @{
+            string[] names = ViewBag.ItemsName as string[];
+            string[] titles = ViewBag.ItemsTitle as string[];
+            string[] urls = ViewBag.ItemsUrl as string[];
+            string[] headAdrs = ViewBag.ItemsHeadAdr as string[];
+            string[] introductions = ViewBag.ItemsIntroduction as string[];
+        }
+        @for (int count = 0; count < names.Length; count++)
+        {
+            <div class="forum-list-item">
+                <div class="item-con">
+                    <div class="item-title">
+                        <h3><a href=@urls[count]>@titles[count]</a></h3>
+                    </div>
+                    <div class="item-introduction">
+                        <p>@introductions[count]</p>
+                    </div>
+                    <div class="item-user">
+                        <div class="user-pic fl">
+                            <img src=@headAdrs[count] />
+                        </div>
+                        <div class="user-name fl">
+                            <p>@names[count]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="page-list">
+            <ul>
+                @{
+                    int preNum = ViewBag.PageNum - 1;
+                    int nextNum = ViewBag.PageNum + 1;
+                    if (preNum < 1)
+                    {
+                        preNum = 1;
+                    }
+                }
+                <li><a href=@Url.Action("forumPart","Home",new { pageNum = preNum, partId = ViewBag.PartID})><div class="page-list-item" style="width:50px">上一页</div></a></li>
+                <li><a href=@Url.Action("forumPart","Home",new { pageNum = ViewBag.PageNum, partId = ViewBag.PartID})><div class="page-list-item">@ViewBag.PageNum</div></a></li>
+                <li><a href=@Url.Action("forumPart","Home",new { pageNum = nextNum, partId = ViewBag.PartID})><div class="page-list-item" style="width:50px">下一页</div></a></li>
+                @using (Html.BeginForm("forumPart", "Home", FormMethod.Get))
+                {
+                    <li>
+                        <div class="page-list-item">
+                            <input type="text" id="GoPageNum" name="GoPageNum" class="input-pageNum" autocomplete="off" />
+                        </div>
+                        <div class="page-list-item">
+                            <input type="submit" class="input-pageNum-submit" value="跳转" />
+                        </div>
+                    </li>
+
+                }
+            </ul>
+        </div>
+        @*<div class="forum-list-item">
+            <div class="item-con">
+                <div class="item-title">
+                    <h3>这是标题</h3>
+                </div>
+                <div class="item-introduction">
+                    <p>这是内容简介</p>
+                </div>
+                <div class="item-user">
+                    <div class="user-pic fl">
+                        <img src="~/Resource/picture/DefaultHeadPic.jpg" />
+                    </div>
+                    <div class="user-name fl">
+                        <p>这是名字</p>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    </div>
+    <div class="go-top unvis" id="top-btn">
+        <a href="#"><img src="~/Resource/picture/gotoTop.png" /></a>
+    </div>
+    
+</div>

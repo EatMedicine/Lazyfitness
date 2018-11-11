@@ -40,14 +40,7 @@
                 <li>
                     <a href="@Url.Action("forum","Home")">
                         <img src="~/Resource/picture/list-style-dot-grey.png" style="width:15px" />
-                        @if (partSelect == -1)
-                        {
-                            <span class="select">所有帖子</span>
-                        }
-                        else
-                        {
-                            <span class="unselect">所有帖子</span>
-                        }
+                        <span class="select">所有帖子</span>
                         </a>
                     </li>
                     @for (int count = 0; count < partName.Length; count++)

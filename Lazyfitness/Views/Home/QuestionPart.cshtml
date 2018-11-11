@@ -115,9 +115,9 @@
                 preNum = 1;
             }
         }
-        <li><a href=@Url.Action("QuestionPart","Home",new { pageNum = preNum})><div class="page-list-item" style="width:50px">上一页</div></a></li>
-        <li><a href=@Url.Action("QuestionPart","Home",new { pageNum = ViewBag.PageNum})><div class="page-list-item">@ViewBag.PageNum</div></a></li>
-        <li><a href=@Url.Action("QuestionPart","Home",new { pageNum = nextNum})><div class="page-list-item" style="width:50px">下一页</div></a></li>
+        <li><a href=@Url.Action("QuestionPart","Home",new { pageNum = preNum, partId = ViewBag.PartID})><div class="page-list-item" style="width:50px">上一页</div></a></li>
+        <li><a href=@Url.Action("QuestionPart","Home",new { pageNum = ViewBag.PageNum, partId = ViewBag.PartID})><div class="page-list-item">@ViewBag.PageNum</div></a></li>
+        <li><a href=@Url.Action("QuestionPart","Home",new { pageNum = nextNum, partId = ViewBag.PartID})><div class="page-list-item" style="width:50px">下一页</div></a></li>
         @using (Html.BeginForm("QuestionPart", "Home", FormMethod.Get))
         {
             <li>

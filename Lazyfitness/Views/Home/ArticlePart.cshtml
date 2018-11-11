@@ -80,9 +80,7 @@
 
         </div>
         <div class="sidebar" id="sidebar">
-            <div class="sidebar-title">
-                分区
-            </div>
+
             <ul>
                 @{
                     string[] AreasName = ViewBag.AreasName as string[];
@@ -105,9 +103,9 @@
                     preNum = 1;
                 }
             }
-            <li><a href=@Url.Action("ArticlePart","Home",new { pageNum = preNum})><div class="page-list-item" style="width:50px">上一页</div></a></li>
-            <li><a href=@Url.Action("ArticlePart","Home",new { pageNum = ViewBag.PageNum})><div class="page-list-item">@ViewBag.PageNum</div></a></li>
-            <li><a href=@Url.Action("ArticlePart","Home",new { pageNum = nextNum})><div class="page-list-item" style="width:50px">下一页</div></a></li>
+            <li><a href=@Url.Action("ArticlePart","Home",new { pageNum = preNum, partId = ViewBag.PartID})><div class="page-list-item" style="width:50px">上一页</div></a></li>
+            <li><a href=@Url.Action("ArticlePart","Home",new { pageNum = ViewBag.PageNum, partId = ViewBag.PartID})><div class="page-list-item">@ViewBag.PageNum</div></a></li>
+            <li><a href=@Url.Action("ArticlePart","Home",new { pageNum = nextNum, partId = ViewBag.PartID})><div class="page-list-item" style="width:50px">下一页</div></a></li>
             @using (Html.BeginForm("ArticlePart", "Home", FormMethod.Get))
             {
                 <li>
