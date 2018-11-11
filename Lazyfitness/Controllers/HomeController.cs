@@ -374,11 +374,11 @@ namespace Lazyfitness.Controllers
             };
             ViewBag.PartId = partId;
             ViewBag.PageNum = pageNum;
-            ViewBag.ItemsName = Tools.GetQuestionPartName(partId, pageNum);
-            ViewBag.ItemsTitle = Tools.GetQuestionPartTitle(partId, pageNum);
-            ViewBag.ItemsUrl = Tools.GetQuestionPartUrl(partId, pageNum);
-            ViewBag.ItemsHeadAdr = Tools.GetQuestionPartHeadAdr(partId, pageNum);
-            ViewBag.ItemsIntroduction = Tools.GetQuestionPartIntroduction(partId, pageNum);
+            ViewBag.ItemsName = Tools.GetforumPartName(partId, pageNum);
+            ViewBag.ItemsTitle = Tools.GetforumPartTitle(partId, pageNum);
+            ViewBag.ItemsUrl = Tools.GetforumPartUrl(partId, pageNum);
+            ViewBag.ItemsHeadAdr = Tools.GetforumPartHeadAdr(partId, pageNum);
+            ViewBag.ItemsIntroduction = Tools.GetforumPartIntroduction(partId, pageNum);
             return View();
         }
 
