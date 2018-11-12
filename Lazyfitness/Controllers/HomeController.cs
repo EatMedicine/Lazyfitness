@@ -408,6 +408,11 @@ namespace Lazyfitness.Controllers
             return View();
         }
 
+        public ActionResult ArticleEditor()
+        {
+            return View();
+        }
+
         #region Test
         public ActionResult About()
         {

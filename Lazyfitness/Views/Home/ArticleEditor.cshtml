@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["IsSearch"] = false;
+    ViewData["IsHeadPic"] = true;
+    ViewBag.IsDefaultContent = true;
+    ViewBag.Title = "文章编辑";
+    Layout = "~/Views/Shared/_MainStyle.cshtml";
+}
+
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/lang/zh-cn/zh-cn.js"></script>
+
+<script type="text/javascript">
+    var editor = new baidu.editor.ui.Editor({
+
+        initialFrameWidth: 784,
+        initialFrameHeight: 400,
+        toolbars: [
+            ['source', 'simpleupload']
+        ]
+    });
+    editor.render('editor');
+</script>
+
+@using (Html.BeginForm("ArticleSubmit", "API", FormMethod.Post))
+{
+    <input type="number" id="partId" name="partId" />
+    <textarea id="editor" name="editor"></textarea>
+    <input type="submit" value="提交" />
+}
