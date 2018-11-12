@@ -234,6 +234,12 @@ namespace Lazyfitness.Controllers
         }
 
         //文章资源区分页
+        /// <summary>
+        /// 文章资源区分页
+        /// </summary>
+        /// <param name="partId">分区ID</param>
+        /// <param name="pageNum">页数</param>
+        /// <returns></returns>
         public ActionResult ArticlePart(int partId = 0, int pageNum = 1)
         {
             if (pageNum < 1)
@@ -283,7 +289,12 @@ namespace Lazyfitness.Controllers
             return View();
         }
 
-        //问答区分页
+        /// <summary>
+        /// 问答区分页
+        /// </summary>
+        /// <param name="partId">分区ID</param>
+        /// <param name="pageNum">页数</param>
+        /// <returns></returns>
         public ActionResult QuestionPart(int partId = 1, int pageNum = 1)
          {
             if (pageNum < 1)
@@ -328,7 +339,12 @@ namespace Lazyfitness.Controllers
             return View();
         }
 
-        //问答区分页
+        /// <summary>
+        /// 问答区分页
+        /// </summary>
+        /// <param name="partId">分区ID</param>
+        /// <param name="pageNum">页数</param>
+        /// <returns></returns>
         public ActionResult forumPart(int partId = 1, int pageNum = 1)
         {
             if (pageNum < 1)
@@ -379,6 +395,16 @@ namespace Lazyfitness.Controllers
             ViewBag.ItemsUrl = Tools.GetforumPartUrl(partId, pageNum);
             ViewBag.ItemsHeadAdr = Tools.GetforumPartHeadAdr(partId, pageNum);
             ViewBag.ItemsIntroduction = Tools.GetforumPartIntroduction(partId, pageNum);
+            return View();
+        }
+
+        /// <summary>
+        /// 文章资源区帖子
+        /// </summary>
+        /// <param name="num">帖子序号</param>
+        /// <returns></returns>
+        public ActionResult ArticleDetail(int num = 0)
+        {
             return View();
         }
 

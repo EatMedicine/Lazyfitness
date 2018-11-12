@@ -217,6 +217,7 @@
     <Content Include="Areas\jQuery\showPwd.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\ArticleDetail.css" />
     <Content Include="Css\ArticlePart.css" />
     <Content Include="Css\forum.css" />
     <Content Include="Css\forumPart.css" />
@@ -332,6 +333,7 @@
     <Content Include="Views\Home\ArticlePart.cshtml" />
     <Content Include="Views\Home\QuestionPart.cshtml" />
     <Content Include="Views\Home\forumPart.cshtml" />
+    <Content Include="Views\Home\ArticleDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

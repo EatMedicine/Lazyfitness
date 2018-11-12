@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewData["IsSearch"] = false;
+    ViewData["IsHeadPic"] = true;
+    ViewBag.IsDefaultContent = true;
+    ViewBag.Title = "文章帖子";
+    Layout = "~/Views/Shared/_MainStyle.cshtml";
+}
+
+<link href="~/Css/ArticleDetail.css" rel="stylesheet" type="text/css" />
+<div class="main">
+    <div class="left-box">
+        <div class="name-head">
+            <div class="head-pic">
+                <img src="~/Resource/picture/DefaultHeadPic.jpg" style="width:40px"/>
+            </div>
+            <div class="name">
+                这是名字
+            </div>
+        </div>
+        <div class="left-box-info">
+            <ul>
+                <li>年龄：0 </li>
+                <li>性别：0</li>
+            </ul>
+        </div>
+        <div class="left-box-intro">
+            <p>在校大学生，目前学习C#，Python，Asp.net等 个人主页：http://www.???.com</p>
+        </div>
+    </div>
+    <div class="main-detail">
+        <div class="title-info">
+            <div class="title">
+                <p>这是标题这是标这是标这是标题这是标</p>
+            </div>
+            <div class="info">
+                <span class="detail-meta">2018年11月12日15:55:54</span>
+                <span class="detail-meta fr">阅读量：999</span>
+            </div>
+        </div>
+        <div class="detail">
+            @*接下来这里是放内容的地方了*@
+        </div>
+    </div>
+</div>
