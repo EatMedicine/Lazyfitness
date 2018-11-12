@@ -1,23 +1,79 @@
-﻿
+﻿@model Lazyfitness.Models.quesArea
 @{
-    ViewBag.Title = "quesAnswAreaUpdate";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.title = "问答分区管理";
 }
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
 
-@model Lazyfitness.Models.quesArea
-
-<h2>quesAnswAreaUpdate</h2>
-<h2>论坛分区修改</h2>
-
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-<form method="post" action="~/backStage/quesAnswManagement/quesAnswAreaUpdate">
-    <label>查询成功:</label> @ViewBag.IsSearchSuccess<br />
-    <label>分区ID</label> @Html.TextBoxFor(u => u.areaId, new { @Value = @ViewBag.areaId }) @Html.ValidationMessageFor(x => x.areaId)<br />
-    <label>分区名称</label>@Html.TextBoxFor(u => u.areaName, new { @Value = @ViewBag.areaName }) @Html.ValidationMessageFor(x => x.areaName)<br />
-    <label>分区描述</label>@Html.TextBoxFor(u => u.areaBrief, new { @Value = @ViewBag.areaBrief }) @Html.ValidationMessageFor(x => x.areaBrief)<br />
-    <input type="submit" id="postData" name="postData" value="修改" />
-</form>
-<br /><a href="~/backStage/quesAnswManagement/Index">返回</a><br />
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加问答分区", "quesAnswAreaAdd", "quesAnswManagement")
+                @Html.ActionLink("删除问答分区", "quesAnswAreaDelete", "quesAnswManagement")
+                @Html.ActionLink("修改问答分区信息", "quesAnswAreaSearch", "quesAnswManagement")
+            </div>
+        </div>
+    </div>
+    <div class="result-content">
+        <form action="~/backStage/quesAnswManagement/quesAnswAreaUpdate" method="post">
+            <table class="insert-tab">
+                <tbody>
+                    <tr><th></th><td class="show-title">修改问答分区信息</td></tr>
+                    <tr>
+                        <th>
+                            查询成功
+                        </th>
+                        <td>
+                            <h2>@ViewBag.IsSearchSuccess</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            分区ID
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.areaId, new { @Value = @ViewBag.quesArea.areaId, @class = "input-content", @id = "areaId", @name = "areaId", @readonly = "true" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            分区名称
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.areaName, new { @Value = @ViewBag.quesArea.areaName, @type = "text", @class = "input-content", @id = "areaName", @name = "areaName" })
+                            <div class="error-mes">@Html.ValidationMessageFor(x => x.areaName)</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            分区描述
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.areaBrief, new { @Value = @ViewBag.quesArea.areaBrief, @type = "text", @class = "input-content", @id = "areaBrief", @name = "areaBrief" })
+                            <div class="error-mes">@Html.ValidationMessageFor(x => x.areaBrief)</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="修改" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+    </div>
+</body>
+</html>
 

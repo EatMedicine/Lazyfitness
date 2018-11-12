@@ -1,19 +1,52 @@
-﻿
+﻿@model Lazyfitness.Models.quesAnswInfo
 @{
-    ViewBag.Title = "quesAnswInvitationDelete";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.title = "问答帖子管理";
 }
-@model Lazyfitness.Models.quesAnswInfo
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
 
-<h2>quesAnswInvitationDelete</h2>
-<h2>问答帖子删除</h2>
-
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-<form method="post" action="~/backStage/quesAnswManagement/quesAnswInvitationDelete">
-    <label>问答帖子ID</label> @Html.TextBoxFor(u => u.quesAnswId) @Html.ValidationMessageFor(x => x.quesAnswId)<br />
-    <input type="submit" id="postData" name="postData" value="删除" />
-</form>
-<br /><a href="~/backStage/quesAnswManagement/Index">返回</a><br />
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加问答帖子", "quesAnswInvitationAdd", "quesAnswManagement")
+                @Html.ActionLink("删除问答帖子", "quesAnswInvitationDelete", "quesAnswManagement")
+                @Html.ActionLink("修改问答帖子信息", "quesAnswInvitationSearch", "quesAnswManagement")
+            </div>
+        </div>
+    </div>
+    <div class="result-content">
+        <form action="~/backStage/quesAnswManagement/quesAnswInvitationDelete" method="post">
+            <table class="insert-tab">
+                <tr><th></th><td class="show-title">删除问答帖子</td></tr>
+                <tr>
+                    <th>
+                        帖子ID
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.quesAnswId, new { @name = "quesAnswId", @type = "text", @class = "input-content" })
+                        <div class="error-mes">@Html.ValidationMessageFor(x => x.quesAnswId)</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="删除" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+    </div>
+</body>
+</html>
 

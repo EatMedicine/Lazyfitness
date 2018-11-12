@@ -34,9 +34,9 @@
                     <td>
                         <select name="postId">
                             @{
-                                foreach (var post in @ViewBag.post)
+                                foreach (var postInfo in @ViewBag.postInfo)
                                 {
-                                    <option value="@post.postId">@post.postId &nbsp&nbsp @post.postTitle</option>
+                                    <option value="@postInfo.postId">@postInfo.postId &nbsp&nbsp @postInfo.postTitle</option>
                                 }
                             }
                         </select>

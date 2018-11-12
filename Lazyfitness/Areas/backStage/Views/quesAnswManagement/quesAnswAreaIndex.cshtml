@@ -1,7 +1,7 @@
 ﻿@model Lazyfitness.Areas.DbTable.tables
 @{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
-    ViewBag.title = "问答专区管理";
+    ViewBag.title = "问答分区管理";
 }
 <!--/sidebar-->
 <div class="main-wrap">
@@ -16,8 +16,9 @@
         </div>
         <div class="result-content">
             <div class="short-wrap">
-                @Html.ActionLink("问答分区管理", "quesAnswAreaIndex", "quesAnswManagement")
-                @Html.ActionLink("问答帖子管理", "quesAnswInvitationIndex", "quesAnswManagement")
+                @Html.ActionLink("增加问答分区", "quesAnswAreaAdd", "quesAnswManagement")
+                @Html.ActionLink("删除问答分区", "quesAnswAreaDelete", "quesAnswManagement")
+                @Html.ActionLink("修改问答分区信息", "quesAnswAreaSearch", "quesAnswManagement")
             </div>
         </div>
     </div>

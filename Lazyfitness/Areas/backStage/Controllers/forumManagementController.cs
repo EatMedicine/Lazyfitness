@@ -177,6 +177,16 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #region 查询
         public ActionResult forumAreaSearch()
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return Content("未登录");
+            }
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 var areaName = db.postArea.Select(u => u.areaName).ToList();
@@ -374,12 +384,22 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #region 查询
         public ActionResult forumInvitationSearch()
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return Content("未登录");
+            }
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                var post = db.postInfo.ToList();
-                if (post != null)
+                var postInfo = db.postInfo.ToList();
+                if (postInfo != null)
                 {
-                    ViewBag.post = post;
+                    ViewBag.postInfo = postInfo;
                 }
                 else
                 {
@@ -499,6 +519,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     _postInfo.userId = info.userId;
                     _postInfo.isPost = info.isPost;
                     _postInfo.isPay = info.isPay;
+                    _postInfo.amount = info.amount;
                     _postInfo.postStatus = info.postStatus;
                     _postInfo.postContent = info.postContent;
                     db.SaveChanges(); //将修改之后的值保存到数据库中

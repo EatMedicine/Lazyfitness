@@ -1,34 +1,114 @@
-﻿
+﻿@model Lazyfitness.Models.quesAnswInfo
 @{
-    ViewBag.Title = "quesAnswInvitationAdd";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.title = "问答帖子管理";
 }
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
 
-@model Lazyfitness.Models.quesAnswInfo
-
-<h2>quesAnswInvitationAdd</h2>
-
-<h2>问答帖子增加</h2>
-
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-<form method="post" action="~/backStage/quesAnswManagement/quesAnswInvitationAdd">
-    <label>问答分区ID</label> @Html.TextBoxFor(u => u.areaId) @Html.ValidationMessageFor(x => x.areaId)<br />
-    <label>问答帖子ID</label>@Html.TextBoxFor(u => u.quesAnswId) @Html.ValidationMessageFor(x => x.quesAnswId)<br />
-    <label>问答帖子标题</label>@Html.TextBoxFor(u => u.quesAnswTitle) @Html.ValidationMessageFor(x => x.quesAnswTitle)<br />
-    <label>用户ID</label>@Html.TextBoxFor(u => u.userId) @Html.ValidationMessageFor(x => x.userId)<br />
-    <label>是否置顶</label>
-    <input type="radio" id="isPost" name="isPost" value="0" />否
-    <input type="radio" id="isPost" name="isPost" value="1" />是
-    <br />
-    <label>问答帖子状态</label>
-    <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="0" />所有人可见
-    <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="1" />好友可见
-    <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="2" />仅自己可见
-    <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="3" />隐藏
-    <br />
-    <label>帖子内容</label>@Html.TextBoxFor(u => u.quesAnswContent) @Html.ValidationMessageFor(x => x.quesAnswContent)<br />
-    <input type="submit" id="postData" name="postData" value="增加" />
-</form>
-<br /><a href="~/backStage/quesAnswManagement/Index">返回</a><br />
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加问答帖子", "quesAnswInvitationAdd", "quesAnswManagement")
+                @Html.ActionLink("删除问答帖子", "quesAnswInvitationDelete", "quesAnswManagement")
+                @Html.ActionLink("修改问答帖子信息", "quesAnswInvitationSearch", "quesAnswManagement")
+            </div>
+    </div>
+    <div class="result-content">
+        <form action="~/backStage/quesAnswManagement/quesAnswInvitationAdd" method="post">
+            <table class="insert-tab">
+                <tr><th></th><td class="show-title">问答帖子增加</td></tr>
+                <tr>
+                    <th>
+                        分区ID
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.areaId, new { @type = "text", @class = "input-content" })
+                        <div class="error-mes">@Html.ValidationMessageFor(x => x.areaId)</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        帖子ID
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.quesAnswId, new { @type = "text", @class = "input-content" })
+                        <div class="error-mes">@Html.ValidationMessageFor(x => x.quesAnswId)</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        帖子标题
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.quesAnswTitle, new { @type = "text", @class = "input-content" })
+                        <div class="error-mes">@Html.ValidationMessageFor(x => x.quesAnswTitle)</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        用户ID
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.userId, new { @type = "text", @class = "input-content" })
+                        <div class="error-mes">@Html.ValidationMessageFor(x => x.userId)</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        是否置顶
+                    </th>
+                    <td>
+                        <input type="radio" id="isPost" name="isPost" value="0" />否
+                        <input type="radio" id="isPost" name="isPost" value="1" />是
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        付费金额
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.amount, new { @id = "amount", @name = "amount" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        帖子状态
+                    </th>
+                    <td>
+                        <input type="radio" id="postStatus" name="postStatus" value="0" />所有人可见
+                        <input type="radio" id="postStatus" name="postStatus" value="1" />好友可见
+                        <input type="radio" id="postStatus" name="postStatus" value="2" />仅自己可见
+                        <input type="radio" id="postStatus" name="postStatus" value="3" />隐藏
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        帖子内容
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.quesAnswContent, new { @type = "text", @class = "input-content" })
+                        <div class="error-mes">@Html.ValidationMessageFor(x => x.quesAnswContent)</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="增加" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+    </div>
+</body>
+</html>

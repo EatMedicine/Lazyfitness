@@ -1,20 +1,52 @@
-﻿
+﻿@model Lazyfitness.Models.quesArea
 @{
-    ViewBag.Title = "quesAnswAreaDelete";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.title = "问答分区管理";
 }
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
 
-@model Lazyfitness.Models.quesArea
-
-<h2>quesAnswAreaDelete</h2>
-<h2>问答分区删除</h2>
-
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-<form method="post" action="~/backStage/quesAnswManagement/quesAnswAreaDelete">
-    <label>分区名称</label> @Html.TextBoxFor(u => u.areaName) @Html.ValidationMessageFor(x => x.areaName)<br />
-    <input type="submit" id="postData" name="postData" value="删除" />
-</form>
-<br /><a href="~/backStage/quesAnswManagement/Index">返回</a><br />
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加问答分区", "quesAnswAreaAdd", "quesAnswManagement")
+                @Html.ActionLink("删除问答分区", "quesAnswAreaDelete", "quesAnswManagement")
+                @Html.ActionLink("修改问答分区信息", "quesAnswAreaSearch", "quesAnswManagement")
+            </div>
+        </div>
+    </div>
+    <div class="result-content">
+        <form action="~/backStage/quesAnswManagement/quesAnswAreaDelete" method="post">
+            <table class="insert-tab">
+                <tr><th></th><td class="show-title">删除问答分区</td></tr>
+                <tr>
+                    <th>
+                        分区名称
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.areaName, new { @name = "areaName", @type = "text", @class = "input-content" })
+                        <div class="error-mes">@Html.ValidationMessageFor(x => x.areaName)</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="删除" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+    </div>
+</body>
+</html>
 

@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="result-content">
-        <form action="~/backStage/forumManagement/forumAreaUpdate" method="post">
+        <form action="~/backStage/forumManagement/forumInvitationUpdate" method="post">
             <table class="insert-tab">
                 <tbody>
                     <tr><th></th><td class="show-title">修改帖子信息</td></tr>
@@ -95,7 +95,7 @@
                             付费金额
                         </th>
                         <td>
-                            @Html.TextBoxFor(u => u.amount, new { @id = "amount", @name = "amount" })
+                            @Html.TextBoxFor(u => u.amount, new { @Value = @ViewBag.postInfo.amount, @type = "text", @class = "input-content", @id = "amount", @name = "amount" })
                         </td>
                     </tr>
                     <tr>
