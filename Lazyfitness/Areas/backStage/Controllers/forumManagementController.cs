@@ -243,6 +243,28 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #region 删除
         public ActionResult forumAreaDelete()
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return Content("未登录");
+            }
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var areaName = db.postArea.Select(u => u.areaName).ToList();
+                if (areaName != null)
+                {
+                    ViewBag.areaName = areaName;
+                }
+                else
+                {
+                    return View();
+                }
+            }
             return View();
         }
         [HttpPost]
@@ -450,6 +472,28 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #region 删除
         public ActionResult forumInvitationDelete()
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return Content("未登录");
+            }
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var postInfo = db.postInfo.ToList();
+                if (postInfo != null)
+                {
+                    ViewBag.postInfo = postInfo;
+                }
+                else
+                {
+                    return View();
+                }
+            }
             return View();
         }
         [HttpPost]

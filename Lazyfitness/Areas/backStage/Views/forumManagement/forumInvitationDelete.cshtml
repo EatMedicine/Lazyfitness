@@ -32,8 +32,14 @@
                         帖子ID
                     </th>
                     <td>
-                        @Html.TextBoxFor(u => u.postId, new { @name = "postId", @type = "text", @class = "input-content" })
-                        <div class="error-mes">@Html.ValidationMessageFor(x => x.postId)</div>
+                        <select name="postId">
+                            @{
+                                foreach (var postInfo in @ViewBag.postInfo)
+                                {
+                                    <option value="@postInfo.postId">@postInfo.postId &nbsp&nbsp @postInfo.postTitle</option>
+                                }
+                            }
+                        </select>
                     </td>
                 </tr>
                 <tr>

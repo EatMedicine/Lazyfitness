@@ -32,8 +32,14 @@
                         分区名称
                     </th>
                     <td>
-                        @Html.TextBoxFor(u => u.areaName, new { @name = "areaName", @type = "text", @class = "input-content" })
-                        <div class="error-mes">@Html.ValidationMessageFor(x => x.areaName)</div>
+                        <select name="areaName">
+                            @{
+                                foreach (var areaName in @ViewBag.areaName)
+                                {
+                                    <option value="@areaName">@areaName</option>
+                                }
+                            }
+                        </select>
                     </td>
                 </tr>
                 <tr>

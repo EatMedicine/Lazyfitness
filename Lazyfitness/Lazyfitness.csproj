@@ -316,6 +316,12 @@
     <Content Include="Areas\backStage\Views\forumManagement\forumInvitationIndex.cshtml" />
     <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswAreaIndex.cshtml" />
     <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswInvitationIndex.cshtml" />
+    <Content Include="Areas\backStage\Views\pageView\articlePageViewIndex.cshtml" />
+    <Content Include="Areas\backStage\Views\pageView\forumPageViewIndex.cshtml" />
+    <Content Include="Areas\backStage\Views\pageView\quesAnswPageViewIndex.cshtml" />
+    <Content Include="Areas\backStage\Views\pageView\forumInvitationUpdate.cshtml" />
+    <Content Include="Areas\backStage\Views\pageView\quesAnswInvitationUpdate.cshtml" />
+    <Content Include="Areas\backStage\Views\pageView\articleUpdate.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

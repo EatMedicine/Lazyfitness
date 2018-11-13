@@ -1,65 +1,71 @@
-﻿
+﻿@model Lazyfitness.Areas.DbTable.tables
 @{
-    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.title = "评论管理";
 }
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("资源文章人气", "articlePageViewIndex", "pageView")
+                @Html.ActionLink("论坛帖子人气", "forumPageViewIndex", "pageView")
+                @Html.ActionLink("问答帖子人气", "quesAnswPageViewIndex", "pageView")
+            </div>
+        </div>
+    </div>
+</div>
+<div content="index-content ">
+    <div class="article-number content-container">
+        <div class="box-title">
+            <span>资源文章数量</span>
+        </div>
+        <div class="box-data-total">
+            1000
+        </div>
+        <div class="day-register-number">
+            <span>日注册量</span>
+            <span class="day-number">1000</span>
+        </div>
+    </div>
+    <div class="question-answer-number content-container">
+        <div class="box-title">
+            <span>论坛帖子数量</span>
+        </div>
+        <div class="box-data-total">
+            1000
+        </div>
+        <div class="day-register-number">
+            <span>日注册量</span>
+            <span class="day-number">1000</span>
+        </div>
+    </div>
+    <div class="forum-number content-container">
+        <div class="box-title">
+            <span>问答帖子数量</span>
+        </div>
+        <div class="box-data-total">
+            1000
+        </div>
+        <div class="day-register-number">
+            <span>日注册量</span>
+            <span class="day-number">1000</span>
+        </div>
+    </div>
+</div>
 
-<h2>Index</h2>
-
-<form method="post" action="~/backStage/pageView/Index">
-    <h2>资源文章人气</h2>
-    <br />
-    <label>查询结果:</label>@ViewBag.resourceconfirm
-    <table>
-        <tr>
-            <td>文章名称</td>
-            <td>发稿人</td>
-            <td>人气</td>
-        </tr>
-        @foreach (var info in ViewBag.resource)
-        {
-            <tr>
-                <td>@info.resourceName</td>
-                <td>@info.userId</td>
-                <td>@info.pageView</td>
-            </tr>
-        }
-    </table>
-    <br />
-    <h2>论坛帖子人气</h2>
-    <br />
-    <label>查询结果:</label>@ViewBag.postconfirm
-    <table>
-        <tr>
-            <td>帖子名称</td>
-            <td>发稿人</td>
-            <td>人气</td>
-        </tr>
-        @foreach (var info in ViewBag.post)
-        {
-            <tr>
-                <td>@info.postTitle</td>
-                <td>@info.userId</td>
-                <td>@info.pageView</td>
-            </tr>
-        }
-    </table>
-    <br />
-    <h2>问答帖子人气</h2>
-    <br />
-    <label>查询结果:</label>@ViewBag.quesAnswconfirm
-    <table>
-        <tr>
-            <td>帖子名称</td>
-            <td>发稿人</td>
-            <td>人气</td>
-        </tr>
-        @foreach (var info in ViewBag.quesAnsw)
-        {
-            <tr>
-                <td>@info.quesAnswTitle</td>
-                <td>@info.userId</td>
-                <td>@info.pageView</td>
-            </tr>
-        }
-    </table>
-</form>
+<div class="box-designer">
+    <i>Lazyfitness was designed by: Oliver，Kaimar and Eason</i>
+</div>
+    </div>
+    </div>
+</body>
+</html>
