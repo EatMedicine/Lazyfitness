@@ -240,7 +240,7 @@ namespace Lazyfitness.Controllers
         /// <param name="partId">分区ID</param>
         /// <param name="pageNum">页数</param>
         /// <returns></returns>
-        public ActionResult ArticlePart(int partId = 0, int pageNum = 1)
+        public ActionResult ArticlePart(int partId = 1, int pageNum = 1)
         {
             if (pageNum < 1)
             {
@@ -284,6 +284,9 @@ namespace Lazyfitness.Controllers
             ViewBag.PartId = partId;
             ViewBag.PageNum = pageNum;
             ViewBag.PartName = Tools.GetArticleName(partId);
+            //此处应有个函数判断是否是管理员账户
+            //
+            ViewBag.IsAdmin = true;
 
 
             return View();
@@ -408,8 +411,11 @@ namespace Lazyfitness.Controllers
             return View();
         }
 
-        public ActionResult ArticleEditor()
+        public ActionResult ArticleEditor(int partId)
         {
+            //此处应有一个判断有无权限的函数
+            //
+            ViewBag.PartId = partId;
             return View();
         }
 

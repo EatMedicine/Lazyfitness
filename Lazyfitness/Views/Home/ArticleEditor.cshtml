@@ -6,7 +6,11 @@
     ViewBag.Title = "文章编辑";
     Layout = "~/Views/Shared/_MainStyle.cshtml";
 }
-
+@*
+    本页需要变量：
+    ViewBag.PartId 代表是对哪个分区进行添加 int
+*@
+<link href="~/Css/ArticleEditor.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.all.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/lang/zh-cn/zh-cn.js"></script>
@@ -25,7 +29,13 @@
 
 @using (Html.BeginForm("ArticleSubmit", "API", FormMethod.Post))
 {
-    <input type="number" id="partId" name="partId" />
+<div class="form-input">
+    标题：<input type="text" id="resourceName" name="resourceName" style="width:700px;margin-bottom:10px;" maxlength="50" autocomplete="off"/>
     <textarea id="editor" name="editor"></textarea>
-    <input type="submit" value="提交" />
+    <div class="submit">
+        <input class="submit-btn" type="submit" value="提交" />
+    </div>
+
+</div>
+
 }

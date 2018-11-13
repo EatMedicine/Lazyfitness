@@ -498,6 +498,7 @@
     <Content Include="Content\utf8-net\ueditor.parse.js" />
     <Content Include="Content\utf8-net\ueditor.parse.min.js" />
     <Content Include="Css\ArticleDetail.css" />
+    <Content Include="Css\ArticleEditor.css" />
     <Content Include="Css\ArticlePart.css" />
     <Content Include="Css\forum.css" />
     <Content Include="Css\forumPart.css" />

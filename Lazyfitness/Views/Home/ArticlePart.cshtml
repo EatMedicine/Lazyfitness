@@ -17,6 +17,7 @@
     ViewBag.ItemsUrl 分区该页帖子帖子链接 string[]
     ViewBag.ItemsHeadAdr 分区该页帖子头像地址 string[]
     ViewBag.ItemsIntroduction 分区该页帖子简介 string[]
+    ViewBag.IsAdmin 决定是否出现添加文章按钮 bool
 *@
 <link href="~/Css/Article.css?v=2018-1022-0017" rel="stylesheet" type="text/css" />
 <link href="~/Css/ArticlePart.css?v=2018-1022-0017" rel="stylesheet" type="text/css" />
@@ -28,6 +29,15 @@
     <div class="main-content">
         <div style="width:100%">
             <h2 style="font-family:YouYuan;position:relative;padding-left:120px;width:200px;">@ViewBag.PartName</h2>
+            @*只有管理员才可以显示这个按钮*@
+            @if (ViewBag.IsAdmin == true)
+            {
+                <a href="@Url.Action("ArticleEditor","Home",new { partId=ViewBag.PartId})">
+                    <div class="article-editor">
+                        添加文章
+                    </div>
+                </a>
+            }
             <div class="article-list">
                 @{
                     string[] names = ViewBag.ItemsName as string[];
@@ -58,24 +68,24 @@
                     </div>
                 }
                 @*
-                    <div class="article-list-item">
-                        <div class="item-con">
-                            <div class="item-title">
-                                <h3><a href="#">这是标题</a></h3>
-                            </div>
-                            <div class="item-introduction">
-                                <p>这是内容简介</p>
-                            </div>
-                            <div class="item-user">
-                                <div class="user-pic fl">
-                                    <img src="~/Resource/picture/DefaultHeadPic.jpg" />
-                                </div>
-                                <div class="user-name fl">
-                                    <p>这是名字</p>
-                                </div>
-                            </div>
+            <div class="article-list-item">
+                <div class="item-con">
+                    <div class="item-title">
+                        <h3><a href="#">这是标题</a></h3>
+                    </div>
+                    <div class="item-introduction">
+                        <p>这是内容简介</p>
+                    </div>
+                    <div class="item-user">
+                        <div class="user-pic fl">
+                            <img src="~/Resource/picture/DefaultHeadPic.jpg" />
                         </div>
-                    </div>*@
+                        <div class="user-name fl">
+                            <p>这是名字</p>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
             </div>
 
         </div>

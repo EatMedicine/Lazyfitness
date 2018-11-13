@@ -11,10 +11,10 @@ namespace Lazyfitness.Controllers
     {
         [HttpPost]
         [ValidateInput(false)]
-        public string ArticleSubmit(int partId,string editor)
+        public string ArticleSubmit(string resourceName,string editor)
         {
 
-            return partId+editor;
+            return "标题："+resourceName+"\n"+editor;
         }
     }
 }
