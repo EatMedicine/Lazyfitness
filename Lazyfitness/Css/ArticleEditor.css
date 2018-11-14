@@ -1,0 +1,21 @@
+﻿.form-input{
+    padding-top:50px;
+    width:800px;
+    height:600px;
+    margin:auto;
+    font-size:13px;
+}
+.submit{
+    width:100%;
+    margin-top:10px;
+    text-align:center;
+}
+.submit-btn{
+    margin:0 auto;
+    height:30px;
+    width:200px;
+    background-color:white;
+    border-style:none;
+    border:1px solid rgb(128, 128, 128);
+    border-radius:10px;
+}

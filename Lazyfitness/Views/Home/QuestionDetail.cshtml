@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["IsSearch"] = false;
+    ViewData["IsHeadPic"] = true;
+    ViewBag.IsDefaultContent = true;
+    ViewBag.Title = "问答帖子";
+    Layout = "~/Views/Shared/_MainStyle.cshtml";
+}
+
+@*
+    本页需要的变量：
+    ViewBag.IsSolved 该问题是否解决了 bool
+    ViewBag.Money 该问题的悬赏金额 int
+*@
+
+
+<link href="~/Css/QuestionDetail.css" rel="stylesheet" type="text/css" />
+
+<div class="question-head">
+    @if (ViewBag.IsSolved == true)
+    {
+        <span class="head-sign">已解决</span>
+    }
+    else
+    {
+        <span class="head-sign">未解决</span>
+    }
+    <h2 class="head-title">为什么这里要放一个标题？</h2>
+    <div class="question-content">
+        <p>这里是放内容的地方</p>
+    </div>
+    <div class="head-userInfo">
+        <img class="head-headPic" src="~/Resource/picture/DefaultHeadPic.jpg" />
+        <span class="head-name">这是名字</span>
+        <span class="head-intro">这是简介，一个比名字长的简介</span>
+        @if (ViewBag.Money > 0)
+        {
+            <div class="head-money">
+                悬赏：
+            </div>
+            <div class="head-money-num">@ViewBag.Money</div>
+        }
+    </div>
+</div>
+
+<div class="question-reply">
+    <div class="reply-item">
+        <a id="1" href="@Url.Action("QuestionDetail","Home")#1" class="floor">1#</a>
+        <div class="question-content">
+            <p>这里是放内容的地方</p>
+        </div>
+        <div class="head-userInfo">
+            <img class="head-headPic" src="~/Resource/picture/DefaultHeadPic.jpg" />
+            <span class="head-name">这是名字</span>
+            <span class="head-intro">这是简介，一个比名字长的简介</span>
+            <div class="setAnswer">
+                采纳该答案
+            </div>
+        </div>
+    </div>
+</div>

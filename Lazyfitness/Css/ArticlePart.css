@@ -28,3 +28,19 @@
     border:none;
     font-size:12px;
 }
+
+.article-editor{
+    position:absolute;
+    top:-10px;
+    left:750px;
+    width:100px;
+    height:30px;
+    background-color:rgb(244, 125, 0);
+    line-height:30px;
+    border-radius:5px;
+    text-align:center;
+    font-size:12px;
+}
+.article-editor:hover{
+    background-color:rgb(255, 149, 37);
+}
