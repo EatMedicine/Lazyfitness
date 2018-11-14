@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lazyfitness.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -223,8 +224,55 @@ namespace Lazyfitness
             }
             return moneys;
         }
+
+        /// <summary>
+        /// 获取问答帖子的信息
+        /// </summary>
+        /// <param name="quesId">问答帖子id</param>
+        /// <returns></returns>
+        public static quesAnswInfo GetQuestionInfo(int quesId)
+        {
+            //此处应从数据库获取对应问答帖子的信息
+            quesAnswInfo info = new quesAnswInfo
+            {
+                areaId = 1,
+                quesAnswId = quesId,
+                quesAnswTitle = "这是一个"+quesId+"的标题？",
+                userId = 666,
+                quesAnswTime = null,
+                pageView = 999,
+                isPost = 0,
+                quesAnswStatus = 0,
+                amount = 99,
+                quesAnswContent = "这是帖子"+quesId+"的内容",
+                quesArea = null,
+            };
+            return info;
+        }
+
+        /// <summary>
+        /// 获取问答帖子的回帖信息
+        /// </summary>
+        /// <param name="quesId">问答帖子id</param>
+        /// <returns></returns>
+        public static quesAnswReply[] GetQuestionReply(int quesId)
+        {
+            quesAnswReply[] replys = new quesAnswReply[5];
+            for (int count = 0; count < 5; count++)
+            {
+                replys[count] = new quesAnswReply
+                {
+                    quesAnswId = quesId,
+                    userId = count,
+                    replyTime = null,
+                    replyContent = "这是回帖内容" + count,
+                    isAgree = 0,
+                };
+            }
+            return replys;
+        }
         #endregion
-        #region 资源分区数据获取
+        #region 论坛数据获取
 
         /// <summary>
         /// 获取资源区分区的名字
@@ -322,5 +370,43 @@ namespace Lazyfitness
             return introducitons;
         }
         #endregion
+
+        /// <summary>
+        /// 获取用户名字
+        /// </summary>
+        /// <param name="userId">用户id</param>
+        /// <returns></returns>
+        public static string GetUserName(int userId)
+        {
+            return userId + "的ID";
+        }
+
+        /// <summary>
+        /// 获取用户头像
+        /// </summary>
+        /// <param name="userId">用户id</param>
+        /// <returns></returns>
+        public static string GetUserPicAdr(int userId)
+        {
+            return "/Resource/picture/DefaultHeadPic.jpg";
+        }
+
+        public static userInfo GetUserInfo(int userId)
+        {
+            userInfo info = new userInfo
+            {
+                userName = userId + "的名字",
+                userId = userId,
+                userAge = 18,
+                userSex = 0,
+                userTel = "123456789101",
+                userStatus = 1,
+                userAccount = 0,
+                userSecurity = null,
+
+            };
+            return info;
+        }
+
     }
 }

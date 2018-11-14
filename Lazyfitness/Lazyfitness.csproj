@@ -562,6 +562,7 @@
     </Content>
     <Content Include="Scripts\forumjs.js" />
     <Content Include="Scripts\IndexJs.js" />
+    <Content Include="Scripts\QuestionDetail.js" />
     <Content Include="Scripts\QuestionJs.js" />
     <Content Include="设计数据\建表.sql" />
     <Content Include="Areas\account\Views\userManagement\registerUser.cshtml" />

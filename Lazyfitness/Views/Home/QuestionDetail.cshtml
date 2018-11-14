@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["IsSearch"] = false;
     ViewData["IsHeadPic"] = true;
     ViewBag.IsDefaultContent = true;
@@ -11,10 +10,20 @@
     本页需要的变量：
     ViewBag.IsSolved 该问题是否解决了 bool
     ViewBag.Money 该问题的悬赏金额 int
+    ViewBag.QuesInfo 问答的信息 quesAnswInfo
+    ViewBag.QuesUserInfo 提出该问题的人信息 userInfo
+    ViewBag.ReplyId 回复帖子的id int[]
+    ViewBag.ReplyName 回复帖子的姓名 string[]
+    ViewBag.ReplayUserPic 回复帖子人的头像地址 string[]
+    ViewBag.ReplyTime 回复帖子的时间 string[]
+    ViewBag.ReplyContent 回复帖子的内容 string[]
+    ViewBag.ReplyIsAgree 回复帖子是否被采纳 int[]
 *@
 
 
 <link href="~/Css/QuestionDetail.css" rel="stylesheet" type="text/css" />
+@Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+<script src="~/Scripts/QuestionDetail.js"></script>
 
 <div class="question-head">
     @if (ViewBag.IsSolved == true)
@@ -25,25 +34,58 @@
     {
         <span class="head-sign">未解决</span>
     }
-    <h2 class="head-title">为什么这里要放一个标题？</h2>
+        <h2 class="head-title">@ViewBag.QuesInfo.quesAnswTitle</h2>
     <div class="question-content">
-        <p>这里是放内容的地方</p>
+        @ViewBag.QuesInfo.quesAnswContent
     </div>
     <div class="head-userInfo">
         <img class="head-headPic" src="~/Resource/picture/DefaultHeadPic.jpg" />
-        <span class="head-name">这是名字</span>
-        <span class="head-intro">这是简介，一个比名字长的简介</span>
+        <span class="head-name">@ViewBag.QuesUserInfo.userName</span>
+        <span class="head-intro">这是一个默认简介</span>
         @if (ViewBag.Money > 0)
         {
             <div class="head-money">
                 悬赏：
             </div>
-            <div class="head-money-num">@ViewBag.Money</div>
+            <div class="head-money-num">@ViewBag.QuesInfo.amount</div>
         }
     </div>
 </div>
 
 <div class="question-reply">
+    @{
+        string[] replyName = ViewBag.ReplyName as string[];
+        int[] replyId = ViewBag.ReplyId as int[];
+        string[] replyUserPic = ViewBag.ReplyUserPic as string[];
+        string[] replyTime = ViewBag.ReplyTime as string[];
+        string[] replyContent = ViewBag.ReplyContent as string[];
+        int[] replyIsAgree = ViewBag.ReplyIsAgree;
+    }
+    @for (int count = 0; count < replyId.Length; count++)
+    {
+        <div class="reply-item">
+            <a id="@count" href="@Url.Action("QuestionDetail","Home")#@count" class="floor">@count#</a>
+            <div class="question-content">
+                @replyContent[count]
+            </div>
+            @if (ViewBag.IsSolved == true && replyIsAgree[count] == 1)
+            {
+                <span class="head-sign">最佳答案</span>
+            }
+            <div class="head-userInfo">
+                <img class="head-headPic" src="@replyUserPic[count]" />
+                <span class="head-name">@replyName[count]</span>
+                <span class="head-intro">这是一个默认简介</span>
+                @if (ViewBag.IsSolved == false)
+                {
+                    <div class="setAnswer">
+                        采纳该答案
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    @*
     <div class="reply-item">
         <a id="1" href="@Url.Action("QuestionDetail","Home")#1" class="floor">1#</a>
         <div class="question-content">
@@ -57,5 +99,5 @@
                 采纳该答案
             </div>
         </div>
-    </div>
+    </div>*@
 </div>

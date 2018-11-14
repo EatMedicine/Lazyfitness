@@ -233,7 +233,6 @@ namespace Lazyfitness.Controllers
             return Json(items, JsonRequestBehavior.AllowGet);
         }
 
-        //文章资源区分页
         /// <summary>
         /// 文章资源区分页
         /// </summary>
@@ -428,6 +427,32 @@ namespace Lazyfitness.Controllers
         {
             ViewBag.IsSolved = false;
             ViewBag.Money = 100;
+            quesAnswInfo info = Tools.GetQuestionInfo(num);
+            ViewBag.QuesInfo = info;
+            ViewBag.QuesUserInfo = Tools.GetUserInfo((int)info.userId);
+            quesAnswReply[] replys = Tools.GetQuestionReply(num);
+            int[] id = new int[replys.Length];
+            string[] name = new string[replys.Length];
+            string[] picAdr = new string[replys.Length];
+            string[] time = new string[replys.Length];
+            string[] content = new string[replys.Length];
+            int[] isAgree = new int[replys.Length];
+            for (int count = 0; count < replys.Length; count++)
+            {
+                id[count] = (int)replys[count].userId;
+                name[count] = Tools.GetUserName(id[count]);
+                picAdr[count] = Tools.GetUserPicAdr(id[count]);
+                time[count] = "XX年XX月XX日";
+                content[count] = replys[count].replyContent;
+                isAgree[count] = (int)replys[count].isAgree;
+
+            }
+            ViewBag.ReplyId = id;
+            ViewBag.ReplyName = name;
+            ViewBag.ReplyUserPic = picAdr;
+            ViewBag.ReplyTime = time;
+            ViewBag.ReplyContent = content;
+            ViewBag.ReplyIsAgree = isAgree;
             return View();
         }
         #region Test
