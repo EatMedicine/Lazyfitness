@@ -1,0 +1,130 @@
+﻿@model Lazyfitness.Models.quesAnswInfo
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.title = "问答帖子管理";
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加问答帖子", "quesAnswInvitationAdd", "quesAnswManagement")
+                @Html.ActionLink("删除问答帖子", "quesAnswInvitationDelete", "quesAnswManagement")
+                @Html.ActionLink("修改问答帖子信息", "quesAnswInvitationSearch", "quesAnswManagement")
+            </div>
+        </div>
+    </div>
+    <div class="result-content">
+        <form action="~/backStage/quesAnswManagement/quesAnswInvitationUpdate" method="post">
+            <table class="insert-tab">
+                <tbody>
+                    <tr><th></th><td class="show-title">修改问答帖子信息</td></tr>
+                    <tr>
+                        <th>
+                            查询成功
+                        </th>
+                        <td>
+                            <h2>@ViewBag.IsSearchSuccess</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            分区ID
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.areaId, new { @Value = @ViewBag.quesAnswInfo.areaId, @type = "text", @class = "input-content", @id = "areaId", @name = "areaId", @readonly = "true" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            帖子ID
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.quesAnswId, new { @Value = @ViewBag.quesAnswInfo.quesAnswId, @type = "text", @class = "input-content", @id = "quesAnswId", @name = "quesAnswId", @readonly = "true" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            帖子标题
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.quesAnswTitle, new { @Value = @ViewBag.quesAnswInfo.quesAnswTitle, @type = "text", @class = "input-content", @id = "quesAnswTitle", @name = "quesAnswTitle" })
+                            <div class="error-mes">@Html.ValidationMessageFor(x => x.quesAnswTitle)</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            用户ID
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.userId, new { @Value = @ViewBag.quesAnswInfo.userId, @type = "text", @class = "input-content", @id = "userId", @name = "userId" })
+                            <div class="error-mes">@Html.ValidationMessageFor(x => x.userId)</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            是否置顶
+                        </th>
+                        <td>
+                            <input type="radio" id="isPost" name="isPost" value="0" />否
+                            <input type="radio" id="isPost" name="isPost" value="1" />是
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            付费金额
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.amount, new { @Value = @ViewBag.quesAnswInfo.amount, @id = "amount", @name = "amount" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            帖子状态
+                        </th>
+                        <td>
+                            <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="0" />所有人可见
+                            <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="1" />好友可见
+                            <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="2" />仅自己可见
+                            <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="3" />隐藏
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            帖子内容
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.quesAnswContent, new { @Value = @ViewBag.quesAnswInfo.quesAnswContent, @type = "text", @class = "input-content", @id = "quesAnswContent", @name = "quesAnswContent" })
+                            <div class="error-mes">@Html.ValidationMessageFor(x => x.quesAnswContent)</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="修改" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+        $("input:radio[name = 'isPost'][value = '@ViewBag.quesAnswInfo.isPost']").attr("checked", true);
+        $("input:radio[name = 'quesAnswStatus'][value = '@ViewBag.quesAnswInfo.quesAnswStatus']").attr("checked", true);
+    })
+</script>
+</html>
+

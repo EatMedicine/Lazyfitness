@@ -1,0 +1,29 @@
+﻿@model Lazyfitness.Areas.DbTable.tables
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.title = "问答帖子管理";
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加问答帖子", "quesAnswInvitationAdd", "quesAnswManagement")
+                @Html.ActionLink("删除问答帖子", "quesAnswInvitationDelete", "quesAnswManagement")
+                @Html.ActionLink("修改问答帖子信息", "quesAnswInvitationSearch", "quesAnswManagement")
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</body>
+</html>
+

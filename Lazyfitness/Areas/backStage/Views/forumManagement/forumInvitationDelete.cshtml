@@ -1,0 +1,57 @@
+﻿@model Lazyfitness.Models.postInfo
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.title = "论坛帖子管理";
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加帖子", "forumInvitationAdd", "forumManagement")
+                @Html.ActionLink("删除帖子", "forumInvitationDelete", "forumManagement")
+                @Html.ActionLink("修改帖子信息", "forumInvitationSearch", "forumManagement")
+            </div>
+        </div>
+    </div>
+    <div class="result-content">
+        <form action="~/backStage/forumManagement/forumInvitationDelete" method="post">
+            <table class="insert-tab">
+                <tr><th></th><td class="show-title">删除帖子</td></tr>
+                <tr>
+                    <th>
+                        帖子ID
+                    </th>
+                    <td>
+                        <select name="postId">
+                            @{
+                                foreach (var postInfo in @ViewBag.postInfo)
+                                {
+                                    <option value="@postInfo.postId">@postInfo.postId &nbsp&nbsp @postInfo.postTitle</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="删除" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+    </div>
+</body>
+</html>

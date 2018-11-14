@@ -148,6 +148,10 @@
     <Compile Include="Areas\account\Controllers\userManagementController.cs" />
     <Compile Include="Areas\account\Controllers\passwordManagerController.cs" />
     <Compile Include="Areas\backStage\backStageAreaRegistration.cs" />
+    <Compile Include="Areas\backStage\Controllers\commentManagementController.cs" />
+    <Compile Include="Areas\backStage\Controllers\forumManagementController.cs" />
+    <Compile Include="Areas\backStage\Controllers\pageViewController.cs" />
+    <Compile Include="Areas\backStage\Controllers\quesAnswManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\articleManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\userManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\managerController.cs" />
@@ -257,8 +261,17 @@
       <LastGenOutput>Lazyfitness.cs</LastGenOutput>
     </Content>
     <Content Include="Resource\picture\background.jpg" />
+    <Content Include="Resource\picture\background.jpg" />
+    <Content Include="Resource\picture\DefaultHeadPic.jpg" />
+    <Content Include="Resource\picture\dot1.png" />
+    <Content Include="Resource\picture\dot2.png" />
     <Content Include="Resource\picture\head.png" />
     <Content Include="Scripts\ArticleJs.js" />
+    <Content Include="Resource\picture\pic1.jpg" />
+    <Content Include="Resource\picture\pic2.jpg" />
+    <Content Include="Resource\picture\pic3.png" />
+    <Content Include="Resource\picture\radbtn0.png" />
+    <Content Include="Resource\picture\radbtn1.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -304,6 +317,43 @@
     <Content Include="Models\Lazyfitness.edmx.diagram">
       <DependentUpon>Lazyfitness.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\backStage\Views\articleManagement\Index.cshtml" />
+    <Content Include="Areas\backStage\Views\articleManagement\areaManagement.cshtml" />
+    <Content Include="Areas\account\Views\userManagement\registerInfo.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumAreaAdd.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumAreaSearch.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumAreaDelete.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumAreaUpdate.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumInvitationAdd.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumInvitationSearch.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumInvitationDelete.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumInvitationUpdate.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswAreaAdd.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswAreaSearch.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswAreaDelete.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswAreaUpdate.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswInvitationAdd.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswInvitationSearch.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswInvitationDelete.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswInvitationUpdate.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\Index.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\Index.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\forumcommentShield.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\forumcommentDelete.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\quesAnswcommentShield.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\quesAnswcommentDelete.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\Index.cshtml" />
+    <Content Include="Areas\backStage\Views\pageView\Index.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumAreaIndex.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\forumInvitationIndex.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswAreaIndex.cshtml" />
+    <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswInvitationIndex.cshtml" />
+    <Content Include="Areas\backStage\Views\pageView\articlePageViewIndex.cshtml" />
+    <Content Include="Areas\backStage\Views\pageView\forumPageViewIndex.cshtml" />
+    <Content Include="Areas\backStage\Views\pageView\quesAnswPageViewIndex.cshtml" />
+    <Content Include="Areas\backStage\Views\pageView\forumInvitationUpdate.cshtml" />
+    <Content Include="Areas\backStage\Views\pageView\quesAnswInvitationUpdate.cshtml" />
+    <Content Include="Areas\backStage\Views\pageView\articleUpdate.cshtml" />
     <Content Include="Areas\backStage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\backStage\Views\articleManagement\findArticleList.cshtml" />
     <Content Include="Areas\informationOfUser\Views\web.config" />
@@ -356,6 +406,7 @@
     <Content Include="Views\Home\ArticlePart.cshtml" />
     <Content Include="Views\Home\QuestionPart.cshtml" />
     <Content Include="Views\Home\forumPart.cshtml" />
+    <Content Include="Views\Shared\_backStageMainStyle.cshtml" />
     <Content Include="Views\Shared\_backStageMainStyle.cshtml" />
   </ItemGroup>
   <ItemGroup>

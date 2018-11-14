@@ -1,0 +1,54 @@
+﻿@model Lazyfitness.Areas.DbTable.tables
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.title = "问答专区管理";
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("问答分区管理", "quesAnswAreaIndex", "quesAnswManagement")
+                @Html.ActionLink("问答帖子管理", "quesAnswInvitationIndex", "quesAnswManagement")
+            </div>
+        </div>
+    </div>
+</div>
+<div content="index-content ">
+    <div class="content-container">
+        <div class="box-title">
+            <span>问答分区数量</span>
+        </div>
+        <div class="box-data-total">
+            20
+        </div>
+        <div class="day-register-number">
+            <span>月增加量</span>
+            <span class="day-number">20</span>
+        </div>
+    </div>
+    <div class="content-container">
+        <div class="box-title">
+            <span>问答帖子数量</span>
+        </div>
+        <div class="box-data-total">
+            1000
+        </div>
+        <div class="day-register-number">
+            <span>日注册量</span>
+            <span class="day-number">1000</span>
+        </div>
+    </div>
+</div>
+    </div>
+</body>
+</html>
+

@@ -22,7 +22,7 @@ CREATE TABLE userSecurity
 	userPwd NVARCHAR(50)
 )
 GO
-
+select * from userSecurity
 --*******创建用户个人信息表*******--
 IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'userInfo')
 DROP TABLE userInfo
@@ -38,7 +38,7 @@ CREATE TABLE userInfo
 	userAccount INT DEFAULT 0
 )
 GO
-
+select * from userInfo
 
 --*******创建专区表*******--
 --IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'specialArea')
@@ -64,6 +64,9 @@ CREATE TABLE resourceArea
 )
 GO
 
+insert into resourceArea values(12315,'Unknown','Unknown')
+select * from resourceArea
+
 --*******创建问答分区表*******--
 IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'quesArea')
 DROP TABLE quesArea
@@ -75,6 +78,7 @@ CREATE TABLE quesArea
 	areaBrief TEXT
 )
 GO
+select * from quesArea
 
 --*******创建论坛分区表*******--
 IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'postArea')
@@ -87,7 +91,7 @@ CREATE TABLE postArea
 	areaBrief TEXT
 )
 GO
-
+select * from postArea
 
 
 --*******创建文章表（文章这个称呼不恰当）暂定__资源信息表__*******--
@@ -108,6 +112,22 @@ CREATE TABLE resourceInfo
 	Foreign Key (areaId) References resourceArea(areaId)
 )
 GO
+
+insert into resourceInfo values(12315,110,'NO.1',1,GETDATE(),0,0,'Num')
+insert into resourceInfo values(12315,111,'NO.2',1,GETDATE(),0,0,'mm')
+insert into resourceInfo values(12315,112,'NO.3',1,GETDATE(),0,0,'nn')
+insert into resourceInfo values(12315,113,'NO.4',1,GETDATE(),100,0,'nn')
+insert into resourceInfo values(12315,114,'NO.5',1,GETDATE(),50,0,'nn')
+insert into resourceInfo values(12315,115,'NO.6',1,GETDATE(),500,0,'nn')
+insert into resourceInfo values(12315,116,'NO.7',1,GETDATE(),10,0,'nn')
+insert into resourceInfo values(12315,117,'NO.8',1,GETDATE(),20,0,'nn')
+insert into resourceInfo values(12315,118,'NO.9',1,GETDATE(),30,0,'nn')
+insert into resourceInfo values(12315,119,'NO.10',1,GETDATE(),5000,0,'nn')
+insert into resourceInfo values(12315,120,'NO.11',1,GETDATE(),200,0,'nn')
+insert into resourceInfo values(12315,122,'NO.12',1,GETDATE(),110,0,'nn')
+insert into resourceInfo values(12315,123,'NO.13',1,GETDATE(),120,0,'nn')
+
+select * from resourceInfo
 
 --*******创建帖子信息表*******--
 IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'postInfo')
@@ -130,7 +150,7 @@ CREATE TABLE postInfo
 	Foreign Key (areaId) References postArea(areaId)
 )
 GO
-
+select * from postInfo
 --*******创建帖子回复表*******--
 IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'postReply')
 DROP TABLE postReply
@@ -144,7 +164,8 @@ CREATE TABLE postReply
 	Primary Key (postId)
 )
 GO
-
+insert into postReply values(12,1,GETDATE(),'嗨，你好呀！')
+select * from postReply
 
 
 --*******创建问答帖子表*******--
@@ -167,6 +188,7 @@ CREATE TABLE quesAnswInfo
 	Foreign Key (areaId) References quesArea(areaId)
 )
 GO
+select * from quesAnswInfo
 
 --*******创建问答回帖表*******--
 IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'quesAnswReply')
@@ -182,7 +204,8 @@ CREATE TABLE quesAnswReply
 	Primary Key(quesAnswId)
 )
 GO
-
+insert into quesAnswReply values(13,1,GETDATE(),'嗨，你好呀！',1)
+select * from quesAnswReply
 --*******创建点卡充值表*******--
 IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'recharge')
 DROP TABLE recharge
@@ -205,9 +228,13 @@ CREATE TABLE backManager
 	managerId INT PRIMARY KEY,
 	managerPwd NVARCHAR(50)
 )
-/*
-select * from userInfo
+
+select * from backManager
 go
+
+insert into backManager values('666', 'E10ADC3949BA59ABBE56E057F20F883E')
+
+/*
 select * from userSecurity
 go
 select * from resourceInfo

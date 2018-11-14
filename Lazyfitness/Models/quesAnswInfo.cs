@@ -11,11 +11,16 @@ namespace Lazyfitness.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class quesAnswInfo
     {
+        [Required(ErrorMessage = "问答分区ID必须填写")]
         public int areaId { get; set; }
+        [Required(ErrorMessage = "问答帖子ID必须填写")]
         public int quesAnswId { get; set; }
+        [Required(ErrorMessage = "问答帖子标题必须填写")]
+        [StringLength(50)]
         public string quesAnswTitle { get; set; }
         public Nullable<int> userId { get; set; }
         public Nullable<System.DateTime> quesAnswTime { get; set; }
@@ -23,6 +28,8 @@ namespace Lazyfitness.Models
         public Nullable<int> isPost { get; set; }
         public Nullable<int> quesAnswStatus { get; set; }
         public Nullable<int> amount { get; set; }
+        [Required(ErrorMessage = "问答帖子描述必须填写")]
+        [DataType(DataType.Text)]
         public string quesAnswContent { get; set; }
     
         public virtual quesArea quesArea { get; set; }

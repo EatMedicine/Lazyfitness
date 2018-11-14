@@ -1,0 +1,111 @@
+﻿@model Lazyfitness.Models.resourceInfo
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.title = "资源文章人气";
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("资源文章人气", "articlePageViewIndex", "pageView")
+                @Html.ActionLink("论坛帖子人气", "forumPageViewIndex", "pageView")
+                @Html.ActionLink("问答帖子人气", "quesAnswPageViewIndex", "pageView")
+            </div>
+        </div>
+    </div>
+    <div class="result-content">
+        <form action="~/backStage/pageView/articleUpdate" method="post">
+            <table class="insert-tab">
+                <tbody>
+                    <tr><th></th><td class="show-title">修改文章信息</td></tr>
+                    <tr>
+                        <th>
+                            查询成功
+                        </th>
+                        <td>
+                            <h2>@ViewBag.IsSearchSuccess</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            分区ID
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.areaId, new { @Value = @ViewBag.resourceInfo.areaId, @type = "text", @class = "input-content", @id = "areaId", @name = "areaId" })
+                            <div class="error-mes">@Html.ValidationMessageFor(x => x.areaId)</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            文章ID
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.resourceId, new { @Value = @ViewBag.resourceInfo.resourceId, @type = "text", @class = "input-content", @id = "resourceId", @name = "resourceId" })
+                            <div class="error-mes">@Html.ValidationMessageFor(x => x.resourceId)</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            文章标题
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.resourceName, new { @Value = @ViewBag.resourceInfo.resourceName, @type = "text", @class = "input-content", @id = "resourceName", @name = "resourceName" })
+                            <div class="error-mes">@Html.ValidationMessageFor(x => x.resourceName)</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            用户ID
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.userId, new { @Value = @ViewBag.resourceInfo.userId, @type = "text", @class = "input-content", @id = "userId", @name = "userId" })
+                            <div class="error-mes">@Html.ValidationMessageFor(x => x.userId)</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            是否置顶
+                        </th>
+                        <td>
+                            <input type="radio" id="isTop" name="isTop" value="0" />否
+                            <input type="radio" id="isTop" name="isTop" value="1" />是
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            文章内容
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.resourceContent, new { @Value = @ViewBag.resourceInfo.resourceContent, @type = "text", @class = "input-content", @id = "resourceContent", @name = "resourceContent" })
+                            <div class="error-mes">@Html.ValidationMessageFor(x => x.resourceContent)</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="修改" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+        $("input:radio[name = 'isTop'][value = '@ViewBag.resourceInfo.isTop']").attr("checked", true);
+    })
+</script>
+</html>

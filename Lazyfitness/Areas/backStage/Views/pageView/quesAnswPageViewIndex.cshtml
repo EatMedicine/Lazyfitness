@@ -1,0 +1,60 @@
+﻿@model Lazyfitness.Models.quesAnswInfo
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.title = "问答帖子人气";
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("资源文章人气", "articlePageViewIndex", "pageView")
+                @Html.ActionLink("论坛帖子人气", "forumPageViewIndex", "pageView")
+                @Html.ActionLink("问答帖子人气", "quesAnswPageViewIndex", "pageView")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="result-content">
+    <h2>问答帖子人气TOP10</h2>
+    <label>查询结果:</label>@ViewBag.quesAnswconfirm
+    <table class="result-tab">
+        <tr>
+            <th>帖子名称</th>
+            <th>发稿人ID</th>
+            <th>人气</th>
+            <th colspan="2">可选操作</th>
+        </tr>
+        @foreach (var info in ViewBag.quesAnsw)
+        {
+            <tr>
+                <td>@info.quesAnswTitle</td>
+                <td>@info.userId</td>
+                <td>@info.pageView</td>
+                <td>
+                    <form method="get" action="~/backStage/pageView/quesAnswInvitationUpdate">
+                        <input type="text" name="quesAnswId" id="quesAnswId" value=@info.quesAnswId hidden="hidden" />
+                        <input class="index-btn" type="submit" value="修改">
+                    </form>
+                </td>
+                <td>
+                    <form method="post" action="~/backStage/pageView/quesAnswInvitationDelete">
+                        <input type="text" name="quesAnswId" id="quesAnswId" value=@info.quesAnswId hidden="hidden" />
+                        <input class="index-btn" type="submit" value="删除">
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+    </div>
+</body>
+</html>
