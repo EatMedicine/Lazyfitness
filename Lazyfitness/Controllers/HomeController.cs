@@ -411,6 +411,11 @@ namespace Lazyfitness.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 管理员新增帖子
+        /// </summary>
+        /// <param name="partId">分区ID</param>
+        /// <returns></returns>
         public ActionResult ArticleEditor(int partId)
         {
             //此处应有一个判断有无权限的函数
@@ -419,6 +424,12 @@ namespace Lazyfitness.Controllers
             return View();
         }
 
+        public ActionResult QuestionDetail(int num = 0)
+        {
+            ViewBag.IsSolved = false;
+            ViewBag.Money = 100;
+            return View();
+        }
         #region Test
         public ActionResult About()
         {

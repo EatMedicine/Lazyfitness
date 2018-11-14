@@ -508,6 +508,7 @@
     <Content Include="Css\Hello.css" />
     <Content Include="Css\Article.css" />
     <Content Include="Css\Question.css" />
+    <Content Include="Css\QuestionDetail.css" />
     <Content Include="Css\QuestionPart.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -624,6 +625,7 @@
     <Content Include="Views\Home\forumPart.cshtml" />
     <Content Include="Views\Home\ArticleDetail.cshtml" />
     <Content Include="Views\Home\ArticleEditor.cshtml" />
+    <Content Include="Views\Home\QuestionDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
