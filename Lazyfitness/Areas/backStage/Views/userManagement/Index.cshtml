@@ -1,176 +1,121 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>小懒人后台管理</title>
-    <link rel="stylesheet" type="text/css" href="~/Css/backStageBarLayout.css">
-    <link rel="stylesheet" type="text/css" href="~/Css/backStageTableLayout.css" />
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/Areas/jQuery/userManagement.js"></script>
-</head>
-<body>
-    <div class="topbar-wrap white topbar-inner">
-        <div class="topbar-inner clearfix">
-            <div class="topbar-logo-wrap clearfix">
-                <ul class="navbar-list clearfix">
-                    <li>@Html.ActionLink("首页", "Index", "manager")</li>
-                </ul>
-            </div>
-            <div class="top-info-wrap">
-                <ul class="top-info-list clearfix">
-                    @{
-                        if (ViewBag.managerId == null)
-                        {
-                            <li>@Html.ActionLink("管理员登录", "login", "manager")</li>
-                        }
-                        else
-                        {
-                            <li>@ViewBag.managerId</li>
-                            <li>@Html.ActionLink("退出", "loginOut", "manager")</li>
-                        }
-                    }
-                </ul>
-            </div>
+﻿@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "用户管理";
+}
+<script src="~/Areas/jQuery/userManagement.js"></script>
+
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
         </div>
     </div>
-    <div class="container clearfix">
-        <div class="sidebar-wrap">
-            <div class="sidebar-title">
-                <h1>菜单</h1>
-            </div>
-            <div class="sidebar-content">
-                <ul class="sidebar-list">
-                    <li>
-                        <ul class="sub-menu">
-                            <li>@Html.ActionLink("用户管理", "Index", "userManagement")</li>
-                            <li>@Html.ActionLink("资源文章管理", "Index", "articleManagement")</li>
-                            <li><a href=""><i class="icon-font"></i>论坛管理</a></li>
-                            <li><a href=""><i class="icon-font"></i>问答专区管理</a></li>
-                            <li><a href=""><i class="icon-font"></i>评论管理</a></li>
-                            <li>@Html.ActionLink("充值管理", "Index", "payManagement")</li>
-                            <li><a href=""><i class="icon-font"></i>统计报表管理</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
         </div>
-        <!--/sidebar-->
-        <div class="main-wrap">
-            <div class="crumb-wrap">
-                <div class="crumb-list">
-                    <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
-                </div>
-            </div>
-            <div class="result-wrap">
-                <div class="result-title">
-                    <h1>可选操作</h1>
-                </div>
-                <div class="result-content">
-                    <div class="short-wrap">
-                        @Html.ActionLink("增加用户", "add", "userManagement")
-                        @Html.ActionLink("删除用户", "delete", "userManagement")
-                        @Html.ActionLink("修改用户信息", "search", "userManagement")
-                    </div>
-                </div>
-            </div>
-        </div>      
         <div class="result-content">
-            <table class="result-tab">
-                <tr>
-                    <th>用户编号</th>
-                    <th>用户名</th>
-                    <th>用户年龄</th>
-                    <th>用户性别</th>
-                    <th>用户电话号码</th>
-                    <th>用户状态</th>
-                    <th>用户账户金额</th>
-                    <th colspan="2">可选操作</th>
-                </tr>
-                @{
-                    foreach (var item in @ViewBag.allInfo)
-                    {
-                        <tr>
-                            <td>@item.userId</td>
-                            <td>@item.userName</td>
-                            <td>@item.userAge</td>
-                            @if (item.userSex == 0)
-                            {
-                                <td>女</td>
-                            }
-                            @if (item.userSex == 1)
-                            {
-                                <td>男</td>
-                            }
-                            @if (item.userSex == 2)
-                            {
-                                <td>保密</td>
-                            }
-
-                            @if (item.userTel == null)
-                            {
-                                <td>空</td>
-                            }
-                            @if (item.userTel != null)
-                            {
-                                <td>@item.userTel</td>
-                            }
-
-                            @if (item.userStatus == 0)
-                            {
-                                <td>禁止发言</td>
-                            }
-                            @if (item.userStatus == 1)
-                            {
-                                <td>注册会员</td>
-                            }
-                            @if (item.userStatus == 2)
-                            {
-                                <td>正式会员</td>
-                            }
-                            @if (item.userStatus == 3)
-                            {
-                                <td>管理员</td>
-                            }
-                            @if (item.userAccount != null)
-                            {
-                                <td>@item.userAccount</td>
-                            }
-                            @if (item.userAccount == null)
-                            {
-                                <td>0</td>
-                            }
-                            <td>
-                                <form method="post" action="~/backStage/userManagement/update">
-                                    <input type="text" name="userName" id="userName" value=@item.userName hidden="hidden" />
-                                    <input class="index-btn" type="submit" value="修改">
-                                </form>
-                            </td>
-                            <td><button class="index-btn delete-data" type="button" value=@item.userName>删除</button></td>
-                        </tr>
-                    }
-                }
-
-            </table>
-            <div class="page-number">
-                <ul>
-                    @{
-                        for (int i = 1; i <= ViewBag.sumPage; i++)
-                        {
-
-                            <li style="float:left">
-                                <form method="post" action="~/backStage/userManagement/Index">
-                                    <input class="id" id="id" name="id" type="text" value=@i hidden="hidden" />
-                                    <input type="submit" class="btn-submit" value=@i />
-                                </form>
-                            </li>
-                        }
-                    }                   
-                    <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @ViewBag.nowPage 页, 共 @ViewBag.sumPage 页"/></li>
-                </ul>
+            <div class="short-wrap">
+                @Html.ActionLink("增加用户", "add", "userManagement")
+                @Html.ActionLink("删除用户", "delete", "userManagement")
+                @Html.ActionLink("修改用户信息", "search", "userManagement")
             </div>
-        </div>      
+        </div>
     </div>
-</body>
-</html>
+</div>
+<div class="result-content">
+    <table class="result-tab">
+        <tr>
+            <th>用户编号</th>
+            <th>用户名</th>
+            <th>用户年龄</th>
+            <th>用户性别</th>
+            <th>用户电话号码</th>
+            <th>用户状态</th>
+            <th>用户账户金额</th>
+            <th colspan="2">可选操作</th>
+        </tr>
+        @{
+            foreach (var item in @ViewBag.allInfo)
+            {
+                <tr>
+                    <td>@item.userId</td>
+                    <td>@item.userName</td>
+                    <td>@item.userAge</td>
+                    @if (item.userSex == 0)
+                    {
+                        <td>女</td>
+                    }
+                    @if (item.userSex == 1)
+                    {
+                        <td>男</td>
+                    }
+                    @if (item.userSex == 2)
+                    {
+                        <td>保密</td>
+                    }
+
+                    @if (item.userTel == null)
+                    {
+                        <td>空</td>
+                    }
+                    @if (item.userTel != null)
+                    {
+                        <td>@item.userTel</td>
+                    }
+
+                    @if (item.userStatus == 0)
+                    {
+                        <td>禁止发言</td>
+                    }
+                    @if (item.userStatus == 1)
+                    {
+                        <td>注册会员</td>
+                    }
+                    @if (item.userStatus == 2)
+                    {
+                        <td>正式会员</td>
+                    }
+                    @if (item.userStatus == 3)
+                    {
+                        <td>管理员</td>
+                    }
+                    @if (item.userAccount != null)
+                    {
+                        <td>@item.userAccount</td>
+                    }
+                    @if (item.userAccount == null)
+                    {
+                        <td>0</td>
+                    }
+                    <td>
+                        <form method="post" action="~/backStage/userManagement/update">
+                            <input type="text" name="userName" id="userName" value=@item.userName hidden="hidden" />
+                            <input class="index-btn" type="submit" value="修改">
+                        </form>
+                    </td>
+                    <td><button class="index-btn delete-data" type="button" value=@item.userName>删除</button></td>
+                </tr>
+            }
+        }
+
+    </table>
+    <div class="page-number">
+        <ul>
+            @{
+                for (int i = 1; i <= ViewBag.sumPage; i++)
+                {
+
+                    <li style="float:left">
+                        <form method="post" action="~/backStage/userManagement/Index">
+                            <input class="id" id="id" name="id" type="text" value=@i hidden="hidden" />
+                            <input type="submit" class="btn-submit" value=@i />
+                        </form>
+                    </li>
+                }
+            }
+            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @ViewBag.nowPage 页, 共 @ViewBag.sumPage 页" /></li>
+        </ul>
+    </div>
+</div>

@@ -1,16 +1,56 @@
 ﻿@model Lazyfitness.Models.userInfo
 @{
-    ViewBag.Title = "findUser";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "查找用户";
 }
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-<h2>findUser</h2>
-
-<form method="post" action="~/backStage/payManagement/changeAccount">
-    @Html.TextBoxFor(u => u.userId, new { Value = ViewBag.allInfo.userId, @hidden = "hidden" })  @Html.ValidationMessageFor(u => u.userId)
-    @Html.TextBoxFor(u => u.userName, new { @value = ViewBag.allInfo.userName, @readonly = "readonly" }) @Html.ValidationMessageFor(u => u.userName)
-    @Html.TextBoxFor(u => u.userAccount, new { Value = ViewBag.allInfo.userAccount }) @Html.ValidationMessageFor(u => u.userAccount)
-    <input type="submit" value="确定修改" />
-</form>
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("用户账户管理", "userAccountManagement")
+                @Html.ActionLink("充值卡管理", "refillCardManagement")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="result-content">
+    <form method="post" action="~/backStage/payManagement/changeAccount">
+        @Html.TextBoxFor(u => u.userId, new { Value = ViewBag.allInfo.userId, @hidden = "hidden" })
+        <table class="insert-tab">
+            <tr><th colspan="2">用户账户信息</th></tr>
+            <tr>
+                <th>用户名</th>
+                <td>
+                    @Html.TextBoxFor(u => u.userName, new { @value = ViewBag.allInfo.userName, @readonly = "readonly", @class= "input-content txt-unchange" })
+                    <div class="error-mes">
+                        @Html.ValidationMessageFor(u => u.userName)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>余额</th>
+                <td>
+                    @Html.TextBoxFor(u => u.userAccount, new { Value = ViewBag.allInfo.userAccount, @class= "input-content" })
+                    <div>
+                        @Html.ValidationMessageFor(u => u.userAccount)
+                    </div>
+                </td>      
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <input class="btn-submit show-border" type="submit" value="确定修改" />
+                </td>
+            </tr>           
+        </table>
+    </form>
+</div>    

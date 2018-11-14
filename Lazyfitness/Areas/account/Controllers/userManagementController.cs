@@ -56,8 +56,6 @@ namespace Lazyfitness.Areas.account.Controllers
                     db.userInfo.Add(obInfo);
                     db.SaveChanges();
                 }
-                //Session["loginId"] = security.loginId;
-                //RedirectToRoute(new { controller = "userManagerment", action = "registerInfo" });
                 Response.Redirect("/");
                 return "Ok";
             }
@@ -65,38 +63,7 @@ namespace Lazyfitness.Areas.account.Controllers
             {
                 return EX.ToString();
             }
-        }
-
-        //public ActionResult registerInfo()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //public string registerInfo(userInfo info)
-        //{
-        //    try
-        //    {
-        //        if (Session["loginId"] == null)
-        //        {
-        //            return "F";
-        //        }
-        //        using (LazyfitnessEntities db = new LazyfitnessEntities())
-        //        {
-        //            string userName = Session["loginId"].ToString();
-        //            userInfo obInfo = db.userInfo.Where(u => u.userName == userName).FirstOrDefault();
-        //            obInfo.userAge = info.userAge;
-        //            obInfo.userSex = info.userSex;
-        //            obInfo.userTel = info.userTel;
-        //            db.SaveChanges();
-        //            return "T";
-        //        }
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        return ex.ToString();
-        //    }
-        //}
-
+        }        
         #endregion
 
         #region 登录

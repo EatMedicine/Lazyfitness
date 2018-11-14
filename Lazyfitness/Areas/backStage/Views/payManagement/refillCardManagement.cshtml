@@ -1,52 +1,105 @@
 ﻿@model Lazyfitness.Models.recharge
 @{
-    ViewBag.Title = "refillCardManagement";
+    ViewBag.Title = "充值卡管理";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
 }
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Areas/jQuery/resetUnAvailable.js"></script>
-<h2>refillCardManagement</h2>
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("用户账户管理", "userAccountManagement")
+                @Html.ActionLink("充值卡管理", "refillCardManagement")
+            </div>
+        </div>
+    </div>
+</div>
 
-<form method="post" action="~/backStage/payManagement/findCardId">
-    @Html.TextBoxFor(u => u.rechargeId) @Html.ValidationMessageFor(u => u.rechargeId)
-    <input type="submit" value="查询" />
-</form>
-<button type="submit" id="resetUnAvailable" name="resetUnAvailable">清空所有不可用充值卡</button>
-@if (ViewBag.allList != null)
-{
-    <table border="1">
-        <tr>
-            <td>卡号</td>
-            <td>卡密</td>
-            <td>充值的金额</td>
-            <td colspan="2">是否可用</td>
-        </tr>
-        @{
-            foreach (var item in ViewBag.allList)
-            {
-                <tr>
-                    <td>
-                        @item.rechargeId
-                    </td>
-                    <td>
-                        @item.rechargePwd
-                    </td>
-                    <td>
-                        @item.amount
-                    </td>
-                    <td>
-                        @if (item.isAvailable == 0)
-                        {
-                            <label>否</label>
-                        }
-                        @if (item.isAvailable == 1)
-                        {
-                            <label>是</label>
-                        }
-                    </td>
-                </tr>
+<div class="right">
+    <form method="post" action="~/backStage/payManagement/findCardId">
+        <table class="insert-tab-copy">
+            <tr>
+                <th>卡号</th>
+                <td>
+                    @Html.TextBoxFor(u => u.rechargeId, new { @class = "input-content" })
+                    <input class="btn-submit show-border" type="submit" value="查询" />
+                    <div class="error-mes">
+                        @Html.ValidationMessageFor(u => u.rechargeId)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <button class="btn-submit show-border-btn" type="button" id="resetUnAvailable" name="resetUnAvailable">清空所有不可用充值卡</button>
+                </th>
+            </tr>
+        </table>
+    </form>  
+</div>
+
+<div class="result-content">
+
+    @if (ViewBag.allInfo != null)
+    {
+        <table class="result-tab">
+            <tr>
+                <td>卡号</td>
+                <td>卡密</td>
+                <td>充值的金额</td>
+                <td colspan="2">是否可用</td>
+            </tr>
+            @{
+                foreach (var item in ViewBag.allInfo)
+                {
+                    <tr>
+                        <td>
+                            @item.rechargeId
+                        </td>
+                        <td>
+                            @item.rechargePwd
+                        </td>
+                        <td>
+                            @item.amount
+                        </td>
+                        <td>
+                            @if (item.isAvailable == 0)
+                            {
+                                <label>否</label>
+                            }
+                            @if (item.isAvailable == 1)
+                            {
+                                <label>是</label>
+                            }
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </table>
-}        
+        </table>
+    }
+    <div class="page-number">
+        <ul>
+            @{
+                for (int i = 1; i <= ViewBag.sumPage; i++)
+                {
+
+                    <li style="float:left">
+                        <form method="post" action="~/backStage/payManagement/refillCardManagement">
+                            <input class="id" id="id" name="id" type="text" value=@i hidden="hidden" />
+                            <input type="submit" class="btn-submit" value=@i />
+                        </form>
+                    </li>
+                }
+            }
+            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @ViewBag.nowPage 页, 共 @ViewBag.sumPage 页" /></li>
+        </ul>
+    </div>
+</div>

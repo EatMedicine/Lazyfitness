@@ -60,7 +60,7 @@
                     <th>
                         发布的用户
                     </th>
-                    <td>
+                    <td class="txt-unchange">
                         @ViewBag.senderName
                     </td>
                 </tr>
@@ -70,7 +70,7 @@
                         发布的时间
                     </th>
                     <td>
-                        @Html.TextBoxFor(u => u.resourceTime, new { Value = ViewBag.allInfo.resourceTime, @class = "input-content no-border", @readonly="readonly" })
+                        @Html.TextBoxFor(u => u.resourceTime, new { Value = ViewBag.allInfo.resourceTime, @class = "input-content no-border txt-unchange", @readonly="readonly" })
                         <div class="error-mes">
                             @Html.ValidationMessageFor(u => u.resourceTime)
                         </div>

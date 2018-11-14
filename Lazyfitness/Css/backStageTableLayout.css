@@ -35,3 +35,15 @@
 .textArea{padding:0;margin:auto; border:none; width:500px; height:150px;}
 .hidden{overflow:hidden;}
 .no-border{border:none;background:none;}
+
+
+.insert-tab-copy{border-collapse:collapse;border:1px solid #eee;}
+.insert-tab-copy th,.insert-tab td{border:1px solid #eee;}
+.insert-tab-copy tr{line-height:60px;}
+.insert-tab-copy th{text-align:right;font-weight:normal;padding-right:10px;font-size:14px;}
+.insert-tab-copy td{text-align:center;padding-left:10px;}
+.insert-tab-copy{margin:0 auto; min-width:400px;background-color: #e1e1e1;}
+.insert-tab-copy th{text-align:center;}
+
+.right{float:right}
+.show-border-btn{border:1px solid rgba(0, 0, 0, 0.4); padding:1px}

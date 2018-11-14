@@ -21,12 +21,12 @@ namespace Lazyfitness.Areas.backStage.Controllers
         /// <param name="whereLambda">条件 lambda表达式</param>
         /// <param name="orderBy">排列 lambda表达式</param>
         /// <returns></returns>
-        public List<userInfo> GetPagedList<TKey>(int pageIndex, int pageSize/*, Expression<Func<userInfo, bool>> whereLambda*/, Expression<Func<userInfo, TKey>> orderBy)
+        public List<userInfo> GetPagedList<TKey>(int pageIndex, int pageSize, Expression<Func<userInfo, bool>> whereLambda, Expression<Func<userInfo, TKey>> orderBy)
         {
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 //分页时一定注意：Skip之前一定要OrderBy
-                return db.userInfo/*.Where(whereLambda)*/.OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                return db.userInfo.Where(whereLambda).OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             }
         }
 
@@ -57,7 +57,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             ViewBag.nowPage = 1;
             ViewBag.sumPage = GetSumPage(10);
-            ViewBag.allInfo = GetPagedList(1, 10, u => u.userId);
+            ViewBag.allInfo = GetPagedList(1, 10, x=>x == x , u => u.userId);
 
             return View();
         }
@@ -78,7 +78,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }         
             ViewBag.nowPage = id;
             ViewBag.sumPage = GetSumPage(10);
-            ViewBag.allInfo = GetPagedList(Convert.ToInt32(id), 10, u => u.userId);
+            ViewBag.allInfo = GetPagedList(Convert.ToInt32(id), 10, x=>x == x, u => u.userId);
             return View();
         }
 
