@@ -1,13 +1,50 @@
-﻿
+﻿@model Lazyfitness.Areas.DbTable.tables
 @{
-    ViewBag.Title = "delete";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "删除用户";
 }
-
-<h2>delete</h2>
-
-<h2>删除用户</h2>
-<form action="~/backStage/userManagement/delete" method="post">
-    UserName:<input type="text" id="userName" name="userName" /> <br />
-    <input type="submit" id="postData" name="postData" value="删除"/>
-</form>
-
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加用户", "add", "userManagement")
+                @Html.ActionLink("删除用户", "delete", "userManagement")
+                @Html.ActionLink("修改用户信息", "search", "userManagement")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="result-content">
+    <form action="~/backStage/userManagement/delete" method="post">
+        <table class="insert-tab">
+            <tr><th></th><td class="show-title">删除用户</td></tr>
+            <tr>
+                <th>
+                    用户名
+                </th>
+                <td>
+                    @Html.TextBoxFor(u => u.Info.userName, new { @name = "userName", @type = "text", @class = "input-content" })
+                    <div class="error-mes">@Html.ValidationMessageFor(u => u.Info.userName)</div>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="删除" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+    </div>
+    </body>
+</html>

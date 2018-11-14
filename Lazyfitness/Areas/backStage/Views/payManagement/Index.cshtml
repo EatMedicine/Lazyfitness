@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "充值管理";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("用户账户管理", "userAccountManagement")
+                @Html.ActionLink("充值卡管理", "refillCardManagement")
+            </div>
+        </div>
+    </div>
+</div>
+

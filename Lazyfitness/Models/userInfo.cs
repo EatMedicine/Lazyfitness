@@ -11,10 +11,12 @@ namespace Lazyfitness.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     public partial class userInfo
     {
         public int userId { get; set; }
+        [Required]
         public string userName { get; set; }
         public Nullable<int> userAge { get; set; }
         public Nullable<int> userSex { get; set; }

@@ -1,0 +1,140 @@
+﻿@model Lazyfitness.Models.resourceInfo
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "修改文章";
+}
+
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("资源分区管理", "areaManagement", "articleManagement")
+                @Html.ActionLink("增加文章", "addArticle", "articleManagement")
+                @Html.ActionLink("查询文章", "findArticle", "articleManagement")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="result-content">
+    <form method="post" action="~/backStage/articleManagement/changeArticleInfo">
+        @Html.TextBoxFor(u => u.resourceId, new { value = ViewBag.allInfo.resourceId, hidden = "hidden" })
+        <table class="insert-tab">
+            <tbody>
+                <tr>
+                    <th>分区名称</th>
+                    <td>
+                        <select name="areaId">
+                            @foreach (var item in ViewBag.areaList)
+                            {
+                                if (item.areaId == ViewBag.allInfo.areaId)
+                                {
+                                    <option class="dropdown-list" selected="selected" value=@item.areaId id="userStatus" name="userStatus">@item.areaName</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        文章名称
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.resourceName, new { Value = ViewBag.allInfo.resourceName, @class="input-content" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.resourceName)
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        发布的用户
+                    </th>
+                    <td class="txt-unchange">
+                        @ViewBag.senderName
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        发布的时间
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.resourceTime, new { Value = ViewBag.allInfo.resourceTime, @class = "input-content no-border txt-unchange", @readonly="readonly" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.resourceTime)
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        浏览量
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.pageView, new { Value = ViewBag.allInfo.pageView, @class = "input-content" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.pageView)
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        是否置顶
+                    </th>
+                    <td>
+
+                        @{
+                            if (ViewBag.allInfo.isTop == 0)
+                            {
+                                @Html.RadioButtonFor(u => u.isTop, 0, new { @checked = "checked", @class = "radio-dis" }) <label> 否 </label>
+                                @Html.RadioButtonFor(u => u.isTop, 1, new { @class= "radio-dis" }) <label>是</label>
+                            }
+                            else
+                            {
+                                @Html.RadioButtonFor(u => u.isTop, 0, new { @class = "radio-dis" }) <label> 否 </label>
+                                @Html.RadioButtonFor(u => u.isTop, 1, new { @checked = "checked", @class = "radio-dis"}) <label>是</label>
+                            }
+                        }
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        内容
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.resourceContent, new { Value = ViewBag.allInfo.resourceContent, @class="input-content" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.resourceContent)
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th></th>
+                    <td><input class="btn-submit show-border" type="submit" value="保存修改" /></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </form>
+</div>
+
+
+
+
+

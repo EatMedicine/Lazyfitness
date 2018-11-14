@@ -1,13 +1,56 @@
-﻿
+﻿@model Lazyfitness.Areas.DbTable.tables
 @{
-    ViewBag.Title = "add";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "增加用户";
 }
-
-<h2>add</h2>
-
-<h2>添加用户</h2>
-<form action="~/backStage/userManagement/add" method="post">
-    LoginId:<input type="text" id="loginId" name="loginId" /><br />
-    Pwd:<input type="password" id="userPwd" name="userPwd" /><br />
-    <input type="submit" id="postData" name="postData" value="添加" />
-</form>
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加用户", "add", "userManagement")
+                @Html.ActionLink("删除用户", "delete", "userManagement")
+                @Html.ActionLink("修改用户信息", "search", "userManagement")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="result-content">
+    <form action="~/backStage/userManagement/add" method="post">
+        <table class="insert-tab">
+            <tr><th></th><td class="show-title">增加用户</td></tr>
+            <tr>
+                <th>
+                    用户名
+                </th>
+                <td>
+                    @Html.TextBoxFor(u => u.Security.loginId, new { @type = "text", @class = "input-content" })
+                    <div class="error-mes">@Html.ValidationMessageFor(u => u.Security.loginId)</div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    密码
+                </th>
+                <td>
+                    @Html.TextBoxFor(u => u.Security.userPwd, new { @type = "password", @class = "input-content" })
+                    <div class="error-mes">@Html.ValidationMessageFor(u => u.Security.userPwd)</div>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="增加" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

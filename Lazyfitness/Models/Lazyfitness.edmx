@@ -131,6 +131,13 @@
           <Property Name="loginId" Type="nvarchar" MaxLength="50" />
           <Property Name="userPwd" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="userStatusName">
+          <Key>
+            <PropertyRef Name="userStatus" />
+          </Key>
+          <Property Name="userStatus" Type="int" Nullable="false" />
+          <Property Name="statusName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <Association Name="FK__postInfo__areaId__1FCDBCEB">
           <End Role="postArea" Type="Self.postArea" Multiplicity="1" />
           <End Role="postInfo" Type="Self.postInfo" Multiplicity="*" />
@@ -192,6 +199,7 @@
           <EntitySet Name="resourceInfo" EntityType="Self.resourceInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userInfo" EntityType="Self.userInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userSecurity" EntityType="Self.userSecurity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userStatusName" EntityType="Self.userStatusName" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__postInfo__areaId__1FCDBCEB" Association="Self.FK__postInfo__areaId__1FCDBCEB">
             <End Role="postArea" EntitySet="postArea" />
             <End Role="postInfo" EntitySet="postInfo" />
@@ -348,6 +356,13 @@
           <Property Name="userPwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="userInfo" Relationship="Self.FK__userInfo__userId__1273C1CD" FromRole="userSecurity" ToRole="userInfo" />
         </EntityType>
+        <EntityType Name="userStatusName">
+          <Key>
+            <PropertyRef Name="userStatus" />
+          </Key>
+          <Property Name="userStatus" Type="Int32" Nullable="false" />
+          <Property Name="statusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <Association Name="FK__postInfo__areaId__1FCDBCEB">
           <End Role="postArea" Type="Self.postArea" Multiplicity="1" />
           <End Role="postInfo" Type="Self.postInfo" Multiplicity="*" />
@@ -409,6 +424,7 @@
           <EntitySet Name="resourceInfo" EntityType="Self.resourceInfo" />
           <EntitySet Name="userInfo" EntityType="Self.userInfo" />
           <EntitySet Name="userSecurity" EntityType="Self.userSecurity" />
+          <EntitySet Name="userStatusName" EntityType="Self.userStatusName" />
           <AssociationSet Name="FK__postInfo__areaId__1FCDBCEB" Association="Self.FK__postInfo__areaId__1FCDBCEB">
             <End Role="postArea" EntitySet="postArea" />
             <End Role="postInfo" EntitySet="postInfo" />
@@ -564,6 +580,14 @@
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="loginId" ColumnName="loginId" />
                 <ScalarProperty Name="userPwd" ColumnName="userPwd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userStatusName">
+            <EntityTypeMapping TypeName="LazyfitnessModel.userStatusName">
+              <MappingFragment StoreEntitySet="userStatusName">
+                <ScalarProperty Name="userStatus" ColumnName="userStatus" />
+                <ScalarProperty Name="statusName" ColumnName="statusName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

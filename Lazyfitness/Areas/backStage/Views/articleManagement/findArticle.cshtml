@@ -1,0 +1,50 @@
+﻿@model Lazyfitness.Models.resourceInfo
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "查询文章";
+}
+<script src="~/Areas/jQuery/articleManagement.js"></script>
+
+<div class="main-wrap">
+
+
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("资源分区管理", "areaManagement", "articleManagement")
+                @Html.ActionLink("增加文章", "addArticle", "articleManagement")
+                @Html.ActionLink("查询文章", "findArticle", "articleManagement")
+            </div>
+        </div>
+    </div>
+
+    <div class="result-content">
+        <form method="post" action="~/backStage/articleManagement/findArticleList">
+            <input type="text" hidden="hidden" value="1" name="id"/>
+            <table class="insert-tab">
+                <tr>
+                    <th></th>
+                    <td>查找文章名字</td>
+                </tr>
+                <tr>
+                    <th>文章名字</th>
+                    <td>
+                        <input class="input-content" type="text" name="resourceName" />
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td><input class="btn-submit show-border" type="submit" value="查询" /></td>
+                </tr>
+            </table>
+        </form>        
+    </div>
+</div>

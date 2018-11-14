@@ -11,8 +11,7 @@ namespace Lazyfitness.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
+    
     public partial class resourceArea
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,7 +21,6 @@ namespace Lazyfitness.Models
         }
     
         public int areaId { get; set; }
-        [Required, StringLength(maximumLength:50, MinimumLength =1, ErrorMessage ="分区名过长")]
         public string areaName { get; set; }
         public string areaBrief { get; set; }
     

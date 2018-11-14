@@ -1,17 +1,59 @@
 ﻿@model Lazyfitness.Models.resourceArea
+
 @{
-    ViewBag.Title = "addArea";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "增加分区";
 }
+<script src="~/Areas/jQuery/userManagement.js"></script>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-<h2>addArea</h2>
-
-<form method="post" action="~/backStage/articleManagement/addArea">
-    <input type="text" id="areaId" name="areaId" readonly="readonly" value="@ViewBag.Id"  />
-    <label>分区名：</label>   @Html.TextBoxFor(t=>t.areaName) @Html.ValidationMessageFor(t=>t.areaName)
-    <label>分区简介：</label> @Html.TextAreaFor(t=>t.areaBrief) @Html.ValidationMessageFor(t=>t.areaBrief)
-    <input type="submit" value="增加" />
-</form>
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加分区", "addArea", "articleManagement")
+                @Html.ActionLink("删除分区", "deleteArea", "articleManagement")
+                @Html.ActionLink("查询分区", "findArea", "articleManagement")
+            </div>
+        </div>
+    </div>
+    <div class="result-content">
+        <form method="post" action="~/backStage/articleManagement/addArea">
+            <input type="text" id="areaId" name="areaId" readonly="readonly" value="@ViewBag.Id" hidden="hidden" />
+            <table class="insert-tab">
+                <tr><th></th><td class="show-title">增加分区</td></tr>
+                <tr>
+                    <th>
+                        分区名
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(t => t.areaName, new { @class = "input-content" })
+                        <div class="error-mes">@Html.ValidationMessageFor(t => t.areaName)</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        分区简介
+                    </th>
+                    <td>
+                        @Html.TextAreaFor(t => t.areaBrief, new { @class = "textArea" })
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="增加" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>

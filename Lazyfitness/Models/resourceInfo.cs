@@ -11,8 +11,7 @@ namespace Lazyfitness.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
+    
     public partial class resourceInfo
     {
         public int areaId { get; set; }
@@ -21,7 +20,6 @@ namespace Lazyfitness.Models
         public Nullable<int> userId { get; set; }
         public Nullable<System.DateTime> resourceTime { get; set; }
         public Nullable<int> pageView { get; set; }
-        [Required]
         public Nullable<int> isTop { get; set; }
         public string resourceContent { get; set; }
     

@@ -69,7 +69,13 @@
 }
 .login-loginbtn-pos{
     position:absolute;
-    top:300px;
+    top:530px;
+}
+.pos1{
+    top:330px;
+}
+.pos2{
+    margin-top:10px
 }
 .input-item{
     width:300px;
