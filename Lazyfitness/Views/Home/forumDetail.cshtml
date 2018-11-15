@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["IsSearch"] = false;
+    ViewData["IsHeadPic"] = true;
+    ViewBag.IsDefaultContent = true;
+    ViewBag.Title = "论坛帖子";
+    Layout = "~/Views/Shared/_MainStyle.cshtml";
+}
+
+@*
+    本页需要变量：
+    ViewBag.ForumId 本贴id int
+    ViewBag.ForumInfo 本帖的发帖信息 postInfo
+    ViewBag.ForumReply 本帖的回帖信息 postReply
+    ViewBag.ForumReplyNum 回帖个数 int
+    ViewBag.ForumUserInfo 本帖发贴人的信息 userInfo
+    ViewBag.ForumReplyName 本帖回帖人的名字 string[]
+*@
+
+@Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+<link href="~/Css/forumDetail.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/ForumDetailJs.js"></script>
+
+<div class="forum-detail">
+    <h1 class="detail-head">@ViewBag.ForumInfo.postTitle</h1>
+
+    <div class="detail-owner">
+        <a id="1" href="@Url.Action("forumDetail","Home",new { num = ViewBag.ForumId})#1" class="floor">1#</a>
+        <span class="detail-name">@ViewBag.ForumUserInfo.userName</span>
+        <div class="detail-content">
+            @ViewBag.ForumInfo.postContent
+        </div>
+        <img class="detail-pic" src="~/Resource/picture/DefaultHeadPic.jpg" />
+        <span class="detail-time">@ViewBag.ForumInfo.postTime</span>
+    </div>
+    @for (int count = 0; count < ViewBag.ForumReplyNum; count++)
+    {
+        int num = count + 2;
+        <div class="detail-reply-item">
+            <a id="@num" href="@Url.Action("forumDetail","Home",new { num = ViewBag.ForumId})#@num" class="floor">@num#</a>
+            <span class="detail-name">@ViewBag.ForumReplyName[count]</span>
+            <div class="detail-content">
+                @ViewBag.ForumReply[count].replyContent
+            </div>
+            <img class="detail-pic" src="~/Resource/picture/DefaultHeadPic.jpg" />
+            <span class="detail-time">@ViewBag.ForumReply[count].replyTime</span>
+        </div>
+    }
+    @*
+        <div class="detail-reply-item">
+            <a id="2" href="@Url.Action("forumDetail","Home",new { num = ViewBag.ForumId})#2" class="floor">2#</a>
+            <span class="detail-name">这是一个名字</span>
+            <div class="detail-content">
+                这是论坛内容
+            </div>
+            <img class="detail-pic" src="~/Resource/picture/DefaultHeadPic.jpg" />
+            <span class="detail-time">2018年11月15日22:38:33</span>
+        </div>*@
+
+</div>
+<a id ="reply-btn" class="reply-btn" href="#"><span>回复</span></a>

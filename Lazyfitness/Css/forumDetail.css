@@ -1,0 +1,89 @@
+﻿.forum-detail{
+    position:relative;
+    margin-top:20px;
+    margin-bottom:50px;
+    width:100%;
+    height:100%;
+    background-color:white;
+    box-shadow:1px 1px 5px rgb(128, 128, 128);
+}
+.detail-head{
+    height:100px;
+    line-height:100px;
+    text-align:center;
+    font-family:DengXian;
+    color:rgb(34, 34, 34);
+    border-bottom:1.2px solid rgb(236, 236, 236);
+}
+
+.detail-owner{
+    position:relative;
+    padding-top:5px;
+    padding-left:10%;
+    padding-right:10%;
+    width:80%;
+}
+.detail-name{
+    font-family:YouYuan;
+    font-size:14px;
+    font-weight:900;
+    color:rgb(80, 80, 80);
+}
+.detail-time {
+    font-family: DengXian;
+    font-size: 12px;
+    color: rgb(180, 180, 180);
+}
+.detail-content {
+    position: relative;
+    width: 100%;
+    padding-top: 10px;
+    min-height: 200px;
+}
+
+.detail-pic {
+    position: absolute;
+    left: 50px;
+    top: 10px;
+    display: flex;
+    width: 50px;
+    border-radius: 25px;
+}
+.detail-reply-item {
+    position: relative;
+    padding-top: 5px;
+    padding-left: 10%;
+    padding-right: 10%;
+    border-top: 1px solid rgb(236, 236, 236);
+    width: 80%;
+}
+.floor {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 12px;
+}
+.detail-time {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 12px;
+    color: rgb(200,200,200);
+}
+.reply-btn {
+    position: absolute;
+    right: -150px;
+    top: 0px;
+    border-radius: 10px;
+    width: 100px;
+    height: 30px;
+    line-height:30px;
+    background-color: rgb(233, 86, 0);
+    text-align:center;
+
+}
+.reply-btn span{
+    color:white;
+    font-family:STHupo;
+    font-size:15px;
+}

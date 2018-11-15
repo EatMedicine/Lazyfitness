@@ -239,7 +239,7 @@ namespace Lazyfitness
                 quesAnswId = quesId,
                 quesAnswTitle = "这是一个"+quesId+"的标题？",
                 userId = 666,
-                quesAnswTime = null,
+                quesAnswTime = DateTime.Now,
                 pageView = 999,
                 isPost = 0,
                 quesAnswStatus = 0,
@@ -264,7 +264,7 @@ namespace Lazyfitness
                 {
                     quesAnswId = quesId,
                     userId = count,
-                    replyTime = null,
+                    replyTime = DateTime.Now,
                     replyContent = "这是回帖内容" + count,
                     isAgree = 0,
                 };
@@ -369,6 +369,52 @@ namespace Lazyfitness
             }
             return introducitons;
         }
+
+        /// <summary>
+        /// 获取帖子的发帖信息
+        /// </summary>
+        /// <param name="postId">帖子id</param>
+        /// <returns></returns>
+        public static postInfo GetforumInfo(int postId)
+        {
+            postInfo info = new postInfo
+            {
+                areaId = 1,
+                postId = postId,
+                postTitle = "这是" + postId + "的标题",
+                userId = 1,
+                postTime = DateTime.Now,
+                pageView = 999,
+                isPost = 0,
+                isPay = 0,
+                amount = 0,
+                postStatus = 0,
+                postContent = "这是" + postId + "的内容",
+                postArea = null,
+            };
+            return info;
+        }
+
+        /// <summary>
+        /// 获取帖子的回帖
+        /// </summary>
+        /// <param name="postId">帖子id</param>
+        /// <returns></returns>
+        public static postReply[] GetforumReply(int postId)
+        {
+            postReply[] replys = new postReply[5];
+            for (int count = 0; count < 5; count++)
+            {
+                replys[count] = new postReply
+                {
+                    postId = postId,
+                    userId = count,
+                    replyTime = DateTime.Now,
+                    replyContent = "这是" + postId + "的回帖" + count,
+                };
+            }
+            return replys;
+        }
         #endregion
 
         /// <summary>
@@ -391,6 +437,11 @@ namespace Lazyfitness
             return "/Resource/picture/DefaultHeadPic.jpg";
         }
 
+        /// <summary>
+        /// 获取用户信息
+        /// </summary>
+        /// <param name="userId">用户id</param>
+        /// <returns></returns>
         public static userInfo GetUserInfo(int userId)
         {
             userInfo info = new userInfo

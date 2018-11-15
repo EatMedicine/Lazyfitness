@@ -8,6 +8,7 @@
 
 @*
     本页需要的变量：
+    ViewBag.QuestionId 该问题的ID int
     ViewBag.IsSolved 该问题是否解决了 bool
     ViewBag.Money 该问题的悬赏金额 int
     ViewBag.QuesInfo 问答的信息 quesAnswInfo
@@ -49,6 +50,7 @@
             </div>
             <div class="head-money-num">@ViewBag.QuesInfo.amount</div>
         }
+        <span class="time">@ViewBag.QuesInfo.quesAnswTime.ToString()</span>
     </div>
 </div>
 
@@ -63,8 +65,9 @@
     }
     @for (int count = 0; count < replyId.Length; count++)
     {
+        int num = count + 1;
         <div class="reply-item">
-            <a id="@count" href="@Url.Action("QuestionDetail","Home")#@count" class="floor">@count#</a>
+            <a id="@num" href="@Url.Action("QuestionDetail","Home", new { num = ViewBag.QuestionId})#@num" class="floor">@num#</a>
             <div class="question-content">
                 @replyContent[count]
             </div>
@@ -82,6 +85,7 @@
                         采纳该答案
                     </div>
                 }
+                <span class="time">@replyTime[count]</span>
             </div>
         </div>
     }

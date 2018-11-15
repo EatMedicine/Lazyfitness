@@ -423,8 +423,14 @@ namespace Lazyfitness.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 问答详细页
+        /// </summary>
+        /// <param name="num">问答贴id</param>
+        /// <returns></returns>
         public ActionResult QuestionDetail(int num = 0)
         {
+            ViewBag.QuestionId = num;
             ViewBag.IsSolved = false;
             ViewBag.Money = 100;
             quesAnswInfo info = Tools.GetQuestionInfo(num);
@@ -442,7 +448,7 @@ namespace Lazyfitness.Controllers
                 id[count] = (int)replys[count].userId;
                 name[count] = Tools.GetUserName(id[count]);
                 picAdr[count] = Tools.GetUserPicAdr(id[count]);
-                time[count] = "XX年XX月XX日";
+                time[count] = DateTime.Now.ToString();
                 content[count] = replys[count].replyContent;
                 isAgree[count] = (int)replys[count].isAgree;
 
@@ -453,6 +459,23 @@ namespace Lazyfitness.Controllers
             ViewBag.ReplyTime = time;
             ViewBag.ReplyContent = content;
             ViewBag.ReplyIsAgree = isAgree;
+            return View();
+        }
+
+        public ActionResult forumDetail(int num = 0)
+        {
+            ViewBag.ForumId = num;
+            ViewBag.ForumInfo = Tools.GetforumInfo(num);
+            postReply[] reply = Tools.GetforumReply(num);
+            ViewBag.ForumReply = reply;
+            ViewBag.ForumReplyNum = reply.Length;
+            ViewBag.ForumUserInfo = Tools.GetUserInfo(ViewBag.ForumInfo.userId);
+            string[] name = new string[reply.Length];
+            for (int count = 0; count < reply.Length; count++)
+            {
+                name[count] = Tools.GetUserName((int)reply[count].userId);
+            }
+            ViewBag.ForumReplyName = name;
             return View();
         }
         #region Test

@@ -516,6 +516,7 @@
     <Content Include="Css\ArticleEditor.css" />
     <Content Include="Css\ArticlePart.css" />
     <Content Include="Css\forum.css" />
+    <Content Include="Css\forumDetail.css" />
     <Content Include="Css\forumPart.css" />
     <Content Include="Css\backStageBarLayout.css" />
     <Content Include="Css\backStageIndexLayout.css" />
@@ -560,6 +561,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\ForumDetailJs.js" />
     <Content Include="Scripts\forumjs.js" />
     <Content Include="Scripts\IndexJs.js" />
     <Content Include="Scripts\QuestionDetail.js" />
@@ -695,6 +697,7 @@
     <Content Include="Views\Home\QuestionDetail.cshtml" />
     <Content Include="Views\Shared\_backStageMainStyle.cshtml" />
     <Content Include="Views\Shared\_backStageMainStyle.cshtml" />
+    <Content Include="Views\Home\forumDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
