@@ -24,36 +24,93 @@
     </div>
 </div>
 <div class="result-content">
-    <h2>论坛帖子人气TOP10</h2>
-    <label>查询结果:</label>@ViewBag.postconfirm
     <table class="result-tab">
         <tr>
+            <th>帖子所处分区名称</th>
+            <th>帖子编号</th>
             <th>帖子名称</th>
-            <th>发稿人ID</th>
-            <th>人气</th>
+            <th>发表用户</th>
+            <th>发布时间</th>
+            <th>浏览量</th>
+            <th>是否置顶</th>
+            <th>付费金额</th>
+            <th>帖子状态</th>
+            <th>内容</th>
             <th colspan="2">可选操作</th>
         </tr>
-        @foreach (var info in ViewBag.post)
+        @if (ViewBag.allInfo != null)
         {
-            <tr>
-                <td>@info.postTitle</td>
-                <td>@info.userId</td>
-                <td>@info.pageView</td>
-                <td>
-                    <form method="get" action="~/backStage/pageView/forumInvitationUpdate">
-                        <input type="text" name="postId" id="postId" value=@info.postId hidden="hidden" />
-                        <input class="index-btn" type="submit" value="修改">
-                    </form>
-                </td>
-                <td>
-                    <form method="post" action="~/backStage/pageView/forumInvitationDelete">
-                        <input type="text" name="postId" id="postId" value=@info.postId hidden="hidden" />
-                        <input class="index-btn" type="submit" value="删除">
-                    </form>
-                </td>
-            </tr>
+            int counter = 0;
+            foreach (var item in @ViewBag.allInfo)
+            {
+                <tr>
+                    <td><input class="no-border" type="text" value=@ViewBag.areaNameList[counter] readonly /> </td>
+                    <td id="postId">@item.postId</td>
+                    <td>@item.postTitle</td>
+                    <td>@ViewBag.userNameList[counter]</td>
+                    <td>@item.postTime</td>
+                    <td>@item.pageView</td>
+                    @if (@item.isPost == 0)
+                    {
+                        <td>否</td>
+                    }
+                    @if (item.isPost != 0)
+                    {
+                        <td>是</td>
+                    }
+                    <td>@item.amount</td>
+                    @if (@item.postStatus == 0)
+                    {
+                        <td>所有人可见</td>
+                    }
+                    @if (item.postStatus == 1)
+                    {
+                        <td>好友可见</td>
+                    }
+                    @if (@item.postStatus == 2)
+                    {
+                        <td>仅自己可见</td>
+                    }
+                    @if (item.postStatus == 3)
+                    {
+                        <td>隐藏</td>
+                    }
+                    <td>@item.postContent</td>
+                    <td>
+                        <form method="get" action="~/backStage/pageView/forumInvitationUpdate">
+                            <input type="text" name="postId" id="postId" value="@item.postId" hidden="hidden" />
+                            <input class="index-btn" type="submit" value="修改">
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" action="~/backStage/pageView/forumInvitationDelete">
+                            <input type="text" name="postId" id="postId" value=@item.postId hidden="hidden" />
+                            <input class="index-btn" type="submit" value="删除">
+                        </form>
+                    </td>
+                </tr>
+                counter++;
+            }
         }
     </table>
+
+    <div class="page-number">
+        <ul>
+            @{
+                for (int i = 1; i <= ViewBag.postsumPage; i++)
+                {
+
+                    <li style="float:left">
+                        <form method="post" action="~/backStage/pageView/forumPageViewIndex">
+                            <input class="id" id="id" name="id" type="text" value=@i hidden="hidden" />
+                            <input type="submit" class="btn-submit" value=@i />
+                        </form>
+                    </li>
+                }
+            }
+            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @ViewBag.nowPage 页, 共 @ViewBag.postsumPage 页" /></li>
+        </ul>
+    </div>
 </div>
     </div>
 </body>

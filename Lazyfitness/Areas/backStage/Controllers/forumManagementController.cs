@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Lazyfitness.Models;
 using System.Data.Entity.Infrastructure;
 using Lazyfitness.Areas.DbTable;
+using System.Collections;
 
 namespace Lazyfitness.Areas.backStage.Controllers
 {
@@ -21,12 +22,12 @@ namespace Lazyfitness.Areas.backStage.Controllers
         /// <param name="whereLambda">条件 lambda表达式</param>
         /// <param name="orderBy">排列 lambda表达式</param>
         /// <returns></returns>
-        public List<postInfo> GetPagedList<TKey>(int pageIndex, int pageSize/*, Expression<Func<userInfo, bool>> whereLambda*/, Expression<Func<postInfo, TKey>> orderBy)
+        public List<postArea> GetPagedList<TKey>(int pageIndex, int pageSize, Expression<Func<postArea, bool>> whereLambda, Expression<Func<postArea, TKey>> orderBy)
         {
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 //分页时一定注意：Skip之前一定要OrderBy
-                return db.postInfo/*.Where(whereLambda)*/.OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                return db.postArea.Where(whereLambda).OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             }
         }
 
@@ -35,7 +36,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         {
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                int listSum = db.userInfo.ToList().Count;
+                int listSum = db.postArea.ToList().Count;
                 return ((listSum / pageSize) + 1);
             }
         }
@@ -55,33 +56,19 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 Response.Redirect("/backStage/manager/login");
                 return Content("未登录");
             }
-            ViewBag.nowPage = 1;
-            ViewBag.sumPage = GetSumPage(10);
-            ViewBag.allInfo = GetPagedList(1, 10, u => u.userId);
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
 
+                var postArea = db.postArea.Count();
+                ViewBag.postAreaNum = postArea;
+
+                var postInfo = db.postInfo.Count();
+                ViewBag.postInfoNum = postInfo;
+
+            }
             return View();
         }
         // GET: backStage/forumManagement
-        [HttpPost]
-        public ActionResult Index(int id)
-        {
-            ViewBag.managerId = null;
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-                ViewBag.managerId = cookieText.ToString();
-            }
-            else
-            {
-                return Content("未登录");
-            }
-            ViewBag.nowPage = id;
-            ViewBag.sumPage = GetSumPage(10);
-            ViewBag.allInfo = GetPagedList(Convert.ToInt32(id), 10, u => u.userId);
-            return View();
-        }
         //论坛分区主页
         public ActionResult forumAreaIndex()
         {
@@ -100,12 +87,57 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             ViewBag.nowPage = 1;
             ViewBag.sumPage = GetSumPage(10);
-            ViewBag.allInfo = GetPagedList(1, 10, u => u.userId);
+            ViewBag.allInfo = GetPagedList(1, 10, x => x == x, u => u.areaId);
 
             return View();
         }
-
+        [HttpPost]
+        public ActionResult forumAreaIndex(int id)
+        {
+            ViewBag.managerId = null;
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+                ViewBag.managerId = cookieText.ToString();
+            }
+            else
+            {
+                return Content("未登录");
+            }
+            ViewBag.nowPage = id;
+            ViewBag.sumPage = GetSumPage(10);
+            ViewBag.allInfo = GetPagedList(Convert.ToInt32(id), 10, x => x == x, u => u.areaId);
+            return View();
+        }
         //论坛帖子分区
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">页容量</param>
+        /// <param name="whereLambda">条件 lambda表达式</param>
+        /// <param name="orderBy">排列 lambda表达式</param>
+        /// <returns></returns>
+        public List<postInfo> GetPagedListpost<TKey>(int pageIndex, int pageSize, Expression<Func<postInfo, bool>> whereLambda, Expression<Func<postInfo, TKey>> orderBy)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                //分页时一定注意：Skip之前一定要OrderBy
+                return db.postInfo.Where(whereLambda).OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            }
+        }
+
+        public int GetSumPagepost(int pageSize)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                int listSum = db.postInfo.ToList().Count;
+                return ((listSum / pageSize) + 1);
+            }
+        }
         public ActionResult forumInvitationIndex()
         {
             ViewBag.managerId = null;
@@ -122,9 +154,67 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 return Content("未登录");
             }
             ViewBag.nowPage = 1;
-            ViewBag.sumPage = GetSumPage(10);
-            ViewBag.allInfo = GetPagedList(1, 10, u => u.userId);
-
+            ViewBag.postsumPage = GetSumPagepost(10);
+            ViewBag.allInfo = GetPagedListpost(1, 10, x => x == x, u => u.userId);
+            var allInfo = GetPagedListpost(1, 10, x => x == x, u => u.userId);
+            ArrayList areaNameList = new ArrayList();
+            ArrayList userNameList = new ArrayList();
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                for (int i = 0; i < allInfo.Count; i++)
+                {
+                    int userId = allInfo[i].userId.Value;
+                    var obUser = db.userInfo.Where(u => u.userId == userId).FirstOrDefault();
+                    string userName = obUser.userName;
+                    int areaId = allInfo[i].areaId;
+                    var obArea = db.postArea.Where(u => u.areaId == areaId).FirstOrDefault();
+                    string areaName = obArea.areaName;
+                    areaNameList.Add(areaName);
+                    userNameList.Add(userName);
+                }
+            }
+            ViewBag.areaNameList = areaNameList;
+            ViewBag.userNameList = userNameList;
+            return View();
+        }
+        // GET: backStage/forumManagement
+        [HttpPost]
+        public ActionResult forumInvitationIndex(int id)
+        {
+            ViewBag.managerId = null;
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+                ViewBag.managerId = cookieText.ToString();
+            }
+            else
+            {
+                return Content("未登录");
+            }
+            ViewBag.nowPage = id;
+            ViewBag.postsumPage = GetSumPagepost(10);
+            var allInfo = GetPagedListpost(Convert.ToInt32(id), 10, x => x == x, u => u.userId);
+            ViewBag.allInfo = allInfo;
+            ArrayList areaNameList = new ArrayList();
+            ArrayList userNameList = new ArrayList();
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                for (int i = 0; i < allInfo.Count; i++)
+                {
+                    int userId = allInfo[i].userId.Value;
+                    var obUser = db.userInfo.Where(u => u.userId == userId).FirstOrDefault();
+                    string userName = obUser.userName;
+                    int areaId = allInfo[i].areaId;
+                    var obArea = db.postArea.Where(u => u.areaId == areaId).FirstOrDefault();
+                    string areaName = obArea.areaName;
+                    areaNameList.Add(areaName);
+                    userNameList.Add(userName);
+                }
+            }
+            ViewBag.areaNameList = areaNameList;
+            ViewBag.userNameList = userNameList;
             return View();
         }
 
@@ -348,6 +438,28 @@ namespace Lazyfitness.Areas.backStage.Controllers
 
         public ActionResult forumInvitationAdd()
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return Content("未登录");
+            }
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var postArea = db.postArea.ToList();
+                if (postArea != null)
+                {
+                    ViewBag.postArea = postArea;
+                }
+                else
+                {
+                    return View();
+                }
+            }
             return View();
         }
         [HttpPost]
@@ -449,11 +561,29 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 ViewBag.IsSearchSuccess = false;
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    DbQuery<postInfo> dbInvitationsearch = db.postInfo.Where(u => u.postId == info.postId) as DbQuery<postInfo>;
-                    postInfo _postinfo = dbInvitationsearch.FirstOrDefault();
+                    postInfo _postinfo = db.postInfo.Where(u => u.postId == info.postId).FirstOrDefault();
                     if (_postinfo != null)
                     {
                         ViewBag.postInfo = _postinfo;
+
+                        var postArea = db.postArea.ToList();
+                        if (postArea != null)
+                        {
+                            ViewBag.postArea = postArea;
+                        }
+                        else
+                        {
+                            return Content("<script >alert('帖子分区已被注销！无法查看！！！');</script >", "text/html"); 
+                        }
+                        var userInfo = db.userInfo.Where(u => u.userId == _postinfo.userId).FirstOrDefault();
+                        if (userInfo != null)
+                        {
+                            ViewBag.userInfo = userInfo;
+                        }
+                        else
+                        {
+                            return Content("<script >alert('帖子拥有者已被注销！无法查看！！！');</script >", "text/html");
+                        }
                     }
                     else
                     {
@@ -554,13 +684,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    DbQuery<postInfo> dbInvitation = db.postInfo.Where(u => u.postId == info.postId) as DbQuery<postInfo>;
-                    postInfo _postInfo = dbInvitation.FirstOrDefault();
+                    postInfo _postInfo = db.postInfo.Where(u => u.postId == info.postId).FirstOrDefault();
                     //将要修改的值，放到数据上下文中
                     _postInfo.areaId = info.areaId;
-                    _postInfo.postId = info.postId;
                     _postInfo.postTitle = info.postTitle;
-                    _postInfo.userId = info.userId;
                     _postInfo.isPost = info.isPost;
                     _postInfo.isPay = info.isPay;
                     _postInfo.amount = info.amount;

@@ -29,11 +29,17 @@
                 <tr><th></th><td class="show-title">论坛帖子增加</td></tr>
                 <tr>
                     <th>
-                        分区ID
+                        分区ID及名称
                     </th>
                     <td>
-                        @Html.TextBoxFor(u => u.areaId, new { @type = "text", @class = "input-content" })
-                        <div class="error-mes">@Html.ValidationMessageFor(x => x.areaId)</div>
+                        <select name="areaId">
+                            @{
+                                foreach (var postArea in @ViewBag.postArea)
+                                {
+                                    <option value="@postArea.areaId">@postArea.areaId &nbsp&nbsp @postArea.areaName</option>
+                                }
+                            }
+                        </select>
                     </td>
                 </tr>
                 <tr>
