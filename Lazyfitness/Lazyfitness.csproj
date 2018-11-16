@@ -515,6 +515,7 @@
     <Content Include="Css\ArticleDetail.css" />
     <Content Include="Css\ArticleEditor.css" />
     <Content Include="Css\ArticlePart.css" />
+    <Content Include="Css\Editor.css" />
     <Content Include="Css\forum.css" />
     <Content Include="Css\forumDetail.css" />
     <Content Include="Css\forumPart.css" />
@@ -529,6 +530,7 @@
     <Content Include="Css\Article.css" />
     <Content Include="Css\Question.css" />
     <Content Include="Css\QuestionDetail.css" />
+    <Content Include="Css\QuestionEditor.css" />
     <Content Include="Css\QuestionPart.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -698,6 +700,8 @@
     <Content Include="Views\Shared\_backStageMainStyle.cshtml" />
     <Content Include="Views\Shared\_backStageMainStyle.cshtml" />
     <Content Include="Views\Home\forumDetail.cshtml" />
+    <Content Include="Views\Home\QuestionEditor.cshtml" />
+    <Content Include="Views\Home\forumEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

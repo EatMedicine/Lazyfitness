@@ -3,15 +3,16 @@
     ViewData["IsSearch"] = false;
     ViewData["IsHeadPic"] = true;
     ViewBag.IsDefaultContent = true;
-    ViewBag.Title = "文章编辑";
+    ViewBag.Title = "问答编辑";
     Layout = "~/Views/Shared/_MainStyle.cshtml";
 }
+
 @*
     本页需要变量：
     ViewBag.PartId 代表是对哪个分区进行添加 int
     ViewBag.UserId 用户id int
 *@
-<link href="~/Css/Editor.css" rel="stylesheet" type="text/css" />
+<link href="~/Css/QuestionEditor.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.all.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/lang/zh-cn/zh-cn.js"></script>
@@ -23,19 +24,25 @@
         initialFrameHeight: 400,
         elementPathEnabled: false,
         wordCount: false,
+        toolbars: [
+            ['source', 'simpleupload']
+        ]
     });
     editor.render('editor');
 </script>
 
 <div class="editor">
-    @using (Html.BeginForm("ArticleSubmit", "Api", FormMethod.Post))
+    @using (Html.BeginForm("QuestionSubmit","Api",FormMethod.Post))
     {
-        <input id="title" class="title" type="text" placeholder="输入一个清晰明白的标题吧" autocomplete="off" />
+        <input id="title" class="title" type="text" placeholder="输入一个清晰明白的标题吧" autocomplete="off"/>
         <textarea id="editor" name="editor"></textarea>
+        <div class="money">
+            <span>悬赏金：</span>
+            <input id="money" name="money" type="number" min="0" max="999" value="0" maxlength="3" />
+        </div>
         <input id="submit" type="submit" value="发布" />
 
-        <input type="hidden" id="areaId" name="areaId" value="@ViewBag.PartId" />
-        <input type="hidden" id="userId" name="userId" value="@ViewBag.UserId" />
+        <input type="hidden" id="areaId" name="areaId" value="@ViewBag.PartId"/>
+        <input type="hidden" id="userId" name="userId" value="@ViewBag.UserId"/>
     }
 </div>
-}

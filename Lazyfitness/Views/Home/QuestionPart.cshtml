@@ -38,7 +38,7 @@
 </div>
 <div class="content">
     <span class="content-title fl">@partName[ViewBag.PartId]</span>
-    <a href="#">
+    <a href=@Url.Action("QuestionEditor","Home",new { partId = ViewBag.PartId})>
         <div class="content-askQues-btn">
             <span class="content-askQues-btn-text">我要提问</span>
         </div>

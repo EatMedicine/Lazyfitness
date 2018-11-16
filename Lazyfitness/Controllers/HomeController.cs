@@ -420,6 +420,8 @@ namespace Lazyfitness.Controllers
             //此处应有一个判断有无权限的函数
             //
             ViewBag.PartId = partId;
+            //此处应先验证，然后从cookie里获取userId
+            ViewBag.UserId = 111;
             return View();
         }
 
@@ -462,6 +464,19 @@ namespace Lazyfitness.Controllers
             return View();
         }
 
+        public ActionResult QuestionEditor(int partId = 0)
+        {
+            ViewBag.PartId = partId;
+            //此处应先验证，然后从cookie里获取userId
+            ViewBag.UserId = 111;
+            return View();
+        }
+
+        /// <summary>
+        /// 论坛详情页
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
         public ActionResult forumDetail(int num = 0)
         {
             ViewBag.ForumId = num;
@@ -476,6 +491,14 @@ namespace Lazyfitness.Controllers
                 name[count] = Tools.GetUserName((int)reply[count].userId);
             }
             ViewBag.ForumReplyName = name;
+            return View();
+        }
+
+        public ActionResult forumEditor(int partId = 0)
+        {
+            ViewBag.PartId = partId;
+            //此处应先验证，然后从cookie里获取userId
+            ViewBag.UserId = 111;
             return View();
         }
         #region Test
