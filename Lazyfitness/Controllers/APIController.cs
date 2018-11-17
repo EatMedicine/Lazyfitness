@@ -9,6 +9,7 @@ namespace Lazyfitness.Controllers
 
     public class APIController : Controller
     {
+        #region 创建
         [HttpPost]
         [ValidateInput(false)]
         public string ArticleSubmit(string resourceName,string editor,int userId)
@@ -16,7 +17,7 @@ namespace Lazyfitness.Controllers
 
             return "标题："+resourceName+"\n"+editor+"\n"+userId;
         }
-
+    
         [HttpPost]
         [ValidateInput(false)]
         public string QuestionSubmit(int areaId,int userId,string title,
@@ -32,6 +33,23 @@ namespace Lazyfitness.Controllers
         {
             return areaId + "\n" + userId + "\n" + title + "\n" + editor + "\n" + money;
         }
+        #endregion
+        #region 回复
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public string QuestionReply(int quesId,string reply)
+        {
+            return quesId + "\n" + reply;
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public string forumReply(int quesId, string reply)
+        {
+            return quesId + "\n" + reply;
+        }
+        #endregion
     }
 
 }

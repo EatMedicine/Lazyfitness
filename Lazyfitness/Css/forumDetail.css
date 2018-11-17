@@ -87,3 +87,22 @@
     font-family:STHupo;
     font-size:15px;
 }
+
+.reply {
+    position: relative;
+    width: 800px;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#submit {
+    margin: 0 300px;
+    margin-top: 20px;
+    height: 30px;
+    width: 200px;
+    background-color: white;
+    border-style: none;
+    border: 1px solid rgb(128, 128, 128);
+    border-radius: 10px;
+}
