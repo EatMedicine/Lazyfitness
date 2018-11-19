@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Lazyfitness.MyClass;
+using System.Data.Entity.Infrastructure;
 
 namespace Lazyfitness.Controllers
 {
@@ -453,6 +454,63 @@ namespace Lazyfitness.Controllers
                 userPwd = "123"
             };
             return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+
+        #region 获取个人信息
+        public ActionResult PersonalData()
+        {
+            if (Request.Cookies["loginId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["loginId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+                var loginId = cookieText.ToString();
+
+                HttpCookie cookieNameUserId = Request.Cookies["userId"];
+                var cookieTextUserId = Server.HtmlEncode(cookieNameUserId.Value);
+                var userId = Convert.ToInt32(cookieTextUserId.ToString());
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+
+                    DbQuery<userInfo> dbsearch = db.userInfo.Where(u => u.userId == userId) as DbQuery<userInfo>;
+                    userInfo _userInfo = dbsearch.FirstOrDefault();
+                    if (_userInfo != null)
+                    {
+                        ViewBag.userId = _userInfo.userId;
+                        ViewBag.userName = _userInfo.userName;
+                        ViewBag.userAge = _userInfo.userAge;
+                        ViewBag.userSex = _userInfo.userSex;
+                        ViewBag.userEmail = _userInfo.userEmail;
+                        ViewBag.userStatus = _userInfo.userStatus;
+                        ViewBag.userAccount = _userInfo.userAccount;
+                        ViewBag.userIntroduce = _userInfo.userIntroduce;
+                        ViewBag.userHeaderPic = _userInfo.userHeaderPic;
+                    }
+                }
+            }
+            return View();
+        }
+        [HttpPost]
+        public ActionResult PersonalData(userInfo info)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                DbQuery<userInfo> dbsearch = db.userInfo.Where(u => u.userId == info.userId) as DbQuery<userInfo>;
+                userInfo _userInfo = dbsearch.FirstOrDefault();
+                if (_userInfo != null)
+                {
+                    _userInfo.userName = info.userName;
+                    _userInfo.userAge = info.userAge;
+                    _userInfo.userSex = info.userSex;
+                    _userInfo.userEmail = info.userEmail;
+                    _userInfo.userStatus = info.userStatus;
+                    _userInfo.userIntroduce = info.userIntroduce;
+                    db.SaveChanges();
+                }
+            }
+            return Content("<script >window.window.history.back(-1)</script >", "text/html");
         }
         #endregion
     }

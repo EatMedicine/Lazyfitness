@@ -1,0 +1,123 @@
+﻿@model Lazyfitness.Models.userInfo
+@{
+    ViewData["IsSearch"] = false;
+    ViewData["IsHeadPic"] = true;
+    ViewBag.IsDefaultContent = true;
+    Layout = "~/Views/Shared/_MainStyle.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PersonalData</title>
+    <link href="~/Css/PersonalData.css" rel="stylesheet" />
+    <script src="~/Scripts/PersonalData.js"></script>
+</head>
+<body>
+    <div class="content-body">
+        <div class="main-body">
+            <div id="content-main" class="main">
+                <div class="area-title">
+                    <h2>账号信息</h2>
+                </div>
+                <div class="area-main">
+                    <div class="area-main-inner">
+                        <form method="post" action="~/Home/PersonalData">
+                            @Html.TextBoxFor(u => u.userId, new { @Value = @ViewBag.userId, @type = "text", @class = "input-content", @id = "userId", @name = "userId", @hidden = "true" })
+                            <div class="">
+                                <table>
+                                    <tr>
+                                        <td class="table-head"><label>当前头像</label></td>
+                                        <td><span class="headPicture"><img src="@ViewBag.userHeaderPic" /></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-head"><label>用户ID</label></td>
+                                        <td><span id="userId">@ViewBag.userId</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-head"><label>昵称</label></td>
+                                        <td><span id="userName">@ViewBag.userName</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-head"><label>性别</label></td>
+                                        <td>
+                                            @if (@ViewBag.userSex == 0)
+                                            {
+                                                <span id="userSex">男</span>
+                                            }
+                                            @if (@ViewBag.userSex == 1)
+                                            {
+                                                <span id="userSex">女</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-head"><label>年龄</label></td>
+                                        <td>
+                                            <span id="userAge">@ViewBag.userAge</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-head"><label>邮箱</label></td>
+                                        <td>
+                                            <span id="userEmail">812758481@qq.com</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-head"><label>用户状态</label></td>
+                                        <td>
+                                            @if (@ViewBag.userStatus == 0)
+                                            {
+                                                <span>禁止发言</span>
+                                            }
+                                            @if (@ViewBag.userStatus == 1)
+                                            {
+                                                <span>注册会员</span>
+                                            }
+                                            @if (@ViewBag.userStatus == 2)
+                                            {
+                                                <span>正式会员</span>
+                                            }
+                                            @if (@ViewBag.userStatus == 3)
+                                            {
+                                                <span>管理员</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-head"><label>用户余额</label></td>
+                                        <td>@ViewBag.userAccount</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-head"><label>用户说明</label></td>
+                                        <td class="userIntroduce">
+                                            <span id="userIntroduce">
+                                                @ViewBag.userIntroduce
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="btn-group">
+                                <span class="n-btn">
+                                    <input class="btn" id="button" type="button" value="修改" onclick="changeInput()" />
+                                    <input class="btn" type="submit" id="postData" name="postData" value="保存" hidden="hidden">
+                                    <input class="btn" type="button" id="quit" name="quit" value="取消" onclick="javascript:window.location.reload()" hidden="hidden">
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-content">
+            <p>小懒人健身网站运营团队荣誉出品</p>
+            <p>联系方式：xxx</p>
+        </div>
+    </div>
+</body>
+</html>
+

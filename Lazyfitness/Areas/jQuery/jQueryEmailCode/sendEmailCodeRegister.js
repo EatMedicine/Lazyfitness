@@ -1,6 +1,5 @@
 ﻿$(function () {
-    $(".getEmailCode").click(function () {
-
+    $(".getEmailCode").click(function () {        
         if (checkEmail() == false) {
             alert("邮箱已经注册！");
             return false;
@@ -13,13 +12,34 @@
         if (!reg.test(mailAddress)) {
             alert("请输入正确的邮箱格式");
             return false;
-　　    }       
+        }
+        //更改按钮内容
+        $(".getEmailCode").attr("value", "发送请求中");
+        //把按钮设置为disabled状态
+        $(".getEmailCode").attr("disabled", "disabled");
         $.post("/account/sendEmailCodeRegister/sendVerification", "mailAddress=" + mailAddress, function (data, status) {
-            if (data == "true" && status == "success") {
-                alert("发送成功!");
+            if (data == "true" && status == "success") {                
+                var countdown = 60;
+                function settime(obj) {
+                    if (countdown === 0) {
+                        //移除按钮的disabled状态
+                        $(".getEmailCode").removeAttr("disabled");
+                        obj.attr("value", "获取验证码");
+                        countdown = 60;
+                        return;
+                    }
+                    else {
+                        obj.attr("value", "重发(" + countdown + "s)");
+                        countdown--;
+                    }
+                    setTimeout(function () { settime(obj) }, 1000);
+                }
+                settime($(".getEmailCode"));
             }
             else {
                 alert("发送失败");
+                $(".getEmailCode").attr("value", "再次获取");
+                $(".getEmailCode").removeAttr("disabled");
             }
         
         });
