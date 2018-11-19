@@ -11,8 +11,7 @@ namespace Lazyfitness.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class postArea
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,12 +20,8 @@ namespace Lazyfitness.Models
             this.postInfo = new HashSet<postInfo>();
         }
     
-        [Required(ErrorMessage="分区ID必须填写")]
         public int areaId { get; set; }
-        [Required(ErrorMessage = "分区名称必须填写")]
-        [StringLength(50)]
         public string areaName { get; set; }
-        [Required(ErrorMessage = "分区描述必须填写")]
         public string areaBrief { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

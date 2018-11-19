@@ -221,7 +221,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                         ViewBag.userName = _userInfo.userName;
                         ViewBag.userAge = _userInfo.userAge;
                         ViewBag.userSex = _userInfo.userSex;
-                        ViewBag.userTel = _userInfo.userTel;
+                        ViewBag.userEmail = _userInfo.userEmail;
                         ViewBag.userStatus = _userInfo.userStatus;
                         ViewBag.userAccount = _userInfo.userAccount;
                         //db.SaveChanges();
@@ -297,7 +297,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     _userInfo.userName = info.userName;
                     _userInfo.userAge = info.userAge;
                     _userInfo.userSex = info.userSex;
-                    _userInfo.userTel = info.userTel;
+                    _userInfo.userEmail = info.userEmail;
                     _userInfo.userStatus = info.userStatus;
                     _userInfo.userAccount = info.userAccount;
                     db.SaveChanges(); //将修改之后的值保存到数据库中

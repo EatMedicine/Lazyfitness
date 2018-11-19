@@ -1,0 +1,41 @@
+﻿@model Lazyfitness.Areas.DbTable.tables
+@{
+    ViewData["IsSearch"] = true;
+    ViewData["IsHeadPic"] = true;
+    Layout = "~/Views/Shared/_MainStyle.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Areas/jQuery/jQueryEmailCode/sendEmailCodeFindUserName.js"></script>
+<script src="~/Areas/jQuery/jQueryEmailCode/checkCodeFindUserame.js"></script>
+<link href="~/Css/Input.css" rel="stylesheet" type="text/css" />
+
+<div class="login-input">
+    <form action="~/account/passwordManager/findUsername" method="post" autocomplete="off">
+        <div class="login-input-content">
+            <p>找回用户名</p>
+            <div class="input-item">
+                <div class="input-text-border">
+                    @Html.TextBoxFor(u => u.Info.userEmail, new { @class = "input-text emailAddress", @placeholder = "      邮箱" })
+                </div>
+                <div class="message-style">
+                    @Html.ValidationMessageFor(u => u.Info.userEmail)
+                </div>
+            </div>
+
+            <div class="input-item">
+                <div style="text-align:center">
+                    <input class="input-code" type="text" name="code" id="code" />
+                    <input class="btn-code getEmailCode" type="button" value="获取验证码">
+                </div>
+            </div>
+
+
+            <input type="submit" id="postData" onclick="return checkCode()" name="postData" class="input-btn" value="查找" />
+
+
+        </div>        
+    </form>
+</div>

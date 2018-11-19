@@ -145,6 +145,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\account\accountAreaRegistration.cs" />
+    <Compile Include="Areas\account\Controllers\sendEmailCodeFindUsernameController.cs" />
+    <Compile Include="Areas\account\Controllers\sendEmailCodePasswordController.cs" />
+    <Compile Include="Areas\account\Controllers\sendEmailCodeRegisterController.cs" />
     <Compile Include="Areas\account\Controllers\userManagementController.cs" />
     <Compile Include="Areas\account\Controllers\passwordManagerController.cs" />
     <Compile Include="Areas\backStage\backStageAreaRegistration.cs" />
@@ -235,9 +238,15 @@
   <ItemGroup>
     <Content Include="Areas\img\show.jpg" />
     <Content Include="Areas\jQuery\articleManagement.js" />
+    <Content Include="Areas\jQuery\jQueryEmailCode\checkCodeFindUserame.js" />
+    <Content Include="Areas\jQuery\jQueryEmailCode\checkCodeRegister.js" />
+    <Content Include="Areas\jQuery\jQueryEmailCode\checkCodePassword.js" />
+    <Content Include="Areas\jQuery\jQueryEmailCode\sendEmailCodeFindUserName.js" />
+    <Content Include="Areas\jQuery\jQueryEmailCode\sendEmailCodeRegister.js" />
     <Content Include="Areas\jQuery\sendPageIndex.js" />
     <Content Include="Areas\jQuery\resetAccout.js" />
     <Content Include="Areas\jQuery\resetUnAvailable.js" />
+    <Content Include="Areas\jQuery\jQueryEmailCode\sendEmailCodePassword.js" />
     <Content Include="Areas\jQuery\showPwd.js" />
     <Content Include="Areas\jQuery\userManagement.js" />
     <Content Include="Content\bootstrap.css" />
@@ -599,18 +608,9 @@
     <Content Include="Areas\backStage\Views\payManagement\userAccountManagement.cshtml" />
     <Content Include="Areas\backStage\Views\payManagement\findCardId.cshtml" />
     <Content Include="Areas\account\Views\passwordManager\VerifyInfo.cshtml" />
-    <Content Include="Areas\account\Views\passwordManager\findPassword.cshtml" />
     <Content Include="Areas\backStage\Views\manager\Index.cshtml" />
-    <EntityDeploy Include="Models\Lazyfitness.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Lazyfitness.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Lazyfitness.edmx.diagram">
-      <DependentUpon>Lazyfitness.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\backStage\Views\articleManagement\Index.cshtml" />
     <Content Include="Areas\backStage\Views\articleManagement\areaManagement.cshtml" />
-    <Content Include="Areas\account\Views\userManagement\registerInfo.cshtml" />
     <Content Include="Areas\backStage\Views\forumManagement\forumAreaAdd.cshtml" />
     <Content Include="Areas\backStage\Views\forumManagement\forumAreaSearch.cshtml" />
     <Content Include="Areas\backStage\Views\forumManagement\forumAreaDelete.cshtml" />
@@ -648,6 +648,14 @@
     <Content Include="Areas\backStage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\backStage\Views\articleManagement\findArticleList.cshtml" />
     <Content Include="Areas\informationOfUser\Views\web.config" />
+    <EntityDeploy Include="Models\Lazyfitness.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Lazyfitness.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Lazyfitness.edmx.diagram">
+      <DependentUpon>Lazyfitness.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\account\Views\passwordManager\findUserame.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
