@@ -38,5 +38,6 @@ namespace Lazyfitness.Models
         public virtual DbSet<serverShowInfo> serverShowInfo { get; set; }
         public virtual DbSet<userInfo> userInfo { get; set; }
         public virtual DbSet<userSecurity> userSecurity { get; set; }
+        public virtual DbSet<userStatusName> userStatusName { get; set; }
     }
 }

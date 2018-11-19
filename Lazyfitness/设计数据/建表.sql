@@ -208,5 +208,17 @@ CREATE TABLE serverShowInfo
 )
 GO
 
+IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'userStatusName')
+DROP TABLE userStatusName
+GO
+CREATE TABLE userStatusName
+(
+	userStatus INT PRIMARY KEY,
+	statusName NVARCHAR(50)
+)
+GO
+
+
+
 
 insert into backManager values('666', 'E10ADC3949BA59ABBE56E057F20F883E')
