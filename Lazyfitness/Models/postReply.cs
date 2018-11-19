@@ -14,7 +14,7 @@ namespace Lazyfitness.Models
     
     public partial class postReply
     {
-        public int Id { get; set; }
+        public int id { get; set; }
         public Nullable<int> postId { get; set; }
         public Nullable<int> userId { get; set; }
         public Nullable<System.DateTime> replyTime { get; set; }

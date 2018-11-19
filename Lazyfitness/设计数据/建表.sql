@@ -124,7 +124,7 @@ DROP TABLE postReply
 GO
 CREATE TABLE postReply
 (
-	Id int primary key identity(1, 1),
+	id int primary key identity(1, 1),
 	postId INT,
 	userId INT,
 	replyTime DATETIME,
@@ -159,7 +159,7 @@ DROP TABLE quesAnswReply
 GO
 CREATE TABLE quesAnswReply
 (
-	Id int primary key identity(1, 1),
+	id int primary key identity(1, 1),
 	quesAnswId INT,
 	userId INT,
 	replyTime DATETIME,
@@ -192,5 +192,21 @@ CREATE TABLE backManager
 )
 
 go
+
+IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'serverShowInfo')
+DROP TABLE serverShowInfo
+GO
+CREATE TABLE serverShowInfo
+(
+	id INT PRIMARY KEY IDENTITY(1, 1),
+	areaId INT, --用于标记这条记录用于哪个大区
+	title NVARCHAR(50),	--标题
+	pictureAdr NVARCHAR(200),	--图片地址 若为记录则为空
+	url NVARCHAR(200),	--链接地址
+	flag INT,	--区分公告或是轮播图
+	Infostatus INT	--觉得是否启用
+)
+GO
+
 
 insert into backManager values('666', 'E10ADC3949BA59ABBE56E057F20F883E')

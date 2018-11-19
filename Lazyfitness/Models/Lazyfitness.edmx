@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LazyfitnessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="LazyfitnessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="backManager">
           <Key>
             <PropertyRef Name="managerId" />
@@ -39,9 +39,9 @@
         </EntityType>
         <EntityType Name="postReply">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="postId" Type="int" />
           <Property Name="userId" Type="int" />
           <Property Name="replyTime" Type="datetime" />
@@ -65,9 +65,9 @@
         </EntityType>
         <EntityType Name="quesAnswReply">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="quesAnswId" Type="int" />
           <Property Name="userId" Type="int" />
           <Property Name="replyTime" Type="datetime" />
@@ -113,6 +113,18 @@
           <Property Name="isTop" Type="int" />
           <Property Name="resourceContent" Type="text" />
         </EntityType>
+        <EntityType Name="serverShowInfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="areaId" Type="int" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="pictureAdr" Type="nvarchar" MaxLength="200" />
+          <Property Name="url" Type="nvarchar" MaxLength="200" />
+          <Property Name="flag" Type="int" />
+          <Property Name="Infostatus" Type="int" />
+        </EntityType>
         <EntityType Name="userInfo">
           <Key>
             <PropertyRef Name="userId" />
@@ -135,14 +147,7 @@
           <Property Name="loginId" Type="nvarchar" MaxLength="50" />
           <Property Name="userPwd" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="userStatusName">
-          <Key>
-            <PropertyRef Name="userStatus" />
-          </Key>
-          <Property Name="userStatus" Type="int" Nullable="false" />
-          <Property Name="statusName" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <Association Name="FK__postInfo__areaId__1FCDBCEB">
+        <Association Name="FK__postInfo__areaId__1BFD2C07">
           <End Role="postArea" Type="Self.postArea" Multiplicity="1" />
           <End Role="postInfo" Type="Self.postInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -166,7 +171,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__resourceI__areaI__1CF15040">
+        <Association Name="FK__resourceI__areaI__173876EA">
           <End Role="resourceArea" Type="Self.resourceArea" Multiplicity="1" />
           <End Role="resourceInfo" Type="Self.resourceInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -178,7 +183,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__userInfo__userId__4E88ABD4">
+        <Association Name="FK__userInfo__userId__0519C6AF">
           <End Role="userSecurity" Type="Self.userSecurity" Multiplicity="1" />
           <End Role="userInfo" Type="Self.userInfo" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -201,10 +206,10 @@
           <EntitySet Name="recharge" EntityType="Self.recharge" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="resourceArea" EntityType="Self.resourceArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="resourceInfo" EntityType="Self.resourceInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="serverShowInfo" EntityType="Self.serverShowInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userInfo" EntityType="Self.userInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userSecurity" EntityType="Self.userSecurity" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="userStatusName" EntityType="Self.userStatusName" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__postInfo__areaId__1FCDBCEB" Association="Self.FK__postInfo__areaId__1FCDBCEB">
+          <AssociationSet Name="FK__postInfo__areaId__1BFD2C07" Association="Self.FK__postInfo__areaId__1BFD2C07">
             <End Role="postArea" EntitySet="postArea" />
             <End Role="postInfo" EntitySet="postInfo" />
           </AssociationSet>
@@ -212,11 +217,11 @@
             <End Role="quesArea" EntitySet="quesArea" />
             <End Role="quesAnswInfo" EntitySet="quesAnswInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__resourceI__areaI__1CF15040" Association="Self.FK__resourceI__areaI__1CF15040">
+          <AssociationSet Name="FK__resourceI__areaI__173876EA" Association="Self.FK__resourceI__areaI__173876EA">
             <End Role="resourceArea" EntitySet="resourceArea" />
             <End Role="resourceInfo" EntitySet="resourceInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__userInfo__userId__4E88ABD4" Association="Self.FK__userInfo__userId__4E88ABD4">
+          <AssociationSet Name="FK__userInfo__userId__0519C6AF" Association="Self.FK__userInfo__userId__0519C6AF">
             <End Role="userSecurity" EntitySet="userSecurity" />
             <End Role="userInfo" EntitySet="userInfo" />
           </AssociationSet>
@@ -240,7 +245,7 @@
           <Property Name="areaId" Type="Int32" Nullable="false" />
           <Property Name="areaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="areaBrief" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="postInfo" Relationship="Self.FK__postInfo__areaId__1FCDBCEB" FromRole="postArea" ToRole="postInfo" />
+          <NavigationProperty Name="postInfo" Relationship="Self.FK__postInfo__areaId__1BFD2C07" FromRole="postArea" ToRole="postInfo" />
         </EntityType>
         <EntityType Name="postInfo">
           <Key>
@@ -258,13 +263,13 @@
           <Property Name="amount" Type="Int32" />
           <Property Name="postStatus" Type="Int32" />
           <Property Name="postContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="postArea" Relationship="Self.FK__postInfo__areaId__1FCDBCEB" FromRole="postInfo" ToRole="postArea" />
+          <NavigationProperty Name="postArea" Relationship="Self.FK__postInfo__areaId__1BFD2C07" FromRole="postInfo" ToRole="postArea" />
         </EntityType>
         <EntityType Name="postReply">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="postId" Type="Int32" />
           <Property Name="userId" Type="Int32" />
           <Property Name="replyTime" Type="DateTime" Precision="3" />
@@ -289,9 +294,9 @@
         </EntityType>
         <EntityType Name="quesAnswReply">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="quesAnswId" Type="Int32" />
           <Property Name="userId" Type="Int32" />
           <Property Name="replyTime" Type="DateTime" Precision="3" />
@@ -323,7 +328,7 @@
           <Property Name="areaId" Type="Int32" Nullable="false" />
           <Property Name="areaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="areaBrief" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="resourceInfo" Relationship="Self.FK__resourceI__areaI__1CF15040" FromRole="resourceArea" ToRole="resourceInfo" />
+          <NavigationProperty Name="resourceInfo" Relationship="Self.FK__resourceI__areaI__173876EA" FromRole="resourceArea" ToRole="resourceInfo" />
         </EntityType>
         <EntityType Name="resourceInfo">
           <Key>
@@ -338,7 +343,19 @@
           <Property Name="pageView" Type="Int32" />
           <Property Name="isTop" Type="Int32" />
           <Property Name="resourceContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="resourceArea" Relationship="Self.FK__resourceI__areaI__1CF15040" FromRole="resourceInfo" ToRole="resourceArea" />
+          <NavigationProperty Name="resourceArea" Relationship="Self.FK__resourceI__areaI__173876EA" FromRole="resourceInfo" ToRole="resourceArea" />
+        </EntityType>
+        <EntityType Name="serverShowInfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="areaId" Type="Int32" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pictureAdr" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="url" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="flag" Type="Int32" />
+          <Property Name="Infostatus" Type="Int32" />
         </EntityType>
         <EntityType Name="userInfo">
           <Key>
@@ -353,7 +370,7 @@
           <Property Name="userAccount" Type="Int32" />
           <Property Name="userIntroduce" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="userHeaderPic" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="userSecurity" Relationship="Self.FK__userInfo__userId__4E88ABD4" FromRole="userInfo" ToRole="userSecurity" />
+          <NavigationProperty Name="userSecurity" Relationship="Self.FK__userInfo__userId__0519C6AF" FromRole="userInfo" ToRole="userSecurity" />
         </EntityType>
         <EntityType Name="userSecurity">
           <Key>
@@ -362,16 +379,9 @@
           <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="loginId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="userPwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="userInfo" Relationship="Self.FK__userInfo__userId__4E88ABD4" FromRole="userSecurity" ToRole="userInfo" />
+          <NavigationProperty Name="userInfo" Relationship="Self.FK__userInfo__userId__0519C6AF" FromRole="userSecurity" ToRole="userInfo" />
         </EntityType>
-        <EntityType Name="userStatusName">
-          <Key>
-            <PropertyRef Name="userStatus" />
-          </Key>
-          <Property Name="userStatus" Type="Int32" Nullable="false" />
-          <Property Name="statusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <Association Name="FK__postInfo__areaId__1FCDBCEB">
+        <Association Name="FK__postInfo__areaId__1BFD2C07">
           <End Role="postArea" Type="Self.postArea" Multiplicity="1" />
           <End Role="postInfo" Type="Self.postInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -395,7 +405,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__resourceI__areaI__1CF15040">
+        <Association Name="FK__resourceI__areaI__173876EA">
           <End Role="resourceArea" Type="Self.resourceArea" Multiplicity="1" />
           <End Role="resourceInfo" Type="Self.resourceInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -407,7 +417,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__userInfo__userId__4E88ABD4">
+        <Association Name="FK__userInfo__userId__0519C6AF">
           <End Role="userSecurity" Type="Self.userSecurity" Multiplicity="1" />
           <End Role="userInfo" Type="Self.userInfo" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -430,10 +440,10 @@
           <EntitySet Name="recharge" EntityType="Self.recharge" />
           <EntitySet Name="resourceArea" EntityType="Self.resourceArea" />
           <EntitySet Name="resourceInfo" EntityType="Self.resourceInfo" />
+          <EntitySet Name="serverShowInfo" EntityType="Self.serverShowInfo" />
           <EntitySet Name="userInfo" EntityType="Self.userInfo" />
           <EntitySet Name="userSecurity" EntityType="Self.userSecurity" />
-          <EntitySet Name="userStatusName" EntityType="Self.userStatusName" />
-          <AssociationSet Name="FK__postInfo__areaId__1FCDBCEB" Association="Self.FK__postInfo__areaId__1FCDBCEB">
+          <AssociationSet Name="FK__postInfo__areaId__1BFD2C07" Association="Self.FK__postInfo__areaId__1BFD2C07">
             <End Role="postArea" EntitySet="postArea" />
             <End Role="postInfo" EntitySet="postInfo" />
           </AssociationSet>
@@ -441,11 +451,11 @@
             <End Role="quesArea" EntitySet="quesArea" />
             <End Role="quesAnswInfo" EntitySet="quesAnswInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__resourceI__areaI__1CF15040" Association="Self.FK__resourceI__areaI__1CF15040">
+          <AssociationSet Name="FK__resourceI__areaI__173876EA" Association="Self.FK__resourceI__areaI__173876EA">
             <End Role="resourceArea" EntitySet="resourceArea" />
             <End Role="resourceInfo" EntitySet="resourceInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__userInfo__userId__4E88ABD4" Association="Self.FK__userInfo__userId__4E88ABD4">
+          <AssociationSet Name="FK__userInfo__userId__0519C6AF" Association="Self.FK__userInfo__userId__0519C6AF">
             <End Role="userSecurity" EntitySet="userSecurity" />
             <End Role="userInfo" EntitySet="userInfo" />
           </AssociationSet>
@@ -493,7 +503,7 @@
           <EntitySetMapping Name="postReply">
             <EntityTypeMapping TypeName="LazyfitnessModel.postReply">
               <MappingFragment StoreEntitySet="postReply">
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="postId" ColumnName="postId" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="replyTime" ColumnName="replyTime" />
@@ -520,7 +530,7 @@
           <EntitySetMapping Name="quesAnswReply">
             <EntityTypeMapping TypeName="LazyfitnessModel.quesAnswReply">
               <MappingFragment StoreEntitySet="quesAnswReply">
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="quesAnswId" ColumnName="quesAnswId" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="replyTime" ColumnName="replyTime" />
@@ -571,6 +581,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="serverShowInfo">
+            <EntityTypeMapping TypeName="LazyfitnessModel.serverShowInfo">
+              <MappingFragment StoreEntitySet="serverShowInfo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="areaId" ColumnName="areaId" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="pictureAdr" ColumnName="pictureAdr" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+                <ScalarProperty Name="Infostatus" ColumnName="Infostatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="userInfo">
             <EntityTypeMapping TypeName="LazyfitnessModel.userInfo">
               <MappingFragment StoreEntitySet="userInfo">
@@ -592,14 +615,6 @@
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="loginId" ColumnName="loginId" />
                 <ScalarProperty Name="userPwd" ColumnName="userPwd" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="userStatusName">
-            <EntityTypeMapping TypeName="LazyfitnessModel.userStatusName">
-              <MappingFragment StoreEntitySet="userStatusName">
-                <ScalarProperty Name="userStatus" ColumnName="userStatus" />
-                <ScalarProperty Name="statusName" ColumnName="statusName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

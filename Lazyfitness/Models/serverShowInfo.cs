@@ -12,9 +12,14 @@ namespace Lazyfitness.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class userStatusName
+    public partial class serverShowInfo
     {
-        public int userStatus { get; set; }
-        public string statusName { get; set; }
+        public int id { get; set; }
+        public Nullable<int> areaId { get; set; }
+        public string title { get; set; }
+        public string pictureAdr { get; set; }
+        public string url { get; set; }
+        public Nullable<int> flag { get; set; }
+        public Nullable<int> Infostatus { get; set; }
     }
 }

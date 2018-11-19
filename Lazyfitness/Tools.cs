@@ -540,10 +540,13 @@ namespace Lazyfitness
                 userId = userId,
                 userAge = 18,
                 userSex = 0,
-                userTel = "123456789101",
+                userEmail = "1111@qq.com",
                 userStatus = 1,
                 userAccount = 0,
                 userSecurity = null,
+                userHeaderPic = "/Resource/picture/DefaultHeadPic.jpg",
+                userIntroduce = "这是" + userId + "的简介"
+                
 
             };
             return info;

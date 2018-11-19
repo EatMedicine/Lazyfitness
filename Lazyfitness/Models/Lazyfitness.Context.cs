@@ -35,8 +35,8 @@ namespace Lazyfitness.Models
         public virtual DbSet<recharge> recharge { get; set; }
         public virtual DbSet<resourceArea> resourceArea { get; set; }
         public virtual DbSet<resourceInfo> resourceInfo { get; set; }
+        public virtual DbSet<serverShowInfo> serverShowInfo { get; set; }
         public virtual DbSet<userInfo> userInfo { get; set; }
         public virtual DbSet<userSecurity> userSecurity { get; set; }
-        public virtual DbSet<userStatusName> userStatusName { get; set; }
     }
 }
