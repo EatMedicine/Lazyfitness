@@ -109,6 +109,36 @@ namespace Lazyfitness
             }
             return introducitons;
         }
+
+        /// <summary>
+        /// 获取文章区的大区信息
+        /// </summary>
+        /// <returns></returns>
+        public static resourceArea[] GetArticleAreaInfo()
+        {
+            resourceArea[] info = new resourceArea[4];
+            int[] id = new int[]
+            {
+                1,2,3,4
+            };
+            string[] name = new string[]
+            {
+                "首页",
+                "食物",
+                "器材",
+                "技巧",
+            };
+            for(int count = 0; count < id.Length; count++)
+            {
+                info[count] = new resourceArea
+                {
+                    areaId = id[count],
+                    areaName = name[count],
+                    areaBrief = "默认简介",
+                };
+            }
+            return info;
+        }
         #endregion
         #region 问答分区数据获取
 
@@ -271,6 +301,36 @@ namespace Lazyfitness
             }
             return replys;
         }
+
+        /// <summary>
+        /// 获取问答区的大区信息
+        /// </summary>
+        /// <returns></returns>
+        public static quesArea[] GetQuestionAreaInfo()
+        {
+            quesArea[] info = new quesArea[4];
+            int[] id = new int[]
+            {
+                1,2,3,4
+            };
+            string[] name = new string[]
+            {
+                "首页",
+                "已解决",
+                "未解决",
+                "我提出的问题",
+            };
+            for (int count = 0; count < id.Length; count++)
+            {
+                info[count] = new quesArea
+                {
+                    areaId = id[count],
+                    areaName = name[count],
+                    areaBrief = "默认简介",
+                };
+            }
+            return info;
+        }
         #endregion
         #region 论坛数据获取
 
@@ -414,6 +474,36 @@ namespace Lazyfitness
                 };
             }
             return replys;
+        }
+
+        /// <summary>
+        /// 获取论坛的大区信息
+        /// </summary>
+        /// <returns></returns>
+        public static postArea[] GetforumAreaInfo()
+        {
+            postArea[] info = new postArea[4];
+            int[] id = new int[]
+            {
+                1,2,3,4
+            };
+            string[] name = new string[]
+            {
+                "分区1",
+                "分区2",
+                "分区3",
+                "分区4",
+            };
+            for (int count = 0; count < id.Length; count++)
+            {
+                info[count] = new postArea
+                {
+                    areaId = id[count],
+                    areaName = name[count],
+                    areaBrief = "默认简介",
+                };
+            }
+            return info;
         }
         #endregion
 

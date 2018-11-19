@@ -50,6 +50,8 @@ namespace Lazyfitness.Controllers
             return quesId + "\n" + reply;
         }
         #endregion
+        #region 获取数据
+        #endregion
     }
 
 }

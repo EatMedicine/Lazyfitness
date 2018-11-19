@@ -62,10 +62,14 @@
                     </ul>
                 </div>
                 <!--登录注册/头像-->
+                @{ 
+
+                }
                 @if (ViewBag.IsLogin == true)
                 {
                     <div class="nav-headPic fr">
                         <img src=@ViewBag.headPicadr style="width:40px;height:40px" />
+                        <span>@ViewBag.UserName</span>
                     </div>
                 }
                 else

@@ -123,20 +123,26 @@ namespace Lazyfitness.Controllers
                 "女朋友失误，竟炼出史前尸鲲",
                 "想不出要说啥了但这里估计也看不到（",
             };
-            ViewBag.AreasName = new string[]
+            //获取大区信息
+            resourceArea[] areasInfo = Tools.GetArticleAreaInfo();
+            string[] areasName = new string[areasInfo.Length];
+            for(int count = 0; count < areasInfo.Length; count++)
             {
-                "首页",
-                "食物",
-                "器材",
-                "技巧",
-            };
+                areasName[count] = areasInfo[count].areaName;
+            }
+            int[] areasId = new int[areasInfo.Length];
+            for(int count = 0; count < areasInfo.Length; count++)
+            {
+                areasId[count] = areasInfo[count].areaId;
+            }
+            ViewBag.AreasName = areasName;
             ViewBag.AreasUrl = new string[]
             {
                 Url.Action("Article","Home"),
-                Url.Action("ArticlePart","Home",new{partId=1}),
-                Url.Action("ArticlePart","Home",new{partId=2}),
-                Url.Action("ArticlePart","Home",new{partId=3}),
-                Url.Action("ArticlePart","Home",new{partId=4}),
+                Url.Action("ArticlePart","Home",new{partId=areasId[0]}),
+                Url.Action("ArticlePart","Home",new{partId=areasId[1]}),
+                Url.Action("ArticlePart","Home",new{partId=areasId[2]}),
+                Url.Action("ArticlePart","Home",new{partId=areasId[3]}),
             };
             #endregion
             return View();
@@ -144,38 +150,50 @@ namespace Lazyfitness.Controllers
         //问答
         public ActionResult Question()
         {
-            ViewBag.PartList = new string[]
+            //获取大区信息
+            quesArea[] quesInfo = Tools.GetQuestionAreaInfo();
+            string[] quesName = new string[quesInfo.Length];
+            for (int count = 0; count < quesInfo.Length; count++)
             {
-                "首页",
-                "已解决",
-                "未解决",
-                "我提出的问题",
-            };
+                quesName[count] = quesInfo[count].areaName;
+            }
+            int[] quesId = new int[quesInfo.Length];
+            for (int count = 0; count < quesInfo.Length; count++)
+            {
+                quesId[count] = quesInfo[count].areaId;
+            }
+            ViewBag.PartList = quesName;
             ViewBag.PartUrl = new string[]
             {
                 Url.Action("Question","Home"),
-                Url.Action("QuestionPart","Home"),
-                Url.Action("QuestionPart","Home",new{ partId=2}),
-                Url.Action("QuestionPart","Home",new{ partId=3}),
+                Url.Action("QuestionPart","Home",new{ partId=quesId[0]}),
+                Url.Action("QuestionPart","Home",new{ partId=quesId[1]}),
+                Url.Action("QuestionPart","Home",new{ partId=quesId[2]}),
             };
             return View();
         }
         //论坛
         public ActionResult forum()
         {
-            ViewBag.PartName = new string[]
+            //获取大区信息
+            postArea[] postInfo = Tools.GetforumAreaInfo();
+            string[] postName = new string[postInfo.Length];
+            for (int count = 0; count < postInfo.Length; count++)
             {
-                "分区1",
-                "分区2",
-                "分区3",
-                "分区4",
-            };
+                postName[count] = postInfo[count].areaName;
+            }
+            int[] postId = new int[postInfo.Length];
+            for (int count = 0; count < postInfo.Length; count++)
+            {
+                postId[count] = postInfo[count].areaId;
+            }
+            ViewBag.PartName = postName;
             ViewBag.PartUrl = new string[]
             {
-                Url.Action("forumPart","Home",new {partId=1}),
-                Url.Action("forumPart","Home",new {partId=2}),
-                Url.Action("forumPart","Home",new {partId=3}),
-                Url.Action("forumPart","Home",new {partId=4}),
+                Url.Action("forumPart","Home",new {partId=postId[0]}),
+                Url.Action("forumPart","Home",new {partId=postId[1]}),
+                Url.Action("forumPart","Home",new {partId=postId[2]}),
+                Url.Action("forumPart","Home",new {partId=postId[3]}),
             };
             ViewBag.PartPicUrl = new string[]
             {
@@ -258,20 +276,25 @@ namespace Lazyfitness.Controllers
                 }
 
             }
-            ViewBag.AreasName = new string[]
+            resourceArea[] areasInfo = Tools.GetArticleAreaInfo();
+            string[] areasName = new string[areasInfo.Length];
+            for (int count = 0; count < areasInfo.Length; count++)
             {
-                "首页",
-                "食物",
-                "器材",
-                "技巧",
-            };
+                areasName[count] = areasInfo[count].areaName;
+            }
+            int[] areasId = new int[areasInfo.Length];
+            for (int count = 0; count < areasInfo.Length; count++)
+            {
+                areasId[count] = areasInfo[count].areaId;
+            }
+            ViewBag.AreasName = areasName;
             ViewBag.AreasUrl = new string[]
             {
                 Url.Action("Article","Home"),
-                Url.Action("ArticlePart","Home",new{partId=1}),
-                Url.Action("ArticlePart","Home",new{partId=2}),
-                Url.Action("ArticlePart","Home",new{partId=3}),
-                Url.Action("ArticlePart","Home",new{partId=4}),
+                Url.Action("ArticlePart","Home",new{partId=areasId[0]}),
+                Url.Action("ArticlePart","Home",new{partId=areasId[1]}),
+                Url.Action("ArticlePart","Home",new{partId=areasId[2]}),
+                Url.Action("ArticlePart","Home",new{partId=areasId[3]}),
             };
             //下面4个ViewBag是用于传入帖子信息的
             ViewBag.ItemsName = Tools.GetArticlePartName(partId,pageNum);
@@ -316,19 +339,24 @@ namespace Lazyfitness.Controllers
                 }
 
             }
-            ViewBag.PartList = new string[]
+            quesArea[] quesInfo = Tools.GetQuestionAreaInfo();
+            string[] quesName = new string[quesInfo.Length];
+            for (int count = 0; count < quesInfo.Length; count++)
             {
-                "首页",
-                "已解决",
-                "未解决",
-                "我提出的问题",
-            };
+                quesName[count] = quesInfo[count].areaName;
+            }
+            int[] quesId = new int[quesInfo.Length];
+            for (int count = 0; count < quesInfo.Length; count++)
+            {
+                quesId[count] = quesInfo[count].areaId;
+            }
+            ViewBag.PartList = quesName;
             ViewBag.PartUrl = new string[]
             {
                 Url.Action("Question","Home"),
-                Url.Action("QuestionPart","Home"),
-                Url.Action("QuestionPart","Home",new{ partId=2}),
-                Url.Action("QuestionPart","Home",new{ partId=3}),
+                Url.Action("QuestionPart","Home",new{ partId=quesId[0]}),
+                Url.Action("QuestionPart","Home",new{ partId=quesId[1]}),
+                Url.Action("QuestionPart","Home",new{ partId=quesId[2]}),
             };
             ViewBag.PartId = partId;
             ViewBag.PageNum = pageNum;
@@ -366,19 +394,24 @@ namespace Lazyfitness.Controllers
                 }
 
             }
-            ViewBag.PartName = new string[]
+            postArea[] postInfo = Tools.GetforumAreaInfo();
+            string[] postName = new string[postInfo.Length];
+            for (int count = 0; count < postInfo.Length; count++)
             {
-                "分区1",
-                "分区2",
-                "分区3",
-                "分区4",
-            };
+                postName[count] = postInfo[count].areaName;
+            }
+            int[] postId = new int[postInfo.Length];
+            for (int count = 0; count < postInfo.Length; count++)
+            {
+                postId[count] = postInfo[count].areaId;
+            }
+            ViewBag.PartName = postName;
             ViewBag.PartUrl = new string[]
             {
-                Url.Action("forumPart","Home",new {partId=1}),
-                Url.Action("forumPart","Home",new {partId=2}),
-                Url.Action("forumPart","Home",new {partId=3}),
-                Url.Action("forumPart","Home",new {partId=4}),
+                Url.Action("forumPart","Home",new {partId=postId[0]}),
+                Url.Action("forumPart","Home",new {partId=postId[1]}),
+                Url.Action("forumPart","Home",new {partId=postId[2]}),
+                Url.Action("forumPart","Home",new {partId=postId[3]}),
             };
             ViewBag.PartPicUrl = new string[]
             {
