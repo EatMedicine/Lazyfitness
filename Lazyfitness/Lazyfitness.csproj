@@ -526,6 +526,7 @@
     <Content Include="Css\MainStyle.css" />
     <Content Include="Css\Hello.css" />
     <Content Include="Css\Article.css" />
+    <Content Include="Css\PersonalData.css" />
     <Content Include="Css\Question.css" />
     <Content Include="Css\QuestionDetail.css" />
     <Content Include="Css\QuestionPart.css" />
@@ -562,6 +563,7 @@
     </Content>
     <Content Include="Scripts\forumjs.js" />
     <Content Include="Scripts\IndexJs.js" />
+    <Content Include="Scripts\PersonalData.js" />
     <Content Include="Scripts\QuestionJs.js" />
     <Content Include="设计数据\建表.sql" />
     <Content Include="Areas\account\Views\userManagement\registerUser.cshtml" />
@@ -694,6 +696,7 @@
     <Content Include="Views\Home\QuestionDetail.cshtml" />
     <Content Include="Views\Shared\_backStageMainStyle.cshtml" />
     <Content Include="Views\Shared\_backStageMainStyle.cshtml" />
+    <Content Include="Views\Home\PersonalData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
