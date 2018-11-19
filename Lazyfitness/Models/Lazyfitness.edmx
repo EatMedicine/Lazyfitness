@@ -39,9 +39,10 @@
         </EntityType>
         <EntityType Name="postReply">
           <Key>
-            <PropertyRef Name="postId" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="postId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="postId" Type="int" />
           <Property Name="userId" Type="int" />
           <Property Name="replyTime" Type="datetime" />
           <Property Name="replyContent" Type="text" />
@@ -64,9 +65,10 @@
         </EntityType>
         <EntityType Name="quesAnswReply">
           <Key>
-            <PropertyRef Name="quesAnswId" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="quesAnswId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quesAnswId" Type="int" />
           <Property Name="userId" Type="int" />
           <Property Name="replyTime" Type="datetime" />
           <Property Name="replyContent" Type="text" />
@@ -119,9 +121,11 @@
           <Property Name="userName" Type="nvarchar" MaxLength="50" />
           <Property Name="userAge" Type="int" />
           <Property Name="userSex" Type="int" />
-          <Property Name="userTel" Type="nvarchar" MaxLength="11" />
+          <Property Name="userEmail" Type="nvarchar" MaxLength="50" />
           <Property Name="userStatus" Type="int" />
           <Property Name="userAccount" Type="int" />
+          <Property Name="userIntroduce" Type="nvarchar" MaxLength="200" />
+          <Property Name="userHeaderPic" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="userSecurity">
           <Key>
@@ -174,7 +178,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__userInfo__userId__1273C1CD">
+        <Association Name="FK__userInfo__userId__4E88ABD4">
           <End Role="userSecurity" Type="Self.userSecurity" Multiplicity="1" />
           <End Role="userInfo" Type="Self.userInfo" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -212,7 +216,7 @@
             <End Role="resourceArea" EntitySet="resourceArea" />
             <End Role="resourceInfo" EntitySet="resourceInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__userInfo__userId__1273C1CD" Association="Self.FK__userInfo__userId__1273C1CD">
+          <AssociationSet Name="FK__userInfo__userId__4E88ABD4" Association="Self.FK__userInfo__userId__4E88ABD4">
             <End Role="userSecurity" EntitySet="userSecurity" />
             <End Role="userInfo" EntitySet="userInfo" />
           </AssociationSet>
@@ -258,9 +262,10 @@
         </EntityType>
         <EntityType Name="postReply">
           <Key>
-            <PropertyRef Name="postId" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="postId" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="postId" Type="Int32" />
           <Property Name="userId" Type="Int32" />
           <Property Name="replyTime" Type="DateTime" Precision="3" />
           <Property Name="replyContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -284,9 +289,10 @@
         </EntityType>
         <EntityType Name="quesAnswReply">
           <Key>
-            <PropertyRef Name="quesAnswId" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="quesAnswId" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quesAnswId" Type="Int32" />
           <Property Name="userId" Type="Int32" />
           <Property Name="replyTime" Type="DateTime" Precision="3" />
           <Property Name="replyContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -342,10 +348,12 @@
           <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="userAge" Type="Int32" />
           <Property Name="userSex" Type="Int32" />
-          <Property Name="userTel" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="userEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="userStatus" Type="Int32" />
           <Property Name="userAccount" Type="Int32" />
-          <NavigationProperty Name="userSecurity" Relationship="Self.FK__userInfo__userId__1273C1CD" FromRole="userInfo" ToRole="userSecurity" />
+          <Property Name="userIntroduce" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="userHeaderPic" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="userSecurity" Relationship="Self.FK__userInfo__userId__4E88ABD4" FromRole="userInfo" ToRole="userSecurity" />
         </EntityType>
         <EntityType Name="userSecurity">
           <Key>
@@ -354,7 +362,7 @@
           <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="loginId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="userPwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="userInfo" Relationship="Self.FK__userInfo__userId__1273C1CD" FromRole="userSecurity" ToRole="userInfo" />
+          <NavigationProperty Name="userInfo" Relationship="Self.FK__userInfo__userId__4E88ABD4" FromRole="userSecurity" ToRole="userInfo" />
         </EntityType>
         <EntityType Name="userStatusName">
           <Key>
@@ -399,7 +407,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__userInfo__userId__1273C1CD">
+        <Association Name="FK__userInfo__userId__4E88ABD4">
           <End Role="userSecurity" Type="Self.userSecurity" Multiplicity="1" />
           <End Role="userInfo" Type="Self.userInfo" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -437,7 +445,7 @@
             <End Role="resourceArea" EntitySet="resourceArea" />
             <End Role="resourceInfo" EntitySet="resourceInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__userInfo__userId__1273C1CD" Association="Self.FK__userInfo__userId__1273C1CD">
+          <AssociationSet Name="FK__userInfo__userId__4E88ABD4" Association="Self.FK__userInfo__userId__4E88ABD4">
             <End Role="userSecurity" EntitySet="userSecurity" />
             <End Role="userInfo" EntitySet="userInfo" />
           </AssociationSet>
@@ -485,6 +493,7 @@
           <EntitySetMapping Name="postReply">
             <EntityTypeMapping TypeName="LazyfitnessModel.postReply">
               <MappingFragment StoreEntitySet="postReply">
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="postId" ColumnName="postId" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="replyTime" ColumnName="replyTime" />
@@ -511,6 +520,7 @@
           <EntitySetMapping Name="quesAnswReply">
             <EntityTypeMapping TypeName="LazyfitnessModel.quesAnswReply">
               <MappingFragment StoreEntitySet="quesAnswReply">
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="quesAnswId" ColumnName="quesAnswId" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="replyTime" ColumnName="replyTime" />
@@ -568,9 +578,11 @@
                 <ScalarProperty Name="userName" ColumnName="userName" />
                 <ScalarProperty Name="userAge" ColumnName="userAge" />
                 <ScalarProperty Name="userSex" ColumnName="userSex" />
-                <ScalarProperty Name="userTel" ColumnName="userTel" />
+                <ScalarProperty Name="userEmail" ColumnName="userEmail" />
                 <ScalarProperty Name="userStatus" ColumnName="userStatus" />
                 <ScalarProperty Name="userAccount" ColumnName="userAccount" />
+                <ScalarProperty Name="userIntroduce" ColumnName="userIntroduce" />
+                <ScalarProperty Name="userHeaderPic" ColumnName="userHeaderPic" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

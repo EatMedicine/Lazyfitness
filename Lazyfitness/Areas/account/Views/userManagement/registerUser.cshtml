@@ -9,12 +9,14 @@
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Areas/jQuery/showPwd.js"></script>
+<script src="~/Areas/jQuery/jQueryEmailCode/checkCodeRegister.js"></script>
+<script src="~/Areas/jQuery/jQueryEmailCode/sendEmailCodeRegister.js"></script>
 <link href="~/Css/Input.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     $(function () {
         $(".radiobtn-content-btn").click(function () {
             $("#radio1").removeClass("on");
-            $("#radio2").removeClass("on");
+            $("#radio2").removeClass("on"); 
             $("#radio3").removeClass("on");
             $(this).addClass("on");
         });
@@ -51,10 +53,10 @@
             </div>
             <div class="input-item">
                 <div class="input-text-border">
-                    @Html.TextBoxFor(u => u.Info.userTel, new { @type = "text", @class = "input-text", @placeholder = "     电话号码" })
+                    @Html.TextBoxFor(u => u.Info.userEmail, new { @type = "text", @class = "input-text emailAddress", @placeholder = "       邮箱" })
                 </div>
                 <div class="message-style">
-                    @Html.ValidationMessageFor(x => x.Info.userTel)
+                    @Html.ValidationMessageFor(x => x.Info.userEmail)
                 </div>
             </div>
             <div class="radio-pos">
@@ -95,7 +97,14 @@
                 @Html.ValidationMessageFor(x => x.Info.userSex)
             </div>
 
-            <input type="submit" id="postData" name="postData" class="input-btn login-loginbtn-pos" value="完成注册" />
+            <div class="input-item">
+                <div style="text-align:center">
+                   <input class="input-code" type="text" name="code" id="code"/>
+                   <input class="btn-code getEmailCode" onclick="return checkEmail()" type="button" value="获取验证码">
+                </div>
+            </div>
+
+            <input type="submit" onclick="return checkCode()" id="postData" name="postData" class="input-btn login-loginbtn-pos" value="完成注册" />
         </div>
     </form>
 </div>

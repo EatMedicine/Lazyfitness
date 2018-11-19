@@ -11,16 +11,11 @@ namespace Lazyfitness.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class postInfo
     {
-        [Required(ErrorMessage ="论坛分区ID必须填写")]
         public int areaId { get; set; }
-        [Required(ErrorMessage = "论坛帖子ID必须填写")]
         public int postId { get; set; }
-        [Required(ErrorMessage = "论坛帖子标题必须填写")]
-        [StringLength(50)]
         public string postTitle { get; set; }
         public Nullable<int> userId { get; set; }
         public Nullable<System.DateTime> postTime { get; set; }
@@ -29,8 +24,6 @@ namespace Lazyfitness.Models
         public Nullable<int> isPay { get; set; }
         public Nullable<int> amount { get; set; }
         public Nullable<int> postStatus { get; set; }
-        [Required(ErrorMessage = "论坛帖子描述必须填写")]
-        [DataType(DataType.Text)]
         public string postContent { get; set; }
     
         public virtual postArea postArea { get; set; }

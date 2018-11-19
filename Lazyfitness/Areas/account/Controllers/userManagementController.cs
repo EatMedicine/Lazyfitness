@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using Lazyfitness.Models;
 namespace Lazyfitness.Areas.account.Controllers
 {
     public class userManagementController : Controller
-    {
+    {       
         #region 注册
         // GET: account/register
         public ActionResult registerUser()
@@ -15,9 +17,8 @@ namespace Lazyfitness.Areas.account.Controllers
             return View();
         }
         [HttpPost]
-        public string registerUser(userSecurity security, userInfo info)
-        {
-            Session["loginId"] = null;
+        public string registerUser(userSecurity security, userInfo info, string code)
+        {           
             //使用entity framework 进行数据的插入
             try
             {
@@ -29,7 +30,7 @@ namespace Lazyfitness.Areas.account.Controllers
                     {
 
                         return "已经有账户";
-                    }
+                    }                   
                     userSecurity obSecurity = new userSecurity
                     {
                         loginId = security.loginId.Trim(),
@@ -49,7 +50,7 @@ namespace Lazyfitness.Areas.account.Controllers
                         userName = security.loginId.Trim(),
                         userAge = info.userAge,
                         userSex = info.userSex,
-                        userTel = info.userTel,
+                        userEmail = info.userEmail,
                         userStatus = 1,
                         userAccount = 0,
                     };

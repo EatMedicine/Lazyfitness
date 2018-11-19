@@ -8,31 +8,50 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Areas/jQuery/jQueryEmailCode/checkCodePassword.js"></script>
+<script src="~/Areas/jQuery/jQueryEmailCode/sendEmailCodePassword.js"></script>
 <link href="~/Css/Input.css" rel="stylesheet" type="text/css" />
 
 <div class="login-input">
     <form action="~/account/passwordManager/VerifyInfo" method="post" autocomplete="off">
         <div class="login-input-content">
-            <p>验证信息</p>
+            <p>找回密码</p>
             <div class="input-item">
                 <div class="input-text-border">
-                    @*<input type="text" id="userName" name="userName" class="input-text" placeholder="      用户名" />*@
-                    @Html.TextBoxFor(u=>u.Info.userName, new { @class= "input-text", @placeholder = "      用户名" })                
-                </div>
-                <div class="message-style">                  
-                    @Html.ValidationMessageFor(u=>u.Info.userName)
-                </div>
-            </div>
-            <div class="input-item">
-                <div class="input-text-border">
-                    @*<input type="text" id="userTel" name="userTel" class="input-text" placeholder="       电话" />*@
-                    @Html.TextBoxFor(u => u.Info.userTel, new { @class = "input-text", @placeholder = "       电话" })
+                    @Html.TextBoxFor(u => u.Info.userName, new { @class = "input-text", @placeholder = "      用户名" })
                 </div>
                 <div class="message-style">
-                    @Html.ValidationMessageFor(u => u.Info.userTel)
+                    @Html.ValidationMessageFor(u => u.Info.userName)
                 </div>
             </div>
-            <input type="submit" id="postData" name="postData" class="input-btn" value="下一步" />
+            <div class="input-item">
+                <div class="input-text-border">
+                    @Html.TextBoxFor(u => u.Info.userEmail, new { @class = "input-text emailAddress", @placeholder = "       邮箱" })
+                </div>
+                <div class="message-style">
+                    @Html.ValidationMessageFor(u => u.Info.userEmail)
+                </div>
+            </div>
+
+            <div class="input-item">
+                <div class="input-text-border">
+                    @Html.TextBoxFor(u => u.Security.userPwd, new { @class = "input-text", @placeholder = "      新密码", @type = "password" })
+                </div>
+                <div class="message-style">
+                    @Html.ValidationMessageFor(u => u.Security.userPwd)
+                </div>
+            </div>
+
+
+            <div class="input-item">
+                <div style="text-align:center">
+                    <input class="input-code" type="text" name="code" id="code" />
+                    <input class="btn-code getEmailCode" type="button" value="获取验证码">
+                </div>
+            </div>
+
+
+            <input type="submit" id="postData" onclick="return checkCode()" name="postData" class="input-btn" value="下一步" />
         </div>
     </form>
 </div>

@@ -68,8 +68,8 @@
     top:200px;
 }
 .login-loginbtn-pos{
-    position:absolute;
-    top:530px;
+    /*position:absolute;
+    top:530px;*/
 }
 .pos1{
     top:330px;
@@ -143,4 +143,22 @@
     width:240px;
     height:20px;
     margin:0 auto;
+}
+
+.input-code {
+    height: 30px;
+    font-size: 20px;
+    width: 150px;
+    padding: 0px;
+    margin: 0 auto;
+    display: inline-block;
+    border: 1px solid #ced4da;
+}
+.btn-code {
+    height: 25px;
+    padding: 0px;
+    margin: 0px auto;   
+    font-size: 15px;
+    font-weight: 200;
+    font-family: 'Microsoft YaHei';
 }
