@@ -23,6 +23,95 @@
         </div>
     </div>
 </div>
+<div class="result-content">
+    <table class="result-tab">
+        <tr>
+            <th>帖子所处分区名称</th>
+            <th>帖子编号</th>
+            <th>帖子名称</th>
+            <th>发表用户</th>
+            <th>发布时间</th>
+            <th>浏览量</th>
+            <th>是否置顶</th>
+            <th>付费金额</th>
+            <th>帖子状态</th>
+            <th>内容</th>
+            <th colspan="2">可选操作</th>
+        </tr>
+        @if (ViewBag.allInfo != null)
+        {
+            int counter = 0;
+            foreach (var item in @ViewBag.allInfo)
+            {
+                <tr>
+                    <td><input class="no-border" type="text" value=@ViewBag.areaNameList[counter] readonly /> </td>
+                    <td id="quesAnswId">@item.quesAnswId</td>
+                    <td>@item.quesAnswTitle</td>
+                    <td>@ViewBag.userNameList[counter]</td>
+                    <td>@item.quesAnswTime</td>
+                    <td>@item.pageView</td>
+                    @if (@item.isPost == 0)
+                    {
+                        <td>否</td>
+                    }
+                    @if (item.isPost != 0)
+                    {
+                        <td>是</td>
+                    }
+                    <td>@item.amount</td>
+                    @if (@item.quesAnswStatus == 0)
+                    {
+                        <td>所有人可见</td>
+                    }
+                    @if (item.quesAnswStatus == 1)
+                    {
+                        <td>好友可见</td>
+                    }
+                    @if (@item.quesAnswStatus == 2)
+                    {
+                        <td>仅自己可见</td>
+                    }
+                    @if (item.quesAnswStatus == 3)
+                    {
+                        <td>隐藏</td>
+                    }
+                    <td>@item.quesAnswContent</td>
+                    <td>
+                        <form method="post" action="~/backStage/quesAnswManagement/quesAnswInvitationSearch">
+                            <input type="text" name="quesAnswId" id="quesAnswId" value="@item.quesAnswId" hidden="hidden" />
+                            <input class="index-btn" type="submit" value="修改">
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" action="~/backStage/quesAnswManagement/quesAnswInvitationDelete">
+                            <input type="text" name="quesAnswId" id="quesAnswId" value=@item.quesAnswId hidden="hidden" />
+                            <input class="index-btn" type="submit" value="删除">
+                        </form>
+                    </td>
+                </tr>
+                counter++;
+            }
+        }
+    </table>
+
+    <div class="page-number">
+        <ul>
+            @{
+                for (int i = 1; i <= ViewBag.sumPage; i++)
+                {
+
+                    <li style="float:left">
+                        <form method="post" action="~/backStage/quesAnswManagement/quesAnswInvitationIndex">
+                            <input class="id" id="id" name="id" type="text" value=@i hidden="hidden" />
+                            <input type="submit" class="btn-submit" value=@i />
+                        </form>
+                    </li>
+                }
+            }
+            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @ViewBag.nowPage 页, 共 @ViewBag.sumPage 页" /></li>
+        </ul>
+    </div>
+</div>
     </div>
 </body>
 </html>

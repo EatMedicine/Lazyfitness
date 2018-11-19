@@ -529,6 +529,7 @@
     <Content Include="Css\MainStyle.css" />
     <Content Include="Css\Hello.css" />
     <Content Include="Css\Article.css" />
+    <Content Include="Css\PersonalData.css" />
     <Content Include="Css\Question.css" />
     <Content Include="Css\QuestionDetail.css" />
     <Content Include="Css\QuestionEditor.css" />
@@ -567,6 +568,7 @@
     <Content Include="Scripts\ForumDetailJs.js" />
     <Content Include="Scripts\forumjs.js" />
     <Content Include="Scripts\IndexJs.js" />
+    <Content Include="Scripts\PersonalData.js" />
     <Content Include="Scripts\QuestionDetail.js" />
     <Content Include="Scripts\QuestionJs.js" />
     <Content Include="设计数据\建表.sql" />
@@ -700,6 +702,7 @@
     <Content Include="Views\Home\QuestionDetail.cshtml" />
     <Content Include="Views\Shared\_backStageMainStyle.cshtml" />
     <Content Include="Views\Shared\_backStageMainStyle.cshtml" />
+    <Content Include="Views\Home\PersonalData.cshtml" />
     <Content Include="Views\Home\forumDetail.cshtml" />
     <Content Include="Views\Home\QuestionEditor.cshtml" />
     <Content Include="Views\Home\forumEditor.cshtml" />

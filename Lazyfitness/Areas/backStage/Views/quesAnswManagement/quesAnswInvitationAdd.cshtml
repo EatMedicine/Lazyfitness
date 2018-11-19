@@ -21,6 +21,7 @@
                 @Html.ActionLink("删除问答帖子", "quesAnswInvitationDelete", "quesAnswManagement")
                 @Html.ActionLink("修改问答帖子信息", "quesAnswInvitationSearch", "quesAnswManagement")
             </div>
+        </div>
     </div>
     <div class="result-content">
         <form action="~/backStage/quesAnswManagement/quesAnswInvitationAdd" method="post">
@@ -28,11 +29,17 @@
                 <tr><th></th><td class="show-title">问答帖子增加</td></tr>
                 <tr>
                     <th>
-                        分区ID
+                        分区ID及名称
                     </th>
                     <td>
-                        @Html.TextBoxFor(u => u.areaId, new { @type = "text", @class = "input-content" })
-                        <div class="error-mes">@Html.ValidationMessageFor(x => x.areaId)</div>
+                        <select name="areaId">
+                            @{
+                                foreach (var quesArea in @ViewBag.quesArea)
+                                {
+                                    <option value="@quesArea.areaId">@quesArea.areaId &nbsp&nbsp @quesArea.areaName</option>
+                                }
+                            }
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -84,10 +91,10 @@
                         帖子状态
                     </th>
                     <td>
-                        <input type="radio" id="postStatus" name="postStatus" value="0" />所有人可见
-                        <input type="radio" id="postStatus" name="postStatus" value="1" />好友可见
-                        <input type="radio" id="postStatus" name="postStatus" value="2" />仅自己可见
-                        <input type="radio" id="postStatus" name="postStatus" value="3" />隐藏
+                        <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="0" />所有人可见
+                        <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="1" />好友可见
+                        <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="2" />仅自己可见
+                        <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="3" />隐藏
                     </td>
                 </tr>
                 <tr>
@@ -109,6 +116,5 @@
         </form>
     </div>
 </div>
-    </div>
 </body>
 </html>

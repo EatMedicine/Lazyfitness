@@ -23,6 +23,57 @@
         </div>
     </div>
 </div>
+<div class="result-content">
+    <table class="result-tab">
+        <tr>
+            <th>分区名称</th>
+            <th>分区编号</th>
+            <th>分区描述</th>
+            <th colspan="2">可选操作</th>
+        </tr>
+        @if (ViewBag.allInfo != null)
+        {
+            foreach (var item in @ViewBag.allInfo)
+            {
+                <tr>
+                    <td>@item.areaName</td>
+                    <td id="areaId">@item.areaId</td>
+                    <td>@item.areaBrief</td>
+                    <td>
+                        <form method="post" action="~/backStage/forumManagement/forumAreaSearch">
+                            <input type="text" name="areaName" id="areaName" value="@item.areaName" hidden="hidden" />
+                            <input class="index-btn" type="submit" value="修改">
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" action="~/backStage/forumManagement/forumAreaDelete">
+                            <input type="text" name="areaName" id="areaName" value=@item.areaName hidden="hidden" />
+                            <input class="index-btn" type="submit" value="删除">
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+    <div class="page-number">
+        <ul>
+            @{
+                for (int i = 1; i <= ViewBag.sumPage; i++)
+                {
+
+                    <li style="float:left">
+                        <form method="post" action="~/backStage/forumManagement/forumAreaIndex">
+                            <input class="id" id="id" name="id" type="text" value=@i hidden="hidden" />
+                            <input type="submit" class="btn-submit" value=@i />
+                        </form>
+                    </li>
+                }
+            }
+            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @ViewBag.nowPage 页, 共 @ViewBag.sumPage 页" /></li>
+        </ul>
+    </div>
+</div>
     </div>
 </body>
 </html>

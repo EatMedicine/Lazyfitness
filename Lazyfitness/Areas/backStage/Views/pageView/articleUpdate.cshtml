@@ -24,88 +24,115 @@
         </div>
     </div>
     <div class="result-content">
-        <form action="~/backStage/pageView/articleUpdate" method="post">
+        <form method="post" action="~/backStage/pageView/articleUpdate">
+            @Html.TextBoxFor(u => u.resourceId, new { value = ViewBag.allInfo.resourceId, hidden = "hidden" })
             <table class="insert-tab">
                 <tbody>
-                    <tr><th></th><td class="show-title">修改文章信息</td></tr>
                     <tr>
-                        <th>
-                            查询成功
-                        </th>
+                        <th>分区名称</th>
                         <td>
-                            <h2>@ViewBag.IsSearchSuccess</h2>
+                            <select name="areaId">
+                                @foreach (var item in ViewBag.areaList)
+                            {
+                                if (item.areaId == ViewBag.allInfo.areaId)
+                                {
+                                    <option class="dropdown-list" selected="selected" value=@item.areaId id="userStatus" name="userStatus">@item.areaName</option>
+                            }
+                        }
+                            </select>
                         </td>
                     </tr>
+
                     <tr>
                         <th>
-                            分区ID
+                            文章名称
                         </th>
                         <td>
-                            @Html.TextBoxFor(u => u.areaId, new { @Value = @ViewBag.resourceInfo.areaId, @type = "text", @class = "input-content", @id = "areaId", @name = "areaId" })
-                            <div class="error-mes">@Html.ValidationMessageFor(x => x.areaId)</div>
+                            @Html.TextBoxFor(u => u.resourceName, new { Value = ViewBag.allInfo.resourceName, @class = "input-content" })
+                            <div class="error-mes">
+                                @Html.ValidationMessageFor(u => u.resourceName)
+                            </div>
                         </td>
                     </tr>
+
                     <tr>
                         <th>
-                            文章ID
+                            发布的用户
                         </th>
-                        <td>
-                            @Html.TextBoxFor(u => u.resourceId, new { @Value = @ViewBag.resourceInfo.resourceId, @type = "text", @class = "input-content", @id = "resourceId", @name = "resourceId" })
-                            <div class="error-mes">@Html.ValidationMessageFor(x => x.resourceId)</div>
+                        <td class="txt-unchange">
+                            @ViewBag.senderName
                         </td>
                     </tr>
+
                     <tr>
                         <th>
-                            文章标题
+                            发布的时间
                         </th>
                         <td>
-                            @Html.TextBoxFor(u => u.resourceName, new { @Value = @ViewBag.resourceInfo.resourceName, @type = "text", @class = "input-content", @id = "resourceName", @name = "resourceName" })
-                            <div class="error-mes">@Html.ValidationMessageFor(x => x.resourceName)</div>
+                            @Html.TextBoxFor(u => u.resourceTime, new { Value = ViewBag.allInfo.resourceTime, @class = "input-content no-border txt-unchange", @readonly = "readonly" })
+                            <div class="error-mes">
+                                @Html.ValidationMessageFor(u => u.resourceTime)
+                            </div>
                         </td>
                     </tr>
+
                     <tr>
                         <th>
-                            用户ID
+                            浏览量
                         </th>
                         <td>
-                            @Html.TextBoxFor(u => u.userId, new { @Value = @ViewBag.resourceInfo.userId, @type = "text", @class = "input-content", @id = "userId", @name = "userId" })
-                            <div class="error-mes">@Html.ValidationMessageFor(x => x.userId)</div>
+                            @Html.TextBoxFor(u => u.pageView, new { Value = ViewBag.allInfo.pageView, @class = "input-content" })
+                            <div class="error-mes">
+                                @Html.ValidationMessageFor(u => u.pageView)
+                            </div>
                         </td>
                     </tr>
+
                     <tr>
                         <th>
                             是否置顶
                         </th>
                         <td>
-                            <input type="radio" id="isTop" name="isTop" value="0" />否
-                            <input type="radio" id="isTop" name="isTop" value="1" />是
+
+                            @{
+                            if (ViewBag.allInfo.isTop == 0)
+                            {
+                                @Html.RadioButtonFor(u => u.isTop, 0, new { @checked = "checked", @class = "radio-dis" }) <label> 否 </label>
+                                @Html.RadioButtonFor(u => u.isTop, 1, new { @class = "radio-dis" }) <label>是</label>
+                        }
+                        else
+                        {
+                            @Html.RadioButtonFor(u => u.isTop, 0, new { @class = "radio-dis" }) <label> 否 </label>
+                            @Html.RadioButtonFor(u => u.isTop, 1, new { @checked = "checked", @class = "radio-dis" }) <label>是</label>
+                    }
+                            }
+
                         </td>
                     </tr>
+
                     <tr>
                         <th>
-                            文章内容
+                            内容
                         </th>
                         <td>
-                            @Html.TextBoxFor(u => u.resourceContent, new { @Value = @ViewBag.resourceInfo.resourceContent, @type = "text", @class = "input-content", @id = "resourceContent", @name = "resourceContent" })
-                            <div class="error-mes">@Html.ValidationMessageFor(x => x.resourceContent)</div>
+                            @Html.TextBoxFor(u => u.resourceContent, new { Value = ViewBag.allInfo.resourceContent, @class = "input-content" })
+                            <div class="error-mes">
+                                @Html.ValidationMessageFor(u => u.resourceContent)
+                            </div>
                         </td>
                     </tr>
+
                     <tr>
                         <th></th>
-                        <td>
-                            <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="修改" />
-                        </td>
+                        <td><input class="btn-submit show-border" type="submit" value="保存修改" /></td>
                     </tr>
+
                 </tbody>
             </table>
+
         </form>
     </div>
 </div>
     </div>
 </body>
-<script>
-    $(document).ready(function () {
-        $("input:radio[name = 'isTop'][value = '@ViewBag.resourceInfo.isTop']").attr("checked", true);
-    })
-</script>
 </html>

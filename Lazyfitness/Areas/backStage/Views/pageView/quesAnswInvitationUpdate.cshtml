@@ -25,6 +25,7 @@
     </div>
     <div class="result-content">
         <form action="~/backStage/pageView/quesAnswInvitationUpdate" method="post">
+            @Html.TextBoxFor(u => u.quesAnswId, new { value = @ViewBag.quesAnswInfo.areaId, hidden = "hidden" })
             <table class="insert-tab">
                 <tbody>
                     <tr><th></th><td class="show-title">修改问答帖子信息</td></tr>
@@ -38,18 +39,32 @@
                     </tr>
                     <tr>
                         <th>
-                            分区ID
+                            分区ID及名称
                         </th>
                         <td>
-                            @Html.TextBoxFor(u => u.areaId, new { @Value = @ViewBag.quesAnswInfo.areaId, @type = "text", @class = "input-content", @id = "areaId", @name = "areaId", @readonly = "true" })
+                            <select name="areaId">
+                                @{
+                                    foreach (var quesArea in @ViewBag.quesArea)
+                                    {
+                                        if (@quesArea.areaId == @ViewBag.quesAnswInfo.areaId)
+                                        {
+                                            <option class="dropdown-list" selected="selected" value="@quesArea.areaId">@quesArea.areaId &nbsp&nbsp @quesArea.areaName</option>
+                                        }
+                                        else
+                                        {
+                                            <option class="dropdown-list" value="@quesArea.areaId">@quesArea.areaId &nbsp&nbsp @quesArea.areaName</option>
+                                        }
+                                    }
+                                }
+                            </select>
                         </td>
                     </tr>
                     <tr>
                         <th>
                             帖子ID
                         </th>
-                        <td>
-                            @Html.TextBoxFor(u => u.quesAnswId, new { @Value = @ViewBag.quesAnswInfo.quesAnswId, @type = "text", @class = "input-content", @id = "quesAnswId", @name = "quesAnswId", @readonly = "true" })
+                        <td class="txt-unchange">
+                            @ViewBag.quesAnswInfo.quesAnswId
                         </td>
                     </tr>
                     <tr>
@@ -63,11 +78,10 @@
                     </tr>
                     <tr>
                         <th>
-                            用户ID
+                            用户名称
                         </th>
-                        <td>
-                            @Html.TextBoxFor(u => u.userId, new { @Value = @ViewBag.quesAnswInfo.userId, @type = "text", @class = "input-content", @id = "userId", @name = "userId" })
-                            <div class="error-mes">@Html.ValidationMessageFor(x => x.userId)</div>
+                        <td class="txt-unchange">
+                            @ViewBag.userInfo.userName
                         </td>
                     </tr>
                     <tr>

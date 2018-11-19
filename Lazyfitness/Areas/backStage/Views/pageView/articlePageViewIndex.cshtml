@@ -23,38 +23,77 @@
         </div>
     </div>
 </div>
+
 <div class="result-content">
-    <h2>资源文章人气TOP10</h2>
-    <label>查询结果:</label>@ViewBag.resourceconfirm
     <table class="result-tab">
         <tr>
+            <th>文章所处分区名称</th>
+            <th>文章编号</th>
             <th>文章名称</th>
-            <th>发稿人ID</th>
-            <th>人气</th>
+            <th>发表用户</th>
+            <th>发布时间</th>
+            <th>浏览量</th>
+            <th>是否置顶</th>
+            <th>内容</th>
             <th colspan="2">可选操作</th>
         </tr>
-        @foreach (var info in ViewBag.resource)
+        @if (ViewBag.allInfo != null)
         {
-            <tr>
-                <td>@info.resourceName</td>
-                <td>@info.userId</td>
-                <td>@info.pageView</td>
-                <td>
-                    <form method="get" action="~/backStage/pageView/articleUpdate">
-                        <input type="text" name="resourceId" id="resourceId" value=@info.resourceId hidden="hidden" />
-                        <input class="index-btn" type="submit" value="修改">
-                    </form>
-                </td>
-                <td>
-                    <form method="post" action="~/backStage/pageView/articleDelete">
-                        <input type="text" name="resourceId" id="resourceId" value=@info.resourceId hidden="hidden" />
-                        <input class="index-btn" type="submit" value="删除">
-                    </form>
-                </td>
-            </tr>
+            foreach (var item in @ViewBag.allInfo)
+            {
+                int counter = 0;
+                <tr>
+                    <td><input class="no-border" type="text" value=@ViewBag.areaNameList[counter] readonly /> </td>
+                    <td id="resourceId">@item.resourceId</td>
+                    <td>@item.resourceName</td>
+                    <td>@ViewBag.userNameList[counter]</td>
+                    <td>@item.resourceTime</td>
+                    <td>@item.pageView</td>
+                    @if (@item.isTop == 0)
+                    {
+                        <th>否</th>
+                    }
+                    @if (item.isTop != 0)
+                    {
+                        <th>是</th>
+                    }
+                    <td>@item.resourceContent</td>
+                    <td>
+                        <form method="get" action="~/backStage/pageView/articleUpdate">
+                            <input type="text" name="resourceId" id="resourceId" value="@item.resourceId" hidden="hidden" />
+                            <input class="index-btn" type="submit" value="修改">
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" action="~/backStage/pageView/articleDelete">
+                            <input type="text" name="resourceId" id="resourceId" value=@item.resourceId hidden="hidden" />
+                            <input class="index-btn" type="submit" value="删除">
+                        </form>
+                    </td>
+                </tr>
+            }
         }
     </table>
+
+    <div class="page-number">
+        <ul>
+            @{
+                for (int i = 1; i <= ViewBag.resourcesumPage; i++)
+                {
+
+                    <li style="float:left">
+                        <form method="post" action="~/backStage/pageView/articlePageViewIndex">
+                            <input class="id" id="id" name="id" type="text" value=@i hidden="hidden" />
+                            <input type="submit" class="btn-submit" value=@i />
+                        </form>
+                    </li>
+                }
+            }
+            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @ViewBag.nowPage 页, 共 @ViewBag.resourcesumPage 页" /></li>
+        </ul>
+    </div>
 </div>
+
     </div>
 </body>
 </html>

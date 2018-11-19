@@ -23,6 +23,8 @@ CREATE TABLE userSecurity
 )
 GO
 select * from userSecurity
+set IDENTITY_INSERT userSecurity off
+insert into userSecurity(userId,loginId,userPwd) values(1,1,12312)
 --*******创建用户个人信息表*******--
 IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'userInfo')
 DROP TABLE userInfo
@@ -39,6 +41,7 @@ CREATE TABLE userInfo
 )
 GO
 select * from userInfo
+insert into userInfo values(1,'Kaimar',0,0,111,1,1)
 
 --*******创建专区表*******--
 --IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'specialArea')
@@ -113,9 +116,9 @@ CREATE TABLE resourceInfo
 )
 GO
 
-insert into resourceInfo values(12315,110,'NO.1',1,GETDATE(),0,0,'Num')
-insert into resourceInfo values(12315,111,'NO.2',1,GETDATE(),0,0,'mm')
-insert into resourceInfo values(12315,112,'NO.3',1,GETDATE(),0,0,'nn')
+insert into resourceInfo values(12315,210,'NO.1',2,GETDATE(),0,0,'Num')
+insert into resourceInfo values(12315,211,'NO.2',2,GETDATE(),0,0,'mm')
+insert into resourceInfo values(12315,212,'NO.3',2,GETDATE(),0,0,'nn')
 insert into resourceInfo values(12315,113,'NO.4',1,GETDATE(),100,0,'nn')
 insert into resourceInfo values(12315,114,'NO.5',1,GETDATE(),50,0,'nn')
 insert into resourceInfo values(12315,115,'NO.6',1,GETDATE(),500,0,'nn')
