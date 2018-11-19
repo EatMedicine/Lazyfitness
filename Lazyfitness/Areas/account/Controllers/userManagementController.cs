@@ -93,6 +93,8 @@ namespace Lazyfitness.Areas.account.Controllers
                         HttpCookie cookieName = new HttpCookie("loginId");
                         cookieName.Value = security.loginId.Trim();
                         cookieName.Expires = DateTime.Now.AddHours(1);
+
+                        Response.Cookies.Add(CookiesHelper.CookiesHelper.creatCookieHours("userId", obSurePwd.userId.ToString(), 1));
                         Response.Cookies.Add(cookieName);                        
                         return "登录成功";
                     }

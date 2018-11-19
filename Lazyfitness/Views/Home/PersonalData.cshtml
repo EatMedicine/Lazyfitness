@@ -1,7 +1,8 @@
 ﻿@model Lazyfitness.Models.userInfo
 @{
-    ViewData["IsSearch"] = true;
+    ViewData["IsSearch"] = false;
     ViewData["IsHeadPic"] = true;
+    ViewBag.IsDefaultContent = true;
     Layout = "~/Views/Shared/_MainStyle.cshtml";
 }
 
@@ -23,12 +24,12 @@
                 <div class="area-main">
                     <div class="area-main-inner">
                         <form method="post" action="~/Home/PersonalData">
-                            @Html.TextBoxFor(u => u.userId, new { @Value = @ViewBag.userId, @type = "text", @class = "input-content", @id = "userId", @name = "userId" ,@hidden="true"})
+                            @Html.TextBoxFor(u => u.userId, new { @Value = @ViewBag.userId, @type = "text", @class = "input-content", @id = "userId", @name = "userId", @hidden = "true" })
                             <div class="">
                                 <table>
                                     <tr>
                                         <td class="table-head"><label>当前头像</label></td>
-                                        <td><span class="head-picture"><img src="@ViewBag." /></span></td>
+                                        <td><span class="headPicture"><img src="@ViewBag.userHeaderPic" /></span></td>
                                     </tr>
                                     <tr>
                                         <td class="table-head"><label>用户ID</label></td>
@@ -41,13 +42,13 @@
                                     <tr>
                                         <td class="table-head"><label>性别</label></td>
                                         <td>
-                                            @if(@ViewBag.userSex == 0)
+                                            @if (@ViewBag.userSex == 0)
                                             {
-                                            <span id="userSex">男</span>
+                                                <span id="userSex">男</span>
                                             }
-                                            @if(@ViewBag.userSex == 1)
+                                            @if (@ViewBag.userSex == 1)
                                             {
-                                            <span id="userSex">女</span>
+                                                <span id="userSex">女</span>
                                             }
                                         </td>
                                     </tr>
@@ -66,13 +67,21 @@
                                     <tr>
                                         <td class="table-head"><label>用户状态</label></td>
                                         <td>
-                                            @if(@ViewBag.userStatus == 0)
+                                            @if (@ViewBag.userStatus == 0)
                                             {
-                                                <span>正常</span>
+                                                <span>禁止发言</span>
                                             }
-                                            @if(@ViewBag.userStatus == 1)
+                                            @if (@ViewBag.userStatus == 1)
                                             {
-                                                <span>异常</span>
+                                                <span>注册会员</span>
+                                            }
+                                            @if (@ViewBag.userStatus == 2)
+                                            {
+                                                <span>正式会员</span>
+                                            }
+                                            @if (@ViewBag.userStatus == 3)
+                                            {
+                                                <span>管理员</span>
                                             }
                                         </td>
                                     </tr>
@@ -83,16 +92,18 @@
                                     <tr>
                                         <td class="table-head"><label>用户说明</label></td>
                                         <td class="userIntroduce">
-                                            <span id="userIntroduce"><(￣︶￣)↗[GO!]</span>
+                                            <span id="userIntroduce">
+                                                @ViewBag.userIntroduce
+                                            </span>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                             <div class="btn-group">
-                                <span class="btn n-btn">
-                                    <input id="button" type="button" value="修改" onclick="changeInput()" />
-                                    <input type="submit" id="postData" name="postData" value="保存" hidden ="hidden">
-                                    <input type="button" id="quit" name="quit" value="取消" onclick="javascript:window.location.reload()" hidden ="hidden">
+                                <span class="n-btn">
+                                    <input class="btn" id="button" type="button" value="修改" onclick="changeInput()" />
+                                    <input class="btn" type="submit" id="postData" name="postData" value="保存" hidden="hidden">
+                                    <input class="btn" type="button" id="quit" name="quit" value="取消" onclick="javascript:window.location.reload()" hidden="hidden">
                                 </span>
                             </div>
                         </form>
