@@ -690,22 +690,24 @@ namespace Lazyfitness
         /// <returns></returns>
         public static userInfo GetUserInfo(int userId)
         {
-            userInfo info = new userInfo
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                userName = userId + "的名字",
-                userId = userId,
-                userAge = 18,
-                userSex = 0,
-                userEmail = "1111@qq.com",
-                userStatus = 1,
-                userAccount = 0,
-                userSecurity = null,
-                userHeaderPic = "/Resource/picture/DefaultHeadPic.jpg",
-                userIntroduce = "这是" + userId + "的简介"
-                
-
-            };
-            return info;
+                var obInfo = db.userInfo.Where(u => u.userId == userId).FirstOrDefault();
+                userInfo info = new userInfo
+                {
+                    userName = obInfo.userName,
+                    userId = userId,
+                    userAge = obInfo.userAge,
+                    userSex = obInfo.userSex,
+                    userEmail = obInfo.userEmail,
+                    userStatus = obInfo.userStatus,
+                    userAccount = obInfo.userAccount,
+                    userSecurity = null,
+                    userHeaderPic = obInfo.userHeaderPic,
+                    userIntroduce = obInfo.userIntroduce
+                };
+                return info;
+            }
         }
         #region 首页数据
         /// <summary>
@@ -925,26 +927,5 @@ namespace Lazyfitness
         }
         #endregion
     }
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
-            {
-                var obInfo = db.userInfo.Where(u => u.userId == userId).FirstOrDefault();
-                userInfo info = new userInfo
-                {
-                    userName = obInfo.userName,
-                    userId = userId,
-                    userAge = obInfo.userAge,
-                    userSex = obInfo.userSex,
-                    userEmail = obInfo.userEmail,
-                    userStatus = obInfo.userStatus,
-                    userAccount = obInfo.userAccount,
-                    userSecurity = null,
-                    userHeaderPic = obInfo.userHeaderPic,
-                    userIntroduce = obInfo.userIntroduce
-                };
-                return info;
-            }
             
-        }
-
-    }
 }
