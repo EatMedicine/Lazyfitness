@@ -119,41 +119,6 @@ namespace Lazyfitness.Controllers
                 ScrollInfo[1].url,
                 ScrollInfo[2].url,
             };
-            ViewBag.NoticeName = new string[]
-            {
-                "震惊！XX居然。。。",
-                "吓人！XX居然。。。",
-                "美女荷官在线发牌",
-                "来贪玩蓝月，你从未见过的船新版本",
-                "女朋友失误，竟炼出史前尸鲲",
-                "想不出要说啥了但这里估计也看不到（",
-                "但现在 你看到了",
-                "因为 增加到第10个了",
-                "这里是第九个",
-                "终于编完了嘤"
-            };
-            ViewBag.NoticeUrl = new string[]
-            {
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-            };
-            ViewBag.NoticeTitle = new string[]
-            {
-                "震惊！XX居然。。。",
-                "吓人！QQ居然。。。",
-                "美女荷官在线发牌",
-                "来贪玩蓝月，你从未见过的船新版本",
-                "女朋友失误，竟炼出史前尸鲲",
-                "想不出要说啥了但这里估计也看不到（",
-            };
             //获取大区信息
             resourceArea[] areasInfo = Tools.GetArticleAreaInfo();
             string[] areasName = new string[areasInfo.Length];
