@@ -719,5 +719,56 @@ namespace Lazyfitness
         }
 
         #endregion
+
+        #region 文章大区数据
+        /// <summary>
+        /// 获取首页的轮播图数据
+        /// </summary>
+        /// <returns></returns>
+        public static serverShowInfo[] GetArticleScroll()
+        {
+            //伪数据
+            string[] picAdr = new string[]
+            {
+                "/Resource/picture/pic1.jpg",
+                "/Resource/picture/pic2.jpg",
+                "/Resource/picture/pic3.png",
+            };
+            string[] title = new string[]
+            {
+                "震惊！XX居然。。。",
+                "吓人！XX居然。。。",
+                "美女荷官在线发牌",
+                "来贪玩蓝月，你从未见过的船新版本",
+                "女朋友失误，竟炼出史前尸鲲",
+                "想不出要说啥了但这里估计也看不到（",
+                "但现在 你看到了",
+                "因为 增加到第10个了",
+                "这里是第九个",
+                "终于编完了嘤"
+            };
+            //暂定areaId 0为首页  1为文章区 
+            //暂定flag 0为轮播图 1为公告
+            //暂定InfoStatus 0为禁用 1为启用
+            //首页只要3条轮播图
+            serverShowInfo[] info = new serverShowInfo[3];
+            for (int count = 0; count < 3; count++)
+            {
+                info[count] = new serverShowInfo
+                {
+                    id = count,
+                    areaId = 1,
+                    title = title[count],
+                    pictureAdr = picAdr[count],
+                    //考虑到这里地址不一定是本网站的文章地址 所以还是写完整URL比较好
+                    //比如说广告啥的（雾
+                    url = "/Home/ArticleDetail?num=" + count,
+                    flag = 0,
+                    Infostatus = 1
+                };
+            }
+            return info;
+        }
+        #endregion
     }
 }

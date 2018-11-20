@@ -99,11 +99,25 @@ namespace Lazyfitness.Controllers
             ViewBag.Title = "小懒人健身网站";
             ViewBag.IsLogin = true;
             ViewBag.headPicadr = Url.Content("~/Resource/picture/DefaultHeadPic.jpg");
+            //获取首页轮播图数据
+            serverShowInfo[] ScrollInfo = Tools.GetArticleScroll();
             ViewBag.Scrollpic = new string[]
             {
-                Url.Content("~/Resource/picture/pic1.jpg"),
-                Url.Content("~/Resource/picture/pic2.jpg"),
-                Url.Content("~/Resource/picture/pic3.png"),
+                ScrollInfo[0].pictureAdr,
+                ScrollInfo[1].pictureAdr,
+                ScrollInfo[2].pictureAdr,
+            };
+            ViewBag.ScrollTitle = new string[]
+            {
+                ScrollInfo[0].title,
+                ScrollInfo[1].title,
+                ScrollInfo[2].title,
+            };
+            ViewBag.ScrollUrl = new string[]
+            {
+                ScrollInfo[0].url,
+                ScrollInfo[1].url,
+                ScrollInfo[2].url,
             };
             ViewBag.NoticeName = new string[]
             {
