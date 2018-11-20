@@ -31,47 +31,63 @@ namespace Lazyfitness.Controllers
             ViewBag.Title = "小懒人健身网站";
             ViewBag.IsLogin = true;
             ViewBag.headPicadr = Url.Content("~/Resource/picture/DefaultHeadPic.jpg");
+            //获取首页轮播图数据
+            serverShowInfo[] ScrollInfo = Tools.GetIndexScroll();
             ViewBag.Scrollpic = new string[]
             {
-                Url.Content("~/Resource/picture/pic1.jpg"),
-                Url.Content("~/Resource/picture/pic2.jpg"),
-                Url.Content("~/Resource/picture/pic3.png"),
+                ScrollInfo[0].pictureAdr,
+                ScrollInfo[1].pictureAdr,
+                ScrollInfo[2].pictureAdr,
             };
-            ViewBag.NoticeName = new string[]
+            ViewBag.ScrollTitle = new string[]
             {
-                "震惊！XX居然。。。",
-                "吓人！XX居然。。。",
-                "美女荷官在线发牌",
-                "来贪玩蓝月，你从未见过的船新版本",
-                "女朋友失误，竟炼出史前尸鲲",
-                "想不出要说啥了但这里估计也看不到（",
-                "但现在 你看到了",
-                "因为 增加到第10个了",
-                "这里是第九个",
-                "终于编完了嘤"
+                ScrollInfo[0].title,
+                ScrollInfo[1].title,
+                ScrollInfo[2].title,
             };
-            ViewBag.NoticeUrl = new string[]
+            ViewBag.ScrollUrl = new string[]
             {
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
+                ScrollInfo[0].url,
+                ScrollInfo[1].url,
+                ScrollInfo[2].url,
             };
-            ViewBag.NoticeTitle = new string[]
-            {
-                "震惊！XX居然。。。",
-                "吓人！QQ居然。。。",
-                "美女荷官在线发牌",
-                "来贪玩蓝月，你从未见过的船新版本",
-                "女朋友失误，竟炼出史前尸鲲",
-                "想不出要说啥了但这里估计也看不到（",
-            };
+            //获取首页公告数据
+            serverShowInfo[] NoticeInfo = Tools.GetIndexNotice();
+            string[] noticName = new string[5];
+            for(int count = 0; count < 5; count++)
+                noticName[count] = NoticeInfo[count].title;
+            string[] noticUrl = new string[5];
+            for (int count = 0; count < 5; count++)
+                noticUrl[count] = NoticeInfo[count].url;
+            ViewBag.NoticeName = noticName;
+            ViewBag.NoticeUrl = noticUrl;
+            //获取首页文章区信息
+            //热门
+            resourceInfo[] ArticleHotInfo = Tools.GetArticleDetailInfo(2, true, 9);
+            ViewBag.ArticleHotInfo = ArticleHotInfo;
+            //最新
+            resourceInfo[] ArticleLastestInfo = Tools.GetArticleDetailInfo(1, true, 9);
+            ViewBag.ArticleLastestInfo = ArticleLastestInfo;
+
+            //获取首页问答区信息
+            //热门
+            quesAnswInfo[] QuestionHotInfo = Tools.GetQuestionDetailInfo(2, true, 9);
+            ViewBag.QuestionHotInfo = QuestionHotInfo;
+            //最新
+            quesAnswInfo[] QuestionLastestInfo = Tools.GetQuestionDetailInfo(1, true, 9);
+            ViewBag.QuestionLastestInfo = QuestionLastestInfo;
+
+            //获取首页论坛信息
+            //热门
+            postInfo[] forumHotInfo = Tools.GetforumDetailInfo(2, true, 9);
+            ViewBag.forumHotInfo = forumHotInfo;
+            //最新
+            postInfo[] forumLastestInfo = Tools.GetforumDetailInfo(1, true, 9);
+            ViewBag.forumLastestInfo = forumLastestInfo;
+
+            //传入一条个区域多少条信息（最大9
+            ViewBag.InfoNum = 9;
+
             #endregion
             return View();
         }
@@ -83,46 +99,25 @@ namespace Lazyfitness.Controllers
             ViewBag.Title = "小懒人健身网站";
             ViewBag.IsLogin = true;
             ViewBag.headPicadr = Url.Content("~/Resource/picture/DefaultHeadPic.jpg");
+            //获取首页轮播图数据
+            serverShowInfo[] ScrollInfo = Tools.GetArticleScroll();
             ViewBag.Scrollpic = new string[]
             {
-                Url.Content("~/Resource/picture/pic1.jpg"),
-                Url.Content("~/Resource/picture/pic2.jpg"),
-                Url.Content("~/Resource/picture/pic3.png"),
+                ScrollInfo[0].pictureAdr,
+                ScrollInfo[1].pictureAdr,
+                ScrollInfo[2].pictureAdr,
             };
-            ViewBag.NoticeName = new string[]
+            ViewBag.ScrollTitle = new string[]
             {
-                "震惊！XX居然。。。",
-                "吓人！XX居然。。。",
-                "美女荷官在线发牌",
-                "来贪玩蓝月，你从未见过的船新版本",
-                "女朋友失误，竟炼出史前尸鲲",
-                "想不出要说啥了但这里估计也看不到（",
-                "但现在 你看到了",
-                "因为 增加到第10个了",
-                "这里是第九个",
-                "终于编完了嘤"
+                ScrollInfo[0].title,
+                ScrollInfo[1].title,
+                ScrollInfo[2].title,
             };
-            ViewBag.NoticeUrl = new string[]
+            ViewBag.ScrollUrl = new string[]
             {
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-                "#",
-            };
-            ViewBag.NoticeTitle = new string[]
-            {
-                "震惊！XX居然。。。",
-                "吓人！QQ居然。。。",
-                "美女荷官在线发牌",
-                "来贪玩蓝月，你从未见过的船新版本",
-                "女朋友失误，竟炼出史前尸鲲",
-                "想不出要说啥了但这里估计也看不到（",
+                ScrollInfo[0].url,
+                ScrollInfo[1].url,
+                ScrollInfo[2].url,
             };
             //获取大区信息
             resourceArea[] areasInfo = Tools.GetArticleAreaInfo();

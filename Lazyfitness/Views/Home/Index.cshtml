@@ -26,9 +26,13 @@
     <div class="scroll-box fl">
         <div class="panel" id="panel" onmousemove="cancelScroll()" onmouseout="startScroll()">
             <ul class="picture fl">
+                @{ 
+                    int count1 = 0;
+                }
                 @foreach (string url in ViewBag.Scrollpic as string[])
                 {
-                    <li><img src=@url /></li>
+                    <li><a href="@ViewBag.ScrollUrl[count1]"><img src=@url /></a></li>
+                    count1++;
                 }
             </ul>
             <ul class="dot" id="dot">
@@ -39,7 +43,7 @@
         </div>
         <div class="scroll-title">
             @{
-                string[] title = ViewBag.NoticeTitle as string[];
+                string[] title = ViewBag.ScrollTitle as string[];
             }
             @for (int count = 0; count < 3; count++)
             {
@@ -85,18 +89,18 @@
         <div class="partition-content-hot fl">
             <h3>热门</h3>
             <div class="partition-content-hot-url">
-                @for (int count = 0; count < 9; count++)
+                @for (int count = 0; count < ViewBag.InfoNum; count++)
                 {
-                    <p class="partition-content-item"><a href="@Nurl[count]">@Nname[count]</a></p>
+                    <p class="partition-content-item"><a href=@Url.Action("ArticleDetail","Home",new { num=ViewBag.ArticleHotInfo[count].resourceId})>@ViewBag.ArticleHotInfo[count].resourceName</a></p>
                 }
             </div>
         </div>
         <div class="partition-content-lastest fr">
             <h3>最新</h3>
             <div class="partition-content-lastest-url">
-                @for (int count = 0; count < 9; count++)
+                @for (int count = 0; count < ViewBag.InfoNum; count++)
                 {
-                    <p class="partition-content-item"><a href="@Nurl[count]">@Nname[count]</a></p>
+                    <p class="partition-content-item"><a href=@Url.Action("ArticleDetail","Home",new { num=ViewBag.ArticleLastestInfo[count].resourceId})>@ViewBag.ArticleLastestInfo[count].resourceName</a></p>
                 }
             </div>
         </div>
@@ -106,7 +110,7 @@
 <div class="partition-data">
     <div class="partition-title">
         <div class="partition-title-name">
-            <h2>资源区</h2>
+            <h2>问答区</h2>
         </div>
         <div class="partition-title-more">
             <h3><a href="#">更多</a></h3>
@@ -116,18 +120,18 @@
         <div class="partition-content-hot fl">
             <h3>热门</h3>
             <div class="partition-content-hot-url">
-                @for (int count = 0; count < 9; count++)
+                @for (int count = 0; count < ViewBag.InfoNum; count++)
                 {
-                    <p class="partition-content-item"><a href="@Nurl[count]">@Nname[count]</a></p>
+                    <p class="partition-content-item"><a href=@Url.Action("QuestionDetail","Home",new { num=ViewBag.QuestionHotInfo[count].quesAnswId})>@ViewBag.QuestionHotInfo[count].quesAnswTitle</a></p>
                 }
             </div>
         </div>
         <div class="partition-content-lastest fr">
             <h3>最新</h3>
             <div class="partition-content-lastest-url">
-                @for (int count = 0; count < 9; count++)
+                @for (int count = 0; count < ViewBag.InfoNum; count++)
                 {
-                    <p class="partition-content-item"><a href="@Nurl[count]">@Nname[count]</a></p>
+                    <p class="partition-content-item"><a href=@Url.Action("QuestionDetail","Home",new { num=ViewBag.QuestionLastestInfo[count].quesAnswId})>@ViewBag.QuestionLastestInfo[count].quesAnswTitle</a></p>
                 }
             </div>
         </div>
@@ -137,7 +141,7 @@
 <div class="partition-data">
     <div class="partition-title">
         <div class="partition-title-name">
-            <h2>资源区</h2>
+            <h2>论坛</h2>
         </div>
         <div class="partition-title-more">
             <h3><a href="#">更多</a></h3>
@@ -147,18 +151,18 @@
         <div class="partition-content-hot fl">
             <h3>热门</h3>
             <div class="partition-content-hot-url">
-                @for (int count = 0; count < 9; count++)
+                @for (int count = 0; count < ViewBag.InfoNum; count++)
                 {
-                    <p class="partition-content-item"><a href="@Nurl[count]">@Nname[count]</a></p>
+                    <p class="partition-content-item"><a href=@Url.Action("forumDetail","Home",new { num=ViewBag.forumHotInfo[count].postId})>@ViewBag.forumHotInfo[count].postTitle</a></p>
                 }
             </div>
         </div>
         <div class="partition-content-lastest fr">
             <h3>最新</h3>
             <div class="partition-content-lastest-url">
-                @for (int count = 0; count < 9; count++)
+                @for (int count = 0; count < ViewBag.InfoNum; count++)
                 {
-                    <p class="partition-content-item"><a href="@Nurl[count]">@Nname[count]</a></p>
+                <p class="partition-content-item"><a href=@Url.Action("forumDetail","Home",new { num=ViewBag.forumLastestInfo[count].postId})>@ViewBag.forumLastestInfo[count].postTitle</a></p>
                 }
             </div>
         </div>

@@ -14,8 +14,8 @@
 @*
 本页需要的变量：
     ViewBag.Scrollpic 轮播图的url string[]
-    ViewBag.NoticeName 轮播图的名字 string[]
-    ViewBag.NoticeUrl 轮播图的Url string[]
+    ViewBag.ScrollName 轮播图的名字 string[]
+    ViewBag.ScrollUrl 轮播图的Url string[]
     ViewBag.AreasName 分区的名字 string[]
     ViewBag.AreasUrl 分区的Url string[]
 *@
@@ -30,11 +30,11 @@
                     {
                         if (count == 1)
                         {
-                            <img class="vis" src=@urls[count-1] />
+                            <a href="@ViewBag.ScrollUrl[count-1]"><img class="vis" src=@urls[count-1] /></a>
                         }
                         else
                         {
-                            <img class="unvis" src=@urls[count-1] />
+                            <a href="@ViewBag.ScrollUrl[count-1]"><img class="unvis" src=@urls[count-1] /></a>
                         }
 
 
@@ -48,7 +48,7 @@
             </div>
             <div class="scroll-title">
                 @{
-                    string[] title = ViewBag.NoticeTitle as string[];
+                    string[] title = ViewBag.ScrollTitle as string[];
                 }
                 @for (int count = 0; count < 3; count++)
                 {

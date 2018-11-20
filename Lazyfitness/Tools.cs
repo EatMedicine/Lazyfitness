@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using System.Data.Entity.Infrastructure;
 using System.Collections;
+
 
 namespace Lazyfitness
 {   
@@ -688,6 +690,241 @@ namespace Lazyfitness
         /// <returns></returns>
         public static userInfo GetUserInfo(int userId)
         {
+            userInfo info = new userInfo
+            {
+                userName = userId + "的名字",
+                userId = userId,
+                userAge = 18,
+                userSex = 0,
+                userEmail = "1111@qq.com",
+                userStatus = 1,
+                userAccount = 0,
+                userSecurity = null,
+                userHeaderPic = "/Resource/picture/DefaultHeadPic.jpg",
+                userIntroduce = "这是" + userId + "的简介"
+                
+
+            };
+            return info;
+        }
+        #region 首页数据
+        /// <summary>
+        /// 获取首页的轮播图数据
+        /// </summary>
+        /// <returns></returns>
+        public static serverShowInfo[] GetIndexScroll()
+        {
+            //伪数据
+            string[] picAdr = new string[]
+            {
+                "/Resource/picture/pic1.jpg",
+                "/Resource/picture/pic2.jpg",
+                "/Resource/picture/pic3.png",
+            };
+            string[] title = new string[]
+            {
+                "震惊！XX居然。。。",
+                "吓人！XX居然。。。",
+                "美女荷官在线发牌",
+                "来贪玩蓝月，你从未见过的船新版本",
+                "女朋友失误，竟炼出史前尸鲲",
+                "想不出要说啥了但这里估计也看不到（",
+                "但现在 你看到了",
+                "因为 增加到第10个了",
+                "这里是第九个",
+                "终于编完了嘤"
+            };
+            //暂定areaId 0为首页  1为文章区 
+            //暂定flag 0为轮播图 1为公告
+            //暂定InfoStatus 0为禁用 1为启用
+            //首页只要3条轮播图
+            serverShowInfo[] info = new serverShowInfo[3];
+            for(int count = 0; count < 3; count++)
+            {
+                info[count] = new serverShowInfo
+                {
+                    id = count,
+                    areaId = 0,
+                    title = title[count],
+                    pictureAdr = picAdr[count],
+                    //考虑到这里地址不一定是本网站的文章地址 所以还是写完整URL比较好
+                    //比如说广告啥的（雾
+                    url = "/Home/ArticleDetail?num=" + count,
+                    flag = 0,
+                    Infostatus = 1
+                };
+            }
+            return info;
+        }
+
+        /// <summary>
+        /// 获取首页的公告数据
+        /// </summary>
+        /// <returns></returns>
+        public static serverShowInfo[] GetIndexNotice()
+        {
+            //伪数据
+            string[] title = new string[]
+            {
+                "震惊！XX居然。。。",
+                "吓人！XX居然。。。",
+                "美女荷官在线发牌",
+                "来贪玩蓝月，你从未见过的船新版本",
+                "女朋友失误，竟炼出史前尸鲲",
+                "想不出要说啥了但这里估计也看不到（",
+                "但现在 你看到了",
+                "因为 增加到第10个了",
+                "这里是第九个",
+                "终于编完了嘤"
+            };
+            //暂定areaId 0为首页  1为文章区 
+            //暂定flag 0为轮播图 1为公告
+            //暂定InfoStatus 0为禁用 1为启用
+            //首页公告有5条
+            serverShowInfo[] info = new serverShowInfo[5];
+            for (int count = 0; count < 5; count++)
+            {
+                info[count] = new serverShowInfo
+                {
+                    id = count,
+                    areaId = 0,
+                    title = title[count],
+                    pictureAdr = "",
+                    //考虑到这里地址不一定是本网站的文章地址 所以还是写完整URL比较好
+                    //比如说广告啥的（雾
+                    url = "/Home/ArticleDetail?num=" + count,
+                    flag = 1,
+                    Infostatus = 1
+                };
+            }
+            return info;
+        }
+
+        /// <summary>
+        /// 获取一些文章信息
+        /// </summary>
+        /// <param name="sortFlag">排序规则，
+        /// 暂定0为默认排序
+        /// 1为时间排序
+        /// 2为访问量排序</param>
+        /// <param name="IsDes">是否是降序排序</param>
+        /// <param name="num">取的数量</param>
+        /// <returns></returns>
+        public static resourceInfo[] GetArticleDetailInfo(int sortFlag,bool IsDes,int num)
+        {
+            resourceInfo[] info = new resourceInfo[num];
+            for(int count = 0; count < num; count++)
+            {
+                info[count] = new resourceInfo
+                {
+                    resourceName = "这是第" + count + "条文章数据",
+                    resourceId = count,
+                };
+            }
+            return info;
+        }
+
+        /// <summary>
+        /// 获取一些问答信息
+        /// </summary>
+        /// <param name="sortFlag">排序规则，
+        /// 暂定0为默认排序
+        /// 1为时间排序
+        /// 2为访问量排序</param>
+        /// <param name="IsDes">是否是降序排序</param>
+        /// <param name="num">取的数量</param>
+        /// <returns></returns>
+        public static quesAnswInfo[] GetQuestionDetailInfo(int sortFlag, bool IsDes, int num)
+        {
+            quesAnswInfo[] info = new quesAnswInfo[num];
+            for (int count = 0; count < num; count++)
+            {
+                info[count] = new quesAnswInfo
+                {
+                    quesAnswTitle = "这是第" + count + "条文章数据",
+                    quesAnswId = count,
+                };
+            }
+            return info;
+        }
+
+        /// <summary>
+        /// 获取一些论坛信息
+        /// </summary>
+        /// <param name="sortFlag">排序规则，
+        /// 暂定0为默认排序
+        /// 1为时间排序
+        /// 2为访问量排序</param>
+        /// <param name="IsDes">是否是降序排序</param>
+        /// <param name="num">取的数量</param>
+        /// <returns></returns>
+        public static postInfo[] GetforumDetailInfo(int sortFlag, bool IsDes, int num)
+        {
+            postInfo[] info = new postInfo[num];
+            for (int count = 0; count < num; count++)
+            {
+                info[count] = new postInfo
+                {
+                    postTitle = "这是第" + count + "条文章数据",
+                    postId = count,
+                };
+            }
+            return info;
+        }
+
+        #endregion
+
+        #region 文章大区数据
+        /// <summary>
+        /// 获取首页的轮播图数据
+        /// </summary>
+        /// <returns></returns>
+        public static serverShowInfo[] GetArticleScroll()
+        {
+            //伪数据
+            string[] picAdr = new string[]
+            {
+                "/Resource/picture/pic1.jpg",
+                "/Resource/picture/pic2.jpg",
+                "/Resource/picture/pic3.png",
+            };
+            string[] title = new string[]
+            {
+                "震惊！XX居然。。。",
+                "吓人！XX居然。。。",
+                "美女荷官在线发牌",
+                "来贪玩蓝月，你从未见过的船新版本",
+                "女朋友失误，竟炼出史前尸鲲",
+                "想不出要说啥了但这里估计也看不到（",
+                "但现在 你看到了",
+                "因为 增加到第10个了",
+                "这里是第九个",
+                "终于编完了嘤"
+            };
+            //暂定areaId 0为首页  1为文章区 
+            //暂定flag 0为轮播图 1为公告
+            //暂定InfoStatus 0为禁用 1为启用
+            //首页只要3条轮播图
+            serverShowInfo[] info = new serverShowInfo[3];
+            for (int count = 0; count < 3; count++)
+            {
+                info[count] = new serverShowInfo
+                {
+                    id = count,
+                    areaId = 1,
+                    title = title[count],
+                    pictureAdr = picAdr[count],
+                    //考虑到这里地址不一定是本网站的文章地址 所以还是写完整URL比较好
+                    //比如说广告啥的（雾
+                    url = "/Home/ArticleDetail?num=" + count,
+                    flag = 0,
+                    Infostatus = 1
+                };
+            }
+            return info;
+        }
+        #endregion
+    }
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 var obInfo = db.userInfo.Where(u => u.userId == userId).FirstOrDefault();
