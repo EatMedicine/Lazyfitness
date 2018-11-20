@@ -20,6 +20,7 @@
         ViewBag.ItemsMoney 分区该页帖子的悬赏金额 int[]
 
 *@
+@using Lazyfitness.Models;
 @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
 <link href="~/Css/Question.css?v=2018-1028-1926" rel="stylesheet" type="text/css" />
 <link href="~/Css/QuestionPart.css?v=2018-1028-1926" rel="stylesheet" type="text/css" />
@@ -30,6 +31,7 @@
         string[] partUrl = ViewBag.PartUrl as string[];
     }
     <ul class="part-list-item">
+        <li><a href="@Url.Action("Question","Home")">首页</a></li>
         @for (int count = 0; count < partName.Length && count < partUrl.Length; count++)
         {
             <li><a href="@partUrl[count]">@partName[count]</a></li>
@@ -37,7 +39,7 @@
     </ul>
 </div>
 <div class="content">
-    <span class="content-title fl">@partName[ViewBag.PartId]</span>
+    <span class="content-title fl">@partName[ViewBag.PartId-1]</span>
     <a href=@Url.Action("QuestionEditor","Home",new { partId = ViewBag.PartId})>
         <div class="content-askQues-btn">
             <span class="content-askQues-btn-text">我要提问</span>
@@ -50,18 +52,21 @@
         <div class="ques-list">
             @{
                 string[] names = ViewBag.ItemsName as string[];
-                string[] titles = ViewBag.ItemsTitle as string[];
-                string[] urls = ViewBag.ItemsUrl as string[];
                 string[] headAdrs = ViewBag.ItemsHeadAdr as string[];
                 string[] introductions = ViewBag.ItemsIntroduction as string[];
-                int[] moneys = ViewBag.ItemsMoney as int[];
+                quesAnswInfo[] ItemInfo = ViewBag.ItemInfo as quesAnswInfo[];
+                string[] ItemUrl = new string[ItemInfo.Length];
+                for (int count = 0; count < ItemInfo.Length; count++)
+                {
+                    ItemUrl[count] = Url.Action("QuestionDetail", "Home", new { num = ItemInfo[count].quesAnswId });
+                }
             }
-            @for (int count = 0; count < names.Length; count++)
+            @for (int count = 0; count < ItemInfo.Length; count++)
             {
                 <div class="ques-list-item">
                     <div class="item-con">
                         <div class="item-title">
-                            <h3><a href=@urls[count]>@titles[count]</a></h3>
+                            <h3><a href=@ItemUrl[count]>@ItemInfo[count].quesAnswTitle</a></h3>
                         </div>
                         <div class="item-introduction">
                             <p>@introductions[count]</p>
@@ -98,7 +103,7 @@
         </div>*@
         </div>
         <div class="right-bar">
-            ssss
+            
         </div>
     </div>
     <div class="go-top unvis" id="top-btn">

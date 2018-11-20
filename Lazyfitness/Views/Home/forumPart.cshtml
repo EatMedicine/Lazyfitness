@@ -21,6 +21,7 @@
         ViewBag.ItemsIntroduction 分区该页帖子简介 string[]
 
 *@
+@using Lazyfitness.Models;
 @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
 <link href="~/Css/forum.css?v=2018-1028-1926" rel="stylesheet" type="text/css" />
 <link href="~/Css/forumPart.css?v=2018-1028-1926" rel="stylesheet" type="text/css" />
@@ -85,17 +86,21 @@
     <div class="forum-list">
         @{
             string[] names = ViewBag.ItemsName as string[];
-            string[] titles = ViewBag.ItemsTitle as string[];
-            string[] urls = ViewBag.ItemsUrl as string[];
             string[] headAdrs = ViewBag.ItemsHeadAdr as string[];
             string[] introductions = ViewBag.ItemsIntroduction as string[];
+            postInfo[] ItemInfo = ViewBag.ItemInfo as postInfo[];
+            string[] ItemUrl = new string[ItemInfo.Length];
+            for (int count = 0; count < ItemInfo.Length; count++)
+            {
+                ItemUrl[count] = Url.Action("forumDetail", "Home", new { num = ItemInfo[count].postId });
+            }
         }
-        @for (int count = 0; count < names.Length; count++)
+        @for (int count = 0; count < ItemInfo.Length; count++)
         {
             <div class="forum-list-item">
                 <div class="item-con">
                     <div class="item-title">
-                        <h3><a href=@urls[count]>@titles[count]</a></h3>
+                        <h3><a href=@ItemUrl[count]>@ItemInfo[count].postTitle</a></h3>
                     </div>
                     <div class="item-introduction">
                         <p>@introductions[count]</p>

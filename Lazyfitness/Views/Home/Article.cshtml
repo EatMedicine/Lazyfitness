@@ -7,6 +7,7 @@
 
     string[] urls = ViewBag.Scrollpic as string[];
 }
+@using Lazyfitness.Models;
 @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
 <link href="~/Css/Article.css?v=2018-1022-0017" rel="stylesheet" type="text/css" />
 <script src="~/Scripts/ArticleJs.js?v=2021-1021-2305"></script>
@@ -14,7 +15,7 @@
 @*
 本页需要的变量：
     ViewBag.Scrollpic 轮播图的url string[]
-    ViewBag.ScrollName 轮播图的名字 string[]
+    ViewBag.ScrollTitle 轮播图的名字 string[]
     ViewBag.ScrollUrl 轮播图的Url string[]
     ViewBag.AreasName 分区的名字 string[]
     ViewBag.AreasUrl 分区的Url string[]
@@ -26,15 +27,15 @@
         <div class="scroll-box">
             <div class="panel" id="panel" onmousemove="cancelScroll()" onmouseout="startScroll()">
                 <div class="picture" id="picture">
-                    @for (int count = 1; count <= 3; count++)
+                    @for (int count = 0;count < urls.Length && count < 3; count++)
                     {
-                        if (count == 1)
+                        if (count == 0)
                         {
-                            <a href="@ViewBag.ScrollUrl[count-1]"><img class="vis" src=@urls[count-1] /></a>
+                            <a href="@ViewBag.ScrollUrl[count]"><img class="vis" src=@urls[count] /></a>
                         }
                         else
                         {
-                            <a href="@ViewBag.ScrollUrl[count-1]"><img class="unvis" src=@urls[count-1] /></a>
+                            <a href="@ViewBag.ScrollUrl[count]"><img class="unvis" src=@urls[count] /></a>
                         }
 
 
@@ -49,8 +50,12 @@
             <div class="scroll-title">
                 @{
                     string[] title = ViewBag.ScrollTitle as string[];
+                    if (title == null)
+                    {
+                        title = new string[0];
+                    }
                 }
-                @for (int count = 0; count < 3; count++)
+                @for (int count = 0;count < title.Length && count < 3; count++)
                 {
                     if (count == 0)
                     {
@@ -95,11 +100,20 @@
             <div class="sidebar" id="sidebar">
 
                 <ul>
-                    @{ 
+                    <li><a href="@Url.Action("Article","Home")">首页</a></li>
+                    @{
                         string[] AreasName = ViewBag.AreasName as string[];
                         string[] AreasUrl = ViewBag.AreasUrl as string[];
+                        if (AreasName == null)
+                        {
+                            AreasName = new string[0];
+                        }
+                        if (AreasUrl == null)
+                        {
+                            AreasUrl = new string[0];
+                        }
                     }
-                    @for(int count = 0; count < AreasName.Length; count++)
+                    @for (int count = 0; count < AreasName.Length; count++)
                     {
                         <li><a href="@AreasUrl[count]">@AreasName[count]</a></li>
                     }

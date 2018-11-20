@@ -15,6 +15,7 @@
         ViewBag.PartSelect 当前网页是侧边导航栏第几项（用于加亮）（首页设置为-1） int
 
 *@
+@using Lazyfitness.Models;
 @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
 <link href="~/Css/forum.css?v=2018-1028-1926" rel="stylesheet" type="text/css" />
 <script src="~/Scripts/forumjs.js?v=2018-1028-1926"></script>
@@ -35,9 +36,21 @@
                     string[] partName = ViewBag.PartName as string[];
                     string[] partUrl = ViewBag.PartUrl as string[];
                     string[] partPicUrl = ViewBag.PartPicUrl as string[];
+                    if (partName == null)
+                    {
+                        partName = new string[0];
+                    }
+                    if (partUrl == null)
+                    {
+                        partUrl = new string[0];
+                    }
+                    if (partPicUrl == null)
+                    {
+                        partPicUrl = new string[0];
+                    }
                     int partSelect = ViewBag.PartSelect;
                 }
-                <li>
+                    <li>
                     <a href="@Url.Action("forum","Home")">
                         <img src="~/Resource/picture/list-style-dot-grey.png" style="width:15px" />
                         <span class="select">所有帖子</span>

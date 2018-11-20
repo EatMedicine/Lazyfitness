@@ -15,10 +15,10 @@ function setMargin() {
     pobj = document.getElementById("picture");
     for (var i = 0; i <= 2; i++) {
         obj.children[i].children[0].src = "/Resource/picture/square0.png";
-        pobj.children[i].className = "unvis";
+        pobj.children[i].children[0].className = "unvis";
         document.getElementById("scroll-title-" + i).className = "scroll-title-item unvis";
     }
-    pobj.children[count].className = "vis";
+    pobj.children[count].children[0].className = "vis";
     document.getElementById("scroll-title-" + count).className = "scroll-title-item vis";
     obj.children[count].children[0].src = "/Resource/picture/square1.png";
     count++;

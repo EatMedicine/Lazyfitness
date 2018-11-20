@@ -21,7 +21,7 @@
     ViewBag.ReplyIsAgree 回复帖子是否被采纳 int[]
 *@
 
-
+@using Lazyfitness.Models;
 <link href="~/Css/QuestionDetail.css" rel="stylesheet" type="text/css" />
 @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
 <script src="~/Scripts/QuestionDetail.js"></script>
@@ -42,9 +42,12 @@
     });
     editor.render('reply');
 </script>
-
+@{
+    quesAnswInfo QuestionInfo = ViewBag.QuesInfo as quesAnswInfo;
+    userInfo QuesUserInfo = ViewBag.QuesUserInfo as userInfo;
+}
 <div class="question-head">
-    @if (ViewBag.IsSolved == true)
+    @if (QuestionInfo.quesAnswStatus == 1)
     {
         <span class="head-sign">已解决</span>
     }
@@ -52,82 +55,89 @@
     {
         <span class="head-sign">未解决</span>
     }
-    <h2 class="head-title">@ViewBag.QuesInfo.quesAnswTitle</h2>
+    <h2 class="head-title">@QuestionInfo.quesAnswTitle</h2>
     <div class="question-content">
-        @ViewBag.QuesInfo.quesAnswContent
+        @QuestionInfo.quesAnswContent
     </div>
     <div class="head-userInfo">
-        <img class="head-headPic" src="~/Resource/picture/DefaultHeadPic.jpg" />
-        <span class="head-name">@ViewBag.QuesUserInfo.userName</span>
-        <span class="head-intro">这是一个默认简介</span>
-        @if (ViewBag.Money > 0)
+        <img class="head-headPic" src="@QuesUserInfo.userHeaderPic" />
+        <span class="head-name">@QuesUserInfo.userName</span>
+        <span class="head-intro">@QuesUserInfo.userIntroduce</span>
+        @if (QuestionInfo.amount > 0)
         {
             <div class="head-money">
                 悬赏：
             </div>
-            <div class="head-money-num">@ViewBag.QuesInfo.amount</div>
+            <div class="head-money-num">@QuestionInfo.amount</div>
         }
-        <span class="time">@ViewBag.QuesInfo.quesAnswTime.ToString()</span>
+        <span class="time">@QuestionInfo.quesAnswTime.ToString()</span>
     </div>
 </div>
+@{
+    quesAnswReply[] replys = ViewBag.QuestionReplys as quesAnswReply[];
+    userInfo[] replyerInfo = ViewBag.ReplyerInfo as userInfo[];
+    /*
+    string[] replyName = ViewBag.ReplyName as string[];
+    int[] replyId = ViewBag.ReplyId as int[];
+    string[] replyUserPic = ViewBag.ReplyUserPic as string[];
+    string[] replyTime = ViewBag.ReplyTime as string[];
+    string[] replyContent = ViewBag.ReplyContent as string[];
+    int[] replyIsAgree = ViewBag.ReplyIsAgree;*/
+}
+@if (replys.Length > 0)
+{
+    <div class="question-reply">
 
-<div class="question-reply">
-    @{
-        string[] replyName = ViewBag.ReplyName as string[];
-        int[] replyId = ViewBag.ReplyId as int[];
-        string[] replyUserPic = ViewBag.ReplyUserPic as string[];
-        string[] replyTime = ViewBag.ReplyTime as string[];
-        string[] replyContent = ViewBag.ReplyContent as string[];
-        int[] replyIsAgree = ViewBag.ReplyIsAgree;
-    }
-    @for (int count = 0; count < replyId.Length; count++)
-    {
-        int num = count + 1;
-        <div class="reply-item">
-            <a id="@num" href="@Url.Action("QuestionDetail","Home", new { num = ViewBag.QuestionId})#@num" class="floor">@num#</a>
-            <div class="question-content">
-                @replyContent[count]
-            </div>
-            @if (ViewBag.IsSolved == true && replyIsAgree[count] == 1)
-            {
-                <span class="head-sign">最佳答案</span>
-            }
-            <div class="head-userInfo">
-                <img class="head-headPic" src="@replyUserPic[count]" />
-                <span class="head-name">@replyName[count]</span>
-                <span class="head-intro">这是一个默认简介</span>
-                @if (ViewBag.IsSolved == false)
+        @for (int count = 0; count < replys.Length; count++)
+        {
+            int num = count + 1;
+            <div class="reply-item">
+                <a id="@num" href="@Url.Action("QuestionDetail","Home", new { num =QuestionInfo.quesAnswId})#@num" class="floor">@num#</a>
+                <div class="question-content">
+                    @replys[count].replyContent;
+                </div>
+                @if (QuestionInfo.quesAnswStatus == 1 && replys[count].isAgree == 1)
                 {
+                    <span class="head-sign">最佳答案</span>
+                }
+                <div class="head-userInfo">
+                    <img class="head-headPic" src="@replyerInfo[count].userHeaderPic" />
+                    <span class="head-name">@replyerInfo[count].userName</span>
+                    <span class="head-intro">@replyerInfo[count].userIntroduce</span>
+                    @if (QuestionInfo.quesAnswStatus == 0)
+                    {
+                        <div class="setAnswer">
+                            采纳该答案
+                        </div>
+                    }
+                    <span class="time">@replys[count].replyTime</span>
+                </div>
+            </div>
+        }
+        @*
+            <div class="reply-item">
+                <a id="1" href="@Url.Action("QuestionDetail","Home")#1" class="floor">1#</a>
+                <div class="question-content">
+                    <p>这里是放内容的地方</p>
+                </div>
+                <div class="head-userInfo">
+                    <img class="head-headPic" src="~/Resource/picture/DefaultHeadPic.jpg" />
+                    <span class="head-name">这是名字</span>
+                    <span class="head-intro">这是简介，一个比名字长的简介</span>
                     <div class="setAnswer">
                         采纳该答案
                     </div>
-                }
-                <span class="time">@replyTime[count]</span>
-            </div>
-        </div>
-    }
-    @*
-        <div class="reply-item">
-            <a id="1" href="@Url.Action("QuestionDetail","Home")#1" class="floor">1#</a>
-            <div class="question-content">
-                <p>这里是放内容的地方</p>
-            </div>
-            <div class="head-userInfo">
-                <img class="head-headPic" src="~/Resource/picture/DefaultHeadPic.jpg" />
-                <span class="head-name">这是名字</span>
-                <span class="head-intro">这是简介，一个比名字长的简介</span>
-                <div class="setAnswer">
-                    采纳该答案
                 </div>
-            </div>
-        </div>*@
-</div>
+            </div>*@
+    </div>
+}
+
 
 <div class="reply">
-    @using (Html.BeginForm("QuestionReply","Api",FormMethod.Post))
+    @using (Html.BeginForm("QuestionReply", "Api", FormMethod.Post))
     {
         <textarea id="reply" name="reply"></textarea>
-        <input type="hidden" id="quesId" name="quesId" value="@ViewBag.QuestionId"/>
-        <input type="submit" id="submit" value="回复"/>
+        <input type="hidden" id="quesId" name="quesId" value="@ViewBag.QuestionId" />
+        <input type="submit" id="submit" value="回复" />
     }
 </div>

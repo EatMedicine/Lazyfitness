@@ -37,17 +37,54 @@ namespace Lazyfitness
         }
 
         /// <summary>
+        /// 获取文章的信息
+        /// </summary>
+        /// <param name="resourceId">文章id</param>
+        /// <returns></returns>
+        public static resourceInfo GetArticleInfo(int resourceId)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var checkDbInfo = db.resourceInfo.Where(u => u.resourceId == resourceId);
+                if (checkDbInfo.ToList().Count == 0)
+                {
+                    return null;
+                }
+                var dbInfo = checkDbInfo.FirstOrDefault();
+                resourceInfo info = new resourceInfo
+                {
+                    areaId = dbInfo.areaId,
+                    resourceId = dbInfo.resourceId,
+                    resourceName = dbInfo.resourceName,
+                    userId = dbInfo.userId,
+                    resourceTime = dbInfo.resourceTime,
+                    pageView = dbInfo.pageView,
+                    isTop = dbInfo.isTop,
+                    resourceContent = dbInfo.resourceContent,
+                    resourceArea = null,
+                };
+                return info;
+            }
+        }
+
+        /// <summary>
         /// 获取资源区分区的名字
         /// </summary>
         /// <param name="partId">分区id‘</param>
-        /// <param name="pageNum">第几页</param>
         /// <returns></returns>
         public static string GetArticleName(int partId)
         {
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                var areaName = db.resourceArea.Where(u => u.areaId == partId).FirstOrDefault().areaName;
-                return areaName;
+                resourceArea areainfo = db.resourceArea.Where(u => u.areaId == partId).FirstOrDefault();
+                if (areainfo == null)
+                {
+                    return "未找到分区名";
+                }
+                else
+                {
+                    return areainfo.areaName;
+                }
             }            
         }
 
@@ -196,7 +233,7 @@ namespace Lazyfitness
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 //分页查询返回的对象
-                DbQuery<quesAnswInfo> dbQuestionInfo = db.resourceInfo.Where(u => u.areaId == partId).OrderByDescending(u => u.resourceTime).Skip(pageSize * (pageNum - 1)).Take(pageSize) as DbQuery<quesAnswInfo>;
+                DbQuery<quesAnswInfo> dbQuestionInfo = db.quesAnswInfo.Where(u => u.areaId == partId).OrderByDescending(u => u.quesAnswTime).Skip(pageSize * (pageNum - 1)).Take(pageSize) as DbQuery<quesAnswInfo>;
                 return dbQuestionInfo.ToArray();
             }
         }
@@ -709,6 +746,8 @@ namespace Lazyfitness
                 return info;
             }
         }
+
+        //以下函数就算没获取到数据也要返回一个长度为0的数组 不要返回NULL
         #region 首页数据
         /// <summary>
         /// 获取首页的轮播图数据

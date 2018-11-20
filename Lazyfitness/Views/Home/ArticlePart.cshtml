@@ -19,6 +19,7 @@
     ViewBag.ItemsIntroduction 分区该页帖子简介 string[]
     ViewBag.IsAdmin 决定是否出现添加文章按钮 bool
 *@
+@using Lazyfitness.Models;
 <link href="~/Css/Article.css?v=2018-1022-0017" rel="stylesheet" type="text/css" />
 <link href="~/Css/ArticlePart.css?v=2018-1022-0017" rel="stylesheet" type="text/css" />
 
@@ -40,18 +41,23 @@
             }
             <div class="article-list">
                 @{
+                    resourceInfo[] ArticleInfo = ViewBag.ArticleInfo as resourceInfo[];
                     string[] names = ViewBag.ItemsName as string[];
-                    string[] titles = ViewBag.ItemsTitle as string[];
-                    string[] urls = ViewBag.ItemsUrl as string[];
                     string[] headAdrs = ViewBag.ItemsHeadAdr as string[];
                     string[] introductions = ViewBag.ItemsIntroduction as string[];
+                    string[] ArticleUrl = new string[ArticleInfo.Length];
+                    //设置Url
+                    for(int count = 0; count < ArticleInfo.Length; count++)
+                    {
+                        ArticleUrl[count] = Url.Action("ArticleDetail", "Home", new { num = ArticleInfo[count].resourceId });
+                    }
                 }
-                @for (int count = 0; count < names.Length; count++)
+                @for (int count = 0; count < ArticleInfo.Length; count++)
                 {
                     <div class="article-list-item">
                         <div class="item-con">
                             <div class="item-title">
-                                <h3><a href=@urls[count]>@titles[count]</a></h3>
+                                <h3><a href=@ArticleUrl[count]>@ArticleInfo[count].resourceName</a></h3>
                             </div>
                             <div class="item-introduction">
                                 <p>@introductions[count]</p>
@@ -92,6 +98,7 @@
         <div class="sidebar" id="sidebar">
 
             <ul>
+                <li><a href="@Url.Action("Article","Home")">首页</a></li>
                 @{
                     string[] AreasName = ViewBag.AreasName as string[];
                     string[] AreasUrl = ViewBag.AreasUrl as string[];
