@@ -162,7 +162,7 @@ namespace Lazyfitness.Controllers
             for (int count = 0; count < quesInfo.Length; count++)
             {
                 quesId[count] = quesInfo[count].areaId;
-            }
+            }          
             ViewBag.PartList = quesName;
             ViewBag.PartUrl = new string[]
             {
@@ -189,13 +189,12 @@ namespace Lazyfitness.Controllers
                 postId[count] = postInfo[count].areaId;
             }
             ViewBag.PartName = postName;
-            ViewBag.PartUrl = new string[]
+            string[] urls = new string[postInfo.Length + 1];
+            for (int i = 0; i < postInfo.Length; i++)
             {
-                Url.Action("forumPart","Home",new {partId=postId[0]}),
-                Url.Action("forumPart","Home",new {partId=postId[1]}),
-                Url.Action("forumPart","Home",new {partId=postId[2]}),
-                Url.Action("forumPart","Home",new {partId=postId[3]}),
-            };
+                urls[i] = Url.Action("forumPart", "Home", new { partId = postId[i] });
+            }
+            ViewBag.PartUrl = urls;
             ViewBag.PartPicUrl = new string[]
             {
                 Url.Content("~/Resource/picture/list-style-dot-red.png"),
@@ -278,25 +277,26 @@ namespace Lazyfitness.Controllers
 
             }
             resourceArea[] areasInfo = Tools.GetArticleAreaInfo();
-            string[] areasName = new string[areasInfo.Length];
+            string[] areasName = new string[areasInfo.Length + 1];
             for (int count = 0; count < areasInfo.Length; count++)
             {
                 areasName[count] = areasInfo[count].areaName;
             }
+            areasName[areasInfo.Length] = "首页";
             int[] areasId = new int[areasInfo.Length];
             for (int count = 0; count < areasInfo.Length; count++)
             {
                 areasId[count] = areasInfo[count].areaId;
             }
-            ViewBag.AreasName = areasName;
-            ViewBag.AreasUrl = new string[]
+            ViewBag.AreasName = areasName;           
+            string[] AreasUrlList = new string[areasInfo.Length + 1];
+            for (int i = 0; i < areasInfo.Length; i++)
             {
-                Url.Action("Article","Home"),
-                Url.Action("ArticlePart","Home",new{partId=areasId[0]}),
-                Url.Action("ArticlePart","Home",new{partId=areasId[1]}),
-                Url.Action("ArticlePart","Home",new{partId=areasId[2]}),
-                Url.Action("ArticlePart","Home",new{partId=areasId[3]}),
-            };
+                AreasUrlList[i] = Url.Action("ArticlePart", "Home", new { partId = areasId[i] });
+            }
+            AreasUrlList[areasInfo.Length] = Url.Action("Article", "Home");
+            ViewBag.AreasUrl = AreasUrlList;
+
             //下面4个ViewBag是用于传入帖子信息的
             ViewBag.ItemsName = Tools.GetArticlePartName(partId,pageNum);
             ViewBag.ItemsTitle = Tools.GetArticlePartTitle(partId, pageNum);
@@ -407,13 +407,12 @@ namespace Lazyfitness.Controllers
                 postId[count] = postInfo[count].areaId;
             }
             ViewBag.PartName = postName;
-            ViewBag.PartUrl = new string[]
+            string[] urls = new string[postInfo.Length + 1];
+            for (int i = 0; i < postInfo.Length; i++)
             {
-                Url.Action("forumPart","Home",new {partId=postId[0]}),
-                Url.Action("forumPart","Home",new {partId=postId[1]}),
-                Url.Action("forumPart","Home",new {partId=postId[2]}),
-                Url.Action("forumPart","Home",new {partId=postId[3]}),
-            };
+                Url.Action("forumPart", "Home", new { partId = postId[i] });
+            }
+            ViewBag.PartUrl = urls;
             ViewBag.PartPicUrl = new string[]
             {
                 Url.Content("~/Resource/picture/list-style-dot-red.png"),

@@ -212,7 +212,10 @@ return {
 
 	/**
 	 * Get the cumulative offset relative to the top left of the page. This method, unlike its
-	 * jQuery and MooTools counterpart, still suffers from issue #208 regarding the position
+	 * jQuery and Moo
+
+
+ counterpart, still suffers from issue #208 regarding the position
 	 * of a chart within a fixed container.
 	 */
 	offset: function (el) {

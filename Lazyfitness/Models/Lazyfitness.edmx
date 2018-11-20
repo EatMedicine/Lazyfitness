@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LazyfitnessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="LazyfitnessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="backManager">
           <Key>
             <PropertyRef Name="managerId" />
@@ -154,7 +154,7 @@
           <Property Name="userStatus" Type="int" Nullable="false" />
           <Property Name="statusName" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK__postInfo__areaId__1BFD2C07">
+        <Association Name="FK__postInfo__areaId__1FCDBCEB">
           <End Role="postArea" Type="Self.postArea" Multiplicity="1" />
           <End Role="postInfo" Type="Self.postInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -178,7 +178,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__resourceI__areaI__173876EA">
+        <Association Name="FK__resourceI__areaI__1CF15040">
           <End Role="resourceArea" Type="Self.resourceArea" Multiplicity="1" />
           <End Role="resourceInfo" Type="Self.resourceInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -190,7 +190,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__userInfo__userId__0519C6AF">
+        <Association Name="FK__userInfo__userId__1273C1CD">
           <End Role="userSecurity" Type="Self.userSecurity" Multiplicity="1" />
           <End Role="userInfo" Type="Self.userInfo" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -217,7 +217,7 @@
           <EntitySet Name="userInfo" EntityType="Self.userInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userSecurity" EntityType="Self.userSecurity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userStatusName" EntityType="Self.userStatusName" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__postInfo__areaId__1BFD2C07" Association="Self.FK__postInfo__areaId__1BFD2C07">
+          <AssociationSet Name="FK__postInfo__areaId__1FCDBCEB" Association="Self.FK__postInfo__areaId__1FCDBCEB">
             <End Role="postArea" EntitySet="postArea" />
             <End Role="postInfo" EntitySet="postInfo" />
           </AssociationSet>
@@ -225,11 +225,11 @@
             <End Role="quesArea" EntitySet="quesArea" />
             <End Role="quesAnswInfo" EntitySet="quesAnswInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__resourceI__areaI__173876EA" Association="Self.FK__resourceI__areaI__173876EA">
+          <AssociationSet Name="FK__resourceI__areaI__1CF15040" Association="Self.FK__resourceI__areaI__1CF15040">
             <End Role="resourceArea" EntitySet="resourceArea" />
             <End Role="resourceInfo" EntitySet="resourceInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__userInfo__userId__0519C6AF" Association="Self.FK__userInfo__userId__0519C6AF">
+          <AssociationSet Name="FK__userInfo__userId__1273C1CD" Association="Self.FK__userInfo__userId__1273C1CD">
             <End Role="userSecurity" EntitySet="userSecurity" />
             <End Role="userInfo" EntitySet="userInfo" />
           </AssociationSet>
@@ -253,7 +253,7 @@
           <Property Name="areaId" Type="Int32" Nullable="false" />
           <Property Name="areaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="areaBrief" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="postInfo" Relationship="Self.FK__postInfo__areaId__1BFD2C07" FromRole="postArea" ToRole="postInfo" />
+          <NavigationProperty Name="postInfo" Relationship="Self.FK__postInfo__areaId__1FCDBCEB" FromRole="postArea" ToRole="postInfo" />
         </EntityType>
         <EntityType Name="postInfo">
           <Key>
@@ -271,7 +271,7 @@
           <Property Name="amount" Type="Int32" />
           <Property Name="postStatus" Type="Int32" />
           <Property Name="postContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="postArea" Relationship="Self.FK__postInfo__areaId__1BFD2C07" FromRole="postInfo" ToRole="postArea" />
+          <NavigationProperty Name="postArea" Relationship="Self.FK__postInfo__areaId__1FCDBCEB" FromRole="postInfo" ToRole="postArea" />
         </EntityType>
         <EntityType Name="postReply">
           <Key>
@@ -336,7 +336,7 @@
           <Property Name="areaId" Type="Int32" Nullable="false" />
           <Property Name="areaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="areaBrief" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="resourceInfo" Relationship="Self.FK__resourceI__areaI__173876EA" FromRole="resourceArea" ToRole="resourceInfo" />
+          <NavigationProperty Name="resourceInfo" Relationship="Self.FK__resourceI__areaI__1CF15040" FromRole="resourceArea" ToRole="resourceInfo" />
         </EntityType>
         <EntityType Name="resourceInfo">
           <Key>
@@ -351,7 +351,7 @@
           <Property Name="pageView" Type="Int32" />
           <Property Name="isTop" Type="Int32" />
           <Property Name="resourceContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="resourceArea" Relationship="Self.FK__resourceI__areaI__173876EA" FromRole="resourceInfo" ToRole="resourceArea" />
+          <NavigationProperty Name="resourceArea" Relationship="Self.FK__resourceI__areaI__1CF15040" FromRole="resourceInfo" ToRole="resourceArea" />
         </EntityType>
         <EntityType Name="serverShowInfo">
           <Key>
@@ -378,7 +378,7 @@
           <Property Name="userAccount" Type="Int32" />
           <Property Name="userIntroduce" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="userHeaderPic" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="userSecurity" Relationship="Self.FK__userInfo__userId__0519C6AF" FromRole="userInfo" ToRole="userSecurity" />
+          <NavigationProperty Name="userSecurity" Relationship="Self.FK__userInfo__userId__1273C1CD" FromRole="userInfo" ToRole="userSecurity" />
         </EntityType>
         <EntityType Name="userSecurity">
           <Key>
@@ -387,7 +387,7 @@
           <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="loginId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="userPwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="userInfo" Relationship="Self.FK__userInfo__userId__0519C6AF" FromRole="userSecurity" ToRole="userInfo" />
+          <NavigationProperty Name="userInfo" Relationship="Self.FK__userInfo__userId__1273C1CD" FromRole="userSecurity" ToRole="userInfo" />
         </EntityType>
         <EntityType Name="userStatusName">
           <Key>
@@ -396,7 +396,7 @@
           <Property Name="userStatus" Type="Int32" Nullable="false" />
           <Property Name="statusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK__postInfo__areaId__1BFD2C07">
+        <Association Name="FK__postInfo__areaId__1FCDBCEB">
           <End Role="postArea" Type="Self.postArea" Multiplicity="1" />
           <End Role="postInfo" Type="Self.postInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -420,7 +420,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__resourceI__areaI__173876EA">
+        <Association Name="FK__resourceI__areaI__1CF15040">
           <End Role="resourceArea" Type="Self.resourceArea" Multiplicity="1" />
           <End Role="resourceInfo" Type="Self.resourceInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -432,7 +432,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__userInfo__userId__0519C6AF">
+        <Association Name="FK__userInfo__userId__1273C1CD">
           <End Role="userSecurity" Type="Self.userSecurity" Multiplicity="1" />
           <End Role="userInfo" Type="Self.userInfo" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -459,7 +459,7 @@
           <EntitySet Name="userInfo" EntityType="Self.userInfo" />
           <EntitySet Name="userSecurity" EntityType="Self.userSecurity" />
           <EntitySet Name="userStatusName" EntityType="Self.userStatusName" />
-          <AssociationSet Name="FK__postInfo__areaId__1BFD2C07" Association="Self.FK__postInfo__areaId__1BFD2C07">
+          <AssociationSet Name="FK__postInfo__areaId__1FCDBCEB" Association="Self.FK__postInfo__areaId__1FCDBCEB">
             <End Role="postArea" EntitySet="postArea" />
             <End Role="postInfo" EntitySet="postInfo" />
           </AssociationSet>
@@ -467,11 +467,11 @@
             <End Role="quesArea" EntitySet="quesArea" />
             <End Role="quesAnswInfo" EntitySet="quesAnswInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__resourceI__areaI__173876EA" Association="Self.FK__resourceI__areaI__173876EA">
+          <AssociationSet Name="FK__resourceI__areaI__1CF15040" Association="Self.FK__resourceI__areaI__1CF15040">
             <End Role="resourceArea" EntitySet="resourceArea" />
             <End Role="resourceInfo" EntitySet="resourceInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__userInfo__userId__0519C6AF" Association="Self.FK__userInfo__userId__0519C6AF">
+          <AssociationSet Name="FK__userInfo__userId__1273C1CD" Association="Self.FK__userInfo__userId__1273C1CD">
             <End Role="userSecurity" EntitySet="userSecurity" />
             <End Role="userInfo" EntitySet="userInfo" />
           </AssociationSet>

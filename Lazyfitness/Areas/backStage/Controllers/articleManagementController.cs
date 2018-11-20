@@ -155,8 +155,15 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                int Id = db.resourceArea.Max(u => u.areaId);
-                ViewBag.Id = Id + 1;
+                if (db.resourceArea.ToList().Count == 0)
+                {
+                    ViewBag.Id = 1;
+                }
+                else
+                {
+                    int Id = db.resourceArea.Max(u => u.areaId);
+                    ViewBag.Id = Id + 1;
+                }               
             }
             return View();
         }
@@ -352,8 +359,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 {
                     findId = db.resourceInfo.Max(u => u.resourceId) + 1;
                 }
+                //通过登录的name找到userId
+                var userId = db.userSecurity.Where(u => u.loginId == cookieText).FirstOrDefault().userId; 
                 resource.resourceId = findId;
-                resource.userId = Convert.ToInt32(cookieText);
+                resource.userId = userId;
                 resource.resourceTime = DateTime.Now;
                 resource.pageView = 0;
                 //添加进数据库
