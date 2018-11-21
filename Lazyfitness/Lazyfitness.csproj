@@ -568,6 +568,7 @@
     <Content Include="Resource\picture\dot1.png" />
     <Content Include="Resource\picture\dot2.png" />
     <Content Include="Resource\picture\head.png" />
+    <Content Include="Scripts\adoptAnswer.js" />
     <Content Include="Scripts\ArticleJs.js" />
     <Content Include="Resource\picture\pic1.jpg" />
     <Content Include="Resource\picture\pic2.jpg" />
