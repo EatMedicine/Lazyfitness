@@ -56,7 +56,7 @@
             <a id="@num" href="@Url.Action("forumDetail","Home",new { num = ViewBag.ForumId})#@num" class="floor">@num#</a>
             <span class="detail-name">@ViewBag.ForumReplyName[count]</span>
             <div class="detail-content">
-                @ViewBag.ForumReply[count].replyContent
+                @Html.Raw(ViewBag.ForumReply[count].replyContent)
             </div>
             <img class="detail-pic" src="~/Resource/picture/DefaultHeadPic.jpg" />
             <span class="detail-time">@ViewBag.ForumReply[count].replyTime</span>

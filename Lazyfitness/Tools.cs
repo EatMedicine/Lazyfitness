@@ -61,7 +61,6 @@ namespace Lazyfitness
                     pageView = dbInfo.pageView,
                     isTop = dbInfo.isTop,
                     resourceContent = dbInfo.resourceContent,
-                    resourceArea = null,
                 };
                 return info;
             }
@@ -411,7 +410,6 @@ namespace Lazyfitness
                     quesAnswStatus = dbInfo.quesAnswStatus,
                     amount = dbInfo.amount,
                     quesAnswContent = dbInfo.quesAnswContent,
-                    quesArea = dbInfo.quesArea,
                 };
                 return info;
             }          
@@ -630,11 +628,9 @@ namespace Lazyfitness
                     postTime = obInfo.postTime,
                     pageView = obInfo.pageView,
                     isPost = obInfo.isPost,
-                    isPay = obInfo.isPay,
                     amount = obInfo.amount,
                     postStatus = obInfo.postStatus,
                     postContent = obInfo.postContent,
-                    postArea = null,
                 };
                 return info;
             }            
