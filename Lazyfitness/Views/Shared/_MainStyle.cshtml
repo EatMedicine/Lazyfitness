@@ -58,11 +58,19 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
     <link href="~/Css/MainStyle.css?v=1810211948" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/MainStyleJs.js"></script>
+
 </head>
 <body>
     <!--顶栏-->
     <div class="head">
+        <!--个人栏-->
+        <div id="user-info" class="user-info">
+            <a href="@Url.Action("changePassword","passwordManager",new { area="account"})"><div class="info-item">修改密码</div></a>
+            <a href="@Url.Action("Logout","userManagement",new { area="account"})"><div class="info-item">注销</div></a>
+        </div>
         <!--底图-->
         @if ((bool)ViewData["IsHeadPic"] == true)
         {
@@ -86,10 +94,8 @@
                 @if (IsLogin == true)
                 {
                     <div class="nav-headPic fr">
-                        <img src="@userData.userHeaderPic" style="width:40px;height:40px;border-radius:40px;" />
+                        <img id="userHeadPic" src="@userData.userHeaderPic" style="width:40px;height:40px;border-radius:40px;" />
                         <a href="@Url.Action("PersonalData","Home",new { area=""})"><span>@userData.userName</span></a>
-                        <span>/</span>
-                        <a href="@Url.Action("Logout","userManagement",new { area="account"})"><span>注销</span></a>
                     </div>
                 }
                 else

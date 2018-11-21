@@ -15,10 +15,23 @@ function setMargin() {
     pobj = document.getElementById("picture");
     for (var i = 0; i <= 2; i++) {
         obj.children[i].children[0].src = "/Resource/picture/square0.png";
-        pobj.children[i].children[0].className = "unvis";
+        //pobj.children[i].children[0].className = "unvis";
+        $("#pic1").fadeOut(500);
+        $("#pic2").fadeOut(500);
+        $("#pic3").fadeOut(500);
         document.getElementById("scroll-title-" + i).className = "scroll-title-item unvis";
     }
-    pobj.children[count].children[0].className = "vis";
+    //pobj.children[count].children[0].className = "vis";
+    if (count === 0) {
+        $("#pic1").fadeIn(500);
+    }
+    else if (count === 1) {
+        $("#pic2").fadeIn(500);
+    }
+    else if (count === 2) {
+        $("#pic3").fadeIn(500);
+    }
+    
     document.getElementById("scroll-title-" + count).className = "scroll-title-item vis";
     obj.children[count].children[0].src = "/Resource/picture/square1.png";
     count++;

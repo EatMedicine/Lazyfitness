@@ -583,6 +583,7 @@
     <Content Include="Scripts\ForumDetailJs.js" />
     <Content Include="Scripts\forumjs.js" />
     <Content Include="Scripts\IndexJs.js" />
+    <Content Include="Scripts\MainStyleJs.js" />
     <Content Include="Scripts\PersonalData.js" />
     <Content Include="Scripts\QuestionDetail.js" />
     <Content Include="Scripts\QuestionJs.js" />

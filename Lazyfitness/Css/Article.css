@@ -221,6 +221,23 @@
     background-color:white;
     border-radius:10px;
 }
+@keyframes sidebar-li-hover{
+    from{
+        background-color:transparent;
+    }
+    to {
+        background-color:rgb(252, 252, 252);
+    }
+}
+@keyframes sidebar-li {
+    to {
+        background-color: transparent;
+    }
+
+    from {
+        background-color: rgb(252, 252, 252);
+    }
+}
 .sidebar li{
     width:100%;
     height:50px;
@@ -228,10 +245,13 @@
     text-align:center;
     font-family:YouYuan;
     border-bottom:1px dashed rgba(128, 128, 128, 0.5);
+    animation: sidebar-li 0.5s;
 }
 .sidebar li:hover{
     background-color:rgb(252, 252, 252);
+    animation:sidebar-li-hover 0.5s;
 }
+
 .sidebar-title{
     width:100%;
     height:70px;

@@ -40,6 +40,23 @@
     margin-left: 50px;
     color: rgb(68, 68, 68);
 }
+@keyframes askQues-btn-hover{
+    from {
+        background-color: rgb(219, 39, 39);
+    }
+    to {
+        background-color: rgb(237, 52, 52);
+    }
+}
+@keyframes askQues-btn{
+    to {
+        background-color: rgb(219, 39, 39);
+    }
+
+    from {
+        background-color: rgb(237, 52, 52);
+    }
+}
 .content-askQues-btn{
     position:absolute;
     right:0px;
@@ -50,9 +67,11 @@
     border-radius:10px;
     text-align:center;
     margin:30px;
+    animation:askQues-btn 0.5s;
 }
 .content-askQues-btn:hover{
     background-color:rgb(237, 52, 52);
+    animation:askQues-btn-hover 0.5s;
 }
 .content-askQues-btn-text{
     position:absolute;

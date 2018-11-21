@@ -29,7 +29,7 @@
                 <div class="picture" id="picture">
                     @{
                         if (urls != null)
-                        {
+                        {/*
                             for (int count = 0; count < urls.Length && count < 3; count++)
                             {
                                 if (count == 0)
@@ -40,7 +40,10 @@
                                 {
                                     <a href="@ViewBag.ScrollUrl[count]"><img class="unvis" src=@urls[count] /></a>
                                 }
-                            }
+                            }*/
+                            <a href="@ViewBag.ScrollUrl[0]"><img id="pic1" class="vis" src=@urls[0] /></a>
+                            <a href="@ViewBag.ScrollUrl[1]"><img id="pic2" style="display:none" class="vis" src=@urls[1] /></a>
+                            <a href="@ViewBag.ScrollUrl[2]"><img id="pic3" style="display:none" class="vis" src=@urls[2] /></a>
                         }
                     }
                 </div>

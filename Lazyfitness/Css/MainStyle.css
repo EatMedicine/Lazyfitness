@@ -50,6 +50,22 @@ li{
 
 }
 /*导航栏每个项的基础*/
+@keyframes nav-item-hover{
+    from{
+        background-color:transparent;
+    }
+    to {
+        background-color: rgba(255,255,255,0.5);
+    }
+}
+@keyframes nav-item{
+    from {
+        background-color: rgba(255,255,255,0.5);
+    }
+    to {
+        background-color: transparent;
+    }
+}
 .nav-item {
     float: left;
     text-align: center;
@@ -59,9 +75,11 @@ li{
     padding-right:20px;
     padding-left: 20px;
     font-size: 15px;
+    background-color:transparent;
 }
 .nav-item:hover{
     background-color:rgba(255,255,255,0.5);
+    animation:nav-item-hover 0.5s;
 }
 
 /*阴影*/
@@ -126,4 +144,68 @@ li{
     margin:0 auto;
     text-align:center;
     line-height:50px;
+}
+
+/*个人栏*/
+.user-info{
+    position:absolute;
+    top:60px;
+    left:1100px;
+    width:200px;
+    min-height:100px;
+    box-shadow:1px 1px 5px rgb(0,0,0);
+    border:1px solid rgb(188, 188, 188);
+    background-color:white;
+    display:none;
+}
+
+.info-item {
+    position: relative;
+    width: 150px;
+    height: 30px;
+    margin: 10px auto;
+    background-color: rgb(109, 109, 109);
+    border-radius: 5px;
+    line-height: 30px;
+    text-align: center;
+    color: white;
+    animation: info-item 0.5s;
+}
+@keyframes info-item-hover{
+    from {
+        background-color: rgb(109, 109, 109);
+    }
+    to {
+        background-color: rgb(158, 158, 158);
+    }
+}
+@keyframes info-item {
+    from {
+        background-color: rgb(158, 158, 158);
+    }
+
+    to {
+        background-color: rgb(109, 109, 109);
+    }
+}
+.info-item:hover {
+    animation: info-item-hover 0.5s;
+    background-color: rgb(158, 158, 158);
+}
+@keyframes black{
+    from{
+        background-color:rgba(255, 255, 255, 0.5);
+    }
+    to{
+        background-color:transparent;
+    }
+}
+@keyframes black-hover {
+    from {
+        background-color: transparent;
+    }
+
+    to {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
 }

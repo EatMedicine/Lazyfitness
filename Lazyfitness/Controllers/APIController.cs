@@ -15,7 +15,7 @@ namespace Lazyfitness.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [LoginStatusFilter]
-        public string ArticleSubmit(string title,string editor,int userId, int areaId)
+        public void ArticleSubmit(string title,string editor,int userId, int areaId)
         {
             resourceInfo rInfo = new resourceInfo
             {
@@ -31,14 +31,14 @@ namespace Lazyfitness.Controllers
             {
                 db.resourceInfo.Add(rInfo);
                 db.SaveChanges();
-                return "T";
+                Response.Redirect(Url.Action("ArticlePart", "Home", new { partId = areaId }));
             }
         }
     
         [HttpPost]
         [ValidateInput(false)]
         [LoginStatusFilter]
-        public string QuestionSubmit(int areaId,int userId,string title, string editor,int money)
+        public void QuestionSubmit(int areaId,int userId,string title, string editor,int money)
         {
             userInfo info = Tools.GetUserInfo(userId);
             if (info.userAccount == null)
@@ -71,14 +71,14 @@ namespace Lazyfitness.Controllers
             {
                 db.quesAnswInfo.Add(qaInfo);
                 db.SaveChanges();
-                return "T";
+                Response.Redirect(Url.Action("QuestionPart", "Home", new { partId = areaId }));
             }
         }
 
         [HttpPost]
         [ValidateInput(false)]
         [LoginStatusFilter]
-        public string forumSubmit(int areaId, int userId, string title, string editor)
+        public void forumSubmit(int areaId, int userId, string title, string editor)
         {
             postInfo pInfo = new postInfo
             {
@@ -95,7 +95,7 @@ namespace Lazyfitness.Controllers
             {
                 db.postInfo.Add(pInfo);
                 db.SaveChanges();
-                return "T";
+                Response.Redirect(Url.Action("forumPart", "Home", new { partId = areaId }));
             }
         }
         #endregion
@@ -104,7 +104,7 @@ namespace Lazyfitness.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [LoginStatusFilter]
-        public string QuestionReply(int quesId,string reply, int userId)
+        public void QuestionReply(int quesId,string reply, int userId)
         {
             quesAnswReply qarInfo = new quesAnswReply
             {
@@ -118,14 +118,14 @@ namespace Lazyfitness.Controllers
             {
                 db.quesAnswReply.Add(qarInfo);
                 db.SaveChanges();
-                return "T";
+                Response.Redirect(Url.Action("QuestionDetail", "Home", new { num=quesId }));
             }
         }
 
         [HttpPost]
         [ValidateInput(false)]
         [LoginStatusFilter]
-        public string forumReply(int quesId, string reply,int userId)
+        public void forumReply(int quesId, string reply,int userId)
         {
             postReply prInfo = new postReply
             {
@@ -138,7 +138,7 @@ namespace Lazyfitness.Controllers
             {
                 db.postReply.Add(prInfo);
                 db.SaveChanges();
-                return "T";
+                Response.Redirect(Url.Action("forumDetail", "Home", new { num = quesId }));
             }
         }
         #endregion

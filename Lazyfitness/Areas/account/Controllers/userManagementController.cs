@@ -59,7 +59,7 @@ namespace Lazyfitness.Areas.account.Controllers
                     db.userInfo.Add(obInfo);
                     db.SaveChanges();
                 }
-                Response.Redirect("/");
+                Response.Redirect(Url.Action("Index","Home", new { area = "" }));
                 return "Ok";
             }
             catch (Exception EX)
@@ -99,7 +99,8 @@ namespace Lazyfitness.Areas.account.Controllers
                         System.Web.HttpContext.Current.Response.Cookies.Add(CookiesHelper.CookiesHelper.creatCookieHours("userId", obSurePwd.userId.ToString(), 1));
                         string encryptCertification = certificateTools.makeCertification(obSureId.userId.ToString());
                         System.Web.HttpContext.Current.Response.Cookies.Add(CookiesHelper.CookiesHelper.creatCookieHours("certification", encryptCertification, 1));
-                        System.Web.HttpContext.Current.Response.Cookies.Add(cookieName);                        
+                        System.Web.HttpContext.Current.Response.Cookies.Add(cookieName);
+                        Response.Redirect(Url.Action("Index", "Home",new { area=""}));
                         return "登录成功";
                     }
                     else
@@ -121,7 +122,7 @@ namespace Lazyfitness.Areas.account.Controllers
             System.Web.HttpContext.Current.Response.Cookies["userId"].Expires = DateTime.Now.AddDays(-1);
             System.Web.HttpContext.Current.Response.Cookies["loginId"].Expires = DateTime.Now.AddDays(-1);
             System.Web.HttpContext.Current.Response.Cookies["certification"].Expires = DateTime.Now.AddDays(-1);
-            Response.Redirect("/");
+            Response.Redirect(Url.Action("Index", "Home", new { area = "" }));
         }
         #endregion
 

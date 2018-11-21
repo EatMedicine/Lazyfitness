@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Lazyfitness.Models;
 using System.Data.Entity.Infrastructure;
+using Lazyfitness.Filter;
+
 namespace Lazyfitness.Areas.account.Controllers
 {
     public class passwordManagerController : Controller
@@ -49,11 +51,13 @@ namespace Lazyfitness.Areas.account.Controllers
         #endregion
 
         #region 修改密码
+        [LoginStatusFilter]
         public ActionResult changePassword()
         {
             return View();
         }
         [HttpPost]
+        [LoginStatusFilter]
         public string changePassword(string loginId, string userOldPwd, string userPwd)
         {
             try
@@ -70,6 +74,7 @@ namespace Lazyfitness.Areas.account.Controllers
                     }
                     obSecurity.userPwd = MD5NewPwd;
                     db.SaveChanges();
+                    Response.Redirect(Url.Action("Logout", "userManagement"));
                     return "修改成功";
                 }
             }
