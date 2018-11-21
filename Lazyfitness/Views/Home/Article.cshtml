@@ -27,18 +27,21 @@
         <div class="scroll-box">
             <div class="panel" id="panel" onmousemove="cancelScroll()" onmouseout="startScroll()">
                 <div class="picture" id="picture">
-                    @for (int count = 0;count < urls.Length && count < 3; count++)
-                    {
-                        if (count == 0)
+                    @{
+                        if (urls != null)
                         {
-                            <a href="@ViewBag.ScrollUrl[count]"><img class="vis" src=@urls[count] /></a>
+                            for (int count = 0; count < urls.Length && count < 3; count++)
+                            {
+                                if (count == 0)
+                                {
+                                    <a href="@ViewBag.ScrollUrl[count]"><img class="vis" src=@urls[count] /></a>
+                                }
+                                else
+                                {
+                                    <a href="@ViewBag.ScrollUrl[count]"><img class="unvis" src=@urls[count] /></a>
+                                }
+                            }
                         }
-                        else
-                        {
-                            <a href="@ViewBag.ScrollUrl[count]"><img class="unvis" src=@urls[count] /></a>
-                        }
-
-
                     }
                 </div>
                 <ul class="dot" id="dot">

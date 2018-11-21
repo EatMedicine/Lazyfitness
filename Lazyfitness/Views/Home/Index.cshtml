@@ -48,16 +48,22 @@
                 @{
                     int count1 = 0;
                 }
-                @foreach (string url in ViewBag.Scrollpic as string[])
-                {
-                    //不能超过3
-                    if (count1 >= 3)
+                @{
+                    if (ViewBag.Scrollpic != null)
                     {
-                        break;
+                        foreach (string url in ViewBag.Scrollpic as string[])
+                        {
+                            //不能超过3
+                            if (count1 >= 3)
+                            {
+                                break;
+                            }
+                            <li><a href="@ViewBag.ScrollUrl[count1]"><img src=@url /></a></li>
+                            count1++;
+                        }
                     }
-                    <li><a href="@ViewBag.ScrollUrl[count1]"><img src=@url /></a></li>
-                    count1++;
                 }
+
             </ul>
             <ul class="dot" id="dot">
                 <li><img onclick="clickDot(1)" src="@Url.Content("~/Resource/picture/dot1.png")"></li>
@@ -67,24 +73,26 @@
         </div>
         <div class="scroll-title">
             @{
-                string[] title = ViewBag.ScrollTitle as string[];
-                if (title == null)
+                if (ViewBag.ScrollTitle != null)
                 {
-                    title = new string[0];
+                    string[] title = ViewBag.ScrollTitle as string[];
+                    if (title == null)
+                    {
+                        title = new string[0];
+                    }
+                    for (int count = 0; count < 3 && count < title.Length; count++)
+                    {
+                        if (count == 0)
+                        {
+                            <div class="scroll-title-item vis" id="scroll-title-@count"><p>@title[count]</p></div>
+                        }
+                        else
+                        {
+                            <div class="scroll-title-item unvis" id="scroll-title-@count"><p>@title[count]</p></div>
+                        }
+                    }
                 }
-
-            }
-            @for (int count = 0; count < 3 && count < title.Length; count++)
-            {
-                if (count == 0)
-                {
-                    <div class="scroll-title-item vis" id="scroll-title-@count"><p>@title[count]</p></div>
-                }
-                else
-                {
-                    <div class="scroll-title-item unvis" id="scroll-title-@count"><p>@title[count]</p></div>
-                }
-            }
+             }
         </div>
     </div>
     <!--公告栏-->
@@ -94,20 +102,24 @@
         </div>
         <div class="notice-items">
             @{
-                string[] Nname = ViewBag.NoticeName as string[];
-                string[] Nurl = ViewBag.NoticeUrl as string[];
-                if (Nname == null)
+                if (ViewBag.NoticeName != null && ViewBag.NoticeUrl != null)
                 {
-                    Nname = new string[0];
+                    string[] Nname = ViewBag.NoticeName as string[];
+                    string[] Nurl = ViewBag.NoticeUrl as string[];
+                    if (Nname == null)
+                    {
+                        Nname = new string[0];
+                    }
+                    if (Nurl == null)
+                    {
+                        Nurl = new string[0];
+                    }
+
+                    for (int count = 0; count < Nname.Length && count < 5; count++)
+                    {
+                        <p><a href="@Nurl[count]">@Nname[count]</a></p>
+                    }
                 }
-                if (Nurl == null)
-                {
-                    Nurl = new string[0];
-                }
-            }
-            @for (int count = 0; count < Nname.Length && count < 5; count++)
-            {
-                <p><a href="@Nurl[count]">@Nname[count]</a></p>
             }
         </div>
     </div>

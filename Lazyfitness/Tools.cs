@@ -717,7 +717,11 @@ namespace Lazyfitness
         /// <returns></returns>
         public static string GetUserPicAdr(int userId)
         {
-            return "/Resource/picture/DefaultHeadPic.jpg";
+            using(LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var userPicAdr = db.userInfo.Where(u => u.userId == userId).FirstOrDefault().userHeaderPic;
+                return userPicAdr;
+            }
         }
 
         /// <summary>
@@ -755,47 +759,58 @@ namespace Lazyfitness
         /// <returns></returns>
         public static serverShowInfo[] GetIndexScroll()
         {
-            //伪数据
-            string[] picAdr = new string[]
+
+            using(LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                "/Resource/picture/pic1.jpg",
-                "/Resource/picture/pic2.jpg",
-                "/Resource/picture/pic3.png",
-            };
-            string[] title = new string[]
-            {
-                "震惊！XX居然。。。",
-                "吓人！XX居然。。。",
-                "美女荷官在线发牌",
-                "来贪玩蓝月，你从未见过的船新版本",
-                "女朋友失误，竟炼出史前尸鲲",
-                "想不出要说啥了但这里估计也看不到（",
-                "但现在 你看到了",
-                "因为 增加到第10个了",
-                "这里是第九个",
-                "终于编完了嘤"
-            };
-            //暂定areaId 0为首页  1为文章区 
-            //暂定flag 0为轮播图 1为公告
-            //暂定InfoStatus 0为禁用 1为启用
-            //首页只要3条轮播图
-            serverShowInfo[] info = new serverShowInfo[3];
-            for(int count = 0; count < 3; count++)
-            {
-                info[count] = new serverShowInfo
+                //读取serverShowInfo中的数据 flag = 0 为轮播图
+                var dbInfo = db.serverShowInfo.Where(u=>u.flag == 0).Where(u=>u.Infostatus == 1);
+                //获取serverShowInfo中数据的条数
+                var obInfo = dbInfo.ToArray();
+                int listLenth = obInfo.Length;
+                //如果serverShowInfo为空则返回一个长度为0的数组
+                if (listLenth == 0)
                 {
-                    id = count,
-                    areaId = 0,
-                    title = title[count],
-                    pictureAdr = picAdr[count],
-                    //考虑到这里地址不一定是本网站的文章地址 所以还是写完整URL比较好
-                    //比如说广告啥的（雾
-                    url = "/Home/ArticleDetail?num=" + count,
-                    flag = 0,
-                    Infostatus = 1
-                };
+                    serverShowInfo[] nullInfo = new serverShowInfo[0];
+                    return nullInfo;
+                }
+                //对象不为空的时候 把对象中的数据封装到相应的字符串数组中
+                //注：picAdr为空时候存入的值也是为空（需要修改请联系Oliver
+                ArrayList picAdr = new ArrayList();
+                ArrayList title = new ArrayList();
+                //flag = 0即轮播图下 所有轮播图的url
+                ArrayList url = new ArrayList();
+                foreach (var item in obInfo)
+                {
+                    picAdr.Add(item.pictureAdr);
+                    title.Add(item.title);
+                    url.Add(item.url);
+                }
+                //暂定areaId 0为首页  1为文章区 
+                //暂定flag 0为轮播图 1为公告
+                //暂定InfoStatus 0为禁用 1为启用
+                //首页只要3条轮播图
+                serverShowInfo[] info = new serverShowInfo[3];
+                for (int count = 0; count < 3; count++)
+                {
+                    info[count] = new serverShowInfo
+                    {
+                        id = count,
+                        areaId = 0,
+                        title = title[count].ToString(),
+                        pictureAdr = picAdr[count].ToString(),
+                        //考虑到这里地址不一定是本网站的文章地址 所以还是写完整URL比较好
+                        //比如说广告啥的（雾
+                        //url已经构造好，使用的时候解除注释
+
+                        //url = url[count].ToString(),
+                        url = "/Home/ArticleDetail?num=" + count,
+                        flag = 0,
+                        Infostatus = 1
+                    };
+                }
+                return info;
+
             }
-            return info;
         }
 
         /// <summary>
@@ -804,41 +819,53 @@ namespace Lazyfitness
         /// <returns></returns>
         public static serverShowInfo[] GetIndexNotice()
         {
-            //伪数据
-            string[] title = new string[]
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                "震惊！XX居然。。。",
-                "吓人！XX居然。。。",
-                "美女荷官在线发牌",
-                "来贪玩蓝月，你从未见过的船新版本",
-                "女朋友失误，竟炼出史前尸鲲",
-                "想不出要说啥了但这里估计也看不到（",
-                "但现在 你看到了",
-                "因为 增加到第10个了",
-                "这里是第九个",
-                "终于编完了嘤"
-            };
-            //暂定areaId 0为首页  1为文章区 
-            //暂定flag 0为轮播图 1为公告
-            //暂定InfoStatus 0为禁用 1为启用
-            //首页公告有5条
-            serverShowInfo[] info = new serverShowInfo[5];
-            for (int count = 0; count < 5; count++)
-            {
-                info[count] = new serverShowInfo
+                //读取serverShowInfo中的数据 flag = 1 为公告
+                var dbInfo = db.serverShowInfo.Where(u => u.flag == 1).Where(u=>u.Infostatus == 1);
+                //获取serverShowInfo中数据的条数
+                var obInfo = dbInfo.ToArray();
+                int listLenth = obInfo.Length;
+                //如果serverShowInfo为空则返回一个长度为0的数组
+                if (listLenth == 0)
                 {
-                    id = count,
-                    areaId = 0,
-                    title = title[count],
-                    pictureAdr = "",
-                    //考虑到这里地址不一定是本网站的文章地址 所以还是写完整URL比较好
-                    //比如说广告啥的（雾
-                    url = "/Home/ArticleDetail?num=" + count,
-                    flag = 1,
-                    Infostatus = 1
-                };
-            }
-            return info;
+                    serverShowInfo[] nullInfo = new serverShowInfo[0];
+                    return nullInfo;
+                }
+                ArrayList title = new ArrayList();
+                //flag = 1即公告下 所有公告的url
+                ArrayList url = new ArrayList();
+                foreach (var item in obInfo)
+                {
+                    title.Add(item.title);
+                    url.Add(item.url);
+                }
+
+                //暂定areaId 0为首页  1为文章区 
+                //暂定flag 0为轮播图 1为公告
+                //暂定InfoStatus 0为禁用 1为启用
+                //首页公告有5条
+                serverShowInfo[] info = new serverShowInfo[5];
+                for (int count = 0; count < 5; count++)
+                {
+                    info[count] = new serverShowInfo
+                    {
+                        id = count,
+                        areaId = 0,
+                        title = title[count].ToString(),
+                        pictureAdr = "",
+                        //考虑到这里地址不一定是本网站的文章地址 所以还是写完整URL比较好
+                        //比如说广告啥的（雾
+                        //url已经构造好，使用的时候解除注释
+
+                        //url = url[count].ToString(),
+                        url = "/Home/ArticleDetail?num=" + count,
+                        flag = 1,
+                        Infostatus = 1
+                    };
+                }
+                return info;
+            }            
         }
 
         /// <summary>
@@ -853,16 +880,100 @@ namespace Lazyfitness
         /// <returns></returns>
         public static resourceInfo[] GetArticleDetailInfo(int sortFlag,bool IsDes,int num)
         {
-            resourceInfo[] info = new resourceInfo[num];
-            for(int count = 0; count < num; count++)
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                info[count] = new resourceInfo
+                var dbInfo = db.resourceInfo;           
+                //获取数据条数
+                int maxNum = dbInfo.ToList().Count;
+                //当所取条数大于数据条数时，取数据条数
+                if (num > maxNum)
                 {
-                    resourceName = "这是第" + count + "条文章数据",
-                    resourceId = count,
-                };
+                    num = maxNum;
+                }
+                resourceInfo[] info = new resourceInfo[num];
+
+                //对开始进行条件筛选
+                switch (IsDes)
+                {
+                    case false:
+                        switch (sortFlag)
+                        {
+                            case 1:
+                                var obInfof1 = dbInfo.OrderBy(u => u.resourceTime).ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new resourceInfo
+                                    {
+                                        resourceName = obInfof1[count].resourceName,
+                                        resourceId = obInfof1[count].resourceId,
+                                    };
+                                }
+                                break;
+                            case 2:
+                                var obInfof2 = dbInfo.OrderBy(u => u.pageView).ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new resourceInfo
+                                    {
+                                        resourceName = obInfof2[count].resourceName,
+                                        resourceId = obInfof2[count].resourceId,
+                                    };
+                                }
+                                break;
+                            default:
+                                var obInfo = dbInfo.ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new resourceInfo
+                                    {
+                                        resourceName = obInfo[count].resourceName,
+                                        resourceId = obInfo[count].resourceId,
+                                    };
+                                }
+                                break;
+                        }
+                        break;
+                    case true:
+                        switch (sortFlag)
+                        {                            
+                            case 1:
+                                var obInfot1 = dbInfo.OrderByDescending(u => u.resourceTime).ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new resourceInfo
+                                    {
+                                        resourceName = obInfot1[count].resourceName,
+                                        resourceId = obInfot1[count].resourceId,
+                                    };
+                                }
+                                break;
+                            case 2:
+                                var obInfot2 = dbInfo.OrderByDescending(u => u.pageView).ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new resourceInfo
+                                    {
+                                        resourceName = obInfot2[count].resourceName,
+                                        resourceId = obInfot2[count].resourceId,
+                                    };
+                                }
+                                break;
+                            default:
+                                var obInfo = dbInfo.ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new resourceInfo
+                                    {
+                                        resourceName = obInfo[count].resourceName,
+                                        resourceId = obInfo[count].resourceId,
+                                    };
+                                }
+                                break;
+                        }
+                        break;
+                }
+                return info;
             }
-            return info;
         }
 
         /// <summary>
@@ -877,16 +988,101 @@ namespace Lazyfitness
         /// <returns></returns>
         public static quesAnswInfo[] GetQuestionDetailInfo(int sortFlag, bool IsDes, int num)
         {
-            quesAnswInfo[] info = new quesAnswInfo[num];
-            for (int count = 0; count < num; count++)
+
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                info[count] = new quesAnswInfo
+                var dbInfo = db.quesAnswInfo;
+                //获取数据条数
+                int maxNum = dbInfo.ToList().Count;
+                //当所取条数大于数据条数时，取数据条数
+                if (num > maxNum)
                 {
-                    quesAnswTitle = "这是第" + count + "条文章数据",
-                    quesAnswId = count,
-                };
+                    num = maxNum;
+                }
+                quesAnswInfo[] info = new quesAnswInfo[num];
+
+                //对开始进行条件筛选
+                switch (IsDes)
+                {
+                    case false:
+                        switch (sortFlag)
+                        {
+                            case 1:
+                                var obInfof1 = dbInfo.OrderBy(u => u.quesAnswTime).ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new quesAnswInfo
+                                    {
+                                        quesAnswTitle = obInfof1[count].quesAnswTitle,
+                                        quesAnswId = obInfof1[count].quesAnswId,
+                                    };
+                                }
+                                break;
+                            case 2:
+                                var obInfof2 = dbInfo.OrderBy(u => u.pageView).ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new quesAnswInfo
+                                    {
+                                        quesAnswTitle = obInfof2[count].quesAnswTitle,
+                                        quesAnswId = obInfof2[count].quesAnswId,
+                                    };
+                                }
+                                break;
+                            default:
+                                var obInfo = dbInfo.ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new quesAnswInfo
+                                    {
+                                        quesAnswTitle = obInfo[count].quesAnswTitle,
+                                        quesAnswId = obInfo[count].quesAnswId,
+                                    };
+                                }
+                                break;
+                        }
+                        break;
+                    case true:
+                        switch (sortFlag)
+                        {
+                            case 1:
+                                var obInfot1 = dbInfo.OrderByDescending(u => u.quesAnswTime).ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new quesAnswInfo
+                                    {
+                                        quesAnswTitle = obInfot1[count].quesAnswTitle,
+                                        quesAnswId = obInfot1[count].quesAnswId,
+                                    };
+                                }
+                                break;
+                            case 2:
+                                var obInfot2 = dbInfo.OrderByDescending(u => u.pageView).ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new quesAnswInfo
+                                    {
+                                        quesAnswTitle = obInfot2[count].quesAnswTitle,
+                                        quesAnswId = obInfot2[count].quesAnswId,
+                                    };
+                                }
+                                break;
+                            default:
+                                var obInfo = dbInfo.ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new quesAnswInfo
+                                    {
+                                        quesAnswTitle = obInfo[count].quesAnswTitle,
+                                        quesAnswId = obInfo[count].quesAnswId,
+                                    };
+                                }
+                                break;
+                        }
+                        break;
+                }
+                return info;
             }
-            return info;
         }
 
         /// <summary>
@@ -901,16 +1097,101 @@ namespace Lazyfitness
         /// <returns></returns>
         public static postInfo[] GetforumDetailInfo(int sortFlag, bool IsDes, int num)
         {
-            postInfo[] info = new postInfo[num];
-            for (int count = 0; count < num; count++)
+
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                info[count] = new postInfo
+                var dbInfo = db.postInfo;
+                //获取数据条数
+                int maxNum = dbInfo.ToList().Count;
+                //当所取条数大于数据条数时，取数据条数
+                if (num > maxNum)
                 {
-                    postTitle = "这是第" + count + "条文章数据",
-                    postId = count,
-                };
+                    num = maxNum;
+                }
+                postInfo[] info = new postInfo[num];
+
+                //对开始进行条件筛选
+                switch (IsDes)
+                {
+                    case false:
+                        switch (sortFlag)
+                        {
+                            case 1:
+                                var obInfof1 = dbInfo.OrderBy(u => u.postTime).ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new postInfo
+                                    {
+                                        postTitle = obInfof1[count].postTitle,
+                                        postId = obInfof1[count].postId,
+                                    };
+                                }
+                                break;
+                            case 2:
+                                var obInfof2 = dbInfo.OrderBy(u => u.pageView).ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new postInfo
+                                    {
+                                        postTitle = obInfof2[count].postTitle,
+                                        postId = obInfof2[count].postId,
+                                    };
+                                }
+                                break;
+                            default:
+                                var obInfo = dbInfo.ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new postInfo
+                                    {
+                                        postTitle = obInfo[count].postTitle,
+                                        postId = obInfo[count].postId,
+                                    };
+                                }
+                                break;
+                        }
+                        break;
+                    case true:
+                        switch (sortFlag)
+                        {
+                            case 1:
+                                var obInfot1 = dbInfo.OrderByDescending(u => u.postTime).ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new postInfo
+                                    {
+                                        postTitle = obInfot1[count].postTitle,
+                                        postId = obInfot1[count].postId,
+                                    };
+                                }
+                                break;
+                            case 2:
+                                var obInfot2 = dbInfo.OrderByDescending(u => u.pageView).ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new postInfo
+                                    {
+                                        postTitle = obInfot2[count].postTitle,
+                                        postId = obInfot2[count].postId,
+                                    };
+                                }
+                                break;
+                            default:
+                                var obInfo = dbInfo.ToArray();
+                                for (int count = 0; count < num; count++)
+                                {
+                                    info[count] = new postInfo
+                                    {
+                                        postTitle = obInfo[count].postTitle,
+                                        postId = obInfo[count].postId,
+                                    };
+                                }
+                                break;
+                        }
+                        break;
+                }
+                return info;
             }
-            return info;
         }
 
         #endregion
@@ -922,47 +1203,52 @@ namespace Lazyfitness
         /// <returns></returns>
         public static serverShowInfo[] GetArticleScroll()
         {
-            //伪数据
-            string[] picAdr = new string[]
+
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                "/Resource/picture/pic1.jpg",
-                "/Resource/picture/pic2.jpg",
-                "/Resource/picture/pic3.png",
-            };
-            string[] title = new string[]
-            {
-                "震惊！XX居然。。。",
-                "吓人！XX居然。。。",
-                "美女荷官在线发牌",
-                "来贪玩蓝月，你从未见过的船新版本",
-                "女朋友失误，竟炼出史前尸鲲",
-                "想不出要说啥了但这里估计也看不到（",
-                "但现在 你看到了",
-                "因为 增加到第10个了",
-                "这里是第九个",
-                "终于编完了嘤"
-            };
-            //暂定areaId 0为首页  1为文章区 
-            //暂定flag 0为轮播图 1为公告
-            //暂定InfoStatus 0为禁用 1为启用
-            //首页只要3条轮播图
-            serverShowInfo[] info = new serverShowInfo[3];
-            for (int count = 0; count < 3; count++)
-            {
-                info[count] = new serverShowInfo
+                var dbInfo = db.serverShowInfo;
+                var obInfo = dbInfo.Where(u => u.flag == 0 && u.Infostatus == 1).ToArray();
+                int listLenth = obInfo.Length;
+                //如果serverShowInfo为空则返回一个长度为0的数组
+                if (listLenth == 0)
                 {
-                    id = count,
-                    areaId = 1,
-                    title = title[count],
-                    pictureAdr = picAdr[count],
-                    //考虑到这里地址不一定是本网站的文章地址 所以还是写完整URL比较好
-                    //比如说广告啥的（雾
-                    url = "/Home/ArticleDetail?num=" + count,
-                    flag = 0,
-                    Infostatus = 1
-                };
-            }
-            return info;
+                    serverShowInfo[] nullInfo = new serverShowInfo[0];
+                    return nullInfo;
+                }
+                ArrayList picAdr = new ArrayList();
+                ArrayList title = new ArrayList();
+                ArrayList url = new ArrayList();
+                foreach (var item in obInfo)
+                {
+                    picAdr.Add(item.pictureAdr);
+                    title.Add(item.title);
+                    url.Add(item.url);
+                }
+                //暂定areaId 0为首页  1为文章区 
+                //暂定flag 0为轮播图 1为公告
+                //暂定InfoStatus 0为禁用 1为启用
+                //首页只要3条轮播图
+                serverShowInfo[] info = new serverShowInfo[3];
+                for (int count = 0; count < 3; count++)
+                {
+                    info[count] = new serverShowInfo
+                    {
+                        id = count,
+                        areaId = 1,
+                        title = title[count].ToString(),
+                        pictureAdr = picAdr[count].ToString(),
+                        //考虑到这里地址不一定是本网站的文章地址 所以还是写完整URL比较好
+                        //比如说广告啥的（雾
+                        //url已经构造好，使用的时候解除注释
+
+                        //url = url[count].ToString(),
+                        url = "/Home/ArticleDetail?num=" + count,
+                        flag = 0,
+                        Infostatus = 1
+                    };
+                }
+                return info;
+            }                       
         }
         #endregion
     }
