@@ -57,7 +57,7 @@
     }
     <h2 class="head-title">@QuestionInfo.quesAnswTitle</h2>
     <div class="question-content">
-        @QuestionInfo.quesAnswContent
+        @Html.Raw(QuestionInfo.quesAnswContent)
     </div>
     <div class="head-userInfo">
         <img class="head-headPic" src="@QuesUserInfo.userHeaderPic" />
@@ -136,6 +136,7 @@
 <div class="reply">
     @using (Html.BeginForm("QuestionReply", "Api", FormMethod.Post))
     {
+        <input type="hidden" id="userId" name="userId" value= 1/>
         <textarea id="reply" name="reply"></textarea>
         <input type="hidden" id="quesId" name="quesId" value="@ViewBag.QuestionId" />
         <input type="submit" id="submit" value="回复" />

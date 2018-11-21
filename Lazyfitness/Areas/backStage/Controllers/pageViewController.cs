@@ -487,7 +487,6 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     _postInfo.areaId = info.areaId;
                     _postInfo.postTitle = info.postTitle;
                     _postInfo.isPost = info.isPost;
-                    _postInfo.isPay = info.isPay;
                     _postInfo.amount = info.amount;
                     _postInfo.postStatus = info.postStatus;
                     _postInfo.postContent = info.postContent;

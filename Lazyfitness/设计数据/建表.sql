@@ -84,15 +84,14 @@ GO
 CREATE TABLE resourceInfo
 (
 	areaId INT,
-	resourceId INT,
+	resourceId INT IDENTITY(1, 1),
 	resourceName NVARCHAR(50),
 	userId INT,
 	resourceTime DATETIME,--可以用datetime能存储年月日时分秒
 	pageView INT,
 	isTop INT,
 	resourceContent TEXT,
-	Primary Key(areaId,resourceId),
-	Foreign Key (areaId) References resourceArea(areaId)
+	PRIMARY KEY(areaId, resourceId)
 )
 GO
 
@@ -103,18 +102,16 @@ GO
 CREATE TABLE postInfo
 (
 	areaId INT,
-	postId INT,
+	postId INT IDENTITY(1, 1),
 	postTitle NVARCHAR(50),
 	userId INT,
 	postTime DATETIME,
 	pageView INT,
 	isPost INT,
-	isPay INT,
 	amount INT,
 	postStatus INT,
 	postContent TEXT,
-	Primary Key(areaId,postId),
-	Foreign Key (areaId) References postArea(areaId)
+	PRIMARY KEY(areaId, postId)
 )
 GO
 
@@ -139,7 +136,7 @@ GO
 CREATE TABLE quesAnswInfo
 (
 	areaId INT,
-	quesAnswId INT,
+	quesAnswId INT IDENTITY(1, 1),
 	quesAnswTitle NVARCHAR(50),
 	userId INT,
 	quesAnswTime DATETIME,
@@ -148,8 +145,7 @@ CREATE TABLE quesAnswInfo
 	quesAnswStatus INT,
 	amount INT,
 	quesAnswContent Text,
-	Primary Key(areaId,quesAnswId),
-	Foreign Key (areaId) References quesArea(areaId)
+	PRIMARY KEY(areaId, quesAnswId)
 )
 GO
 

@@ -21,11 +21,8 @@ namespace Lazyfitness.Models
         public Nullable<System.DateTime> postTime { get; set; }
         public Nullable<int> pageView { get; set; }
         public Nullable<int> isPost { get; set; }
-        public Nullable<int> isPay { get; set; }
         public Nullable<int> amount { get; set; }
         public Nullable<int> postStatus { get; set; }
         public string postContent { get; set; }
-    
-        public virtual postArea postArea { get; set; }
     }
 }

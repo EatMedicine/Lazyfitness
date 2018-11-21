@@ -498,8 +498,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                         userId = info.userId,
                         postTime = DateTime.Now,
                         pageView = 0,
-                        isPost = info.isPost,
-                        isPay = info.isPay,
+                        isPost = info.isPost,                        
                         amount = info.amount,
                         postStatus = info.postStatus,
                         postContent = info.postContent
@@ -689,7 +688,6 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     _postInfo.areaId = info.areaId;
                     _postInfo.postTitle = info.postTitle;
                     _postInfo.isPost = info.isPost;
-                    _postInfo.isPay = info.isPay;
                     _postInfo.amount = info.amount;
                     _postInfo.postStatus = info.postStatus;
                     _postInfo.postContent = info.postContent;

@@ -163,6 +163,7 @@
     <Compile Include="Areas\DbTable\tables.cs" />
     <Compile Include="Areas\informationOfUser\informationOfUserAreaRegistration.cs" />
     <Compile Include="Areas\MD5Helper\MD5Helper.cs" />
+    <Compile Include="certificateTools.cs" />
     <Compile Include="Content\utf8-net\net\App_Code\Config.cs" />
     <Compile Include="Content\utf8-net\net\App_Code\ConfigHandler.cs" />
     <Compile Include="Content\utf8-net\net\App_Code\CrawlerHandler.cs" />

@@ -81,7 +81,7 @@ namespace Lazyfitness.Areas.account.Controllers
                 {
                     DbQuery<userSecurity> dbSecuritySureId = db.userSecurity.Where(u => u.loginId == security.loginId.Trim()) as DbQuery<userSecurity>;
                     userSecurity obSureId = dbSecuritySureId.FirstOrDefault();
-                string MD5Pwd = MD5Helper.MD5Helper.encrypt(security.userPwd.Trim());
+                    string MD5Pwd = MD5Helper.MD5Helper.encrypt(security.userPwd.Trim());
                     if (obSureId == null)
                     {
                         return "未注册";
@@ -95,6 +95,8 @@ namespace Lazyfitness.Areas.account.Controllers
                         cookieName.Expires = DateTime.Now.AddHours(1);
 
                         Response.Cookies.Add(CookiesHelper.CookiesHelper.creatCookieHours("userId", obSurePwd.userId.ToString(), 1));
+                        string encryptCertification = certificateTools.makeCertification(obSureId.userId.ToString());
+                        Response.Cookies.Add(CookiesHelper.CookiesHelper.creatCookieHours("certification", encryptCertification, 1));
                         Response.Cookies.Add(cookieName);                        
                         return "登录成功";
                     }
