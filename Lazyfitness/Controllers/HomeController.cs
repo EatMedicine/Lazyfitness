@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Lazyfitness.MyClass;
 using System.Data.Entity.Infrastructure;
+using Lazyfitness.Filter;
 
 namespace Lazyfitness.Controllers
 {
@@ -515,7 +516,7 @@ namespace Lazyfitness.Controllers
             ViewBag.ForumReplyName = name;
             return View();
         }
-
+        
         public ActionResult forumEditor(int partId = 0)
         {
             ViewBag.PartId = partId;

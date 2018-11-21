@@ -6,6 +6,9 @@ using System.Web.Mvc;
 
 namespace Lazyfitness.Filter
 {
+    /// <summary>
+    /// 登录过滤
+    /// </summary>
     public class LoginStatusFilter:ActionFilterAttribute
     {
         /// <summary>
@@ -15,16 +18,9 @@ namespace Lazyfitness.Filter
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             HttpCookie cookie = filterContext.HttpContext.Response.Cookies["loginId"];
-            if (cookie == null)
+            if (cookie.Values.Count == 0)
             {
-                filterContext.Controller.ViewBag.IsLogin = false;
-            }
-            else
-            {
-                filterContext.Controller.ViewBag.IsLogin = true;
-                int userId = Int32.Parse(filterContext.HttpContext.Response.Cookies["loginId"].Value);
-                filterContext.Controller.ViewBag.UserName = Tools.GetUserName(userId);
-                filterContext.Controller.ViewBag.UserId = userId;
+                filterContext.HttpContext.Response.Redirect("/Home/Index");
             }
         }
 
