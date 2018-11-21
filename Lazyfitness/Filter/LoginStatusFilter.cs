@@ -32,6 +32,7 @@ namespace Lazyfitness.Filter
             {
                 filterContext.HttpContext.Response.Redirect("/Home/Index");
             }
+            filterContext.Controller.ViewBag.UserId = userId;
 
         }
 

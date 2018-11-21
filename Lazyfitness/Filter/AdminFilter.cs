@@ -35,6 +35,7 @@ namespace Lazyfitness.Filter
             //判断是不是管理员的函数
             if (certificateTools.IsAdmin(userId) == false)
                 filterContext.HttpContext.Response.Redirect("/Home/Index");
+            filterContext.Controller.ViewBag.UserId = userId;
         }
     }
 }

@@ -88,6 +88,8 @@
                     <div class="nav-headPic fr">
                         <img src="@userData.userHeaderPic" style="width:40px;height:40px;border-radius:40px;" />
                         <a href="@Url.Action("PersonalData","Home",new { area=""})"><span>@userData.userName</span></a>
+                        <span>/</span>
+                        <a href="@Url.Action("Logout","userManagement",new { area="account"})"><span>注销</span></a>
                     </div>
                 }
                 else
@@ -103,12 +105,6 @@
 
             </div>
         </div>
-        @if ((bool)ViewData["IsSearch"] == true)
-         {
-        <div class="nav-search">
-            @Html.TextBox("Keyword", "", new { @placeholder = "搜索" })
-        </div>
-         }
 
     </div>
     @if(ViewBag.IsDefaultContent == true)

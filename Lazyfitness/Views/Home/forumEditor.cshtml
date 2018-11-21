@@ -32,9 +32,9 @@
 </script>
 
 <div class="editor">
-    @using (Html.BeginForm("QuestionSubmit", "Api", FormMethod.Post))
+    @using (Html.BeginForm("forumSubmit", "Api", FormMethod.Post))
     {
-        <input id="title" class="title" type="text" placeholder="输入一个清晰明白的标题吧" autocomplete="off" />
+        <input id="title" name="title" class="title" type="text" placeholder="输入一个清晰明白的标题吧" autocomplete="off" />
         <textarea id="editor" name="editor"></textarea>
         <input id="submit" type="submit" value="发布" />
 

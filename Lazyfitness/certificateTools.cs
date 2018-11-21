@@ -71,5 +71,23 @@ namespace Lazyfitness
             else
                 return false;
         }
+
+        /// <summary>
+        /// 确认3个Cookie是否合法
+        /// </summary>
+        /// <param name="userId">用户id</param>
+        /// <param name="loginId">登录ID</param>
+        /// <param name="certification">凭证</param>
+        /// <returns></returns>
+        public static bool IsUserCookieCorrect(HttpCookie userId, HttpCookie loginId, HttpCookie certification)
+        {
+            if (IsCookieEmpty(userId) == false || IsCookieEmpty(loginId) == false || IsCookieEmpty(certification) == false)
+                return false;
+            if (verifyCertification(userId.Value, certification.Value) == false) 
+                return false;
+
+            return true;
+
+        }
     }
 }

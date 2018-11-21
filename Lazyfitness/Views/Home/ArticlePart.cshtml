@@ -24,14 +24,25 @@
 <link href="~/Css/ArticlePart.css?v=2018-1022-0017" rel="stylesheet" type="text/css" />
 
 
+@{ 
+    HttpCookie loginIdCookie = HttpContext.Current.Request.Cookies.Get("loginId");
+    HttpCookie userIdCookie = HttpContext.Current.Request.Cookies.Get("userId");
+    HttpCookie certificationCookie = HttpContext.Current.Request.Cookies.Get("certification");
+    bool IsLoginRight = certificateTools.IsUserCookieCorrect(userIdCookie, loginIdCookie, certificationCookie);
+    bool IsAdmin = false;
+    if (IsLoginRight == true && certificateTools.IsAdmin(userIdCookie.Value) == true)
+    {
+        IsAdmin = true;
+    }
 
+}
 @*主要内容*@
 <div class="main">
     <div class="main-content">
         <div style="width:100%">
             <h2 style="font-family:YouYuan;position:relative;padding-left:120px;width:200px;">@ViewBag.PartName</h2>
             @*只有管理员才可以显示这个按钮*@
-            @if (ViewBag.IsAdmin == true)
+            @if (IsAdmin == true)
             {
                 <a href="@Url.Action("ArticleEditor","Home",new { partId=ViewBag.PartId})">
                     <div class="article-editor">

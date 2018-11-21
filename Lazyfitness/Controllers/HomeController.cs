@@ -454,14 +454,10 @@ namespace Lazyfitness.Controllers
         /// </summary>
         /// <param name="partId">分区ID</param>
         /// <returns></returns>
-        [LoginStatusFilter]
+        [AdminFilter]
         public ActionResult ArticleEditor(int partId)
         {
-            //此处应有一个判断有无权限的函数
-            //
             ViewBag.PartId = partId;
-            //此处应先验证，然后从cookie里获取userId
-            ViewBag.UserId = 111;
             return View();
         }
 
@@ -487,12 +483,10 @@ namespace Lazyfitness.Controllers
             ViewBag.ReplyerInfo = replyerInfo;
             return View();
         }
-
+        [LoginStatusFilter]
         public ActionResult QuestionEditor(int partId = 0)
         {
             ViewBag.PartId = partId;
-            //此处应先验证，然后从cookie里获取userId
-            ViewBag.UserId = 111;
             return View();
         }
 
@@ -517,12 +511,10 @@ namespace Lazyfitness.Controllers
             ViewBag.ForumReplyName = name;
             return View();
         }
-        
+        [LoginStatusFilter]
         public ActionResult forumEditor(int partId = 0)
         {
             ViewBag.PartId = partId;
-            //此处应先验证，然后从cookie里获取userId
-            ViewBag.UserId = 111;
             return View();
         }
 
@@ -625,10 +617,13 @@ namespace Lazyfitness.Controllers
                     //修改此问答帖子的状态
                     var dbQuesAnsw = db.quesAnswInfo.Where(u => u.quesAnswId == quesAnswId);
                     var obQuesAnsw = dbQuesAnsw.FirstOrDefault();
-                    int getPayId = obQuesAnsw.userId.Value;
+                    //增加回答者的钱
+                    //提问者的钱在提问时就扣除了
+                    int getPayId = userId;
                     var dbInfo = db.userInfo.Where(u => u.userId == getPayId);
                     var obInfo = dbInfo.FirstOrDefault();
                     obInfo.userAccount += obQuesAnsw.amount; 
+
                     obQuesAnsw.quesAnswStatus = 1;
 
                     db.SaveChanges();

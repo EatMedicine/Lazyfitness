@@ -53,6 +53,8 @@ namespace Lazyfitness.Areas.account.Controllers
                         userEmail = info.userEmail,
                         userStatus = 1,
                         userAccount = 0,
+                        userIntroduce = "这个人很懒，没有说什么",
+                        userHeaderPic = "/Resource/picture/DefaultHeadPic1.png"
                     };
                     db.userInfo.Add(obInfo);
                     db.SaveChanges();
@@ -110,6 +112,16 @@ namespace Lazyfitness.Areas.account.Controllers
             {
                 return ex.ToString();
             }
+        }
+        #endregion
+
+        #region 注销
+        public void Logout()
+        {
+            System.Web.HttpContext.Current.Response.Cookies["userId"].Expires = DateTime.Now.AddDays(-1);
+            System.Web.HttpContext.Current.Response.Cookies["loginId"].Expires = DateTime.Now.AddDays(-1);
+            System.Web.HttpContext.Current.Response.Cookies["certification"].Expires = DateTime.Now.AddDays(-1);
+            Response.Redirect("/");
         }
         #endregion
 

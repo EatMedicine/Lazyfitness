@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Lazyfitness.Filter;
 using Lazyfitness.Models;
 namespace Lazyfitness.Controllers
 {
@@ -12,6 +14,7 @@ namespace Lazyfitness.Controllers
         #region 创建
         [HttpPost]
         [ValidateInput(false)]
+        [LoginStatusFilter]
         public string ArticleSubmit(string title,string editor,int userId, int areaId)
         {
             resourceInfo rInfo = new resourceInfo
@@ -34,8 +37,24 @@ namespace Lazyfitness.Controllers
     
         [HttpPost]
         [ValidateInput(false)]
+        [LoginStatusFilter]
         public string QuestionSubmit(int areaId,int userId,string title, string editor,int money)
         {
+            userInfo info = Tools.GetUserInfo(userId);
+            if (info.userAccount == null)
+                info.userAccount = 0;
+            if (info.userAccount < money)
+                money = (int)info.userAccount;
+            else
+            {
+                using(LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<userInfo> dbsearch = db.userInfo.Where(u => u.userId == userId) as DbQuery<userInfo>;
+                    userInfo _userinfo = dbsearch.FirstOrDefault();
+                    _userinfo.userAccount -= money;
+                    db.SaveChanges();
+                }
+            }
             quesAnswInfo qaInfo = new quesAnswInfo
             {
                 areaId = areaId,
@@ -58,7 +77,8 @@ namespace Lazyfitness.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public string forumSubmit(int areaId, int userId, string title, string editor, int money)
+        [LoginStatusFilter]
+        public string forumSubmit(int areaId, int userId, string title, string editor)
         {
             postInfo pInfo = new postInfo
             {
@@ -68,7 +88,6 @@ namespace Lazyfitness.Controllers
                 postTime = DateTime.Now,
                 pageView = 0,
                 isPost = 0,
-                amount = money,
                 postStatus = 1,
                 postContent = editor
             };
@@ -84,6 +103,7 @@ namespace Lazyfitness.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [LoginStatusFilter]
         public string QuestionReply(int quesId,string reply, int userId)
         {
             quesAnswReply qarInfo = new quesAnswReply
@@ -104,7 +124,8 @@ namespace Lazyfitness.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public string forumReply(int quesId, string reply, int userId)
+        [LoginStatusFilter]
+        public string forumReply(int quesId, string reply,int userId)
         {
             postReply prInfo = new postReply
             {

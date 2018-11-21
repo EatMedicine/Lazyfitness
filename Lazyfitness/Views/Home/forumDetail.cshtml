@@ -36,7 +36,15 @@
     });
     editor.render('reply');
 </script>
-
+@using Lazyfitness.Models;
+@{
+    quesAnswInfo QuestionInfo = ViewBag.QuesInfo as quesAnswInfo;
+    userInfo QuesUserInfo = ViewBag.QuesUserInfo as userInfo;
+    HttpCookie loginIdCookie = HttpContext.Current.Request.Cookies.Get("loginId");
+    HttpCookie userIdCookie = HttpContext.Current.Request.Cookies.Get("userId");
+    HttpCookie certificationCookie = HttpContext.Current.Request.Cookies.Get("certification");
+    bool IsLoginRight = certificateTools.IsUserCookieCorrect(userIdCookie, loginIdCookie, certificationCookie);
+}
 <div class="forum-detail">
     <h1 class="detail-head">@ViewBag.ForumInfo.postTitle</h1>
 
@@ -44,7 +52,7 @@
         <a id="1" href="@Url.Action("forumDetail","Home",new { num = ViewBag.ForumId})#1" class="floor">1#</a>
         <span class="detail-name">@ViewBag.ForumUserInfo.userName</span>
         <div class="detail-content">
-            @ViewBag.ForumInfo.postContent
+            @Html.Raw(ViewBag.ForumInfo.postContent)
         </div>
         <img class="detail-pic" src="~/Resource/picture/DefaultHeadPic.jpg" />
         <span class="detail-time">@ViewBag.ForumInfo.postTime</span>
@@ -75,11 +83,15 @@
 
 </div>
 <a id="reply-btn" class="reply-btn" href="#"><span>回复</span></a>
-<div class="reply">
-    @using (Html.BeginForm("forumReply", "Api", FormMethod.Post))
-    {
-        <textarea id="reply" name="reply"></textarea>
-        <input type="hidden" id="quesId" name="quesId" value="@ViewBag.ForumId" />
-        <input type="submit" id="submit" value="回复" />
-    }
-</div>
+@if (IsLoginRight == true)
+{
+    <div class="reply">
+        @using (Html.BeginForm("forumReply", "Api", FormMethod.Post))
+        {
+            <textarea id="reply" name="reply"></textarea>
+            <input type="hidden" id="userId" name="userId" value="@userIdCookie.Value"/>
+            <input type="hidden" id="quesId" name="quesId" value="@ViewBag.ForumId" />
+            <input type="submit" id="submit" value="回复" />
+        }
+    </div>
+}

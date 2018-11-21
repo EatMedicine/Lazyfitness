@@ -425,7 +425,7 @@ namespace Lazyfitness
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 //分页查询返回的对象
-                DbQuery<quesAnswReply> dbQuesAnswReplyInfo = db.quesAnswReply.Where(u => u.quesAnswId == quesId).OrderByDescending(u=>u.replyTime) as DbQuery<quesAnswReply>;
+                DbQuery<quesAnswReply> dbQuesAnswReplyInfo = db.quesAnswReply.Where(u => u.quesAnswId == quesId).OrderBy(u=>u.replyTime) as DbQuery<quesAnswReply>;
                 int listLength = dbQuesAnswReplyInfo.ToList().Count;
                 quesAnswReply[] replys = new quesAnswReply[listLength];
                 var obInfo = dbQuesAnswReplyInfo.ToArray();
@@ -647,7 +647,7 @@ namespace Lazyfitness
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 //分页查询返回的对象
-                DbQuery<postReply> dbQuesAnswReplyInfo = db.postReply.Where(u => u.postId == postId).OrderByDescending(u => u.replyTime) as DbQuery<postReply>;
+                DbQuery<postReply> dbQuesAnswReplyInfo = db.postReply.Where(u => u.postId == postId).OrderBy(u => u.replyTime) as DbQuery<postReply>;
                 int listLength = dbQuesAnswReplyInfo.ToList().Count;
                 postReply[] replys = new postReply[listLength];
                 var obInfo = dbQuesAnswReplyInfo.ToArray();
@@ -798,8 +798,7 @@ namespace Lazyfitness
                         //比如说广告啥的（雾
                         //url已经构造好，使用的时候解除注释
 
-                        //url = url[count].ToString(),
-                        url = "/Home/ArticleDetail?num=" + count,
+                        url = url[count].ToString(),
                         flag = 0,
                         Infostatus = 1
                     };
@@ -841,8 +840,8 @@ namespace Lazyfitness
                 //暂定flag 0为轮播图 1为公告
                 //暂定InfoStatus 0为禁用 1为启用
                 //首页公告有5条
-                serverShowInfo[] info = new serverShowInfo[5];
-                for (int count = 0; count < 5; count++)
+                serverShowInfo[] info = new serverShowInfo[title.Count];
+                for (int count = 0; count < 5 && count < title.Count; count++) 
                 {
                     info[count] = new serverShowInfo
                     {
@@ -854,8 +853,7 @@ namespace Lazyfitness
                         //比如说广告啥的（雾
                         //url已经构造好，使用的时候解除注释
 
-                        //url = url[count].ToString(),
-                        url = "/Home/ArticleDetail?num=" + count,
+                        url = url[count].ToString(),
                         flag = 1,
                         Infostatus = 1
                     };
@@ -1238,7 +1236,7 @@ namespace Lazyfitness
                         //url已经构造好，使用的时候解除注释
 
                         //url = url[count].ToString(),
-                        url = "/Home/ArticleDetail?num=" + count,
+                        url = url[count].ToString(),
                         flag = 0,
                         Infostatus = 1
                     };

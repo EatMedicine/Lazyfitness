@@ -46,6 +46,10 @@
 @{
     quesAnswInfo QuestionInfo = ViewBag.QuesInfo as quesAnswInfo;
     userInfo QuesUserInfo = ViewBag.QuesUserInfo as userInfo;
+    HttpCookie loginIdCookie = HttpContext.Current.Request.Cookies.Get("loginId");
+    HttpCookie userIdCookie = HttpContext.Current.Request.Cookies.Get("userId");
+    HttpCookie certificationCookie = HttpContext.Current.Request.Cookies.Get("certification");
+    bool IsLoginRight = certificateTools.IsUserCookieCorrect(userIdCookie, loginIdCookie, certificationCookie);
 }
 <div class="question-head">
     @if (QuestionInfo.quesAnswStatus == 1)
@@ -95,7 +99,7 @@
             <div class="reply-item">
                 <a id="@num" href="@Url.Action("QuestionDetail","Home", new { num =QuestionInfo.quesAnswId})#@num" class="floor">@num#</a>
                 <div class="question-content">
-                    @replys[count].replyContent
+                    @Html.Raw(replys[count].replyContent)
                 </div>
                 @if (QuestionInfo.quesAnswStatus == 1 && replys[count].isAgree == 1)
                 {
@@ -108,7 +112,8 @@
                         <input class="getQuesAnswId" type="hidden" name="quesAnswId" value=@replys[count].quesAnswId />
                         <input class="getUserId" type="hidden" name="userId" value=@replys[count].userId />
                         @*<input class="getUserId" type="hidden" name="userId" value=@QuestionInfo.userId />*@
-                        @if (QuestionInfo.quesAnswStatus == 0)
+                        @*当答案未采纳以及是正确登录以及提问人和登录userid相等的时候显示该按钮*@
+                        @if (QuestionInfo.quesAnswStatus == 0 && IsLoginRight == true && userIdCookie.Value == QuestionInfo.userId.ToString()) 
                         {
                             <button class="setAnswer" value=@replys[count].userId>采纳该答案</button>
                         }
@@ -134,13 +139,15 @@
     </div>
 }
 
-
-<div class="reply">
-    @using (Html.BeginForm("QuestionReply", "Api", FormMethod.Post))
-    {
-        <input type="hidden" id="userId" name="userId" value=1 />
-        <textarea id="reply" name="reply"></textarea>
-        <input type="hidden" id="quesId" name="quesId" value="@ViewBag.QuestionId" />
-        <input type="submit" id="submit" value="回复" />
-    }
-</div>
+@if(IsLoginRight == true)
+{
+    <div class="reply">
+        @using (Html.BeginForm("QuestionReply", "Api", FormMethod.Post))
+        {
+            <input type="hidden" id="userId" name="userId" value="@userIdCookie.Value" />
+            <textarea id="reply" name="reply"></textarea>
+            <input type="hidden" id="quesId" name="quesId" value="@ViewBag.QuestionId" />
+            <input type="submit" id="submit" value="回复" />
+        }
+    </div>
+}
