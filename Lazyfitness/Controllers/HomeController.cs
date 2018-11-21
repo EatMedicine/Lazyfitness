@@ -607,5 +607,38 @@ namespace Lazyfitness.Controllers
             return Content("<script >window.window.history.back(-1)</script >", "text/html");
         }
         #endregion
+
+        #region 采纳回答
+        [HttpPost]
+        public string adoptAnswer(int quesAnswId, int userId)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    var dbQuesAnswReply = db.quesAnswReply.Where(u => u.quesAnswId == quesAnswId && u.userId == userId);
+                    var obQuesAnswReply = dbQuesAnswReply.FirstOrDefault();
+                    //将此对象的isAgree 改为1 表示采纳
+                    obQuesAnswReply.isAgree = 1;
+
+                    //修改此问答帖子的状态
+                    var dbQuesAnsw = db.quesAnswInfo.Where(u => u.quesAnswId == quesAnswId);
+                    var obQuesAnsw = dbQuesAnsw.FirstOrDefault();
+                    int getPayId = obQuesAnsw.userId.Value;
+                    var dbInfo = db.userInfo.Where(u => u.userId == getPayId);
+                    var obInfo = dbInfo.FirstOrDefault();
+                    obInfo.userAccount += obQuesAnsw.amount; 
+                    obQuesAnsw.quesAnswStatus = 1;
+
+                    db.SaveChanges();
+                    return "true";
+                }
+            }
+            catch
+            {
+                return "false";
+            }
+        }
+        #endregion
     }
 }

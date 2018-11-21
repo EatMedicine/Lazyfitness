@@ -28,6 +28,7 @@
 <script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.all.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/lang/zh-cn/zh-cn.js"></script>
+<script src="~/Scripts/adoptAnswer.js"></script>
 
 <script type="text/javascript">
     var editor = new baidu.editor.ui.Editor({
@@ -94,24 +95,25 @@
             <div class="reply-item">
                 <a id="@num" href="@Url.Action("QuestionDetail","Home", new { num =QuestionInfo.quesAnswId})#@num" class="floor">@num#</a>
                 <div class="question-content">
-                    @replys[count].replyContent;
+                    @replys[count].replyContent
                 </div>
                 @if (QuestionInfo.quesAnswStatus == 1 && replys[count].isAgree == 1)
                 {
                     <span class="head-sign">最佳答案</span>
                 }
-                <div class="head-userInfo">
-                    <img class="head-headPic" src="@replyerInfo[count].userHeaderPic" />
-                    <span class="head-name">@replyerInfo[count].userName</span>
-                    <span class="head-intro">@replyerInfo[count].userIntroduce</span>
-                    @if (QuestionInfo.quesAnswStatus == 0)
-                    {
-                        <div class="setAnswer">
-                            采纳该答案
-                        </div>
-                    }
-                    <span class="time">@replys[count].replyTime</span>
-                </div>
+                    <div class="head-userInfo">
+                        <img class="head-headPic" src="@replyerInfo[count].userHeaderPic" />
+                        <span class="head-name">@replyerInfo[count].userName</span>
+                        <span class="head-intro">@replyerInfo[count].userIntroduce</span>
+                        <input class="getQuesAnswId" type="hidden" name="quesAnswId" value=@replys[count].quesAnswId />
+                        <input class="getUserId" type="hidden" name="userId" value=@replys[count].userId />
+                        @*<input class="getUserId" type="hidden" name="userId" value=@QuestionInfo.userId />*@
+                        @if (QuestionInfo.quesAnswStatus == 0)
+                        {
+                            <button class="setAnswer" value=@replys[count].userId>采纳该答案</button>
+                        }
+                        <span class="time">@replys[count].replyTime</span>
+                    </div>
             </div>
         }
         @*
@@ -136,7 +138,7 @@
 <div class="reply">
     @using (Html.BeginForm("QuestionReply", "Api", FormMethod.Post))
     {
-        <input type="hidden" id="userId" name="userId" value= 1/>
+        <input type="hidden" id="userId" name="userId" value=1 />
         <textarea id="reply" name="reply"></textarea>
         <input type="hidden" id="quesId" name="quesId" value="@ViewBag.QuestionId" />
         <input type="submit" id="submit" value="回复" />
