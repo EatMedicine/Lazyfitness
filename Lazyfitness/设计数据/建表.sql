@@ -34,7 +34,7 @@ CREATE TABLE userInfo
 	userAge INT,--0~999岁
 	userSex INT,--男或女
 	userEmail NVARCHAR(50),--邮箱
-	userStatus INT DEFAULT 1,
+	userStatus INT DEFAULT 1, --0禁言,1注册会员,2正式会员,3管理员
 	userAccount INT DEFAULT 0,
 	userIntroduce NVARCHAR(200),	--用户简介
 	userHeaderPic NVARCHAR(200)	--用户头像地址

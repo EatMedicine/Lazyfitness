@@ -454,6 +454,7 @@ namespace Lazyfitness.Controllers
         /// </summary>
         /// <param name="partId">分区ID</param>
         /// <returns></returns>
+        [LoginStatusFilter]
         public ActionResult ArticleEditor(int partId)
         {
             //此处应有一个判断有无权限的函数

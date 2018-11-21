@@ -35,26 +35,20 @@
 @{ 
     HttpCookie loginIdCookie = Request.Cookies["loginId"];
     HttpCookie userIdCookie = Request.Cookies["userId"];
+    HttpCookie certificationCookie = Request.Cookies.Get("certification");
     bool IsLogin = false;
     userInfo userData = null;
-    if (loginIdCookie == null)
+    if (certificateTools.IsCookieEmpty(loginIdCookie) == false ||
+    certificateTools.IsCookieEmpty(userIdCookie) == false ||
+    certificateTools.IsCookieEmpty(certificationCookie) == false)
     {
         IsLogin = false;
     }
     else
     {
         IsLogin = true;
-        if (userIdCookie != null)
-        {
-            int userId = Int32.Parse(userIdCookie.Value);
-            userData = Tools.GetUserInfo(userId);
-        }
-        else
-        {
-            IsLogin = false;
-        }
-
-
+        int userId = Int32.Parse(userIdCookie.Value);
+        userData = Tools.GetUserInfo(userId);
     }
 }
 
@@ -93,7 +87,7 @@
                 {
                     <div class="nav-headPic fr">
                         <img src="@userData.userHeaderPic" style="width:40px;height:40px;border-radius:40px;" />
-                        <a href="#"><span>@userData.userName</span></a>
+                        <a href="@Url.Action("PersonalData","Home",new { area=""})"><span>@userData.userName</span></a>
                     </div>
                 }
                 else

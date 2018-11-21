@@ -94,10 +94,10 @@ namespace Lazyfitness.Areas.account.Controllers
                         cookieName.Value = security.loginId.Trim();
                         cookieName.Expires = DateTime.Now.AddHours(1);
 
-                        Response.Cookies.Add(CookiesHelper.CookiesHelper.creatCookieHours("userId", obSurePwd.userId.ToString(), 1));
+                        System.Web.HttpContext.Current.Response.Cookies.Add(CookiesHelper.CookiesHelper.creatCookieHours("userId", obSurePwd.userId.ToString(), 1));
                         string encryptCertification = certificateTools.makeCertification(obSureId.userId.ToString());
-                        Response.Cookies.Add(CookiesHelper.CookiesHelper.creatCookieHours("certification", encryptCertification, 1));
-                        Response.Cookies.Add(cookieName);                        
+                        System.Web.HttpContext.Current.Response.Cookies.Add(CookiesHelper.CookiesHelper.creatCookieHours("certification", encryptCertification, 1));
+                        System.Web.HttpContext.Current.Response.Cookies.Add(cookieName);                        
                         return "登录成功";
                     }
                     else

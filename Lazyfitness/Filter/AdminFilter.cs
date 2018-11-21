@@ -17,13 +17,24 @@ namespace Lazyfitness.Filter
         /// <param name="filterContext"></param>
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            HttpCookie cookie = filterContext.HttpContext.Response.Cookies["loginId"];
-            if (cookie.Values.Count == 0)
-            {           
+            HttpCookie loginIdCookie = HttpContext.Current.Request.Cookies.Get("loginId");
+            HttpCookie userIdCookie = HttpContext.Current.Request.Cookies.Get("userId");
+            HttpCookie certificationCookie = HttpContext.Current.Request.Cookies.Get("certification");
+            if (certificateTools.IsCookieEmpty(loginIdCookie) == false ||
+                certificateTools.IsCookieEmpty(userIdCookie) == false ||
+                certificateTools.IsCookieEmpty(certificationCookie) == false)
+            {
+                filterContext.HttpContext.Response.Redirect("/Home/Index");
+            }
+            string userId = userIdCookie.Value;
+            string certifcation = certificationCookie.Value;
+            if (certificateTools.verifyCertification(userId, certifcation) == false)
+            {
                 filterContext.HttpContext.Response.Redirect("/Home/Index");
             }
             //判断是不是管理员的函数
-
+            if (certificateTools.IsAdmin(userId) == false)
+                filterContext.HttpContext.Response.Redirect("/Home/Index");
         }
     }
 }
