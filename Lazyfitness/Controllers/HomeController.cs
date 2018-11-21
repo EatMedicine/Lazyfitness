@@ -610,7 +610,6 @@ namespace Lazyfitness.Controllers
                     _userInfo.userAge = info.userAge;
                     _userInfo.userSex = info.userSex;
                     _userInfo.userEmail = info.userEmail;
-                    _userInfo.userStatus = info.userStatus;
                     _userInfo.userIntroduce = info.userIntroduce;
                     db.SaveChanges();
                 }

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4f7ad2b0ec834e16a2b77eb4aafc8715" Name="Diagram1">
+      <Diagram DiagramId="3fc34a8b6ec94bb7880929062a93e7b4" Name="Diagram1">
         <EntityTypeShape EntityType="LazyfitnessModel.backManager" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LazyfitnessModel.postArea" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LazyfitnessModel.postInfo" Width="1.5" PointX="8" PointY="6" IsExpanded="true" />
@@ -19,10 +19,10 @@
         <EntityTypeShape EntityType="LazyfitnessModel.userInfo" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="LazyfitnessModel.userSecurity" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LazyfitnessModel.userStatusName" Width="1.5" PointX="6.75" PointY="10.75" IsExpanded="true" />
-        <AssociationConnector Association="LazyfitnessModel.FK__postInfo__areaId__1BFD2C07" ManuallyRouted="false" />
-        <AssociationConnector Association="LazyfitnessModel.FK__quesAnswI__areaI__24927208" ManuallyRouted="false" />
-        <AssociationConnector Association="LazyfitnessModel.FK__resourceI__areaI__173876EA" ManuallyRouted="false" />
-        <AssociationConnector Association="LazyfitnessModel.FK__userInfo__userId__0519C6AF" ManuallyRouted="false" />
+        <AssociationConnector Association="LazyfitnessModel.FK__postInfo__areaId__2180FB33" ManuallyRouted="false" />
+        <AssociationConnector Association="LazyfitnessModel.FK__quesAnswI__areaI__2645B050" ManuallyRouted="false" />
+        <AssociationConnector Association="LazyfitnessModel.FK__resourceI__areaI__1EA48E88" ManuallyRouted="false" />
+        <AssociationConnector Association="LazyfitnessModel.FK__userInfo__userId__17036CC0" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
