@@ -34,7 +34,8 @@ li{
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width:100%;
+    min-width: 1000px;
     height: 50px;
     background-color: rgba(255, 255, 255, 0.3);
     z-index:100;
@@ -89,12 +90,13 @@ li{
 
 .head-picture {
     z-index: 99;
+    min-width: 1000px;
     width: 100%;
     height: 200px;
     background-repeat: no-repeat;
     overflow: hidden;
-    text-align:center;
-    vertical-align:middle;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .nav-search {
@@ -150,7 +152,7 @@ li{
 .user-info{
     position:absolute;
     top:60px;
-    left:1100px;
+    left:75%;
     width:200px;
     min-height:100px;
     box-shadow:1px 1px 5px rgb(0,0,0);

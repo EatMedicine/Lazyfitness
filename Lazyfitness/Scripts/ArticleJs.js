@@ -1,6 +1,6 @@
 ﻿var count = 1;
 var eventNum = 0;
-
+var pageNum = 0;
 var interval = 3000;
 window.onload = function () {
     eventNum = setInterval(setMargin, interval);
@@ -83,8 +83,9 @@ $(function () {
 });
 
 function loadContent() {
+    pageNum++;
     $.ajax({
-        url: "/Home/ArticleItemContent",
+        url: "/Home/ArticleItemContent?pageNum=" + pageNum,
         type: "get",
         dataType: "json",
         success: function (data) {

@@ -3,11 +3,17 @@
 }
 .body-content{
     width:100%;
+    min-width:1300px;
     padding-top:50px;
 }
 .head-background{
     width:100%;
-    background-image:
+}
+.nav {
+    min-width: 1300px;
+}
+.nav-menu {
+    width: 1000px;
 }
 /*Scroll*/
 .scroll-box{
@@ -109,9 +115,10 @@
     background-image:url("~/Resource/picture/square1.png");
 }
 
-.scroll-notic{
-    width:100%;
-    height:500px;
+.scroll-notic {
+    width: 100%;
+    min-width: 1300px;
+    height: 500px;
 }
 
 .notice{

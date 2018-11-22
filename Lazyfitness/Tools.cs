@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity.Infrastructure;
 using System.Collections;
-
+using System.Text.RegularExpressions;
 
 namespace Lazyfitness
 {   
@@ -17,6 +17,7 @@ namespace Lazyfitness
     {
         //每页显示的数据条数
         static int pageSize = 5;
+        //更改这里后 3个大区的Ajax里的Js代码也要相应修改
 
         #region 资源分区数据获取
 
@@ -32,6 +33,21 @@ namespace Lazyfitness
             {
                 //分页查询返回的对象
                 DbQuery<resourceInfo> dbResourceInfo = db.resourceInfo.Where(u => u.areaId == partId).OrderByDescending(u => u.resourceTime).Skip(pageSize * (pageNum - 1)).Take(pageSize) as DbQuery<resourceInfo>;
+                return dbResourceInfo.ToArray();
+            }
+        }
+        /// <summary>
+        /// 返回表对象用来显示对应的信息
+        /// </summary>
+        /// <param name="partId"></param>
+        /// <param name="pageNum"></param>
+        /// <returns></returns>
+        public static resourceInfo[] GetArticleAll(int pageNum)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                //分页查询返回的对象
+                DbQuery<resourceInfo> dbResourceInfo = db.resourceInfo.OrderByDescending(u => u.resourceTime).Skip(pageSize * (pageNum - 1)).Take(pageSize) as DbQuery<resourceInfo>;
                 return dbResourceInfo.ToArray();
             }
         }
@@ -190,7 +206,7 @@ namespace Lazyfitness
             var getOb = GetArticle(partId, pageNum);
             for (int count = 0; count < getOb.Length; count++)
             {
-                introducitons[count] = filterArticleContent(getOb[count].resourceContent);
+                introducitons[count] = GetNoHTMLString(getOb[count].resourceContent);
             }
             return introducitons;
         }
@@ -233,6 +249,22 @@ namespace Lazyfitness
             {
                 //分页查询返回的对象
                 DbQuery<quesAnswInfo> dbQuestionInfo = db.quesAnswInfo.Where(u => u.areaId == partId).OrderByDescending(u => u.quesAnswTime).Skip(pageSize * (pageNum - 1)).Take(pageSize) as DbQuery<quesAnswInfo>;
+                return dbQuestionInfo.ToArray();
+            }
+        }
+
+        /// <summary>
+        /// 返回表对象用来显示对应的信息
+        /// </summary>
+        /// <param name="partId"></param>
+        /// <param name="pageNum"></param>
+        /// <returns></returns>
+        public static quesAnswInfo[] GetQuestionAll(int pageNum)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                //分页查询返回的对象
+                DbQuery<quesAnswInfo> dbQuestionInfo = db.quesAnswInfo.OrderByDescending(u => u.quesAnswTime).Skip(pageSize * (pageNum - 1)).Take(pageSize) as DbQuery<quesAnswInfo>;
                 return dbQuestionInfo.ToArray();
             }
         }
@@ -359,7 +391,7 @@ namespace Lazyfitness
             var getOb = GetQuestion(partId, pageNum);
             for (int count = 0; count < getOb.Length; count++)
             {
-                introducitons[count] = filterArticleContent(getOb[count].quesAnswContent);
+                introducitons[count] = GetNoHTMLString(getOb[count].quesAnswContent);
             }
             return introducitons;
         }
@@ -486,6 +518,21 @@ namespace Lazyfitness
                 return dbForumInfo.ToArray();
             }
         }
+        /// <summary>
+        /// 返回表对象用来显示对应的信息
+        /// </summary>
+        /// <param name="partId"></param>
+        /// <param name="pageNum"></param>
+        /// <returns></returns>
+        public static postInfo[] GetForumAll(int pageNum)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                //分页查询返回的对象
+                DbQuery<postInfo> dbForumInfo = db.postInfo.OrderByDescending(u => u.postTime).Skip(pageSize * (pageNum - 1)).Take(pageSize) as DbQuery<postInfo>;
+                return dbForumInfo.ToArray();
+            }
+        }
 
 
         /// <summary>
@@ -599,7 +646,7 @@ namespace Lazyfitness
             var getOb = GetForum(partId, pageNum);
             for (int count = 0; count < getOb.Length; count++)
             {
-                introducitons[count] = filterArticleContent(getOb[count].postContent);
+                introducitons[count] = GetNoHTMLString(getOb[count].postContent);
             }
             return introducitons;
         }
@@ -1245,6 +1292,33 @@ namespace Lazyfitness
             }                       
         }
         #endregion     
+
+        public static string GetNoHTMLString(string Htmlstring)
+        {
+            //删除脚本   
+            Htmlstring = Regex.Replace(Htmlstring, @"<script[^>]*?>.*?</script>", "", RegexOptions.IgnoreCase);
+            //删除HTML   
+            Htmlstring = Regex.Replace(Htmlstring, @"<(.[^>]*)>", "", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"([\r\n])[\s]+", "", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"-->", "", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"<!--.*", "", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(quot|#34);", "\"", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(amp|#38);", "&", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(lt|#60);", "<", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(gt|#62);", ">", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(nbsp|#160);", "   ", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(iexcl|#161);", "\xa1", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(cent|#162);", "\xa2", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(pound|#163);", "\xa3", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(copy|#169);", "\xa9", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&#(\d+);", "", RegexOptions.IgnoreCase);
+            Htmlstring.Replace("<", "");
+            Htmlstring.Replace(">", "");
+            Htmlstring.Replace("\r\n", "");
+            Htmlstring = HttpContext.Current.Server.HtmlEncode(Htmlstring).Trim();
+            return Htmlstring;
+        }
+
     }
             
 }

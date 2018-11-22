@@ -3,6 +3,14 @@
     position:relative;
     width:100%;
 }
+.nav {
+    min-width: 1050px;
+}
+
+.head-picture {
+    min-width: 1050px;
+}
+
 .nav-left{
     position:relative;
     width:200px;

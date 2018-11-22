@@ -147,7 +147,7 @@ namespace Lazyfitness.Controllers
             #endregion
             return View();
         }
-        //问答
+         //问答
         public ActionResult Question()
         {
             //获取大区信息
@@ -207,44 +207,80 @@ namespace Lazyfitness.Controllers
             return View();
         }
         //文章资源区内容
-        public JsonResult ArticleItemContent()
+        public JsonResult ArticleItemContent(int pageNum)
         {
-            ArticleItem[] items = new ArticleItem[5];
-            for (int count = 0; count < 5; count++)
+            if (pageNum<1)
             {
+                pageNum = 1;
+            }
+            resourceInfo[] info = Tools.GetArticleAll(pageNum);
+            ArticleItem[] items = new ArticleItem[info.Length];
+            for (int count = 0; count < info.Length; count++)
+            {
+                userInfo user = Tools.GetUserInfo((int)info[count].userId);
                 items[count] = new ArticleItem();
-                items[count].Name = count.ToString() + "名字";
-                items[count].Title = count.ToString() + "标题";
-                items[count].HeadAdr = "/Resource/picture/DefaultHeadPic.jpg";
-                items[count].Introduction = count.ToString() + "简介";
+                items[count].Name = user.userName;
+                items[count].Title = info[count].resourceName;
+                items[count].HeadAdr = user.userHeaderPic;
+                int length = 20;
+                string intro = Tools.GetNoHTMLString(info[count].resourceContent);
+                if (intro.Length < 20)
+                {
+                    length = intro.Length;
+                }
+                items[count].Introduction = intro.Substring(0,length);
             }
             return Json(items, JsonRequestBehavior.AllowGet);
         }
         //问答区内容
-        public JsonResult QuesItemContent()
+        public JsonResult QuesItemContent(int pageNum)
         {
-            ArticleItem[] items = new ArticleItem[5];
-            for (int count = 0; count < 5; count++)
+            if (pageNum < 1)
             {
+                pageNum = 1;
+            }
+            quesAnswInfo[] info = Tools.GetQuestionAll(pageNum);
+            ArticleItem[] items = new ArticleItem[info.Length];
+            for (int count = 0; count < info.Length; count++)
+            {
+                userInfo user = Tools.GetUserInfo((int)info[count].userId);
                 items[count] = new ArticleItem();
-                items[count].Name = count.ToString() + "名字";
-                items[count].Title = count.ToString() + "标题";
-                items[count].HeadAdr = "/Resource/picture/DefaultHeadPic.jpg";
-                items[count].Introduction = count.ToString() + "简介";
+                items[count].Name = user.userName;
+                items[count].Title = info[count].quesAnswTitle;
+                items[count].HeadAdr = user.userHeaderPic;
+                int length = 20;
+                string intro = Tools.GetNoHTMLString(info[count].quesAnswContent);
+                if (intro.Length < 20)
+                {
+                    length = intro.Length;
+                }
+                items[count].Introduction = intro.Substring(0, length);
             }
             return Json(items, JsonRequestBehavior.AllowGet);
         }
         //论坛区内容
-        public JsonResult forumItemContent()
+        public JsonResult forumItemContent(int pageNum)
         {
-            ArticleItem[] items = new ArticleItem[5];
-            for (int count = 0; count < 5; count++)
+            if (pageNum < 1)
             {
+                pageNum = 1;
+            }
+            postInfo[] info = Tools.GetForumAll(pageNum);
+            ArticleItem[] items = new ArticleItem[info.Length];
+            for (int count = 0; count < info.Length; count++)
+            {
+                userInfo user = Tools.GetUserInfo((int)info[count].userId);
                 items[count] = new ArticleItem();
-                items[count].Name = count.ToString() + "名字";
-                items[count].Title = count.ToString() + "标题";
-                items[count].HeadAdr = "/Resource/picture/DefaultHeadPic.jpg";
-                items[count].Introduction = count.ToString() + "简介";
+                items[count].Name = user.userName;
+                items[count].Title = info[count].postTitle;
+                items[count].HeadAdr = user.userHeaderPic;
+                int length = 20;
+                string intro = Tools.GetNoHTMLString(info[count].postContent);
+                if (intro.Length < 20)
+                {
+                    length = intro.Length;
+                }
+                items[count].Introduction = intro.Substring(0, length);
             }
             return Json(items, JsonRequestBehavior.AllowGet);
         }
@@ -305,9 +341,6 @@ namespace Lazyfitness.Controllers
             ViewBag.PartId = partId;
             ViewBag.PageNum = pageNum;
             ViewBag.PartName = Tools.GetArticleName(partId);
-            //此处应有个函数判断是否是管理员账户
-            //
-            ViewBag.IsAdmin = true;
 
 
             return View();

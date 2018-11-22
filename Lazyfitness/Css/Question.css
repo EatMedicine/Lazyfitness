@@ -4,6 +4,12 @@
     height:50px;
     border-bottom:1px solid rgb(168, 168, 168);
 }
+.nav{
+    min-width:1300px;
+}
+.head-picture {
+    min-width: 1300px;
+}
 
 .part-list-item li{
     width:100px;

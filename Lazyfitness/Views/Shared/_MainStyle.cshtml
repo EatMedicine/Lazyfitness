@@ -66,20 +66,21 @@
 <body>
     <!--顶栏-->
     <div class="head">
-        <!--个人栏-->
-        <div id="user-info" class="user-info">
-            <a href="@Url.Action("changePassword","passwordManager",new { area="account"})"><div class="info-item">修改密码</div></a>
-            <a href="@Url.Action("Logout","userManagement",new { area="account"})"><div class="info-item">注销</div></a>
-        </div>
+
         <!--底图-->
         @if ((bool)ViewData["IsHeadPic"] == true)
         {
         <div class="head-picture">
-            <img src="@Url.Content("~/Resource/picture/head.png")" style="width:100%;height:auto" />
+            <img src="@Url.Content("~/Resource/picture/head.png")" style="width:100%;min-width:1000px;height:auto" />
         </div>
         }
         <!--导航栏-->
         <div class="nav shadow">
+            <!--个人栏-->
+            <div id="user-info" class="user-info">
+                <a href="@Url.Action("changePassword","passwordManager",new { area="account"})"><div class="info-item">修改密码</div></a>
+                <a href="@Url.Action("Logout","userManagement",new { area="account"})"><div class="info-item">注销</div></a>
+            </div>
             <div class="nav-menu">
                 <div class="nav-submenu1 fl">
                     <ul>

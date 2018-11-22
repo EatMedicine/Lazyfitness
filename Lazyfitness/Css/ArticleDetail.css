@@ -3,6 +3,12 @@
     position:relative;
     width:100%;
 }
+.nav {
+    min-width: 1050px;
+}
+.head-picture {
+    min-width: 1050px;
+}
 
 .left-box{
     width:200px;

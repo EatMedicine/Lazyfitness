@@ -1,4 +1,6 @@
-﻿$(function () {
+﻿var pageNum = 0;
+
+$(function () {
     $("body").ready(function () {
         loadContent();
     });
@@ -26,8 +28,9 @@ $(function () {
 });
 
 function loadContent() {
+    pageNum++;
     $.ajax({
-        url: "/Home/QuesItemContent",
+        url: "/Home/QuesItemContent?pageNum=" + pageNum,
         type: "get",
         dataType: "json",
         success: function (data) {
