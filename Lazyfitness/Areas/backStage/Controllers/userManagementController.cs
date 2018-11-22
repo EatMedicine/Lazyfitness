@@ -118,6 +118,27 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     };
                     db.userSecurity.Add(user);
                     db.SaveChanges();
+
+                    //把userInfo表写入默认数据
+                    int uniformId;
+                    var dbUser = db.userSecurity.Where(u => u.loginId == security.loginId.Trim());
+                    var obUser = dbUser.FirstOrDefault();
+                    uniformId = obUser.userId;
+                    //把这个userId写入userInfo表中
+                    userInfo newUserInfo = new userInfo
+                    {
+                        userId = uniformId,
+                        userName = obUser.loginId,
+                        userAge = 0,
+                        userSex = 2,
+                        userEmail = null,
+                        userStatus = 1,
+                        userAccount = 0,
+                        userIntroduce = null,
+                        userHeaderPic = null
+                    };
+                    db.userInfo.Add(newUserInfo);
+                    db.SaveChanges();
                 }
                 return "增加成功";
             }
@@ -148,7 +169,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             try
             {
-                //根据不可重复的用户名找到userSecurity里面的userId,将其删除
+                //根据不可重复的用户名找到userSecurity里面的userId,将其删除    应与触发器一起使用
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
 

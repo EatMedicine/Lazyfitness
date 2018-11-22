@@ -10,140 +10,341 @@ namespace Lazyfitness.Areas.backStage.Controllers
 {
     public class commentManagementController : Controller
     {
-        // GET: backStage/commentManagement
         public ActionResult Index()
         {
+
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                Response.Redirect("/backStage/manager/login");
+                return Content("未登录");
+            }
             return View();
         }
-
-        #region 论坛区评论管理
-        #region 屏蔽
-        public ActionResult forumcommentShield()
+        #region 论坛评论管理
+        //论坛评论管理
+        public ActionResult forumComment()
         {
+
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                Response.Redirect("/backStage/manager/login");
+                return Content("未登录");
+            }
+            return View();
+        }
+        //增加论坛评论
+        public ActionResult addForumComment()
+        {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                Response.Redirect("/backStage/manager/login");
+                return Content("未登录");
+            }
+            return View();
+        }
+        [HttpPost]
+        public ActionResult sureForum(int postId)
+        {
+
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                Response.Redirect("/backStage/manager/login");
+                return Content("未登录");
+            }
+
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var dbForum = db.postInfo.Where(u => u.postId == postId);
+                if (dbForum == null)
+                {
+                    return Content("没有这篇帖子");
+                }
+                var obForum = dbForum.FirstOrDefault();
+                string areaName = db.postArea.Where(u => u.areaId == obForum.areaId).FirstOrDefault().areaName;
+                string ownerName = db.userInfo.Where(u => u.userId == obForum.userId).FirstOrDefault().userName;
+                ViewBag.areaName = areaName;
+                ViewBag.ownerName = ownerName;
+                ViewBag.forumInfo = obForum;
+            }
+            return View();
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult add(int postId, string replyContent)
+        {
+            string cookieText = null;
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                cookieText = Server.HtmlEncode(cookieName.Value).ToString();
+            }
+            else
+            {
+                Response.Redirect("/backStage/manager/login");
+                return Content("未登录");
+            }
+
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+
+                var getUserId = db.userInfo.Where(u => u.userName == cookieText).FirstOrDefault().userId;
+
+                postReply obReply = new postReply
+                {
+                    postId = postId,
+                    userId = getUserId,
+                    replyTime = DateTime.Now,
+                    replyContent = replyContent
+                };
+                db.postReply.Add(obReply);
+                db.SaveChanges();
+                return Content("T");
+            }
+        }
+
+        //删除评论
+        public ActionResult deleteForumComment()
+        {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                Response.Redirect("/backStage/manager/login");
+                return Content("未登录");
+            }
             return View();
         }
 
         [HttpPost]
-        public string forumcommentShield(postReply reply)
+        public ActionResult sureReply(int postId)
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                Response.Redirect("/backStage/manager/login");
+                return Content("未登录");
+            }
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var replyList = db.postReply.Where(u => u.postId == postId).ToList();
+                ViewBag.replyList = replyList;
+                return View();
+            }
+        }
+        [HttpPost]
+        public string delete(int id)
+        {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                Response.Redirect("/backStage/manager/login");
+                return "未登录";
+            }
             try
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    DbQuery<postReply> dbReply = db.postReply.Where(u => u.postId == reply.postId).Where(u => u.userId == reply.userId) as DbQuery<postReply>;
-                    postReply _postReply = dbReply.FirstOrDefault();
-                    //通过帖子ID和评论者ID查询评论信息
-                    if (_postReply == null)
-                    {
-                        return ("评论信息不存在!");
-                    }
-                    _postReply.replyContent = "黑猫警长已经查办!";
+                    var dbReply = db.postReply.Where(u => u.id == id);
+                    var obReply = dbReply.FirstOrDefault();
+                    db.postReply.Remove(obReply);
                     db.SaveChanges();
+                    return "T";
                 }
-                return ("屏蔽成功");
             }
             catch
             {
-                return ("屏蔽操作失败");
+                return "F";
             }
+            
         }
         #endregion
-        #region 删除
-        public ActionResult forumcommentDelete()
+        //问答评论管理
+        public ActionResult quesAnswComment()
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                Response.Redirect("/backStage/manager/login");
+                return Content("未登录");
+            }
+            return View();
+        }
+
+        //增加回答
+        public ActionResult addQueAnswComment()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult sureAnswer(int quesAnswId)
+        {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                Response.Redirect("/backStage/manager/login");
+                return Content("未登录");
+            }
+
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var dbQues = db.quesAnswInfo.Where(u => u.quesAnswId == quesAnswId);
+                if (dbQues == null)
+                {
+                    return Content("没有这个问题");
+                }
+                var obQuesInfo = dbQues.FirstOrDefault();
+                if (obQuesInfo != null)
+                {
+                    string areaName = db.quesArea.Where(u => u.areaId == obQuesInfo.areaId).FirstOrDefault().areaName;
+                    string ownerName = db.userInfo.Where(u => u.userId == obQuesInfo.userId).FirstOrDefault().userName;
+                    ViewBag.areaName = areaName;
+                    ViewBag.ownerName = ownerName;
+                    ViewBag.obQuesInfo = obQuesInfo;
+                }
+            }
             return View();
         }
 
         [HttpPost]
-        public string forumcommentDelete(postReply reply)
+        [ValidateInput(false)]
+        public ActionResult addAnswer(int quesAnswId, string replyContent)
         {
-            try
+            string cookieText = null;
+            if (Request.Cookies["managerId"] != null)
             {
-                using (LazyfitnessEntities db = new LazyfitnessEntities())
-                {
-                    DbQuery<postReply> dbReply = db.postReply.Where(u => u.postId == reply.postId).Where(u => u.userId == reply.userId) as DbQuery<postReply>;
-                    postReply _postReply = dbReply.FirstOrDefault();
-                    //通过帖子ID和评论者ID查询评论信息
-                    if (_postReply == null)
-                    {
-                        return ("评论信息不存在!");
-                    }
-                    db.Entry<postReply>(_postReply).State = System.Data.Entity.EntityState.Deleted;
-                    db.SaveChanges();
-                }
-                    return ("删除成功");
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                cookieText = Server.HtmlEncode(cookieName.Value).ToString();
             }
-            catch
+            else
             {
-                return ("删除操作失败");
+                Response.Redirect("/backStage/manager/login");
+                return Content("未登录");
+            }
+
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+
+                var getUserId = db.userInfo.Where(u => u.userName == cookieText).FirstOrDefault().userId;
+
+                quesAnswReply obReply = new quesAnswReply
+                {
+                    quesAnswId = quesAnswId,
+                    userId = getUserId,
+                    replyTime = DateTime.Now,
+                    replyContent = replyContent,
+                    isAgree = 0
+                };
+                db.quesAnswReply.Add(obReply);
+                db.SaveChanges();
+                return Content("T");
             }
         }
-        #endregion
-        #endregion
 
-        #region 问答区评论管理
-        #region 屏蔽
-        public ActionResult quesAnswcommentShield()
+        //删除回答
+        public ActionResult deleteQueAnswComment()
         {
             return View();
         }
-
         [HttpPost]
-        public string quesAnswcommentShield(quesAnswReply reply)
+        public ActionResult sureReplyAnswer(int quesAnswId)
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                Response.Redirect("/backStage/manager/login");
+                return Content("未登录");
+            }
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                var replyList = db.quesAnswReply.Where(u => u.quesAnswId == quesAnswId).ToList();
+                ViewBag.replyList = replyList;
+                return View();
+            }
+        }
+        [HttpPost]
+        public string deleteAnswer(int id)
+        {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                Response.Redirect("/backStage/manager/login");
+                return "未登录";
+            }
             try
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    DbQuery<quesAnswReply> dbReply = db.quesAnswReply.Where(u => u.quesAnswId == reply.quesAnswId).Where(u => u.userId == reply.userId) as DbQuery<quesAnswReply>;
-                    quesAnswReply _quesAnswReply = dbReply.FirstOrDefault();
-                    //通过帖子ID和评论者ID查询评论信息
-                    if (_quesAnswReply == null)
-                    {
-                        return ("评论信息不存在");
-                    }
-                    _quesAnswReply.replyContent = "黑猫警长已经查办";
+                    var dbReply = db.quesAnswReply.Where(u => u.id == id);
+                    var obReply = dbReply.FirstOrDefault();
+                    db.quesAnswReply.Remove(obReply);
                     db.SaveChanges();
+                    return "T";
                 }
-                    return ("屏蔽成功");
             }
             catch
             {
-                return ("屏蔽操作失败");
+                return "F";
             }
         }
-        #endregion
-        #region 删除
-        public ActionResult quesAnswcommentDelete()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public string quesAnswcommentDelete(quesAnswReply reply)
-        {
-            try
-            {
-                using (LazyfitnessEntities db = new LazyfitnessEntities())
-                {
-                    DbQuery<quesAnswReply> dbReply = db.quesAnswReply.Where(u => u.quesAnswId == reply.quesAnswId).Where(u => u.userId == reply.userId) as DbQuery<quesAnswReply>;
-                    quesAnswReply _quesAnswReply = dbReply.FirstOrDefault();
-                    //通过帖子ID和评论者ID查询评论信息
-                    if(_quesAnswReply == null)
-                    {
-                        return ("评论信息不存在!");
-                    }
-                    db.Entry<quesAnswReply>(_quesAnswReply).State = System.Data.Entity.EntityState.Deleted;
-                    db.SaveChanges();
-                }
-                    return ("删除成功");
-            }
-            catch
-            {
-                return ("删除操作失败");
-            }
-        }
-        #endregion
-        #endregion
     }
 }

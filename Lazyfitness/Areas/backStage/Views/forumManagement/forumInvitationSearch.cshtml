@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="result-content">
-        <form action="~/backStage/forumManagement/forumInvitationSearch" method="post">
+        <form action="~/backStage/forumManagement/forumInvitationUpdate" method="post">
             <table class="insert-tab">
                 <tr><th></th><td class="show-title">修改帖子信息</td></tr>
                 <tr>
@@ -36,7 +36,7 @@
                             @{
                                 foreach (var postInfo in @ViewBag.postInfo)
                                 {
-                                    <option value="@postInfo.postId">@postInfo.postId &nbsp&nbsp @postInfo.postTitle</option>
+                                    <option class="dropdown-list" value="@postInfo.postId">@postInfo.postId &nbsp&nbsp @postInfo.postTitle</option>
                                 }
                             }
                         </select>
@@ -52,6 +52,3 @@
         </form>
     </div>
 </div>
-    </div>
-</body>
-</html>

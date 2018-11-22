@@ -3,6 +3,25 @@
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.title = "论坛帖子管理";
 }
+
+
+<link href="~/Css/Editor.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/lang/zh-cn/zh-cn.js"></script>
+
+<script type="text/javascript">
+    var editor = new baidu.editor.ui.Editor({
+
+        initialFrameWidth: 680,
+        initialFrameHeight: 300,
+        elementPathEnabled: false,
+        wordCount: false,
+    });
+
+    editor.render('postContent');
+</script>
+
 <!--/sidebar-->
 <div class="main-wrap">
     <div class="crumb-wrap">
@@ -24,141 +43,93 @@
         </div>
     </div>
     <div class="result-content">
-        <form action="~/backStage/forumManagement/forumInvitationUpdate" method="post">
-            @Html.TextBoxFor(u => u.postId, new { value = @ViewBag.postInfo.postId, hidden = "hidden" })
-            <table class="insert-tab">
-                <tbody>
-                    <tr><th></th><td class="show-title">修改帖子信息</td></tr>
+        <form method="post" action="/backStage/forumManagement/changeForum">
+            @if (ViewBag.postInfo != null && ViewBag.postArea != null && ViewBag.userInfo != null)
+            {
+                <input type="hidden" name="postId" id="postId" value=@ViewBag.postInfo.postId />
+                <table class="insert-tab">
+                    <tr></tr>
                     <tr>
-                        <th>
-                            查询成功
-                        </th>
+                        <th>分区名</th>
                         <td>
-                            <h2>@ViewBag.IsSearchSuccess</h2>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            分区ID及名称
-                        </th>
-                        <td>
-                            <select name="areaId">
-                                @{
-                                    foreach (var postArea in @ViewBag.postArea)
+                            @{
+                                <select id="areaId" name="areaId">
+                                    @foreach (var item in @ViewBag.postArea)
                                     {
-                                        if (@postArea.areaId == @ViewBag.postInfo.areaId)
-                                        {
-                                            <option class="dropdown-list" selected="selected" value="@postArea.areaId">@postArea.areaId &nbsp&nbsp @postArea.areaName</option>
-                                        }
-                                        else
-                                        {
-                                            <option class="dropdown-list" value="@postArea.areaId">@postArea.areaId &nbsp&nbsp @postArea.areaName</option>
-                                        }
+                                        <option class="dropdown-list" id="areaId" value=@item.areaId>@item.areaName</option>
                                     }
-                                }
-                            </select>
+                                </select>
+                            }
                         </td>
                     </tr>
                     <tr>
-                        <th>
-                            帖子ID
-                        </th>
-                        <td class="txt-unchange">
-                            @ViewBag.postInfo.postId
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            帖子标题
-                        </th>
+                        <th>帖子名称</th>
                         <td>
-                            @Html.TextBoxFor(u => u.postTitle, new { @Value = @ViewBag.postInfo.postTitle, @type = "text", @class = "input-content", @id = "postTitle", @name = "postTitle" })
-                            <div class="error-mes">@Html.ValidationMessageFor(x => x.postTitle)</div>
+                            @Html.TextBoxFor(u => u.postTitle, new { @Value = @ViewBag.postInfo.postTitle, @class = "input-content" })
+                            <div class="error-mes">
+                                @Html.ValidationMessageFor(u => u.postTitle)
+                            </div>
                         </td>
                     </tr>
                     <tr>
-                        <th>
-                            用户名称
-                        </th>
-                        <td class="txt-unchange">
+                        <th>发布者</th>
+                        <td>
                             @ViewBag.userInfo.userName
                         </td>
                     </tr>
                     <tr>
-                        <th>
-                            是否置顶
-                        </th>
+                        <th>发布时间</th>
+                        <td>@ViewBag.postInfo.postTime</td>
+                    </tr>
+                    <tr>
+                        <th>访问量</th>
                         <td>
-                            <input type="radio" id="isPost" name="isPost" value="0" />否
-                            <input type="radio" id="isPost" name="isPost" value="1" />是
+                            @Html.TextBoxFor(u => u.pageView, new { @Value = @ViewBag.postInfo.pageView, @class = "input-content" })
+                            <div class="error-mes">
+                                @Html.ValidationMessageFor(u => u.pageView)
+                            </div>
                         </td>
                     </tr>
                     <tr>
-                        <th>
-                            是否付费
-                        </th>
+                        <th>是否置顶</th>
                         <td>
-                            <input type="radio" id="isPay" name="isPay" value="0" />否
-                            <input type="radio" id="isPay" name="isPay" value="1" />是
+                            <input class="radio-dis" type="radio" id="isPost" name="isPost" value="1" />是
+                            <input class="radio-dis" type="radio" id="isPost" name="isPost" value="0" />否
                         </td>
                     </tr>
                     <tr>
-                        <th>
-                            付费金额
-                        </th>
+                        <th>付费金额</th>
                         <td>
-                            @Html.TextBoxFor(u => u.amount, new { @Value = @ViewBag.postInfo.amount, @type = "text", @class = "input-content", @id = "amount", @name = "amount" })
+                            <input class="input-content" type="number" name="amount" id="amount" value=@ViewBag.postInfo.amount />
                         </td>
                     </tr>
                     <tr>
-                        <th>
-                            帖子状态
-                        </th>
+                        <th>帖子状态</th>
                         <td>
-                            <input type="radio" id="postStatus" name="postStatus" value="0" />所有人可见
-                            <input type="radio" id="postStatus" name="postStatus" value="1" />好友可见
-                            <input type="radio" id="postStatus" name="postStatus" value="2" />仅自己可见
-                            <input type="radio" id="postStatus" name="postStatus" value="3" />隐藏
+                            <input class="radio-dis" type="radio" id="postStatus" name="postStatus" value="1" />不可回复
+                            <input class="radio-dis" type="radio" id="postStatus" name="postStatus" value="2" />可回复
+                            <input class="radio-dis" type="radio" id="postStatus" name="postStatus" value="0" />隐藏
                         </td>
                     </tr>
                     <tr>
-                        <th>
-                            帖子内容
-                        </th>
-                        <td>
-                            @Html.TextBoxFor(u => u.postContent, new { @Value = @ViewBag.postInfo.postContent, @type = "text", @class = "input-content", @id = "postContent", @name = "postContent" })
-                            <div class="error-mes">@Html.ValidationMessageFor(x => x.postContent)</div>
-                        </td>
+                        <th>帖子内容</th>
+                        <td style="padding:10px">
+                            <input type="hidden" id="getContent" value=@ViewBag.postInfo.postContent />
+                            <textarea id="postContent" name="postContent"></textarea>
+                            <script>
+                                $(document).ready(function () {
+                                    var getContent = $("#getContent").val();
+                                    $("#postContent").val(getContent);
+                                })
+                            </script>
+                        </td>>
                     </tr>
                     <tr>
                         <th></th>
-                        <td>
-                            <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="修改" />
-                        </td>
+                        <td><input type="submit" class="input-btn show-border" value="修改" /></td>
                     </tr>
-                </tbody>
-            </table>
+                </table>
+            }
         </form>
     </div>
 </div>
-    </div>
-</body>
-<script>
-    $(document).ready(function () {
-        $("input:radio[name = 'isPost'][value = '@ViewBag.postInfo.isPost']").attr("checked", true);
-        $("input:radio[name = 'isPay'][value = '@ViewBag.postInfo.isPay']").attr("checked", true);
-        $("input:radio[name = 'postStatus'][value = '@ViewBag.postInfo.postStatus']").attr("checked", true);
-    })
-</script>
-<script>
-    $(document).ready(function () {
-        var value = $('input:radio[name="isPay"]:checked').val();
-        if (value == "1") {
-            $("#amount").attr({ readonly: true });
-        }
-        else {
-            $("#amount").attr({ readonly: false });
-        }
-    })
-</script>
-</html>

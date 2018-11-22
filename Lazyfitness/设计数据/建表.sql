@@ -47,7 +47,7 @@ DROP TABLE resourceArea
 GO
 CREATE TABLE resourceArea
 (
-	areaId INT PRIMARY KEY,
+	areaId INT PRIMARY KEY IDENTITY(1, 1),
 	areaName NVARCHAR(50),
 	areaBrief TEXT
 )
@@ -59,7 +59,7 @@ DROP TABLE quesArea
 GO
 CREATE TABLE quesArea
 (
-	areaId INT PRIMARY KEY,
+	areaId INT PRIMARY KEY IDENTITY(1, 1),
 	areaName NVARCHAR(50),
 	areaBrief TEXT
 )
@@ -71,7 +71,7 @@ DROP TABLE postArea
 GO
 CREATE TABLE postArea
 (
-	areaId INT PRIMARY KEY,
+	areaId INT PRIMARY KEY IDENTITY(1, 1),
 	areaName NVARCHAR(50),
 	areaBrief TEXT
 )

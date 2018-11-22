@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "回答管理";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加回答", "addQueAnswComment", "commentManagement")
+                @Html.ActionLink("删除回答", "deleteQueAnswComment", "commentManagement")
+                @Html.ActionLink("评论管理", "Index", "commentManagement")
+            </div>
+        </div>
+    </div>
+    <div class="result-content">
+        <form method="post" action="/backStage/commentManagement/sureReplyAnswer">
+            <table class="insert-tab">
+                <tr><th></th><td class="show-title">删除回答</td></tr>
+                <tr>
+                    <th>输入问题帖子Id</th>
+                    <td>
+                        <input type="number" class="input-content" id="quesAnswId" name="quesAnswId" />
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <input class="btn-submit show-border" type="submit" value="查询" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</div>

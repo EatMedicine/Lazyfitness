@@ -4,6 +4,24 @@
     ViewBag.Title = "修改文章";
 }
 
+<link href="~/Css/Editor.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/lang/zh-cn/zh-cn.js"></script>
+
+<script type="text/javascript">
+    var editor = new baidu.editor.ui.Editor({
+
+        initialFrameWidth: 680,
+        initialFrameHeight: 300,
+        elementPathEnabled: false,
+        wordCount: false,
+    });
+    
+    editor.render('resourceContent');
+</script>
+
+
 <!--/sidebar-->
 <div class="main-wrap">
     <div class="crumb-wrap">
@@ -49,7 +67,7 @@
                         文章名称
                     </th>
                     <td>
-                        @Html.TextBoxFor(u => u.resourceName, new { Value = ViewBag.allInfo.resourceName, @class="input-content" })
+                        @Html.TextBoxFor(u => u.resourceName, new { Value = ViewBag.allInfo.resourceName, @class = "input-content" })
                         <div class="error-mes">
                             @Html.ValidationMessageFor(u => u.resourceName)
                         </div>
@@ -70,7 +88,7 @@
                         发布的时间
                     </th>
                     <td>
-                        @Html.TextBoxFor(u => u.resourceTime, new { Value = ViewBag.allInfo.resourceTime, @class = "input-content no-border txt-unchange", @readonly="readonly" })
+                        @Html.TextBoxFor(u => u.resourceTime, new { Value = ViewBag.allInfo.resourceTime, @class = "input-content no-border txt-unchange", @readonly = "readonly" })
                         <div class="error-mes">
                             @Html.ValidationMessageFor(u => u.resourceTime)
                         </div>
@@ -99,12 +117,12 @@
                             if (ViewBag.allInfo.isTop == 0)
                             {
                                 @Html.RadioButtonFor(u => u.isTop, 0, new { @checked = "checked", @class = "radio-dis" }) <label> 否 </label>
-                                @Html.RadioButtonFor(u => u.isTop, 1, new { @class= "radio-dis" }) <label>是</label>
+                                @Html.RadioButtonFor(u => u.isTop, 1, new { @class = "radio-dis" }) <label>是</label>
                             }
                             else
                             {
                                 @Html.RadioButtonFor(u => u.isTop, 0, new { @class = "radio-dis" }) <label> 否 </label>
-                                @Html.RadioButtonFor(u => u.isTop, 1, new { @checked = "checked", @class = "radio-dis"}) <label>是</label>
+                                @Html.RadioButtonFor(u => u.isTop, 1, new { @checked = "checked", @class = "radio-dis" }) <label>是</label>
                             }
                         }
 
@@ -115,11 +133,15 @@
                     <th>
                         内容
                     </th>
-                    <td>
-                        @Html.TextBoxFor(u => u.resourceContent, new { Value = ViewBag.allInfo.resourceContent, @class="input-content" })
-                        <div class="error-mes">
-                            @Html.ValidationMessageFor(u => u.resourceContent)
-                        </div>
+                    <td style="padding:10px">
+                        <input type="hidden" id="getContent" value=@ViewBag.allInfo.resourceContent/>
+                        <textarea id="resourceContent" name="resourceContent"></textarea>
+                        <script>
+                            $(document).ready(function () {
+                                var getContent = $("#getContent").val();
+                                $("#resourceContent").val(getContent);
+                            })
+                        </script>
                     </td>
                 </tr>
 

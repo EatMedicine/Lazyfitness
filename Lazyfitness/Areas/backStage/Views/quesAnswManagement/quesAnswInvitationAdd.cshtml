@@ -3,6 +3,23 @@
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.title = "问答帖子管理";
 }
+
+<link href="~/Css/Editor.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    var editor = new baidu.editor.ui.Editor({
+
+        initialFrameWidth: 680,
+        initialFrameHeight: 300,
+        elementPathEnabled: false,
+        wordCount: false,
+    });
+
+    editor.render('quesAnswContent');
+</script>
+
 <!--/sidebar-->
 <div class="main-wrap">
     <div class="crumb-wrap">
@@ -36,21 +53,12 @@
                             @{
                                 foreach (var quesArea in @ViewBag.quesArea)
                                 {
-                                    <option value="@quesArea.areaId">@quesArea.areaId &nbsp&nbsp @quesArea.areaName</option>
+                                    <option class="dropdown-list" value="@quesArea.areaId">@quesArea.areaId &nbsp&nbsp @quesArea.areaName</option>
                                 }
                             }
                         </select>
                     </td>
-                </tr>
-                <tr>
-                    <th>
-                        帖子ID
-                    </th>
-                    <td>
-                        @Html.TextBoxFor(u => u.quesAnswId, new { @type = "text", @class = "input-content" })
-                        <div class="error-mes">@Html.ValidationMessageFor(x => x.quesAnswId)</div>
-                    </td>
-                </tr>
+                </tr>               
                 <tr>
                     <th>
                         帖子标题
@@ -83,7 +91,7 @@
                         付费金额
                     </th>
                     <td>
-                        @Html.TextBoxFor(u => u.amount, new { @id = "amount", @name = "amount" })
+                        @Html.TextBoxFor(u => u.amount, new { @id = "amount", @name = "amount", @class="input-content" })
                     </td>
                 </tr>
                 <tr>
@@ -91,19 +99,18 @@
                         帖子状态
                     </th>
                     <td>
-                        <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="0" />所有人可见
-                        <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="1" />好友可见
-                        <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="2" />仅自己可见
-                        <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="3" />隐藏
+                        <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="0" />隐藏
+                        <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="1" />不可回复
+                        <input type="radio" id="quesAnswStatus" name="quesAnswStatus" value="2" />可回复
                     </td>
                 </tr>
                 <tr>
                     <th>
                         帖子内容
                     </th>
-                    <td>
-                        @Html.TextBoxFor(u => u.quesAnswContent, new { @type = "text", @class = "input-content" })
-                        <div class="error-mes">@Html.ValidationMessageFor(x => x.quesAnswContent)</div>
+
+                    <td style="padding:10px">
+                        <textarea id="quesAnswContent" name="quesAnswContent"></textarea>
                     </td>
                 </tr>
                 <tr>

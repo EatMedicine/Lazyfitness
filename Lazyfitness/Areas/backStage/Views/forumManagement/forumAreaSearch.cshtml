@@ -32,11 +32,11 @@
                                 分区名称
                             </th>
                             <td>
-                                <select name="areaName">
+                                <select name="areaId">
                                     @{ 
-                                        foreach(var areaName in @ViewBag.areaName)
+                                        foreach(var item in @ViewBag.areaInfo)
                                         {
-                                            <option value="@areaName">@areaName</option>
+                                            <option class="dropdown-list" value="@item.areaId" id="">@item.areaName</option>
                                         }
                                     }
                                 </select>

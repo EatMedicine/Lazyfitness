@@ -3,6 +3,25 @@
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.title = "论坛帖子管理";
 }
+
+<link href="~/Css/Editor.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/lang/zh-cn/zh-cn.js"></script>
+
+<script type="text/javascript">
+    var editor = new baidu.editor.ui.Editor({
+
+        initialFrameWidth: 680,
+        initialFrameHeight: 300,
+        elementPathEnabled: false,
+        wordCount: false,
+    });
+
+    editor.render('postContent');
+</script>
+
+
 <!--/sidebar-->
 <div class="main-wrap">
     <div class="crumb-wrap">
@@ -36,19 +55,10 @@
                             @{
                                 foreach (var postArea in @ViewBag.postArea)
                                 {
-                                    <option value="@postArea.areaId">@postArea.areaId &nbsp&nbsp @postArea.areaName</option>
+                                    <option class="dropdown-list" value="@postArea.areaId">@postArea.areaId &nbsp&nbsp @postArea.areaName</option>
                                 }
                             }
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        帖子ID
-                    </th>
-                    <td>
-                        @Html.TextBoxFor(u => u.postId, new { @type = "text", @class = "input-content" })
-                        <div class="error-mes">@Html.ValidationMessageFor(x => x.postId)</div>
                     </td>
                 </tr>
                 <tr>
@@ -62,15 +72,6 @@
                 </tr>
                 <tr>
                     <th>
-                        用户ID
-                    </th>
-                    <td>
-                        @Html.TextBoxFor(u => u.userId, new { @type = "text", @class = "input-content" })
-                        <div class="error-mes">@Html.ValidationMessageFor(x => x.userId)</div>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
                         是否置顶
                     </th>
                     <td>
@@ -80,29 +81,13 @@
                 </tr>
                 <tr>
                     <th>
-                        是否付费
-                    </th>
-                    <td>
-                        <input type="radio" id="isPay" name="isPay" value="0" />否
-                        <input type="radio" id="isPay" name="isPay" value="1" />是
-                    </td>
-                </tr>
-                <tr>
-                    <th>
                         付费金额
                     </th>
                     <td>
-                        <script type="text/javascript">
-                            $(document).ready(function () {
-                                if ($('input[name="isPay"]:checked').val() == 1) {
-                                    $("#amount").attr({ readonly: 'true' });
-                                }
-                                else {
-                                    $("#amount").attr({ readonly: 'false' });
-                                }
-                            })
-                        </script>
                         @Html.TextBoxFor(u => u.amount, new { @id = "amount", @name = "amount" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.amount)
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -110,20 +95,18 @@
                         帖子状态
                     </th>
                     <td>
-                        <input type="radio" id="postStatus" name="postStatus" value="0" />所有人可见
-                        <input type="radio" id="postStatus" name="postStatus" value="1" />好友可见
-                        <input type="radio" id="postStatus" name="postStatus" value="2" />仅自己可见
-                        <input type="radio" id="postStatus" name="postStatus" value="3" />隐藏
+                        <input class="radio-dis" type="radio" id="postStatus" name="postStatus" value="0" />隐藏
+                        <input class="radio-dis" type="radio" id="postStatus" name="postStatus" value="1" />不可回复
+                        <input class="radio-dis" type="radio" id="postStatus" name="postStatus" value="2" />可回复
                     </td>
                 </tr>
                 <tr>
                     <th>
                         帖子内容
                     </th>
-                    <td>
-                        @Html.TextBoxFor(u => u.postContent, new { @type = "text", @class = "input-content" })
-                        <div class="error-mes">@Html.ValidationMessageFor(x => x.postContent)</div>
-                    </td>
+                    <td style="padding:10px">
+                        <textarea id="postContent" name="postContent"></textarea>                     
+                    </td>             
                 </tr>
                 <tr>
                     <th></th>
@@ -135,7 +118,3 @@
         </form>
     </div>
 </div>
-    </div>
-</body>
-</html>
-

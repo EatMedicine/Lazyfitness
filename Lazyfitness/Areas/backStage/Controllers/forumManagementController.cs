@@ -157,6 +157,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
             ViewBag.postsumPage = GetSumPagepost(10);
             ViewBag.allInfo = GetPagedListpost(1, 10, x => x == x, u => u.userId);
             var allInfo = GetPagedListpost(1, 10, x => x == x, u => u.userId);
+            if (allInfo == null)
+            {
+                return View();
+            }
             ArrayList areaNameList = new ArrayList();
             ArrayList userNameList = new ArrayList();
             using (LazyfitnessEntities db = new LazyfitnessEntities())
@@ -241,15 +245,8 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    //先判断登录Id是否可用
-                    var isareaId = db.postArea.Where(u => u.areaId == area.areaId);
-                    if (isareaId.ToList().Count != 0)
-                    {
-                        return "论坛分区已存在";
-                    }
                     postArea _area = new postArea
                     {
-                        areaId = area.areaId,
                         areaName = area.areaName,
                         areaBrief = area.areaBrief
                     };
@@ -279,10 +276,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                var areaName = db.postArea.Select(u => u.areaName).ToList();
-                if (areaName != null)
+                var areaInfo = db.postArea.ToList();
+                if (areaInfo != null)
                 {
-                    ViewBag.areaName = areaName;
+                    ViewBag.areaInfo = areaInfo;
                 }
                 else
                 {
@@ -310,7 +307,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 ViewBag.IsSearchSuccess = false;
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    DbQuery<postArea> dbAreasearch = db.postArea.Where(u => u.areaName == area.areaName) as DbQuery<postArea>;
+                    DbQuery<postArea> dbAreasearch = db.postArea.Where(u => u.areaId == area.areaId) as DbQuery<postArea>;
                     postArea _postArea = dbAreasearch.FirstOrDefault();
                     if (_postArea != null)
                     {
@@ -382,6 +379,11 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     {
                         return "删除的论坛分区不存在";
                     }
+                    var listInfo = db.postInfo.Where(u => u.areaId == _postArea.areaId).ToList();
+                    if (listInfo != null)
+                    {
+                        db.postInfo.RemoveRange(listInfo);
+                    }
                     db.Entry<postArea>(_postArea).State = System.Data.Entity.EntityState.Deleted;
                     db.SaveChanges();
                     return "论坛分区删除成功";
@@ -418,16 +420,15 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     DbQuery<postArea> dbArea = db.postArea.Where(u => u.areaId == area.areaId) as DbQuery<postArea>;
                     postArea _postArea = dbArea.FirstOrDefault();
                     //将要修改的值，放到数据上下文中
-                    _postArea.areaId = area.areaId;
                     _postArea.areaName = area.areaName;
                     _postArea.areaBrief = area.areaBrief;
                     db.SaveChanges(); //将修改之后的值保存到数据库中
                 }
                 return "论坛分区修改成功";
             }
-            catch
+            catch(Exception ex)
             {
-                return "论坛分区修改失败";
+                return ex.ToString();
             }
         }
         #endregion
@@ -463,13 +464,15 @@ namespace Lazyfitness.Areas.backStage.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateInput(false)]
         public string forumInvitationAdd(postInfo info)
         {
+            string cookieText = null;
             if (Request.Cookies["managerId"] != null)
             {
                 //获取Cookies的值
                 HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
+                cookieText = Server.HtmlEncode(cookieName.Value).ToString();
             }
             else
             {
@@ -479,23 +482,15 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    //先判断登录Id是否可用
-                    var isareaId = db.postArea.Where(u => u.areaId == info.areaId);
-                    var ispostId = db.postInfo.Where(u => u.postId == info.postId);
-                    if (isareaId.ToList().Count == 0)
-                    {
-                        return "论坛分区不存在";
-                    }
-                    if (ispostId.ToList().Count != 0)
-                    {
-                        return "论坛帖子ID已存在";
-                    }
+                    //找到userId
+                    var dbFindUser = db.userSecurity.Where(u => u.loginId == cookieText);
+                    var obFindUser = dbFindUser.FirstOrDefault();
+                    int rightUserId = obFindUser.userId;
                     postInfo _info = new postInfo
                     {
                         areaId = info.areaId,
-                        postId = info.postId,
                         postTitle = info.postTitle,
-                        userId = info.userId,
+                        userId = rightUserId,
                         postTime = DateTime.Now,
                         pageView = 0,
                         isPost = info.isPost,                        
@@ -541,62 +536,63 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             return View();
         }
-        [HttpPost]
-        public ActionResult forumInvitationSearch(postInfo info)
-        {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return View("Index");
-            }
-            try
-            {
-                //先查询,后修改
-                ViewBag.IsSearchSuccess = false;
-                using (LazyfitnessEntities db = new LazyfitnessEntities())
-                {
-                    postInfo _postinfo = db.postInfo.Where(u => u.postId == info.postId).FirstOrDefault();
-                    if (_postinfo != null)
-                    {
-                        ViewBag.postInfo = _postinfo;
+        //[HttpPost]
+        //public ActionResult forumInvitationSearch(postInfo info)
+        //{
+        //    if (Request.Cookies["managerId"] != null)
+        //    {
+        //        //获取Cookies的值
+        //        HttpCookie cookieName = Request.Cookies["managerId"];
+        //        var cookieText = Server.HtmlEncode(cookieName.Value);
+        //    }
+        //    else
+        //    {
+        //        return View("Index");
+        //    }
+        //    try
+        //    {
+        //        //先查询,后修改
+        //        ViewBag.IsSearchSuccess = false;
+        //        using (LazyfitnessEntities db = new LazyfitnessEntities())
+        //        {
+        //            postInfo _postinfo = db.postInfo.Where(u => u.postId == info.postId).FirstOrDefault();
+        //            if (_postinfo != null)
+        //            {
+        //                ViewBag.postInfo = _postinfo;
 
-                        var postArea = db.postArea.ToList();
-                        if (postArea != null)
-                        {
-                            ViewBag.postArea = postArea;
-                        }
-                        else
-                        {
-                            return Content("<script >alert('帖子分区已被注销！无法查看！！！');</script >", "text/html"); 
-                        }
-                        var userInfo = db.userInfo.Where(u => u.userId == _postinfo.userId).FirstOrDefault();
-                        if (userInfo != null)
-                        {
-                            ViewBag.userInfo = userInfo;
-                        }
-                        else
-                        {
-                            return Content("<script >alert('帖子拥有者已被注销！无法查看！！！');</script >", "text/html");
-                        }
-                    }
-                    else
-                    {
-                        return View("forumInvitationUpdate");
-                    }
-                }
-                ViewBag.IsSearchSuccess = true;
-                return View("forumInvitationUpdate");
-            }
-            catch
-            {
-                return View("forumInvitationUpdate");
-            }
-        }
+        //                var postArea = db.postArea.ToList();
+        //                if (postArea != null)
+        //                {
+        //                    ViewBag.postArea = postArea;
+        //                }
+        //                else
+        //                {
+        //                    return Content("<script >alert('帖子分区已被注销！无法查看！！！');</script >", "text/html"); 
+        //                }
+        //                var userInfo = db.userInfo.Where(u => u.userId == _postinfo.userId).FirstOrDefault();
+        //                if (userInfo != null)
+        //                {
+        //                    ViewBag.userInfo = userInfo;
+        //                }
+        //                else
+        //                {
+        //                    return Content("<script >alert('帖子拥有者已被注销！无法查看！！！');</script >", "text/html");
+        //                }
+        //            }
+        //            else
+        //            {
+        //                return View("forumInvitationUpdate");
+        //            }
+        //        }
+                
+        //        ViewBag.IsSearchSuccess = true;
+        //        return View("forumInvitationUpdate");
+        //    }
+        //    catch
+        //    {
+        //        return View("forumInvitationUpdate");
+        //    }
+        //}
         #endregion
         #region 删除
         public ActionResult forumInvitationDelete()
@@ -666,8 +662,8 @@ namespace Lazyfitness.Areas.backStage.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public string forumInvitationUpdate(postInfo info)
+        [HttpPost]        
+        public ActionResult forumInvitationUpdate(int postId)
         {
             if (Request.Cookies["managerId"] != null)
             {
@@ -677,28 +673,77 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             else
             {
-                return "未登录";
+                return Content("未登录");
             }
             try
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    postInfo _postInfo = db.postInfo.Where(u => u.postId == info.postId).FirstOrDefault();
-                    //将要修改的值，放到数据上下文中
-                    _postInfo.areaId = info.areaId;
-                    _postInfo.postTitle = info.postTitle;
-                    _postInfo.isPost = info.isPost;
-                    _postInfo.amount = info.amount;
-                    _postInfo.postStatus = info.postStatus;
-                    _postInfo.postContent = info.postContent;
-                    db.SaveChanges(); //将修改之后的值保存到数据库中
+
+                    var dbForum = db.postInfo.Where(u => u.postId == postId);
+                    var obForum = dbForum.FirstOrDefault();
+                    ViewBag.postInfo = obForum;
+                    var postArea = db.postArea.ToList();
+                    if (postArea != null)
+                    {
+                        ViewBag.postArea = postArea;
+                    }
+                    var dbUserInfo = db.userInfo.Where(u => u.userId == obForum.userId);
+                    var obUserInfo = dbUserInfo.FirstOrDefault();
+                    if (obUserInfo != null)
+                    {
+                        ViewBag.userInfo = obUserInfo;
+                    }
                 }
-                return "论坛帖子修改成功";
+                return View();
             }
             catch
             {
-                return "论坛帖子修改失败";
+                return Content("出错！");
             }
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult changeForum(postInfo info)
+        {
+            string cookieText = null;
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                cookieText = Server.HtmlEncode(cookieName.Value).ToString();
+            }
+            else
+            {
+                return Content("未登录");
+            }
+
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    var dbInfo = db.postInfo.Where(u => u.postId == info.postId);
+                    var obInfo = dbInfo.FirstOrDefault();
+                    int getUserId = db.userInfo.Where(u => u.userName == cookieText).FirstOrDefault().userId;
+                    obInfo.areaId = info.areaId;
+                    obInfo.postTitle = info.postTitle;
+                    obInfo.userId = getUserId;
+                    obInfo.postTime = DateTime.Now;
+                    obInfo.pageView = info.pageView;
+                    obInfo.isPost = info.isPost;
+                    obInfo.amount = info.amount;
+                    obInfo.postStatus = info.postStatus;
+                    obInfo.postContent = info.postContent;
+
+                    db.SaveChanges();
+                    return Content("T");
+                }
+            }
+            catch(Exception ex)
+            {
+                return Content(ex.ToString());
+            }
+            
         }
         #endregion
         #endregion

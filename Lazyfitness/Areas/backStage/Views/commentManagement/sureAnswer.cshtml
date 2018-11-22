@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "增加回答";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+}
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/lang/zh-cn/zh-cn.js"></script>
+
+<script type="text/javascript">
+    var editor = new baidu.editor.ui.Editor({
+
+        initialFrameWidth: 680,
+        initialFrameHeight: 300,
+        elementPathEnabled: false,
+        wordCount: false,
+    });
+    editor.render('replyContent');
+</script>
+
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加回答", "addQueAnswComment", "commentManagement")
+                @Html.ActionLink("删除回答", "deleteQueAnswComment", "commentManagement")
+                @Html.ActionLink("评论管理", "Index", "commentManagement")
+            </div>
+        </div>
+
+        <div class="result-content">
+            <table class="result-tab">
+                <tr>
+                    <th>分区名</th>
+                    <th>问题名</th>
+                    <th>发布者</th>
+                    <th>发布时间</th>
+                    <th>问题简略内容</th>
+                </tr>
+                <tr>
+                    <td>@ViewBag.areaName</td>
+                    <td>@ViewBag.obQuesInfo.quesAnswTitle</td>
+                    <td>@ViewBag.ownerName</td>
+                    <td>@ViewBag.obQuesInfo.quesAnswTime</td>
+                    <td>@ViewBag.obQuesInfo.quesAnswContent</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="editor">
+            @using (Html.BeginForm("addAnswer", "commentManagement", FormMethod.Post))
+            {
+                <input id="quesAnswId" name="quesAnswId" type="hidden" value=@ViewBag.obQuesInfo.quesAnswId />
+                <textarea id="replyContent" name="replyContent"></textarea>
+                <input id="submit" type="submit" value="发布" />
+            }
+        </div>
+
+
+    </div>
+</div>
