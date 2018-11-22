@@ -428,6 +428,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateInput(false)]
         public string quesAnswInvitationAdd(quesAnswInfo info)
         {
             if (Request.Cookies["managerId"] != null)
@@ -453,7 +454,6 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     quesAnswInfo _info = new quesAnswInfo
                     {
                         areaId = info.areaId,
-                        quesAnswId = info.quesAnswId,
                         quesAnswTitle = info.quesAnswTitle,
                         userId = info.userId,
                         quesAnswTime = DateTime.Now,
@@ -629,6 +629,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateInput(false)]
         public string quesAnswInvitationUpdate(quesAnswInfo info)
         {
             if (Request.Cookies["managerId"] != null)

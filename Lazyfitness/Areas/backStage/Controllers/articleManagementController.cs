@@ -332,6 +332,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult addArticle(resourceInfo resource)
         {
             string cookieText = null;
@@ -487,6 +488,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
         }
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult changeArticleInfo(resourceInfo resource)
         {
             if (Request.Cookies["managerId"] != null)

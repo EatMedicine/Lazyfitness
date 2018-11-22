@@ -242,11 +242,14 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     return Content("没有这个问题");
                 }
                 var obQuesInfo = dbQues.FirstOrDefault();
-                string areaName = db.quesArea.Where(u => u.areaId == obQuesInfo.areaId).FirstOrDefault().areaName;
-                string ownerName = db.userInfo.Where(u => u.userId == obQuesInfo.userId).FirstOrDefault().userName;
-                ViewBag.areaName = areaName;
-                ViewBag.ownerName = ownerName;
-                ViewBag.obQuesInfo = obQuesInfo;
+                if (obQuesInfo != null)
+                {
+                    string areaName = db.quesArea.Where(u => u.areaId == obQuesInfo.areaId).FirstOrDefault().areaName;
+                    string ownerName = db.userInfo.Where(u => u.userId == obQuesInfo.userId).FirstOrDefault().userName;
+                    ViewBag.areaName = areaName;
+                    ViewBag.ownerName = ownerName;
+                    ViewBag.obQuesInfo = obQuesInfo;
+                }
             }
             return View();
         }

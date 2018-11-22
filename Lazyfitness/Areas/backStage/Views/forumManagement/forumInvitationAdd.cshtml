@@ -3,6 +3,25 @@
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.title = "论坛帖子管理";
 }
+
+<link href="~/Css/Editor.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/lang/zh-cn/zh-cn.js"></script>
+
+<script type="text/javascript">
+    var editor = new baidu.editor.ui.Editor({
+
+        initialFrameWidth: 680,
+        initialFrameHeight: 300,
+        elementPathEnabled: false,
+        wordCount: false,
+    });
+
+    editor.render('postContent');
+</script>
+
+
 <!--/sidebar-->
 <div class="main-wrap">
     <div class="crumb-wrap">
@@ -41,7 +60,7 @@
                             }
                         </select>
                     </td>
-                </tr>               
+                </tr>
                 <tr>
                     <th>
                         帖子标题
@@ -51,15 +70,6 @@
                         <div class="error-mes">@Html.ValidationMessageFor(x => x.postTitle)</div>
                     </td>
                 </tr>
-                @*<tr>
-                    <th>
-                        用户ID
-                    </th>
-                    <td>
-                        @Html.TextBoxFor(u => u.userId, new { @type = "text", @class = "input-content" })
-                        <div class="error-mes">@Html.ValidationMessageFor(x => x.userId)</div>
-                    </td>
-                </tr>*@
                 <tr>
                     <th>
                         是否置顶
@@ -68,7 +78,7 @@
                         <input type="radio" id="isPost" name="isPost" value="0" />否
                         <input type="radio" id="isPost" name="isPost" value="1" />是
                     </td>
-                </tr>              
+                </tr>
                 <tr>
                     <th>
                         付费金额
@@ -94,10 +104,9 @@
                     <th>
                         帖子内容
                     </th>
-                    <td>
-                        @Html.TextBoxFor(u => u.postContent, new { @type = "text", @class = "input-content" })
-                        <div class="error-mes">@Html.ValidationMessageFor(x => x.postContent)</div>
-                    </td>
+                    <td style="padding:10px">
+                        <textarea id="postContent" name="postContent"></textarea>                     
+                    </td>             
                 </tr>
                 <tr>
                     <th></th>
@@ -109,7 +118,3 @@
         </form>
     </div>
 </div>
-    </div>
-</body>
-</html>
-
