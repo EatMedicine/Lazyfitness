@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "评论管理";
+    ViewBag.Title = "论坛评论管理";
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
 }
 <!--/sidebar-->
@@ -16,8 +16,10 @@
 
         <div class="result-content">
             <div class="short-wrap">
-                @Html.ActionLink("论坛评论管理", "forumComment", "commentManagement")
-                @Html.ActionLink("问答评论管理", "quesAnswComment", "commentManagement")
+                @Html.ActionLink("增加评论", "addForumComment", "commentManagement")
+                @Html.ActionLink("修改评论", "updateForumComment", "commentManagement")
+                @Html.ActionLink("删除评论", "deleteForumComment", "commentManagement")
+                @Html.ActionLink("评论管理", "Index", "commentManagement")
             </div>
         </div>
     </div>

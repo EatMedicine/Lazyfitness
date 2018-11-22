@@ -223,7 +223,14 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     {
                         return "not find";
                     }
+                    //删除该分区下所有的内容
+                    var listInfo = db.resourceInfo.Where(u => u.areaId == isExist.FirstOrDefault().areaId).ToList();
+
                     //标记为删除状态
+                    if (listInfo != null)
+                    {
+                        db.resourceInfo.RemoveRange(listInfo);
+                    }
                     db.resourceArea.Remove(isExist.FirstOrDefault());
                     //执行删除的sql语句
                     db.SaveChanges();

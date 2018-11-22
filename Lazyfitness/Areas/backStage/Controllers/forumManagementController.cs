@@ -276,10 +276,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                var areaName = db.postArea.Select(u => u.areaName).ToList();
-                if (areaName != null)
+                var areaInfo = db.postArea.ToList();
+                if (areaInfo != null)
                 {
-                    ViewBag.areaName = areaName;
+                    ViewBag.areaInfo = areaInfo;
                 }
                 else
                 {
@@ -307,7 +307,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 ViewBag.IsSearchSuccess = false;
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    DbQuery<postArea> dbAreasearch = db.postArea.Where(u => u.areaName == area.areaName) as DbQuery<postArea>;
+                    DbQuery<postArea> dbAreasearch = db.postArea.Where(u => u.areaId == area.areaId) as DbQuery<postArea>;
                     postArea _postArea = dbAreasearch.FirstOrDefault();
                     if (_postArea != null)
                     {
@@ -378,6 +378,11 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     if (_postArea == null)
                     {
                         return "删除的论坛分区不存在";
+                    }
+                    var listInfo = db.postInfo.Where(u => u.areaId == _postArea.areaId).ToList();
+                    if (listInfo != null)
+                    {
+                        db.postInfo.RemoveRange(listInfo);
                     }
                     db.Entry<postArea>(_postArea).State = System.Data.Entity.EntityState.Deleted;
                     db.SaveChanges();

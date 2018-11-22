@@ -635,11 +635,6 @@
     <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswInvitationUpdate.cshtml" />
     <Content Include="Areas\backStage\Views\quesAnswManagement\Index.cshtml" />
     <Content Include="Areas\backStage\Views\forumManagement\Index.cshtml" />
-    <Content Include="Areas\backStage\Views\commentManagement\forumcommentShield.cshtml" />
-    <Content Include="Areas\backStage\Views\commentManagement\forumcommentDelete.cshtml" />
-    <Content Include="Areas\backStage\Views\commentManagement\quesAnswcommentShield.cshtml" />
-    <Content Include="Areas\backStage\Views\commentManagement\quesAnswcommentDelete.cshtml" />
-    <Content Include="Areas\backStage\Views\commentManagement\Index.cshtml" />
     <Content Include="Areas\backStage\Views\pageView\Index.cshtml" />
     <Content Include="Areas\backStage\Views\forumManagement\forumAreaIndex.cshtml" />
     <Content Include="Areas\backStage\Views\forumManagement\forumInvitationIndex.cshtml" />
@@ -662,6 +657,9 @@
     <Content Include="Models\Lazyfitness.edmx.diagram">
       <DependentUpon>Lazyfitness.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\backStage\Views\commentManagement\Index.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\forumComment.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\addForumComment.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
