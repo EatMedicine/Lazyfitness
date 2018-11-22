@@ -39,7 +39,7 @@ function loadContent() {
                     '<div class="ques-list-item" >' +
                     '<div class="item-con">' +
                     '<div class="item-title">' +
-                    '<h3><a href="#">' + data[count].Title + '</a></h3>' +
+                    '<h3><a href="' + data[count].Url +'">' + data[count].Title + '</a></h3>' +
                     '</div>' +
                     '<div class="item-introduction">' +
                     '<p>' + data[count].Introduction + '</p>' +

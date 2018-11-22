@@ -11,6 +11,7 @@ namespace Lazyfitness.MyClass
         private string _introduction;
         private string _headAdr;
         private string _name;
+        private string _url;
 
         public string Title
         {
@@ -61,6 +62,19 @@ namespace Lazyfitness.MyClass
             set
             {
                 _name = value;
+            }
+        }
+
+        public string Url
+        {
+            get
+            {
+                return _url;
+            }
+
+            set
+            {
+                _url = value;
             }
         }
     }

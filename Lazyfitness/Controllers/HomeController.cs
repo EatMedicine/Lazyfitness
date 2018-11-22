@@ -169,6 +169,23 @@ namespace Lazyfitness.Controllers
                 url[count] = Url.Action("QuestionPart", "Home", new { partId = quesId[count] });
             }
             ViewBag.PartUrl = url;
+            //获取个人信息
+            HttpCookie loginIdCookie = Request.Cookies.Get("loginId");
+            HttpCookie userIdCookie = Request.Cookies.Get("userId");
+            HttpCookie certificationCookie = Request.Cookies.Get("certification");
+            //如果登录了
+            if (certificateTools.IsUserCookieCorrect(userIdCookie,loginIdCookie,certificationCookie) == true)
+            {
+                ViewBag.IsLogin = true;
+                ViewBag.UserInfo = Tools.GetUserInfo(Int32.Parse(userIdCookie.Value));
+
+            }
+            else
+            {
+                ViewBag.IsLogin = false;
+            }
+
+
             return View();
         }
         //论坛
@@ -222,6 +239,7 @@ namespace Lazyfitness.Controllers
                 items[count].Name = user.userName;
                 items[count].Title = info[count].resourceName;
                 items[count].HeadAdr = user.userHeaderPic;
+                items[count].Url = Url.Action("ArticleDetail", "Home", new { num = info[count].resourceId });
                 int length = 20;
                 string intro = Tools.GetNoHTMLString(info[count].resourceContent);
                 if (intro.Length < 20)
@@ -248,6 +266,7 @@ namespace Lazyfitness.Controllers
                 items[count].Name = user.userName;
                 items[count].Title = info[count].quesAnswTitle;
                 items[count].HeadAdr = user.userHeaderPic;
+                items[count].Url = Url.Action("ArticleDetail", "Home", new { num = info[count].quesAnswId });
                 int length = 20;
                 string intro = Tools.GetNoHTMLString(info[count].quesAnswContent);
                 if (intro.Length < 20)
@@ -274,6 +293,7 @@ namespace Lazyfitness.Controllers
                 items[count].Name = user.userName;
                 items[count].Title = info[count].postTitle;
                 items[count].HeadAdr = user.userHeaderPic;
+                items[count].Url = Url.Action("forumDetail", "Home", new { num = info[count].postId });
                 int length = 20;
                 string intro = Tools.GetNoHTMLString(info[count].postContent);
                 if (intro.Length < 20)

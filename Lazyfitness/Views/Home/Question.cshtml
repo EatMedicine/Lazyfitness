@@ -13,6 +13,7 @@
         ViewBag.PartUrl 分区Url列表 string[]
 
 *@
+@using Lazyfitness.Models;
 @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
 <link href="~/Css/Question.css?v=2018-1028-1926" rel="stylesheet" type="text/css" />
 <script src="~/Scripts/QuestionJs.js?v=2018-1028-1926"></script>
@@ -71,9 +72,16 @@
                 </div>
             </div>*@
         </div>
+        @if (ViewBag.IsLogin == true)
+        {
+            userInfo info = ViewBag.UserInfo as userInfo;
         <div class="right-bar">
-            
+            <img class="bar-headPic" src="@info.userHeaderPic" />
+            <p class="bar-p">名字：@info.userName</p>
+            <p class="bar-p">余额：@info.userAccount</p>
         </div>
+        }
+
     </div>
     <div class="go-top unvis" id="top-btn">
         <a href="#"><img src="~/Resource/picture/gotoTop.png"/></a>
