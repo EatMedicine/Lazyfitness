@@ -223,15 +223,8 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    //先判断登录Id是否可用
-                    var isareaId = db.quesArea.Where(u => u.areaId == area.areaId);
-                    if (isareaId.ToList().Count != 0)
-                    {
-                        return "问答分区已存在";
-                    }
                     quesArea _area = new quesArea
                     {
-                        areaId = area.areaId,
                         areaName = area.areaName,
                         areaBrief = area.areaBrief
                     };
@@ -261,10 +254,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                var areaName = db.quesArea.Select(u => u.areaName).ToList();
-                if (areaName != null)
+                var areaInfo = db.quesArea.ToList();
+                if (areaInfo != null)
                 {
-                    ViewBag.areaName = areaName;
+                    ViewBag.areaInfo = areaInfo;
                 }
                 else
                 {
@@ -292,7 +285,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 ViewBag.IsSearchSuccess = false;
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    DbQuery<quesArea> dbAreasearch = db.quesArea.Where(u => u.areaName == area.areaName) as DbQuery<quesArea>;
+                    DbQuery<quesArea> dbAreasearch = db.quesArea.Where(u => u.areaId == area.areaId) as DbQuery<quesArea>;
                     quesArea _quesArea = dbAreasearch.FirstOrDefault();
                     if (_quesArea != null)
                     {
@@ -391,7 +384,6 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     DbQuery<quesArea> dbArea = db.quesArea.Where(u => u.areaId == area.areaId) as DbQuery<quesArea>;
                     quesArea _quesArea = dbArea.FirstOrDefault();
                     //将要修改的值，放到数据上下文中
-                    _quesArea.areaId = area.areaId;
                     _quesArea.areaName = area.areaName;
                     _quesArea.areaBrief = area.areaBrief;
                     db.SaveChanges(); //将修改之后的值保存到数据库中

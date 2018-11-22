@@ -89,36 +89,29 @@
                             是否置顶
                         </th>
                         <td>
-                            <input type="radio" id="isPost" name="isPost" value="0" />否
-                            <input type="radio" id="isPost" name="isPost" value="1" />是
+                            <input class="radio-dis" type="radio" id="isPost" name="isPost" value="0" />否
+                            <input class="radio-dis" type="radio" id="isPost" name="isPost" value="1" />是
                         </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            是否付费
-                        </th>
-                        <td>
-                            <input type="radio" id="isPay" name="isPay" value="0" />否
-                            <input type="radio" id="isPay" name="isPay" value="1" />是
-                        </td>
-                    </tr>
+                    </tr>                  
                     <tr>
                         <th>
                             付费金额
                         </th>
                         <td>
                             @Html.TextBoxFor(u => u.amount, new { @Value = @ViewBag.postInfo.amount, @type = "text", @class = "input-content", @id = "amount", @name = "amount" })
-                        </td>
+                            <div class="error-mes">
+                                @Html.ValidationMessageFor(u=>u.amount)
+                            </div>
+                        </td>                       
                     </tr>
                     <tr>
                         <th>
                             帖子状态
                         </th>
                         <td>
-                            <input type="radio" id="postStatus" name="postStatus" value="0" />所有人可见
-                            <input type="radio" id="postStatus" name="postStatus" value="1" />好友可见
-                            <input type="radio" id="postStatus" name="postStatus" value="2" />仅自己可见
-                            <input type="radio" id="postStatus" name="postStatus" value="3" />隐藏
+                            <input class="radio-dis" type="radio" id="postStatus" name="postStatus" value="0" />隐藏
+                            <input class="radio-dis" type="radio" id="postStatus" name="postStatus" value="1" />不可回复
+                            <input class="radio-dis" type="radio" id="postStatus" name="postStatus" value="2" />可回复
                         </td>
                     </tr>
                     <tr>
@@ -141,12 +134,9 @@
         </form>
     </div>
 </div>
-    </div>
-</body>
 <script>
     $(document).ready(function () {
         $("input:radio[name = 'isPost'][value = '@ViewBag.postInfo.isPost']").attr("checked", true);
-        $("input:radio[name = 'isPay'][value = '@ViewBag.postInfo.isPay']").attr("checked", true);
         $("input:radio[name = 'postStatus'][value = '@ViewBag.postInfo.postStatus']").attr("checked", true);
     })
 </script>
@@ -161,4 +151,3 @@
         }
     })
 </script>
-</html>

@@ -58,6 +58,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
             ViewBag.sumPage = GetSumPage(10);            
             ViewBag.allInfo = GetPagedList(1, 10,x => x == x, u => u.userId);
             var allInfo = GetPagedList(1, 10, x => x == x, u => u.userId);
+            if (allInfo == null)
+            {
+                return View();
+            }
             ArrayList areaNameList = new ArrayList();
             ArrayList userNameList = new ArrayList();
             using (LazyfitnessEntities db = new LazyfitnessEntities())
@@ -153,18 +157,6 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 return Content("未登录");
             }
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
-            {
-                if (db.resourceArea.ToList().Count == 0)
-                {
-                    ViewBag.Id = 1;
-                }
-                else
-                {
-                    int Id = db.resourceArea.Max(u => u.areaId);
-                    ViewBag.Id = Id + 1;
-                }               
-            }
             return View();
         }
         [HttpPost]
@@ -182,7 +174,6 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     }
                     resourceArea obResourceArea = new resourceArea
                     {
-                        areaId = area.areaId,
                         areaName = area.areaName.Trim(),
                         areaBrief = area.areaBrief.Trim(),
                     };

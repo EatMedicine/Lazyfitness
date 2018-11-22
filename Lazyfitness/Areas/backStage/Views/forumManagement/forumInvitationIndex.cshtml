@@ -61,19 +61,15 @@
                     <td>@item.amount</td>
                     @if (@item.postStatus == 0)
                     {
-                        <td>所有人可见</td>
+                        <td>隐藏</td>
                     }
                     @if (item.postStatus == 1)
                     {
-                        <td>好友可见</td>
+                        <td>不可回复</td>
                     }
                     @if (@item.postStatus == 2)
                     {
-                        <td>仅自己可见</td>
-                    }
-                    @if (item.postStatus == 3)
-                    {
-                        <td>隐藏</td>
+                        <td>可回复</td>
                     }
                     <td>@item.postContent</td>
                     <td>

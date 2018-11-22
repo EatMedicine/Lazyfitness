@@ -37,12 +37,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>
-                            分区ID
-                        </th>
-                        <td>
-                            @Html.TextBoxFor(u => u.areaId, new { @Value = @ViewBag.quesArea.areaId, @class = "input-content", @id = "areaId", @name = "areaId", @readonly = "true" })
-                        </td>
+                        @Html.TextBoxFor(u => u.areaId, new { @Value = @ViewBag.quesArea.areaId, @class = "input-content", @id = "areaId", @name = "areaId", @readonly = "true", @type="hidden" })
                     </tr>
                     <tr>
                         <th>

@@ -37,13 +37,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>
-                            分区ID
-                        </th>
-                        <td>
-                            @Html.TextBoxFor(u => u.areaId, new { @Value = @ViewBag.postArea.areaId, @type = "text", @class = "input-content", @id = "areaId", @name = "areaId" })
-                            <div class="error-mes">@Html.ValidationMessageFor(x => x.areaId)</div>
-                        </td>
+                        @Html.TextBoxFor(u => u.areaId, new { @Value = @ViewBag.postArea.areaId, @type = "hidden", @class = "input-content", @id = "areaId", @name = "areaId", @readonly = "readonly" })
                     </tr>
                     <tr>
                         <th>

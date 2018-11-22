@@ -157,6 +157,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
             ViewBag.postsumPage = GetSumPagepost(10);
             ViewBag.allInfo = GetPagedListpost(1, 10, x => x == x, u => u.userId);
             var allInfo = GetPagedListpost(1, 10, x => x == x, u => u.userId);
+            if (allInfo == null)
+            {
+                return View();
+            }
             ArrayList areaNameList = new ArrayList();
             ArrayList userNameList = new ArrayList();
             using (LazyfitnessEntities db = new LazyfitnessEntities())
@@ -241,15 +245,8 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    //先判断登录Id是否可用
-                    var isareaId = db.postArea.Where(u => u.areaId == area.areaId);
-                    if (isareaId.ToList().Count != 0)
-                    {
-                        return "论坛分区已存在";
-                    }
                     postArea _area = new postArea
                     {
-                        areaId = area.areaId,
                         areaName = area.areaName,
                         areaBrief = area.areaBrief
                     };
@@ -418,16 +415,15 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     DbQuery<postArea> dbArea = db.postArea.Where(u => u.areaId == area.areaId) as DbQuery<postArea>;
                     postArea _postArea = dbArea.FirstOrDefault();
                     //将要修改的值，放到数据上下文中
-                    _postArea.areaId = area.areaId;
                     _postArea.areaName = area.areaName;
                     _postArea.areaBrief = area.areaBrief;
                     db.SaveChanges(); //将修改之后的值保存到数据库中
                 }
                 return "论坛分区修改成功";
             }
-            catch
+            catch(Exception ex)
             {
-                return "论坛分区修改失败";
+                return ex.ToString();
             }
         }
         #endregion
@@ -465,11 +461,12 @@ namespace Lazyfitness.Areas.backStage.Controllers
         [HttpPost]
         public string forumInvitationAdd(postInfo info)
         {
+            string cookieText = null;
             if (Request.Cookies["managerId"] != null)
             {
                 //获取Cookies的值
                 HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
+                cookieText = Server.HtmlEncode(cookieName.Value).ToString();
             }
             else
             {
@@ -479,23 +476,15 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    //先判断登录Id是否可用
-                    var isareaId = db.postArea.Where(u => u.areaId == info.areaId);
-                    var ispostId = db.postInfo.Where(u => u.postId == info.postId);
-                    if (isareaId.ToList().Count == 0)
-                    {
-                        return "论坛分区不存在";
-                    }
-                    if (ispostId.ToList().Count != 0)
-                    {
-                        return "论坛帖子ID已存在";
-                    }
+                    //找到userId
+                    var dbFindUser = db.userSecurity.Where(u => u.loginId == cookieText);
+                    var obFindUser = dbFindUser.FirstOrDefault();
+                    int rightUserId = obFindUser.userId;
                     postInfo _info = new postInfo
                     {
                         areaId = info.areaId,
-                        postId = info.postId,
                         postTitle = info.postTitle,
-                        userId = info.userId,
+                        userId = rightUserId,
                         postTime = DateTime.Now,
                         pageView = 0,
                         isPost = info.isPost,                        

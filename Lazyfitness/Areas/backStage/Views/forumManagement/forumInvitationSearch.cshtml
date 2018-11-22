@@ -36,7 +36,7 @@
                             @{
                                 foreach (var postInfo in @ViewBag.postInfo)
                                 {
-                                    <option value="@postInfo.postId">@postInfo.postId &nbsp&nbsp @postInfo.postTitle</option>
+                                    <option class="dropdown-list" value="@postInfo.postId">@postInfo.postId &nbsp&nbsp @postInfo.postTitle</option>
                                 }
                             }
                         </select>
