@@ -243,9 +243,11 @@
   <ItemGroup>
     <Content Include="Areas\img\show.jpg" />
     <Content Include="Areas\jQuery\articleManagement.js" />
+    <Content Include="Areas\jQuery\deleteAnswer.js" />
     <Content Include="Areas\jQuery\jQueryEmailCode\checkCodeFindUserame.js" />
     <Content Include="Areas\jQuery\jQueryEmailCode\checkCodeRegister.js" />
     <Content Include="Areas\jQuery\jQueryEmailCode\checkCodePassword.js" />
+    <Content Include="Areas\jQuery\deleteReply.js" />
     <Content Include="Areas\jQuery\jQueryEmailCode\sendEmailCodeFindUserName.js" />
     <Content Include="Areas\jQuery\jQueryEmailCode\sendEmailCodeRegister.js" />
     <Content Include="Areas\jQuery\sendPageIndex.js" />
@@ -660,6 +662,14 @@
     <Content Include="Areas\backStage\Views\commentManagement\Index.cshtml" />
     <Content Include="Areas\backStage\Views\commentManagement\forumComment.cshtml" />
     <Content Include="Areas\backStage\Views\commentManagement\addForumComment.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\sureForum.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\deleteForumComment.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\sureReply.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\quesAnswComment.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\addQueAnswComment.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\sureAnswer.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\deleteQueAnswComment.cshtml" />
+    <Content Include="Areas\backStage\Views\commentManagement\sureReplyAnswer.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

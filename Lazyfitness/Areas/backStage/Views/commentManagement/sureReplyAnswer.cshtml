@@ -1,0 +1,59 @@
+﻿<script src="~/Areas/jQuery/deleteAnswer.js"></script>
+@{
+    ViewBag.Title = "删除回答";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加回答", "addQueAnswComment", "commentManagement")
+                @Html.ActionLink("删除回答", "deleteQueAnswComment", "commentManagement")
+                @Html.ActionLink("评论管理", "Index", "commentManagement")
+            </div>
+        </div>
+
+        <div class="result-content">
+            <table class="result-tab">
+                <tr>
+                    <th>id</th>
+                    <th>问题帖子Id</th>
+                    <th>用户Id</th>
+                    <th>回复时间</th>
+                    <th>回复内容</th>
+                    <th>可选操作</th>
+                </tr>
+                @{
+                    if (ViewBag.replyList != null)
+                    {
+                        foreach (var item in ViewBag.replyList)
+                        {
+                            <tr>
+                                <th>@item.id</th>
+                                <th>@item.quesAnswId</th>
+                                <th>@item.userId</th>
+                                <th>@item.replyTime</th>
+                                <th>@item.replyContent</th>
+                                <th>
+                                    <button class="index-btn delete-data deleteReply" type="button" value="@item.id">删除</button>
+                                </th>
+                            </tr>
+                        }
+                    }
+                }
+            </table>
+
+        </div>
+
+    </div>
+</div>
