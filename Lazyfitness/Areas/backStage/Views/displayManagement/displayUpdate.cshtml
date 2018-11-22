@@ -1,0 +1,218 @@
+﻿@model Lazyfitness.Models.serverShowInfo
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "更新展示";
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加展示", "Add", "displayManagement")
+                @Html.ActionLink("删除展示", "displaySearch", "displayManagement")
+                @Html.ActionLink("修改展示内容", "displaySearch", "displayManagement")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="result-content">
+    @if (ViewBag.serverShowInfo.flag == 0)
+    {
+        <form action="~/backStage/displayManagement/SaveImage" method="post" enctype="multipart/form-data">
+            <table class="insert-tab">
+                <tr><th></th><td class="show-title">修改展示内容</td></tr>
+                <tr>
+                    <td>图片选择：</td>
+                    <td>
+                        <input id="image" name="image" type="file" />
+                        <input type="text" name="id" id="id" value="@ViewBag.serverShowInfo.id" hidden="hidden" />
+                        <input type="text" name="flag" id="flag" value=@ViewBag.serverShowInfo.flag hidden="hidden" />
+                        <input type="text" name="areaId" id="areaId" value=@ViewBag.serverShowInfo.areaId hidden="hidden" />
+                        <input type="text" name="title" id="title" value=@ViewBag.serverShowInfo.title hidden="hidden" />
+                        <input type="text" name="url" id="url" value=@ViewBag.serverShowInfo.url hidden="hidden" />
+                        <input type="text" name="Infostatus" id="Infostatus" value=@ViewBag.serverShowInfo.Infostatus hidden="hidden" />
+                        <input type="submit" value="保存" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <form action="~/backStage/displayManagement/displayUpdateGo" method="post">
+            <input type="text" name="id" id="id" value="@ViewBag.serverShowInfo.id" hidden="hidden" />
+            <input type="text" name="flag" id="flag" value=@ViewBag.serverShowInfo.flag hidden="hidden" />
+            <table class="insert-tab">
+                <tr>
+                    <th>
+                        图片
+                    </th>
+                    <td>
+                        @if(ViewBag.pictureAdr != null)
+                        {
+                            <img src="@ViewBag.pictureAdr" />
+                        <input id="pictureAdr" name="pictureAdr" value="@ViewBag.pictureAdr" class="input-content" type="text" hidden="hidden" />
+                        }
+                        else
+                        {
+                            <img src="@ViewBag.serverShowInfo.pictureAdr" />
+                        <input id="pictureAdr" name="pictureAdr" value="@ViewBag.serverShowInfo.pictureAdr" class="input-content" type="text" hidden="hidden" />
+                        }
+                        
+                    </td>
+                </tr>
+                 <tr>
+                    <th>
+                        ID
+                    </th>
+                    <td>
+                        <span>@ViewBag.serverShowInfo.id</span>
+                        <input type="text" name="id" id="id" value=@ViewBag.serverShowInfo.id hidden="hidden" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        展示分区
+                    </th>
+                    <td>
+                        @if (ViewBag.serverShowInfo.areaId == 0)
+                        {
+                            <span>首页</span>
+                            <input type="text" name="areaId" id="areaId" value=@ViewBag.serverShowInfo.areaId hidden="hidden" />
+                        }
+                        @if (ViewBag.serverShowInfo.areaId == 1)
+                        {
+                            <span>资源</span>
+                            <input type="text" name="areaId" id="areaId" value=@ViewBag.serverShowInfo.areaId hidden="hidden" />
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        标题
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.title, new { @type = "text", @class = "input-content", @id = "title", @name = "title", @Value = ViewBag.serverShowInfo.title })
+                        <div class="error-mes">@Html.ValidationMessageFor(u => u.title)</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        链接
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.url, new { @type = "text", @class = "input-content", @id = "url", @name = "url", @Value = ViewBag.serverShowInfo.url })
+                        <div class="error-mes">@Html.ValidationMessageFor(u => u.url)</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        状态
+                    </th>
+                    <td>
+                        <select name="Infostatus">
+                            @if (ViewBag.serverShowInfo.Infostatus == 0)
+                            {
+                                <option class="dropdown-list" value="0" selected="selected">禁止</option>
+                                <option class="dropdown-list" value="1">启用</option>
+                            }
+                            @if (ViewBag.serverShowInfo.Infostatus == 1)
+                            {
+                                <option class="dropdown-list" value="0">禁止</option>
+                                <option class="dropdown-list" value="1" selected="selected">启用</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="修改" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    }
+    @if (ViewBag.serverShowInfo.flag == 1)
+    {
+        <form action="~/backStage/displayManagement/displayUpdateGo" method="post">
+            <input type="text" name="id" id="id" value=@ViewBag.serverShowInfo.id hidden="hidden" />
+            <input type="text" name="flag" id="flag" value=@ViewBag.serverShowInfo.flag hidden="hidden" />
+            <table class="insert-tab">
+                <tr><th></th><td class="show-title">修改展示内容</td></tr>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <td>
+                        <span>@ViewBag.serverShowInfo.id</span>
+                        <input type="text" name="id" id="id" value=@ViewBag.serverShowInfo.id hidden="hidden" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        展示分区
+                    </th>
+                    <td>
+                        @if (ViewBag.serverShowInfo.areaId == 0)
+                        {
+                            <span>首页</span>
+                        }
+                        @if (ViewBag.serverShowInfo.areaId == 1)
+                        {
+                            <span>资源</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        标题
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.title, new { @type = "text", @class = "input-content", @id = "title", @name = "title", @Value = ViewBag.serverShowInfo.title })
+                        <div class="error-mes">@Html.ValidationMessageFor(u => u.title)</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        链接
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.url, new { @type = "text", @class = "input-content", @id = "url", @name = "url", @Value = ViewBag.serverShowInfo.url })
+                        <div class="error-mes">@Html.ValidationMessageFor(u => u.url)</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        状态
+                    </th>
+                    <td>
+                        <select name="Infostatus">
+                            @if (ViewBag.serverShowInfo.Infostatus == 0)
+                            {
+                                <option class="dropdown-list" value="0" selected="selected">禁止</option>
+                                <option class="dropdown-list" value="1">启用</option>
+                            }
+                            @if (ViewBag.serverShowInfo.Infostatus == 1)
+                            {
+                                <option class="dropdown-list" value="0">禁止</option>
+                                <option class="dropdown-list" value="1" selected="selected">启用</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="修改" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    }
+</div>

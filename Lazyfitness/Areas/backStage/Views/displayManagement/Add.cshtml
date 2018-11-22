@@ -1,0 +1,49 @@
+﻿@model Lazyfitness.Models.serverShowInfo
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "选择类型";
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加展示", "Add", "displayManagement")
+                @Html.ActionLink("删除展示", "displaySearch", "displayManagement")
+                @Html.ActionLink("修改展示内容", "displaySearch", "displayManagement")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="result-content">
+    <form action="~/backStage/displayManagement/displayAdd" method="post">
+        <table class="insert-tab">
+            <tr><th></th><td class="show-title">选择类型</td></tr>
+            <tr>
+                <th>
+                    类型
+                </th>
+                <td>
+                    <select name="flag">
+                        <option class="dropdown-list" value="0">轮播图</option>
+                        <option class="dropdown-list" value="1">公告</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="选择" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
