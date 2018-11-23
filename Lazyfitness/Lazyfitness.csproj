@@ -680,6 +680,7 @@
     <Content Include="Areas\backStage\Views\displayManagement\Add.cshtml" />
     <Content Include="Areas\backStage\Views\displayManagement\Index.cshtml" />
     <Content Include="Areas\backStage\Views\displayManagement\showResult.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

@@ -419,6 +419,22 @@ namespace Lazyfitness.Controllers
             ViewBag.ItemsName = Tools.GetQuestionPartName(partId, pageNum);
             ViewBag.ItemsHeadAdr = Tools.GetQuestionPartHeadAdr(partId, pageNum);
             ViewBag.ItemsIntroduction = Tools.GetQuestionPartIntroduction(partId, pageNum);
+
+            //获取个人信息
+            HttpCookie loginIdCookie = Request.Cookies.Get("loginId");
+            HttpCookie userIdCookie = Request.Cookies.Get("userId");
+            HttpCookie certificationCookie = Request.Cookies.Get("certification");
+            //如果登录了
+            if (certificateTools.IsUserCookieCorrect(userIdCookie, loginIdCookie, certificationCookie) == true)
+            {
+                ViewBag.IsLogin = true;
+                ViewBag.UserInfo = Tools.GetUserInfo(Int32.Parse(userIdCookie.Value));
+
+            }
+            else
+            {
+                ViewBag.IsLogin = false;
+            }
             return View();
         }
 

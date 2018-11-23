@@ -1,6 +1,7 @@
 ﻿.part-list{
     position:relative;
     width:100%;
+    min-width:1100px;
     height:50px;
     border-bottom:1px solid rgb(168, 168, 168);
 }
@@ -31,10 +32,11 @@
     color:rgb(63, 63, 63);
 }
 
-.content{
-    width:100%;
-    height:100px;
-    line-height:100px;
+.content {
+    width: 100%;
+    min-width: 1100px;
+    height: 100px;
+    line-height: 100px;
 }
 .content-title {
     height: 100px;
@@ -87,10 +89,10 @@
     line-height:40px;
 }
 
-.content-ques{
-    width:1300px;
-    position:relative;
-
+.content-ques {
+    width: 100%;
+    min-width: 1100px;
+    position: relative;
 }
 
 .ques-list {
@@ -159,12 +161,12 @@
 }
 
 .content-list-bar{
-    width:1300px;
+    width:100%;
     position:relative;
 }
 .right-bar {
     position: absolute;
-    left: 840px;
+    right:30px;
     top: 0px;
     width: 200px;
     background-color: white;

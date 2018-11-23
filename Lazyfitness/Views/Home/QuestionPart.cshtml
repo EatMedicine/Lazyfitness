@@ -86,28 +86,34 @@
                 </div>
             }
             @*
-        <div class="ques-list-item">
-            <div class="item-con">
-                <div class="item-title">
-                    <h3>这是标题</h3>
-                </div>
-                <div class="item-introduction">
-                    <p>这是内容简介</p>
-                </div>
-                <div class="item-user">
-                    <div class="user-pic fl">
-                        <img src="~/Resource/picture/DefaultHeadPic.jpg" />
+            <div class="ques-list-item">
+                <div class="item-con">
+                    <div class="item-title">
+                        <h3>这是标题</h3>
                     </div>
-                    <div class="user-name fl">
-                        <p>这是名字</p>
+                    <div class="item-introduction">
+                        <p>这是内容简介</p>
+                    </div>
+                    <div class="item-user">
+                        <div class="user-pic fl">
+                            <img src="~/Resource/picture/DefaultHeadPic.jpg" />
+                        </div>
+                        <div class="user-name fl">
+                            <p>这是名字</p>
+                        </div>
                     </div>
                 </div>
+            </div>*@
+        </div>
+        @if (ViewBag.IsLogin == true)
+        {
+            userInfo info = ViewBag.UserInfo as userInfo;
+            <div class="right-bar">
+                <img class="bar-headPic" src="@info.userHeaderPic" />
+                <p class="bar-p">名字：@info.userName</p>
+                <p class="bar-p">余额：@info.userAccount</p>
             </div>
-        </div>*@
-        </div>
-        <div class="right-bar">
-            
-        </div>
+        }
     </div>
     <div class="go-top unvis" id="top-btn">
         <a href="#"><img src="~/Resource/picture/gotoTop.png" /></a>
