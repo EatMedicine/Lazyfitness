@@ -50,6 +50,10 @@
                                             {
                                                 <span id="userSex">女</span>
                                             }
+                                            @if (@ViewBag.userSex == 2)
+                                            {
+                                                <span id="userSex">保密</span>
+                                            }
                                         </td>
                                     </tr>
                                     <tr>
@@ -61,7 +65,7 @@
                                     <tr>
                                         <td class="table-head"><label>邮箱</label></td>
                                         <td>
-                                            <span id="userEmail">812758481@qq.com</span>
+                                            <span id="userEmail">@ViewBag.userEmail</span>
                                         </td>
                                     </tr>
                                     <tr>

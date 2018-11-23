@@ -152,6 +152,7 @@
     <Compile Include="Areas\account\Controllers\passwordManagerController.cs" />
     <Compile Include="Areas\backStage\backStageAreaRegistration.cs" />
     <Compile Include="Areas\backStage\Controllers\commentManagementController.cs" />
+    <Compile Include="Areas\backStage\Controllers\displayManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\forumManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\pageViewController.cs" />
     <Compile Include="Areas\backStage\Controllers\quesAnswManagementController.cs" />
@@ -570,6 +571,7 @@
     <Content Include="Resource\picture\dot1.png" />
     <Content Include="Resource\picture\dot2.png" />
     <Content Include="Resource\picture\head.png" />
+    <Content Include="Resource\picture\uploadify.swf" />
     <Content Include="Scripts\adoptAnswer.js" />
     <Content Include="Scripts\ArticleJs.js" />
     <Content Include="Resource\picture\pic1.jpg" />
@@ -589,6 +591,7 @@
     <Content Include="Scripts\PersonalData.js" />
     <Content Include="Scripts\QuestionDetail.js" />
     <Content Include="Scripts\QuestionJs.js" />
+    <Content Include="Scripts\uploadPic.js" />
     <Content Include="设计数据\建表.sql" />
     <Content Include="Areas\account\Views\userManagement\registerUser.cshtml" />
     <Content Include="Areas\account\Web.config" />
@@ -671,6 +674,12 @@
     <Content Include="Areas\backStage\Views\commentManagement\sureAnswer.cshtml" />
     <Content Include="Areas\backStage\Views\commentManagement\deleteQueAnswComment.cshtml" />
     <Content Include="Areas\backStage\Views\commentManagement\sureReplyAnswer.cshtml" />
+    <Content Include="Areas\backStage\Views\displayManagement\displayAdd.cshtml" />
+    <Content Include="Areas\backStage\Views\displayManagement\displaySearch.cshtml" />
+    <Content Include="Areas\backStage\Views\displayManagement\displayUpdate.cshtml" />
+    <Content Include="Areas\backStage\Views\displayManagement\Add.cshtml" />
+    <Content Include="Areas\backStage\Views\displayManagement\Index.cshtml" />
+    <Content Include="Areas\backStage\Views\displayManagement\showResult.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

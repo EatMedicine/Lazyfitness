@@ -1,0 +1,87 @@
+﻿@model Lazyfitness.Models.serverShowInfo
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "查询结果";
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加展示", "Add", "displayManagement")
+                @Html.ActionLink("删除展示", "displaySearch", "displayManagement")
+                @Html.ActionLink("修改展示内容", "displaySearch", "displayManagement")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="result-content">
+        <table class="result-tab">
+            <tr>
+                <th>ID</th>
+                <th>分区名称</th>
+                <th>标题</th>
+                <th>图片</th>
+                <th>类型</th>
+                <th>状态</th>
+                <th colspan="2">可选操作</th>
+            </tr>
+        @if (ViewBag.serverShowInfo != null)
+        {
+            foreach (var item in @ViewBag.serverShowInfo)
+            {
+                <tr>
+                    <td>@item.id</td>
+                    @if(item.areaId == 0)
+                    {
+                        <td>首页</td>
+                    }
+                    @if(item.areaId == 1)
+                    {
+                        <td>资源</td>
+                    }
+                    <td>@item.title</td>
+                    
+                    @if(item.flag == 0)
+                    {
+                        <td ><img src="@item.pictureAdr"/></td>
+                        <td>轮播图</td>
+                    }
+                    @if(item.flag == 1)
+                    {
+                        <td >公告无图片</td>
+                        <td>公告</td>
+                    }
+                    @if(item.Infostatus == 0)
+                    {
+                        <td>禁止</td>
+                    }
+                    @if(item.Infostatus == 1)
+                    {
+                        <td>启用</td>
+                    }
+                    <td>
+                        <form method="post" action="~/backStage/displayManagement/displayUpdate">
+                            <input type="text" name="id" id="id" value="@item.id" hidden="hidden" />
+                            <input class="index-btn" type="submit" value="修改">
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" action="~/backStage/displayManagement/displayDelete">
+                            <input type="text" name="id" id="id" value="@item.id" hidden="hidden" />
+                            <input class="index-btn" type="submit" value="删除">
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>

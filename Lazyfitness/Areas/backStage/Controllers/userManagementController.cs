@@ -185,6 +185,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     db.userSecurity.Attach(deleSecurity);
                     //标记为删除--标记当前对象为删除状态
                     db.userSecurity.Remove(deleSecurity);
+                    db.Entry<userInfo>(obInfo).State = System.Data.Entity.EntityState.Deleted;
                     db.SaveChanges();
                     return "success";
                 }
@@ -236,15 +237,13 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     userSecurity _userSecurity = dbSecuritysearch.FirstOrDefault();
                     if (_userInfo != null)
                     {
-                        ViewBag.userId = _userSecurity.userId;
-                        ViewBag.loginId = _userSecurity.loginId;
-                        ViewBag.userPwd = _userSecurity.userPwd;
                         ViewBag.userName = _userInfo.userName;
                         ViewBag.userAge = _userInfo.userAge;
                         ViewBag.userSex = _userInfo.userSex;
                         ViewBag.userEmail = _userInfo.userEmail;
                         ViewBag.userStatus = _userInfo.userStatus;
                         ViewBag.userAccount = _userInfo.userAccount;
+                        ViewBag.userIntroduce = _userInfo.userIntroduce;
                         //db.SaveChanges();
                     }
                     else
@@ -321,6 +320,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     _userInfo.userEmail = info.userEmail;
                     _userInfo.userStatus = info.userStatus;
                     _userInfo.userAccount = info.userAccount;
+                    _userInfo.userIntroduce = info.userIntroduce;
                     db.SaveChanges(); //将修改之后的值保存到数据库中
                 }
                 return "修改成功";
