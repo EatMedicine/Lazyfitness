@@ -274,7 +274,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
 
-                var getUserId = db.userInfo.Where(u => u.userName == cookieText).FirstOrDefault().userId;
+                var getUserId = Int32.Parse(cookieText);
 
                 quesAnswReply obReply = new quesAnswReply
                 {

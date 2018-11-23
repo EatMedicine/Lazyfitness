@@ -60,7 +60,11 @@
                     {
                         <th>是</th>
                     }
-                    <td>@item.resourceContent</td>
+                    <td>
+                        <div class="contentDiv">
+                            @item.resourceContent
+                        </div>
+                    </td>
                     <td>
                         <form method="post" action="~/backStage/articleManagement/changeArticle">
                             <input type="text" name="resourceId" id="resourceId" value="@item.resourceId" hidden="hidden" />

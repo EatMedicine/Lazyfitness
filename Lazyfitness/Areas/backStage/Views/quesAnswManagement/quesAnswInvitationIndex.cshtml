@@ -75,7 +75,11 @@
                     {
                         <td>隐藏</td>
                     }
-                    <td>@item.quesAnswContent</td>
+                                            <td>
+                            <div class="contentDiv">
+                                @item.quesAnswContent
+                            </div>
+                        </td>
                     <td>
                         <form method="post" action="~/backStage/quesAnswManagement/quesAnswInvitationSearch">
                             <input type="text" name="quesAnswId" id="quesAnswId" value="@item.quesAnswId" hidden="hidden" />

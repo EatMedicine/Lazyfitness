@@ -43,7 +43,11 @@
                                 <th>@item.quesAnswId</th>
                                 <th>@item.userId</th>
                                 <th>@item.replyTime</th>
-                                <th>@item.replyContent</th>
+                                <th>
+                                    <div class="contentDiv ">
+                                        @item.replyContent
+                                    </div>
+                                </th>
                                 <th>
                                     <button class="index-btn delete-data deleteReply" type="button" value="@item.id">删除</button>
                                 </th>

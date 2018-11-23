@@ -51,7 +51,11 @@
                     <td>@ViewBag.obQuesInfo.quesAnswTitle</td>
                     <td>@ViewBag.ownerName</td>
                     <td>@ViewBag.obQuesInfo.quesAnswTime</td>
-                    <td>@ViewBag.obQuesInfo.quesAnswContent</td>
+                    <td>
+                        <div class="contentDiv">
+                            @ViewBag.obQuesInfo.quesAnswContent
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>

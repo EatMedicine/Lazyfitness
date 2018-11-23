@@ -51,7 +51,11 @@
                     <td>@ViewBag.forumInfo.postTitle</td>
                     <td>@ViewBag.ownerName</td>
                     <td>@ViewBag.forumInfo.postTime</td>
-                    <td>@ViewBag.forumInfo.postContent</td>
+                    <td>
+                        <div class="contentDiv">
+                            @ViewBag.forumInfo.postContent
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>

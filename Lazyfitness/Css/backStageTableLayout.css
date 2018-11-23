@@ -1,6 +1,9 @@
 ﻿/*.result-content{
     float:left;
 }*/
+.contentDiv{
+    padding:0px;margin:0px; max-width:300px; max-height:35px; overflow:hidden 
+}
 .result-tab{margin-top:30px; margin-left:50px;}
 .result-tab{width:1200px; border-collapse:collapse;border: 1px solid #ddd;}
 .result-tab th{font-weight: normal;font-size: 15px;text-align: left;background: url(../images/tab-thbg.png) #f9f9f9 0 bottom repeat-x;}

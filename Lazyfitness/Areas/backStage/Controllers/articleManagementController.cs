@@ -359,7 +359,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     findId = db.resourceInfo.Max(u => u.resourceId) + 1;
                 }
                 //通过登录的name找到userId
-                var userId = db.userSecurity.Where(u => u.loginId == cookieText).FirstOrDefault().userId; 
+                var userId = Int32.Parse(cookieText);
                 resource.resourceId = findId;
                 resource.userId = userId;
                 resource.resourceTime = DateTime.Now;

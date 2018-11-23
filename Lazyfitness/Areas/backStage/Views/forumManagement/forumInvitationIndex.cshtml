@@ -71,7 +71,11 @@
                     {
                         <td>可回复</td>
                     }
-                    <td>@item.postContent</td>
+                        <td>
+                            <div class="contentDiv">
+                                @item.postContent
+                            </div>
+                        </td>
                     <td>
                         <form method="post" action="~/backStage/forumManagement/forumInvitationSearch">
                             <input type="text" name="postId" id="postId" value="@item.postId" hidden="hidden" />
