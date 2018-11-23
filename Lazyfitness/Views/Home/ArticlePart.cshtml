@@ -3,8 +3,8 @@
     ViewData["IsSearch"] = false;
     ViewData["IsHeadPic"] = true;
     ViewBag.IsDefaultContent = false;
-    ViewBag.Title = "文章分区";
     Layout = "~/Views/Shared/_MainStyle.cshtml";
+    ViewBag.Title = "文章分区--小懒人健身";
 }
 @*本页需要的变量：
     ViewBag.AreasName 分区的名字 string[]
@@ -41,6 +41,9 @@
     <div class="main-content">
         <div style="width:100%">
             <h2 style="font-family:YouYuan;position:relative;padding-left:120px;width:200px;">@ViewBag.PartName</h2>
+            @{ 
+                ViewBag.Title = ViewBag.PartName + "--小懒人健身";
+            }
             @*只有管理员才可以显示这个按钮*@
             @if (IsAdmin == true)
             {

@@ -43,6 +43,7 @@
                     string[] partUrl = ViewBag.PartUrl as string[];
                     string[] partPicUrl = ViewBag.PartPicUrl as string[];
                     int partSelect = ViewBag.PartId;
+                    ViewBag.Title = partName[partSelect - 1] + "--小懒人健身";
                 }
                 <li>
                     <a href="@Url.Action("forum","Home")">
