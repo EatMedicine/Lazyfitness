@@ -806,7 +806,7 @@ namespace Lazyfitness
             using(LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 //读取serverShowInfo中的数据 flag = 0 为轮播图
-                var dbInfo = db.serverShowInfo.Where(u=>u.flag == 0).Where(u=>u.Infostatus == 1);
+                var dbInfo = db.serverShowInfo.Where(u=>u.flag == 0).Where(u=>u.Infostatus == 1 && u.areaId == 0);
                 //获取serverShowInfo中数据的条数
                 var obInfo = dbInfo.ToArray();
                 int listLenth = obInfo.Length;
@@ -832,8 +832,16 @@ namespace Lazyfitness
                 //暂定flag 0为轮播图 1为公告
                 //暂定InfoStatus 0为禁用 1为启用
                 //首页只要3条轮播图
-                serverShowInfo[] info = new serverShowInfo[3];
-                for (int count = 0; count < 3; count++)
+                serverShowInfo[] info;
+                if (listLenth>3)
+                {
+                    info = new serverShowInfo[3];
+                }
+                else
+                {
+                    info = new serverShowInfo[listLenth];
+                }
+                for (int count = 0; count < listLenth && count < 3; count++) 
                 {
                     info[count] = new serverShowInfo
                     {
@@ -864,7 +872,7 @@ namespace Lazyfitness
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 //读取serverShowInfo中的数据 flag = 1 为公告
-                var dbInfo = db.serverShowInfo.Where(u => u.flag == 1).Where(u=>u.Infostatus == 1);
+                var dbInfo = db.serverShowInfo.Where(u => u.flag == 1).Where(u=>u.Infostatus == 1 && u.areaId == 0);
                 //获取serverShowInfo中数据的条数
                 var obInfo = dbInfo.ToArray();
                 int listLenth = obInfo.Length;
@@ -1248,7 +1256,7 @@ namespace Lazyfitness
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 var dbInfo = db.serverShowInfo;
-                var obInfo = dbInfo.Where(u => u.flag == 0 && u.Infostatus == 1).ToArray();
+                var obInfo = dbInfo.Where(u => u.flag == 0 && u.Infostatus == 1 && u.areaId == 1).ToArray();
                 int listLenth = obInfo.Length;
                 //如果serverShowInfo为空则返回一个长度为0的数组
                 if (listLenth == 0)
@@ -1269,8 +1277,16 @@ namespace Lazyfitness
                 //暂定flag 0为轮播图 1为公告
                 //暂定InfoStatus 0为禁用 1为启用
                 //首页只要3条轮播图
-                serverShowInfo[] info = new serverShowInfo[3];
-                for (int count = 0; count < 3; count++)
+                serverShowInfo[] info;
+                if (listLenth > 3)
+                {
+                    info = new serverShowInfo[3];
+                }
+                else
+                {
+                    info = new serverShowInfo[listLenth];
+                }
+                for (int count = 0; count < listLenth && count < 3; count++)
                 {
                     info[count] = new serverShowInfo
                     {

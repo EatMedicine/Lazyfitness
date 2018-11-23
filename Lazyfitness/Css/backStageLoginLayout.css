@@ -9,16 +9,13 @@
 }
 /*登录页面*/
 .login-content {
-    position:absolute;
-    top:65px;
-    left:460px;
-    width: 1000px;
-    height: 820px;
-    background-color: #fff;
+    margin:0 auto;
+    width: 500px;
+    height: 410px;
+    background-color: rgba(255, 255, 255,0.5);
     border: 1px solid;
     border-color: rgba(96,96,96,0.5);   
     text-align: center;
-    opacity:0.5;
 }
 /*网站名称开头*/
 .login-header-title {
@@ -30,12 +27,12 @@
 .login-title {
     font-family: 微软雅黑;
     font-size: 20px;
-    margin-top:50px;
-    margin-bottom:100px;
+    margin-top:10px;
+    margin-bottom:40px;
 }
 /*输入框放入的层*/
 .input-box {
-    margin:15px 0 15px 0;
+    margin:5px 0 15px 0;
 }
 /*错误信息的样式*/
 .message-style {
@@ -47,7 +44,7 @@
 }
 /*登陆框等所处位置*/
 .content-body{
-    margin-top:100px;
+    margin-top:10px;
 }
 /*登录按钮样式*/
 .input-btn{
@@ -79,11 +76,9 @@ body{
 }
 /*绝对定位*/
 .ab-position {
-    position: absolute;
-    left: 460px;
-    top: 50px;
-    width: 1000px;
-    height: 750px;
+
+    width: 500px;
+    height: 375px;
     margin:auto;
     text-align: center;
 }

@@ -266,7 +266,7 @@ namespace Lazyfitness.Controllers
                 items[count].Name = user.userName;
                 items[count].Title = info[count].quesAnswTitle;
                 items[count].HeadAdr = user.userHeaderPic;
-                items[count].Url = Url.Action("ArticleDetail", "Home", new { num = info[count].quesAnswId });
+                items[count].Url = Url.Action("QuestionDetail", "Home", new { num = info[count].quesAnswId });
                 int length = 20;
                 string intro = Tools.GetNoHTMLString(info[count].quesAnswContent);
                 if (intro.Length < 20)

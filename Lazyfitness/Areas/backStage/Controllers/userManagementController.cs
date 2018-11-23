@@ -134,8 +134,8 @@ namespace Lazyfitness.Areas.backStage.Controllers
                         userEmail = null,
                         userStatus = 1,
                         userAccount = 0,
-                        userIntroduce = null,
-                        userHeaderPic = null
+                        userIntroduce = "这个人很懒，没有说什么",
+                        userHeaderPic = "/Resource/picture/DefaultHeadPic1.png",
                     };
                     db.userInfo.Add(newUserInfo);
                     db.SaveChanges();

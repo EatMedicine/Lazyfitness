@@ -113,7 +113,7 @@
                         <input class="getUserId" type="hidden" name="userId" value=@replys[count].userId />
                         @*<input class="getUserId" type="hidden" name="userId" value=@QuestionInfo.userId />*@
                         @*当答案未采纳以及是正确登录以及提问人和登录userid相等的时候显示该按钮*@
-                        @if (QuestionInfo.quesAnswStatus == 0 && IsLoginRight == true && userIdCookie.Value == QuestionInfo.userId.ToString()) 
+                        @if (QuestionInfo.quesAnswStatus == 2 && IsLoginRight == true && userIdCookie.Value == QuestionInfo.userId.ToString()) 
                         {
                             <button class="setAnswer" value=@replys[count].userId>采纳该答案</button>
                         }

@@ -724,11 +724,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 {
                     var dbInfo = db.postInfo.Where(u => u.postId == info.postId);
                     var obInfo = dbInfo.FirstOrDefault();
-                    int getUserId = db.userInfo.Where(u => u.userName == cookieText).FirstOrDefault().userId;
+                    //int getUserId = db.userInfo.Where(u => u.userName == cookieText).FirstOrDefault().userId;
                     obInfo.areaId = info.areaId;
                     obInfo.postTitle = info.postTitle;
-                    obInfo.userId = getUserId;
-                    obInfo.postTime = DateTime.Now;
                     obInfo.pageView = info.pageView;
                     obInfo.isPost = info.isPost;
                     obInfo.amount = info.amount;

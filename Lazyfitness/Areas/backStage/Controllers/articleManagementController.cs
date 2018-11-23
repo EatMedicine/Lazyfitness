@@ -506,7 +506,6 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 var obResource = db.resourceInfo.Where(u => u.resourceId == resource.resourceId).FirstOrDefault();
                 obResource.areaId = resource.areaId;
                 obResource.resourceName = resource.resourceName;
-                obResource.resourceTime = DateTime.Now;
                 obResource.pageView = resource.pageView;
                 obResource.isTop = resource.isTop;
                 obResource.resourceContent = resource.resourceContent;
