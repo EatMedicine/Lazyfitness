@@ -18,6 +18,7 @@
     overflow:hidden;
     text-wrap:normal;
     word-wrap:normal;
+    padding-bottom:75px;
 }
 .head-userInfo{
     position:absolute;

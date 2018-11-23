@@ -573,11 +573,15 @@ namespace Lazyfitness.Controllers
             ViewBag.ForumReplyNum = reply.Length;
             ViewBag.ForumUserInfo = Tools.GetUserInfo(ViewBag.ForumInfo.userId);
             string[] name = new string[reply.Length];
+            string[] headPic = new string[reply.Length];
             for (int count = 0; count < reply.Length; count++)
             {
-                name[count] = Tools.GetUserName((int)reply[count].userId);
+                userInfo info = Tools.GetUserInfo((int)reply[count].userId);
+                name[count] = info.userName;
+                headPic[count] = info.userHeaderPic;
             }
             ViewBag.ForumReplyName = name;
+            ViewBag.ForumReplyHeadPic = headPic;
             return View();
         }
         [LoginStatusFilter]
