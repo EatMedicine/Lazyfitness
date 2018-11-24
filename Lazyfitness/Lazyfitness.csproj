@@ -228,6 +228,9 @@
     <Compile Include="Models\serverShowInfo.cs">
       <DependentUpon>Lazyfitness.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>Lazyfitness.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\userInfo.cs">
       <DependentUpon>Lazyfitness.tt</DependentUpon>
     </Compile>
@@ -656,13 +659,6 @@
     <Content Include="Areas\backStage\Views\articleManagement\findArticleList.cshtml" />
     <Content Include="Areas\informationOfUser\Views\web.config" />
     <Content Include="Areas\account\Views\passwordManager\findUserame.cshtml" />
-    <EntityDeploy Include="Models\Lazyfitness.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Lazyfitness.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Lazyfitness.edmx.diagram">
-      <DependentUpon>Lazyfitness.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\backStage\Views\commentManagement\Index.cshtml" />
     <Content Include="Areas\backStage\Views\commentManagement\forumComment.cshtml" />
     <Content Include="Areas\backStage\Views\commentManagement\addForumComment.cshtml" />
@@ -680,6 +676,13 @@
     <Content Include="Areas\backStage\Views\displayManagement\Add.cshtml" />
     <Content Include="Areas\backStage\Views\displayManagement\Index.cshtml" />
     <Content Include="Areas\backStage\Views\displayManagement\showResult.cshtml" />
+    <EntityDeploy Include="Models\Lazyfitness.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Lazyfitness.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Lazyfitness.edmx.diagram">
+      <DependentUpon>Lazyfitness.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
