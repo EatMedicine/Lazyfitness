@@ -1,9 +1,9 @@
 ﻿@model Lazyfitness.Models.resourceArea
-
 @{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.Title = "增加分区";
 }
+
 <script src="~/Areas/jQuery/userManagement.js"></script>
 
 <!--/sidebar-->
@@ -44,6 +44,9 @@
                     </th>
                     <td>
                         @Html.TextAreaFor(t => t.areaBrief, new { @class = "textArea" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u=>u.areaBrief)
+                        </div>
                     </td>
                 </tr>
                 <tr>

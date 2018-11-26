@@ -201,7 +201,11 @@ namespace Lazyfitness.Areas.toolsHelpers
             }
         }
 
-
+        /// <summary>
+        /// 通过userId删除用户
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public static Boolean deleteUserUserId(int userId)
         {
             try
@@ -221,6 +225,43 @@ namespace Lazyfitness.Areas.toolsHelpers
                 {
                     return false;
                 }
+            }
+            catch
+            {
+                return false;
+            }
+        }        
+
+        public static Boolean deleteResourceAreaInfo(Expression<Func<resourceArea, bool>> whereLambda)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<resourceArea> infoList = db.resourceArea.Where(whereLambda) as DbQuery<resourceArea>;                    
+                    List<resourceArea> listResourceInfoAreaId = infoList.ToList();                   
+                    db.resourceArea.RemoveRange(listResourceInfoAreaId);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static Boolean deleteResourceArea(int areaId)
+        {
+            try
+            {
+                Boolean flag1 = deleteResourceInfo(u => u.areaId == areaId);
+                Boolean flag2 = deleteResourceAreaInfo(u => u.areaId == areaId);
+                if (flag1 == flag2 == true)
+                {
+                    return true;
+                }
+                return false;
             }
             catch
             {

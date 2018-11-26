@@ -195,15 +195,31 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #region 删除分区
         public ActionResult deleteArea()
         {
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            if (Request.Cookies["managerId"] != null)
             {
-                var allInfo = db.resourceArea.ToList();
-                ViewBag.allInfo = allInfo;
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
             }
-            return View();
+            else
+            {
+                Response.Redirect("/backStage/manager/login");
+                return Content("未登录");
+            }
+            try
+            {
+                resourceArea[] allInfo = toolsHelpers.selectToolsController.selectResourceArea(x => x == x, u => u.areaId);
+                ViewBag.allInfo = allInfo;
+                return View();
+            }
+            catch
+            {
+                return Content("加载文章分区失败");
+            }
+            
         }
         [HttpPost]
-        public string deleteArea(string areaName)
+        public string deleteArea(int areaId)
         {
             if (Request.Cookies["managerId"] != null)
             {
@@ -219,30 +235,22 @@ namespace Lazyfitness.Areas.backStage.Controllers
             try
             {
                 //先看有没有这个分区
-                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                resourceArea[] list = toolsHelpers.selectToolsController.selectResourceArea(u => u.areaId == areaId, u => u.areaId);
+                if (list == null)
                 {
-                    var isExist = db.resourceArea.Where(u => u.areaName == areaName.Trim()).ToList();
-                    if (isExist.Count == 0)
-                    {
-                        return "not find";
-                    }
-                    //删除该分区下所有的内容
-                    var listInfo = db.resourceInfo.Where(u => u.areaId == isExist.FirstOrDefault().areaId).ToList();
-
-                    //标记为删除状态
-                    if (listInfo != null)
-                    {
-                        db.resourceInfo.RemoveRange(listInfo);
-                    }
-                    db.resourceArea.Remove(isExist.FirstOrDefault());
-                    //执行删除的sql语句
-                    db.SaveChanges();
-                    return "succes";
+                    return "没有找到此分区";
                 }
+                //如果找到这个分区开始删除分区下所有的信息
+                if( toolsHelpers.deleteToolsController.deleteResourceArea(areaId) == true)
+                {
+                    Response.Redirect("/backStage/articleManagement/areaManagement");
+                    return "success";
+                }
+                return "false";
             }
-            catch (Exception ex)
+            catch
             {
-                return ex.ToString();
+                return "false";
             }
         }
         #endregion
@@ -260,6 +268,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #endregion
 
         #region 修改分区
+        [HttpPost]
         public ActionResult changeArea(int areaId)
         {
             if (Request.Cookies["managerId"] != null)
@@ -274,39 +283,49 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 return Content("未登录");
             }
 
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            resourceArea[] list = toolsHelpers.selectToolsController.selectResourceArea(u => u.areaId == areaId, u=>u.areaId);
+            if (list == null)
             {
-                ViewBag.info = null;
-                var info = db.resourceArea.Where(u => u.areaId == areaId).ToList();                
-                resourceArea obArea = info.FirstOrDefault();
-                ViewBag.info = obArea;
+                return Content("没有找到此分区");
             }
+            ViewBag.info = list[0];         
             return View();
         }
 
 
         [HttpPost]
-        public ActionResult changeArea(resourceArea area)
+        public ActionResult updateArea(resourceArea area)
         {
-            if (Request.Cookies["managerId"] != null)
+            try
             {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
+                if (Request.Cookies["managerId"] != null)
+                {
+                    //获取Cookies的值
+                    HttpCookie cookieName = Request.Cookies["managerId"];
+                    var cookieText = Server.HtmlEncode(cookieName.Value);
+                }
+                else
+                {
+                    return Content("未登录");
+                }
+                //判断有无此分区
+                if (toolsHelpers.selectToolsController.isExistResourceArea(u => u.areaId == area.areaId) == false)
+                {
+                    return Content("没有此分区");
+                }
+                //有分区的时候修改为当前值
+                if (toolsHelpers.updateToolsController.updateResourceArea(u => u.areaId == area.areaId, area) == true)
+                {
+                    Response.Redirect("/backStage/articleManagement/areaManagement");
+                    return Content("success");
+                }
+                return Content("修改失败");
             }
-            else
+            catch
             {
-                return Content("未登录");
+                return Content("修改出错");
             }
-
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
-            {
-                var newInfo = db.resourceArea.Where(u => u.areaId == area.areaId).FirstOrDefault();
-                newInfo.areaName = area.areaName;
-                newInfo.areaBrief = area.areaBrief;
-                db.SaveChanges();
-                return Content("修改成功");
-            }
+            
 
         }
         #endregion

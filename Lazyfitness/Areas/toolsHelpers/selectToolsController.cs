@@ -58,5 +58,52 @@ namespace Lazyfitness.Areas.toolsHelpers
                 return nullInfo;
             }
         }
+
+        /// <summary>
+        /// 查找文章分区表中的数据
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="whereLambda"></param>
+        /// <param name="orderBy"></param>
+        /// <returns></returns>
+        public static resourceArea[] selectResourceArea<TKey>(Expression<Func<resourceArea, bool>> whereLambda, Expression<Func<resourceArea, TKey>> orderBy)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<resourceArea> dataObject = db.resourceArea.Where(whereLambda).OrderBy(orderBy) as DbQuery<resourceArea>;
+                    resourceArea[] infoList = dataObject.ToArray();
+                    return infoList;
+                }
+            }
+            catch
+            {
+                resourceArea[] nullInfo = new resourceArea[0];
+                return nullInfo;
+            }
+        }
+
+        #region 判断有无数据
+        public static Boolean isExistResourceArea(Expression<Func<resourceArea, bool>> whereLambda)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<resourceArea> dataObject = db.resourceArea.Where(whereLambda) as DbQuery<resourceArea>;
+                    if (dataObject.ToList().Count == 0)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        #endregion
     }
 }

@@ -57,6 +57,11 @@ namespace Lazyfitness.Areas.toolsHelpers
             }
         }
        
+        /// <summary>
+        /// 往文章分区表插入数据
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
         public static Boolean insertResourceArea(resourceArea info)
         {
             try

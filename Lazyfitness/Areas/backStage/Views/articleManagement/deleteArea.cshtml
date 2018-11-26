@@ -1,7 +1,11 @@
 ﻿@model Lazyfitness.Models.resourceArea
+@using Lazyfitness.Models
 @{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.Title = "删除分区";
+}
+@{
+    resourceArea[] allInfo = ViewBag.allInfo as resourceArea[];
 }
 <script src="~/Areas/jQuery/userManagement.js"></script>
 
@@ -34,12 +38,12 @@
                     </th>
                     <td>
                         @{
-                            <select name="areaName">
-                                @if (ViewBag.allInfo != null)
+                            <select name="areaId">
+                                @if (allInfo != null)
                                 {
-                                    foreach (var item in ViewBag.allInfo)
+                                    foreach (var item in allInfo)
                                     {
-                                        <option class="dropdown-list" value=@item.areaName id="areaName" name="areaName">@item.areaName</option>
+                                        <option class="dropdown-list" value=@item.areaId id="areaId" name="areaId">@item.areaName</option>
                                     }
                                 }
                             </select>

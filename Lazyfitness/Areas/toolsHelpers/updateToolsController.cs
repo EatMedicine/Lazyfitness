@@ -10,6 +10,12 @@ namespace Lazyfitness.Areas.toolsHelpers
 {
     public class updateToolsController : Controller
     {
+        /// <summary>
+        /// 修改userInfo表的数据
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
         public static Boolean updateUserInfo(Expression<Func<userInfo, bool>> whereLambda, userInfo info)
         {
             try
@@ -35,6 +41,32 @@ namespace Lazyfitness.Areas.toolsHelpers
                 return false;
             }
             
+        }
+
+        /// <summary>
+        /// 往文章分区表修改数据
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Boolean updateResourceArea(Expression<Func<resourceArea, bool>> whereLambda, resourceArea info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<resourceArea> dataObject = db.resourceArea.Where(whereLambda) as DbQuery<resourceArea>;
+                    resourceArea oldInfo = dataObject.FirstOrDefault();
+                    oldInfo.areaName = info.areaName;
+                    oldInfo.areaBrief = info.areaBrief;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
