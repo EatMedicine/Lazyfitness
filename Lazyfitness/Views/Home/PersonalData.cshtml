@@ -23,14 +23,25 @@
                 </div>
                 <div class="area-main">
                     <div class="area-main-inner">
-                        <form method="post" action="~/Home/PersonalData">
+                        <form action="~/Home/SaveImage" method="post" enctype="multipart/form-data">
                             @Html.TextBoxFor(u => u.userId, new { @Value = @ViewBag.userId, @type = "text", @class = "input-content", @id = "userId", @name = "userId", @hidden = "true" })
+                            <table>
+                                <tr>
+                                    <td class="table-head"><label>当前头像</label></td>
+                                    <td><span class="headPicture"><img src="@ViewBag.userHeaderPic" style="width:40px;height:40px;border-radius:40px" /></span></td>
+
+                                </tr>
+                                <tr id="btnGroup" hidden="hidden">
+                                    <td><input type="file" id="image" name="image" value="上传" hidden="hidden"></td>
+                                    <td><input class="btn" type="submit" id="postImg" name="postImg" value="上传" hidden="hidden"></td>
+                                </tr>
+                            </table>
+                        </form>
+                        <form method="post" action="~/Home/PersonalDataUpdate">
+                            @Html.TextBoxFor(u => u.userId, new { @Value = @ViewBag.userId, @type = "text", @class = "input-content", @id = "userId", @name = "userId", @hidden = "true" })
+                            @Html.TextBoxFor(u => u.userHeaderPic, new { @Value = @ViewBag.userHeaderPic, @type = "text", @class = "input-content", @id = "userHeaderPic", @name = "userHeaderPic", @hidden = "true" })
                             <div class="">
                                 <table>
-                                    <tr>
-                                        <td class="table-head"><label>当前头像</label></td>
-                                        <td><span class="headPicture"><img src="@ViewBag.userHeaderPic" style="width:40px;height:40px;border-radius:40px"/></span></td>
-                                    </tr>
                                     <tr>
                                         <td class="table-head"><label>用户ID</label></td>
                                         <td><span id="userId">@ViewBag.userId</span></td>
@@ -44,11 +55,11 @@
                                         <td>
                                             @if (@ViewBag.userSex == 0)
                                             {
-                                                <span id="userSex">男</span>
+                                                <span id="userSex">女</span>
                                             }
                                             @if (@ViewBag.userSex == 1)
                                             {
-                                                <span id="userSex">女</span>
+                                                <span id="userSex">男</span>
                                             }
                                             @if (@ViewBag.userSex == 2)
                                             {
@@ -95,7 +106,7 @@
                                     </tr>
                                     <tr>
                                         <td class="table-head"><label>用户说明</label></td>
-                                        <td class="userIntroduce">
+                                        <td>
                                             <span id="userIntroduce">
                                                 @ViewBag.userIntroduce
                                             </span>
