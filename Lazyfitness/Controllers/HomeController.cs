@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Lazyfitness.MyClass;
 using System.Data.Entity.Infrastructure;
 using Lazyfitness.Filter;
+using System.Linq.Expressions;
 
 namespace Lazyfitness.Controllers
 {
@@ -614,6 +615,13 @@ namespace Lazyfitness.Controllers
                 userPwd = "123"
             };
             return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult test()
+        {
+            postInfo[] pinfo = Tools.GetForumAll(1);
+            userInfo[] uinfo = Tools.GetUserInfo(pinfo);
+            return Json(uinfo, JsonRequestBehavior.AllowGet);
         }
         #endregion
 

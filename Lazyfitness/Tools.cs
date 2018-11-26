@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using System.Data.Entity.Infrastructure;
 using System.Collections;
 using System.Text.RegularExpressions;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Lazyfitness
 {   
@@ -82,7 +84,29 @@ namespace Lazyfitness
             }
         }
 
-        public static resourceInfo[] GetArticlesInfo(Func<int,>)
+        /// <summary>
+        /// 获取文章区多个文章信息
+        /// </summary>
+        /// <param name="whereLambda">筛选文章</param>
+        /// <param name="IsDes">是否按照时间倒序排列</param>
+        /// <param name="skipNum">跳过数量</param>
+        /// <param name="takeNum">取数量</param>
+        /// <returns>多个文章信息</returns>
+        public static resourceInfo[] GetArticlesInfo(Expression<Func<resourceInfo,bool>> whereLambda,bool IsDes,int skipNum,int takeNum)
+        {
+            //不合法情况
+            if (whereLambda == null || skipNum < 0 || takeNum < 0) 
+                return null;
+            using(LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                DbQuery<resourceInfo> dbInfo;
+                if (IsDes == true) 
+                    dbInfo = db.resourceInfo.Where(whereLambda).OrderByDescending(u=>u.resourceTime).Skip(skipNum).Take(takeNum) as DbQuery<resourceInfo>;
+                else
+                    dbInfo = db.resourceInfo.Where(whereLambda).OrderBy(u => u.resourceTime).Skip(skipNum).Take(takeNum) as DbQuery<resourceInfo>;
+                return dbInfo.ToArray();
+            }
+        }
 
         /// <summary>
         /// 获取资源区分区的名字
@@ -731,7 +755,7 @@ namespace Lazyfitness
             }
         }
         #endregion
-
+        #region 用户信息获取
         /// <summary>
         /// 获取用户名字
         /// </summary>
@@ -739,7 +763,7 @@ namespace Lazyfitness
         /// <returns></returns>
         public static string GetUserName(int userId)
         {
-            using(LazyfitnessEntities db = new LazyfitnessEntities())
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 var userName = db.userInfo.Where(u => u.userId == userId).FirstOrDefault().userName;
                 return userName;
@@ -753,7 +777,7 @@ namespace Lazyfitness
         /// <returns></returns>
         public static string GetUserPicAdr(int userId)
         {
-            using(LazyfitnessEntities db = new LazyfitnessEntities())
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 var userPicAdr = db.userInfo.Where(u => u.userId == userId).FirstOrDefault().userHeaderPic;
                 return userPicAdr;
@@ -788,6 +812,67 @@ namespace Lazyfitness
                 return info;
             }
         }
+
+        /// <summary>
+        /// 获取多个用户信息
+        /// </summary>
+        /// <param name="userIds">用户ID数组</param>
+        /// <returns>若存在查询不到的ID则对应userInfo为空</returns>
+        public static userInfo[] GetUserInfo(int[] userIds)
+        {
+            //为空返回0长度数组
+            if (userIds == null)
+            {
+                return new userInfo[0];
+            }
+            using(LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                userInfo[] infos = new userInfo[userIds.Length];
+                for(int count = 0; count < userIds.Length; count++)
+                {
+                    userInfo info = db.userInfo.Where(user => user.userId == userIds[count]).FirstOrDefault();
+                    infos[count] = info;
+                }
+                return infos;
+            }
+        }
+
+        public static userInfo[] GetUserInfo(object[] containUserIdObj)
+        {
+            //不合法情况
+            if (containUserIdObj == null)
+                return new userInfo[0];
+            //获取类型
+            Type typeObj = containUserIdObj[0].GetType();
+            PropertyInfo[] proInfo =typeObj.GetProperties();
+            int index = -1;
+            //获取属性index
+            for(int count = 0; count < proInfo.Length; count++)
+            {
+                if (proInfo[count].Name == "userId")
+                {
+                    index = count;
+                    break;
+                }
+            }
+            //未找到userId
+            if (index == -1)
+            {
+                return new userInfo[0];
+            }
+            userInfo[] info = new userInfo[containUserIdObj.Length];
+            using(LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                for (int count = 0; count < info.Length; count++)
+                {
+                    int id = (int)containUserIdObj[count].GetType().GetProperties()[index].GetValue(containUserIdObj[count], null);
+                    info[count] = db.userInfo.Where(user => user.userId == id).FirstOrDefault();
+                }
+            }
+            return info;
+
+        }
+        #endregion
 
         //以下函数就算没获取到数据也要返回一个长度为0的数组 不要返回NULL
         #region 首页数据
@@ -1239,7 +1324,6 @@ namespace Lazyfitness
         }
 
         #endregion
-
         #region 文章大区数据
         /// <summary>
         /// 获取首页的轮播图数据
@@ -1303,7 +1387,6 @@ namespace Lazyfitness
             }                       
         }
         #endregion     
-
         public static string GetNoHTMLString(string Htmlstring)
         {
             //删除脚本   
