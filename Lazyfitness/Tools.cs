@@ -777,6 +777,8 @@ namespace Lazyfitness
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 var obInfo = db.userInfo.Where(u => u.userId == userId).FirstOrDefault();
+                if (obInfo == null)
+                    return null;
                 userInfo info = new userInfo
                 {
                     userName = obInfo.userName,
@@ -1335,6 +1337,26 @@ namespace Lazyfitness
             return Htmlstring;
         }
 
+        /// <summary>
+        /// 获取后台数据
+        /// </summary>
+        /// <param name="managerId">后台登录ID</param>
+        /// <returns></returns>
+        public static backManager GetBackManagerInfo(int managerId)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                backManager info = db.backManager.Where(u => u.managerId == managerId).FirstOrDefault();
+                if (info == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return info;
+                }
+            }
+        }
     }
             
 }

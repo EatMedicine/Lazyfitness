@@ -176,6 +176,7 @@
     <Compile Include="Controllers\APIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filter\AdminFilter.cs" />
+    <Compile Include="Filter\BackStageFilter.cs" />
     <Compile Include="Filter\LoginStatusFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

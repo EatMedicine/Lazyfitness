@@ -89,5 +89,21 @@ namespace Lazyfitness
             return true;
 
         }
+
+        /// <summary>
+        /// 判断是否是后台管理员
+        /// </summary>
+        /// <param name="managerId">后台登录ID</param>
+        /// <returns></returns>
+        public static bool IsBackStageManager(string managerId)
+        {
+            if (Int32.TryParse(managerId, out int id) == false)
+                return false;
+            if (Tools.GetBackManagerInfo(id) == null)
+                return false;
+            else
+                return true;
+        }
+
     }
 }
