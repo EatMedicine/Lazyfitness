@@ -117,7 +117,7 @@
                             帖子内容
                         </th>
                         <td>
-                            @Html.TextBoxFor(u => u.quesAnswContent, new { @Value = @ViewBag.quesAnswInfo.quesAnswContent, @type = "text", @class = "input-content", @id = "quesAnswContent", @name = "quesAnswContent" })
+                            @Html.TextBoxFor(u => u.quesAnswContent, new { @Value = @ViewBag.quesAnswInfo.quesAnswContent, @type = "text", @class = "input-content contentDiv", @id = "quesAnswContent", @name = "quesAnswContent" })
                             <div class="error-mes">@Html.ValidationMessageFor(x => x.quesAnswContent)</div>
                         </td>
                     </tr>

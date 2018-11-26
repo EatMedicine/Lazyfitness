@@ -115,7 +115,7 @@
                             内容
                         </th>
                         <td>
-                            @Html.TextBoxFor(u => u.resourceContent, new { Value = ViewBag.allInfo.resourceContent, @class = "input-content" })
+                            @Html.TextBoxFor(u => u.resourceContent, new { Value = ViewBag.allInfo.resourceContent, @class = "input-content contentDiv" })
                             <div class="error-mes">
                                 @Html.ValidationMessageFor(u => u.resourceContent)
                             </div>

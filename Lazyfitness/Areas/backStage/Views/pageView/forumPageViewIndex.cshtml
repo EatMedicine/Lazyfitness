@@ -75,7 +75,11 @@
                     {
                         <td>隐藏</td>
                     }
-                    <td>@item.postContent</td>
+                    <td>
+                        <div class="contentDiv">
+                            @item.postContent
+                        </div>
+                    </td>
                     <td>
                         <form method="get" action="~/backStage/pageView/forumInvitationUpdate">
                             <input type="text" name="postId" id="postId" value="@item.postId" hidden="hidden" />

@@ -75,7 +75,12 @@
                     {
                         <td>隐藏</td>
                     }
-                    <td>@item.quesAnswContent</td>
+                        <td>
+                            <div class="contentDiv">
+                                @item.quesAnswContent
+                            </div>
+                            
+                        </td>
                     <td>
                         <form method="get" action="~/backStage/pageView/quesAnswInvitationUpdate">
                             <input type="text" name="quesAnswId" id="quesAnswId" value="@item.quesAnswId" hidden="hidden" />

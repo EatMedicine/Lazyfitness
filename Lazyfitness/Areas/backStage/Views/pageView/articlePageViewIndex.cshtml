@@ -57,7 +57,11 @@
                     {
                         <th>是</th>
                     }
-                    <td>@item.resourceContent</td>
+                    <td>
+                        <div class="contentDiv">
+                            @item.resourceContent
+                        </div>
+                    </td>
                     <td>
                         <form method="get" action="~/backStage/pageView/articleUpdate">
                             <input type="text" name="resourceId" id="resourceId" value="@item.resourceId" hidden="hidden" />
