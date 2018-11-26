@@ -17,11 +17,11 @@ DROP TABLE userSecurity
 GO
 CREATE TABLE userSecurity
 (
-	userId INT PRIMARY KEY IDENTITY(1, 1),
-	loginId NVARCHAR(50),
+	userId INT PRIMARY KEY IDENTITY(1, 1), --用户唯一指定id 用于各个涉及用户的表的连接
+	loginId NVARCHAR(50), --仅仅用于登录的登录名 显示请用userInfo中的userName（昵称）
 	userPwd NVARCHAR(50)
 )
-GO
+GO	
 
 --*******创建用户个人信息表*******--
 IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'userInfo')
@@ -32,10 +32,10 @@ CREATE TABLE userInfo
 	userId INT PRIMARY KEY Foreign Key References userSecurity(userId),
 	userName NVARCHAR(50),
 	userAge INT,--0~999岁
-	userSex INT,--男或女
+	userSex INT,--0男 1女 2保密
 	userEmail NVARCHAR(50),--邮箱
 	userStatus INT DEFAULT 1, --0禁言,1注册会员,2正式会员,3管理员
-	userAccount INT DEFAULT 0,
+	userAccount INT DEFAULT 0, --用户金钱 
 	userIntroduce NVARCHAR(200),	--用户简介
 	userHeaderPic NVARCHAR(200)	--用户头像地址
 )
@@ -48,8 +48,8 @@ GO
 CREATE TABLE resourceArea
 (
 	areaId INT PRIMARY KEY IDENTITY(1, 1),
-	areaName NVARCHAR(50),
-	areaBrief TEXT
+	areaName NVARCHAR(50), --分区名
+	areaBrief TEXT --简介 
 )
 GO
 
@@ -60,8 +60,8 @@ GO
 CREATE TABLE quesArea
 (
 	areaId INT PRIMARY KEY IDENTITY(1, 1),
-	areaName NVARCHAR(50),
-	areaBrief TEXT
+	areaName NVARCHAR(50),--分区名
+	areaBrief TEXT --简介
 )
 GO
 
@@ -72,8 +72,8 @@ GO
 CREATE TABLE postArea
 (
 	areaId INT PRIMARY KEY IDENTITY(1, 1),
-	areaName NVARCHAR(50),
-	areaBrief TEXT
+	areaName NVARCHAR(50),--分区名
+	areaBrief TEXT --简介
 )
 GO
 
@@ -85,11 +85,11 @@ CREATE TABLE resourceInfo
 (
 	areaId INT,
 	resourceId INT IDENTITY(1, 1),
-	resourceName NVARCHAR(50),
+	resourceName NVARCHAR(50), --文章标题
 	userId INT,
 	resourceTime DATETIME,--可以用datetime能存储年月日时分秒
-	pageView INT,
-	isTop INT,
+	pageView INT, --浏览量
+	isTop INT, --是否置顶 0不置顶1置顶
 	resourceContent TEXT,
 	PRIMARY KEY(areaId, resourceId)
 )
@@ -106,9 +106,9 @@ CREATE TABLE postInfo
 	postTitle NVARCHAR(50),
 	userId INT,
 	postTime DATETIME,
-	pageView INT,
-	isPost INT,
-	amount INT,
+	pageView INT, --浏览量
+	isPost INT, --是否置顶0不置顶1置顶
+	amount INT, --该贴的金额（目前还没实际用上）
 	postStatus INT,
 	postContent TEXT,
 	PRIMARY KEY(areaId, postId)
@@ -140,10 +140,10 @@ CREATE TABLE quesAnswInfo
 	quesAnswTitle NVARCHAR(50),
 	userId INT,
 	quesAnswTime DATETIME,
-	pageView INT,
-	isPost INT,
-	quesAnswStatus INT,
-	amount INT,
+	pageView INT,--浏览量
+	isPost INT, --是否置顶0不置顶1置顶
+	quesAnswStatus INT, --问题状态 0为关闭 1为未解决 2为已解决
+	amount INT, --悬赏金额
 	quesAnswContent Text,
 	PRIMARY KEY(areaId, quesAnswId)
 )
@@ -199,7 +199,7 @@ CREATE TABLE serverShowInfo
 	title NVARCHAR(50),	--标题
 	pictureAdr NVARCHAR(200),	--图片地址 若为记录则为空
 	url NVARCHAR(200),	--链接地址
-	flag INT,	--区分公告或是轮播图
+	flag INT,	--区分公告或是轮播图 0轮播图1公告
 	Infostatus INT	--觉得是否启用
 )
 GO

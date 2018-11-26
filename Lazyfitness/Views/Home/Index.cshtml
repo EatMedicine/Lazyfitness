@@ -43,7 +43,7 @@
 <div class="scroll-notic">
     <!--滚动栏-->
     <div class="scroll-box fl">
-        <div class="panel" id="panel" onmousemove="cancelScroll()" onmouseout="startScroll()">
+        <div class="panel" id="panel" onmouseenter="cancelScroll()" onmouseleave="startScroll()">
             <ul class="picture fl">
                 @{
                     int count1 = 0;

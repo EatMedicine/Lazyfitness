@@ -25,7 +25,7 @@
     <div class="scroll-notic">
         <!--滚动栏-->
         <div class="scroll-box">
-            <div class="panel" id="panel" onmousemove="cancelScroll()" onmouseout="startScroll()">
+            <div class="panel" id="panel" onmouseenter="cancelScroll()" onmouseleave="startScroll()">
                 <div class="picture" id="picture">
                     @{
                         if (urls != null)
