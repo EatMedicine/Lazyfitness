@@ -177,14 +177,17 @@ namespace Lazyfitness.Areas.backStage.Controllers
                         areaName = area.areaName.Trim(),
                         areaBrief = area.areaBrief.Trim(),
                     };
-                    db.resourceArea.Add(obResourceArea);
-                    db.SaveChanges();
-                    return "success";
+                    if (toolsHelpers.insertToolsController.insertResourceArea(obResourceArea) == true)
+                    {
+                        Response.Redirect("/backStage/articleManagement/areaManagement");
+                        return "success";
+                    }
+                    return "增加分区失败";
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                return ex.ToString();
+                return "增加分区出错";
             }
         }
         #endregion

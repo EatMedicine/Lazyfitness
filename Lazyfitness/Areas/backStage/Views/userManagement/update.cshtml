@@ -1,4 +1,5 @@
-﻿@using Lazyfitness.Models
+﻿@using Lazyfitness.Models;
+@model Lazyfitness.Models.userInfo
 @{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.Title = "修改用户信息";
@@ -43,7 +44,11 @@
                         用户名
                     </th>
                     <td>
-                        <input class="input-content" type="text" id="userName" name="userName" value="@userInformation.userName" />
+                        @*<input class="input-content" type="text" id="userName" name="userName" value="@userInformation.userName" />*@
+                        @Html.TextBoxFor(u=>u.userName, new {@Value= @userInformation.userName, @class="input-cntent" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u=>u.userName)
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -51,7 +56,11 @@
                         年龄
                     </th>
                     <td>
-                        <input class="input-content" type="text" id="userAge" name="userAge" value="@userInformation.userAge" />
+                        @*<input class="input-content" type="text" id="userAge" name="userAge" value="@userInformation.userAge" />*@
+                        @Html.TextBoxFor(u => u.userAge, new { @Value = @userInformation.userAge, @class = "input-cntent" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.userAge)
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -61,22 +70,37 @@
                     <td>
                         @if (userInformation.userSex == 0)
                         {
-                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="0" checked="checked" /><label>男</label>
+                            @Html.RadioButtonFor(u => u.userSex, 0, new { @class = "radio-dis", @checked = "checked" })<label>男</label>
+                            @Html.RadioButtonFor(u => u.userSex, 1, new { @class = "radio-dis" })<label>女</label>
+                            @Html.RadioButtonFor(u => u.userSex, 2, new { @class = "radio-dis" })<label>保密</label>
+
+                            @*<input class="radio-dis" type="radio" id="userSex" name="userSex" value="0" checked="checked" /><label>男</label>
                             <input class="radio-dis" type="radio" id="userSex" name="userSex" value="1" /><label>女</label>
-                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="2" /><label>保密</label>
+                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="2" /><label>保密</label>*@
                         }
                         @if (userInformation.userSex == 1)
                         {
-                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="0" /><label>男</label>
+                            @Html.RadioButtonFor(u => u.userSex, 0, new {@class = "radio-dis" })<label>男</label>
+                            @Html.RadioButtonFor(u => u.userSex, 1, new {@class = "radio-dis", @checked = "checked" })<label>女</label>
+                            @Html.RadioButtonFor(u => u.userSex, 2, new {@class = "radio-dis"})<label>保密</label>
+
+                            @*<input class="radio-dis" type="radio" id="userSex" name="userSex" value="0" /><label>男</label>
                             <input class="radio-dis" type="radio" id="userSex" name="userSex" value="1" checked="checked" /><label>女</label>
-                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="2" /><label>保密</label>
+                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="2" /><label>保密</label>*@
                         }
                         @if (userInformation.userSex == 2 || userInformation.userSex == null)
                         {
-                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="0" /><label>男</label>
-                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="1" /><label>女</label>
-                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="2" checked="checked" /><label>保密</label>
+                            @Html.RadioButtonFor(u => u.userSex, 0, new { @class = "radio-dis" })<label>男</label>
+                            @Html.RadioButtonFor(u => u.userSex, 1, new { @class = "radio-dis" })<label>女</label>
+                            @Html.RadioButtonFor(u => u.userSex, 2, new { @class = "radio-dis", @checked = "checked" })<label>保密</label>
+
+                            @*<input class="radio-dis" type="radio" id="userSex" name="userSex" value="0" /><label>男</label>
+                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="1" /><label>女</label>*@
+                            @*<input class="radio-dis" type="radio" id="userSex" name="userSex" value="2" checked="checked" /><label>保密</label>*@
                         }
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u=>u.userSex)
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -84,7 +108,11 @@
                         邮箱
                     </th>
                     <td>
-                        <input class="input-content" type="text" id="userEmail" name="userEmail" value="@userInformation.userEmail" />
+                        @Html.TextBoxFor(u=>u.userEmail, new {@Value=userInformation.userEmail, @class="input-content" })
+                        @*<input class="input-content" type="text" id="userEmail" name="userEmail" value="@userInformation.userEmail" />*@
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u=>u.userEmail)
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -112,7 +140,11 @@
                         账户余额
                     </th>
                     <td>
-                        <input class="input-content" type="text" id="userAccount" name="userAccount" value="@userInformation.userAccount" />
+                        @Html.TextBoxFor(u=>u.userAccount, new { @class = "input-content", @Value = @userInformation.userAccount })
+                        @*<input class="input-content" type="text" id="userAccount" name="userAccount" value="@userInformation.userAccount" />*@
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u=>u.userAccount)
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -120,7 +152,11 @@
                         用户简介
                     </th>
                     <td>
-                        <input class="input-content" type="text" id="userIntroduce" name="userIntroduce" value="@userInformation.userIntroduce" />
+                        @Html.TextBoxFor(u => u.userIntroduce, new { @class = "input-content", @Value = @userInformation.userIntroduce })
+                        @*<input class="input-content" type="text" id="userIntroduce" name="userIntroduce" value="@userInformation.userIntroduce" />*@
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.userIntroduce)
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -128,7 +164,11 @@
                         用户头像
                     </th>
                     <td>
-                        <input class="input-content" type="text" id="userHeaderPic" name="userHeaderPic" value="@userInformation.userHeaderPic" />
+                        @Html.TextBoxFor(u => u.userHeaderPic, new { @class = "input-content", @Value = @userInformation.userHeaderPic })
+                        @*<input class="input-content" type="text" id="userHeaderPic" name="userHeaderPic" value="@userInformation.userHeaderPic" />*@
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.userHeaderPic)
+                        </div>
                     </td>
                 </tr>
                 <tr>

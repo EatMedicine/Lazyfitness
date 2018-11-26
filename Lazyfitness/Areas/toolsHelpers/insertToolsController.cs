@@ -57,5 +57,22 @@ namespace Lazyfitness.Areas.toolsHelpers
             }
         }
        
+        public static Boolean insertResourceArea(resourceArea info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    db.resourceArea.Add(info);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            
+        }
     }
 }
