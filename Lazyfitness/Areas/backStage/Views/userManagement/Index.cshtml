@@ -1,9 +1,14 @@
-﻿@{
+﻿@using Lazyfitness.Models
+@{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.Title = "用户管理";
 }
-<script src="~/Areas/jQuery/userManagement.js"></script>
-
+@{
+    userInfo[] infoArray = ViewBag.allInfo as userInfo[];
+    int sumPage = Convert.ToInt32(ViewBag.sumPage);
+    int nowPage = Convert.ToInt32(ViewBag.nowPage);
+    userStatusName[] nameArray = ViewBag.nameArray as userStatusName[];
+}
 <!--/sidebar-->
 <div class="main-wrap">
     <div class="crumb-wrap">
@@ -26,85 +31,111 @@
 </div>
 <div class="result-content">
     <table class="result-tab">
-        <tr>
-            <th>用户编号</th>
-            <th>用户名</th>
-            <th>用户年龄</th>
-            <th>用户性别</th>
-            <th>用户邮箱</th>
-            <th>用户状态</th>
-            <th>用户账户金额</th>
-            <th colspan="2">可选操作</th>
-        </tr>
-        @{
-            foreach (var item in @ViewBag.allInfo)
+        @if (infoArray != null)
+        {
+            <tr>
+                <th>用户ID</th>
+                <th>用户名</th>
+                <th>用户年龄</th>
+                <th>用户性别</th>
+                <th>用户邮箱</th>
+                <th>用户状态</th>
+                <th>用户账户金额</th>
+                <th>用户个人简介</th>
+                <th>用户头像地址</th>
+                <th colspan="2">可选操作</th>
+            </tr>
+            foreach (var item in infoArray)
             {
                 <tr>
-                    <td>@item.userId</td>
-                    <td>@item.userName</td>
-                    <td>@item.userAge</td>
-                    @if (item.userSex == 0)
-                    {
-                        <td>女</td>
-                    }
-                    @if (item.userSex == 1)
-                    {
-                        <td>男</td>
-                    }
-                    @if (item.userSex == 2)
-                    {
-                        <td>保密</td>
-                    }
-
-                    @if (item.userEmail == null)
-                    {
-                        <td>空</td>
-                    }
-                    @if (item.userEmail != null)
-                    {
-                        <td>@item.userEmail</td>
-                    }
-
-                    @if (item.userStatus == 0)
-                    {
-                        <td>禁止发言</td>
-                    }
-                    @if (item.userStatus == 1)
-                    {
-                        <td>注册会员</td>
-                    }
-                    @if (item.userStatus == 2)
-                    {
-                        <td>正式会员</td>
-                    }
-                    @if (item.userStatus == 3)
-                    {
-                        <td>管理员</td>
-                    }
-                    @if (item.userAccount != null)
-                    {
-                        <td>@item.userAccount</td>
-                    }
-                    @if (item.userAccount == null)
-                    {
-                        <td>0</td>
-                    }
                     <td>
-                        <form method="post" action="~/backStage/userManagement/update">
-                            <input type="text" name="userName" id="userName" value=@item.userName hidden="hidden" />
-                            <input class="index-btn" type="submit" value="修改">
-                        </form>
+                        <div class="numberDiv">
+                            @item.userId
+                        </div>
                     </td>
-                    <td><button class="index-btn delete-data" type="button" value=@item.userName>删除</button></td>
+                    <td>
+                        <div class="contentDiv">
+                            @item.userName
+                        </div>
+                    </td>
+                    <td>
+                        <div class="numberDiv">
+                            @item.userAge
+                        </div>
+                    </td>
+                    <td>
+                        @if (item.userSex == null)
+                        {
+                            <div class="numberDiv"></div>
+                        }
+                        @if (item.userSex == 0)
+                        {
+                            <div class="numberDiv">女</div>
+                        }
+                        @if (item.userSex == 1)
+                        {
+                            <div class="numberDiv">男</div>
+                        }
+                        @if (item.userSex == 2)
+                        {
+                            <div class="numberDiv">保密</div>
+                        }
+                    </td>
+                    <td>
+                        <div class="contentDiv">
+                            @item.userEmail
+                        </div>
+                    </td>
+                    <td>
+                        <div class="contentDiv">
+                            @foreach (var name in nameArray)
+                            {
+                                if (name.userStatus == item.userStatus)
+                                {
+                                    <span>@name.statusName</span>
+                                }
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="numberDiv">
+                            @item.userAccount
+                        </div>
+                    </td>
+                    <td>
+                        <div class="contentDiv">
+                            @item.userIntroduce
+                        </div>
+                    </td>
+                    <td>
+                        <div class="contentDiv">
+                            @item.userHeaderPic
+                        </div>
+                    </td>
+                    <td>
+                        <div class="numberDiv">
+                            <form method="post" action="~/backStage/userManagement/update">
+                                <input type="text" name="userId" id="userId" value=@item.userId hidden="hidden" />
+                                <input class="index-btn" type="submit" value="修改">
+                            </form>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="numberDiv">
+                            <form method="post" action="~/backStage/userManagement/delete">
+                                <input type="text" name="userId" id="userId" value=@item.userId hidden="hidden" />
+                                <input class="index-btn" type="submit" value="删除">
+                            </form>
+                        </div>
+                    </td>
                 </tr>
             }
         }
-
     </table>
     <div class="page-number">
         <ul>
             @{
-                for (int i = 1; i <= ViewBag.sumPage; i++)
+                for (int i = 1; i <= sumPage; i++)
                 {
 
                     <li style="float:left">
@@ -115,7 +146,7 @@
                     </li>
                 }
             }
-            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @ViewBag.nowPage 页, 共 @ViewBag.sumPage 页" /></li>
+            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @nowPage 页, 共 @sumPage 页" /></li>
         </ul>
     </div>
 </div>

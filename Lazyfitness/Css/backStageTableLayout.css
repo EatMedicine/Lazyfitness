@@ -1,8 +1,11 @@
 ﻿/*.result-content{
     float:left;
 }*/
+.numberDiv{
+    padding:0px;margin:0px; min-width:100px; max-width:190px; max-height:35px; overflow:hidden     
+}
 .contentDiv{
-    padding:0px;margin:0px; max-width:300px; max-height:35px; overflow:hidden 
+    padding:0px;margin:0px;min-width:190px;  max-width:290px; max-height:35px; overflow:hidden 
 }
 .result-tab{margin-top:30px; margin-left:50px;}
 .result-tab{width:1200px; border-collapse:collapse;border: 1px solid #ddd;}

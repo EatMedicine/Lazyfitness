@@ -1,0 +1,133 @@
+﻿@using Lazyfitness.Models
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "信息列表";
+}
+@{ 
+    userInfo[] infoArray = ViewBag.infoArray as userInfo[];
+    userStatusName[] nameArray = ViewBag.nameArray as userStatusName[];
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加用户", "add", "userManagement")
+                @Html.ActionLink("删除用户", "delete", "userManagement")
+                @Html.ActionLink("修改用户信息", "search", "userManagement")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="result-content">
+    <table class="result-tab">
+        @if (infoArray != null)
+        {
+            <tr>
+                <th>用户ID</th>
+                <th>用户名</th>
+                <th>用户年龄</th>
+                <th>用户性别</th>
+                <th>用户邮箱</th>
+                <th>用户状态</th>
+                <th>用户账户金额</th>
+                <th>用户个人简介</th>
+                <th>用户头像地址</th>
+                <th colspan="2">可选操作</th>
+            </tr>
+            foreach (var item in infoArray)
+            {
+            <tr>
+                <td>
+                    <div class="numberDiv">
+                        @item.userId
+                    </div>
+                </td>
+                <td>
+                    <div class="contentDiv">
+                        @item.userName
+                    </div>
+                </td>
+                <td>
+                    <div class="numberDiv">
+                        @item.userAge
+                    </div>
+                </td>
+                <td>
+                    @if (item.userSex == null)
+                    {
+                        <div class="numberDiv"></div>
+                    }
+                    @if (item.userSex == 0)
+                    {
+                        <div class="numberDiv">女</div>
+                    }
+                    @if (item.userSex == 1)
+                    {
+                        <div class="numberDiv">男</div>
+                    }
+                    @if (item.userSex == 2)
+                    {
+                        <div class="numberDiv">保密</div>
+                    }
+                </td>
+                <td>
+                    <div class="contentDiv">
+                        @item.userEmail
+                    </div>
+                </td>
+                <td>
+                    <div class="contentDiv">
+                        @foreach (var name in nameArray)
+                        {
+                            if (name.userStatus == item.userStatus)
+                            {
+                                <span>@name.statusName</span>
+                            }
+                        }
+                    </div>
+                </td>
+                <td>
+                    <div class="numberDiv">
+                        @item.userAccount
+                    </div>
+                </td>
+                <td>
+                    <div class="contentDiv">
+                        @item.userIntroduce
+                    </div>
+                </td>
+                <td>
+                    <div class="contentDiv">
+                        @item.userHeaderPic
+                    </div>
+                </td>
+                <td>
+                    <div class="numberDiv">
+                        <form method="post" action="~/backStage/userManagement/update">
+                            <input type="text" name="userId" id="userId" value=@item.userId hidden="hidden" />
+                            <input class="index-btn" type="submit" value="修改">
+                        </form>
+                    </div>                    
+                </td>
+                <td>
+                    <div class="numberDiv">
+                        <form method="post" action="~/backStage/userManagement/delete">
+                            <input type="text" name="userId" id="userId" value=@item.userId hidden="hidden" />
+                            <input class="index-btn" type="submit" value="删除">
+                        </form>
+                    </div>
+                </td>
+            </tr>                
+            }
+        }
+    </table>
+</div>

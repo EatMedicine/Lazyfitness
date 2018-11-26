@@ -1,6 +1,11 @@
-﻿@{
+﻿@using Lazyfitness.Models
+@{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.Title = "修改用户信息";
+}
+@{ 
+    userInfo userInformation = ViewBag.userInformation as userInfo;
+    userStatusName[] nameArray = ViewBag.nameArray as userStatusName[];
 }
 <!--/sidebar-->
 <div class="main-wrap">
@@ -23,16 +28,22 @@
     </div>
 </div>
 <div class="result-content">
-    <form action="~/backStage/userManagement/updateUserInfo" method="post">
+    <form action="~/backStage/userManagement/updateUserInfo" method="post" autocomplete="off">
         <table class="insert-tab">
             <tbody>
                 <tr><th></th><td class="show-title">修改用户信息</td></tr>
+                <tr>
+                    <th>用户ID</th>
+                    <td>
+                        <input class="input-content txt-unchange" readonly="readonly" name="userId" id="userId" value="@userInformation.userId" /> 
+                    </td>
+                </tr>
                 <tr>
                     <th>
                         用户名
                     </th>
                     <td>
-                        <input class="input-content txt-unchange" type="text" id="userName" name="userName" readonly="readonly" value="@ViewBag.userInfo.userName" />
+                        <input class="input-content" type="text" id="userName" name="userName" value="@userInformation.userName" />
                     </td>
                 </tr>
                 <tr>
@@ -40,7 +51,7 @@
                         年龄
                     </th>
                     <td>
-                        <input class="input-content" type="text" id="userAge" name="userAge" value="@ViewBag.userInfo.userAge" />
+                        <input class="input-content" type="text" id="userAge" name="userAge" value="@userInformation.userAge" />
                     </td>
                 </tr>
                 <tr>
@@ -48,24 +59,24 @@
                         性别
                     </th>
                     <td>
-                        @if (ViewBag.userInfo.userSex == 0)
-            {
-                <input class="radio-dis" type="radio" id="userSex" name="userSex" value="0" checked="checked" /><label>男</label>
-                <input class="radio-dis" type="radio" id="userSex" name="userSex" value="1" /><label>女</label>
-                <input class="radio-dis" type="radio" id="userSex" name="userSex" value="2" /><label>保密</label>
-}
-                        @if (ViewBag.userInfo.userSex == 1)
-            {
-                <input class="radio-dis" type="radio" id="userSex" name="userSex" value="0" /><label>男</label>
-                <input class="radio-dis" type="radio" id="userSex" name="userSex" value="1" checked="checked" /><label>女</label>
-                <input class="radio-dis" type="radio" id="userSex" name="userSex" value="2" /><label>保密</label>
-}
-                        @if (ViewBag.userInfo.userSex == 2)
-            {
-                <input class="radio-dis" type="radio" id="userSex" name="userSex" value="0" /><label>男</label>
-                <input class="radio-dis" type="radio" id="userSex" name="userSex" value="1" /><label>女</label>
-                <input class="radio-dis" type="radio" id="userSex" name="userSex" value="2" checked="checked" /><label>保密</label>
-}
+                        @if (userInformation.userSex == 0)
+                        {
+                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="0" checked="checked" /><label>男</label>
+                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="1" /><label>女</label>
+                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="2" /><label>保密</label>
+                        }
+                        @if (userInformation.userSex == 1)
+                        {
+                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="0" /><label>男</label>
+                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="1" checked="checked" /><label>女</label>
+                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="2" /><label>保密</label>
+                        }
+                        @if (userInformation.userSex == 2 || userInformation.userSex == null)
+                        {
+                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="0" /><label>男</label>
+                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="1" /><label>女</label>
+                            <input class="radio-dis" type="radio" id="userSex" name="userSex" value="2" checked="checked" /><label>保密</label>
+                        }
                     </td>
                 </tr>
                 <tr>
@@ -73,7 +84,7 @@
                         邮箱
                     </th>
                     <td>
-                        <input class="input-content" type="text" id="userEmail" name="userEmail" value="@ViewBag.userInfo.userEmail" />
+                        <input class="input-content" type="text" id="userEmail" name="userEmail" value="@userInformation.userEmail" />
                     </td>
                 </tr>
                 <tr>
@@ -82,17 +93,17 @@
                     </th>
                     <td>
                         <select name="userStatus">
-                            @foreach (var item in ViewBag.statusNameList)
-                {
-                    if (item.userStatus == ViewBag.userInfo.userStatus)
-                    {
-                        <option class="dropdown-list" selected="selected" value=@item.userStatus id="userStatus" name="userStatus">@item.statusName</option>
-        }
-        else
-        {
-            <option class="dropdown-list" value=@item.userStatus id="userStatus" name="userStatus">@item.statusName</option>
-}
-}
+                            @foreach (var item in nameArray)
+                            {
+                                if (item.userStatus == userInformation.userStatus)
+                                {
+                                    <option class="dropdown-list" selected="selected" value=@item.userStatus id="userStatus" name="userStatus">@item.statusName</option>
+                                }
+                                else
+                                {
+                                    <option class="dropdown-list" value=@item.userStatus id="userStatus" name="userStatus">@item.statusName</option>
+                                }
+                            }
                         </select>
                     </td>
                 </tr>
@@ -101,7 +112,7 @@
                         账户余额
                     </th>
                     <td>
-                        <input class="input-content" type="text" id="userAccount" name="userAccount" value="@ViewBag.userInfo.userAccount" />
+                        <input class="input-content" type="text" id="userAccount" name="userAccount" value="@userInformation.userAccount" />
                     </td>
                 </tr>
                 <tr>
@@ -109,7 +120,15 @@
                         用户简介
                     </th>
                     <td>
-                        <input class="input-content" type="text" id="userIntroduce" name="userIntroduce" value="@ViewBag.userInfo.userIntroduce" />
+                        <input class="input-content" type="text" id="userIntroduce" name="userIntroduce" value="@userInformation.userIntroduce" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        用户头像
+                    </th>
+                    <td>
+                        <input class="input-content" type="text" id="userHeaderPic" name="userHeaderPic" value="@userInformation.userHeaderPic" />
                     </td>
                 </tr>
                 <tr>
