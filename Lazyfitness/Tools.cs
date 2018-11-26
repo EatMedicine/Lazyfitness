@@ -82,6 +82,8 @@ namespace Lazyfitness
             }
         }
 
+        public static resourceInfo[] GetArticlesInfo(Func<int,>)
+
         /// <summary>
         /// 获取资源区分区的名字
         /// </summary>
@@ -111,7 +113,7 @@ namespace Lazyfitness
         /// <returns></returns>
         public static string[] GetArticlePartName(int partId, int pageNum)
         {
-            var getOb = GetArticle(partId, pageNum);
+            resourceInfo[] getOb = GetArticle(partId, pageNum);
             string[] names = new string[pageSize];
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
@@ -184,15 +186,6 @@ namespace Lazyfitness
             return urls;
         }
         
-        /// <summary>
-        /// 过滤不符合要求的内容
-        /// </summary>
-        /// <param name="resourceContent"></param>
-        /// <returns></returns>
-        public static string filterArticleContent(string resourceContent)
-        {
-            return resourceContent;
-        }
 
         /// <summary>
         /// 获取资源区分区的帖子简介
