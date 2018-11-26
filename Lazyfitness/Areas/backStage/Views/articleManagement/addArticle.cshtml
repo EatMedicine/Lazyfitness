@@ -1,8 +1,11 @@
 ﻿@model Lazyfitness.Models.resourceInfo
-
+@using Lazyfitness.Models
 @{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.Title = "增加文章";
+}
+@{ 
+    resourceArea[] areaList = ViewBag.areaList as resourceArea[];
 }
 <script src="~/Areas/jQuery/userManagement.js"></script>
 
@@ -45,7 +48,7 @@
 </div>
 
 <div class="result-content">
-    <form method="post" action="~/backStage/articleManagement/addArticle">
+    <form method="post" action="~/backStage/articleManagement/addArticle" autocomplete="off">
         <table class="insert-tab">
             <tbody>
                 <tr><th></th><td class="show-title">增加文章</td></tr>
@@ -55,10 +58,13 @@
                     </th>
                     <td>
                         <select name="areaId">
-                            @foreach (var item in ViewBag.areaList)
+                            @if (areaList != null)
                             {
-                                <option class="dropdown-list" value=@item.areaId id="areaId" name="areaId">@item.areaName</option>
+                                foreach (var item in areaList)
+                                {
+                                    <option class="dropdown-list" value=@item.areaId id="areaId" name="areaId">@item.areaName</option>
 
+                                }
                             }
                         </select>
                     </td>
@@ -69,7 +75,23 @@
                         文章名
                     </th>
                     <td>
-                        <input class="input-content" type="text" id="resourceName" name="resourceName" />
+                        @*<input class="input-content" type="text" id="resourceName" name="resourceName" />*@
+                        @Html.TextBoxFor(u=>u.resourceName, new { @class="input-content"})
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.resourceName)
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        发表的用户Id
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.userId, new { @class = "input-content" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.userId)
+                        </div>
                     </td>
                 </tr>
 
@@ -91,8 +113,6 @@
                         请输入文章内容
                     </th>
                     <td style="padding:10px">
-                        @*<textarea class="textArea" id="resourceContent" name="resourceContent"></textarea>*@
-                     
                         <textarea id="resourceContent" name="resourceContent"></textarea>
                     </td>
                 </tr>

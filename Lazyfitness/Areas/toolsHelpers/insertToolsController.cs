@@ -76,8 +76,29 @@ namespace Lazyfitness.Areas.toolsHelpers
             catch
             {
                 return false;
+            }   
+        }
+
+        /// <summary>
+        /// 向文章表中插入信息
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Boolean insertResourceInfo(resourceInfo info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    db.resourceInfo.Add(info);
+                    db.SaveChanges();
+                    return true;
+                }
             }
-            
+            catch
+            {
+                return false;
+            }
         }
     }
 }

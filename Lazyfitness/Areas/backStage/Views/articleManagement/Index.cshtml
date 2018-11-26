@@ -1,6 +1,14 @@
-﻿@{
+﻿@using Lazyfitness.Models
+@using System.Collections
+@{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.Title = "小懒人后台管理系统";
+}
+@{
+
+    resourceInfo[] allInfo = ViewBag.allInfo as resourceInfo[];
+    ArrayList areaNameList = ViewBag.areaNameList as ArrayList;
+    ArrayList userNameList = ViewBag.userNameList as ArrayList;
 }
 <script src="~/Areas/jQuery/userManagement.js"></script>
 
@@ -40,19 +48,43 @@
             <th>内容</th>
             <th colspan="2">可选操作</th>
         </tr>
-        @if (ViewBag.allInfo != null)
+        @if (allInfo != null && areaNameList != null && userNameList != null)
         {
-            foreach (var item in @ViewBag.allInfo)
+            foreach (var item in allInfo)
             {
                 int counter = 0;
                 <tr>
-                    <td><input class="no-border" type="text" value=@ViewBag.areaNameList[counter] readonly /> </td>
-                    <td id="resourceId">@item.resourceId</td>
-                    <td>@item.resourceName</td>
-                    <td>@ViewBag.userNameList[counter]</td>
-                    <td>@item.resourceTime</td>
-                    <td>@item.pageView</td>
-                    @if (@item.isTop == 0)
+                    <td>
+                        <div class="contentDiv">
+                            <input class="no-border" type="text" value=@areaNameList[counter] readonly />
+                        </div>
+                    </td>
+                    <td id="resourceId">
+                        <div class="numberDiv">
+                            @item.resourceId
+                        </div>
+                    </td>
+                    <td>
+                        <div class="contentDiv">
+                            @item.resourceName
+                        </div>
+                    </td>
+                    <td>
+                        <div class="contentDiv">
+                            @userNameList[counter]
+                        </div>
+                    </td>
+                    <td>
+                        <div class="contentDiv">
+                            @item.resourceTime
+                        </div>
+                    </td>
+                    <td>
+                        <div class="numberDiv">
+                            @item.pageView
+                        </div>
+                    </td>
+                    @if (@item.isTop == 0 || item.isTop == null)
                     {
                         <th>否</th>
                     }
@@ -94,12 +126,4 @@
             <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @ViewBag.nowPage 页, 共 @ViewBag.sumPage 页" /></li>
         </ul>
     </div>
-
-
-
-
-
 </div>
-    </div>
-</body>
-</html>
