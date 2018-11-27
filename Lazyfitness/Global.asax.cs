@@ -16,6 +16,15 @@ namespace Lazyfitness
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            Application["PageViewHelper"] = new PageViewHelper();
+        }
+
+        protected void Application_End()
+        {
+            if (Application["PageViewHelper"] is PageViewHelper helper)
+            {
+                helper.SaveToDB();
+            }
         }
     }
 }

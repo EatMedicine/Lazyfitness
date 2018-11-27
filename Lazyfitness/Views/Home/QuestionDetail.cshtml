@@ -52,13 +52,12 @@
     bool IsLoginRight = certificateTools.IsUserCookieCorrect(userIdCookie, loginIdCookie, certificationCookie);
 }
 <div class="question-head">
-    @if (QuestionInfo.quesAnswStatus == 1)
+    @switch(QuestionInfo.quesAnswStatus)
     {
-        <span class="head-sign">已解决</span>
-    }
-    else
-    {
-        <span class="head-sign">未解决</span>
+        case 0:<span class="head-sign">关闭</span>break;
+        case 1:<span class="head-sign">未解决</span>break;
+        case 2:<span class="head-sign">已解决</span>break;
+        default:break;
     }
     <h2 class="head-title">@QuestionInfo.quesAnswTitle</h2>
     <div class="question-content">
@@ -101,7 +100,7 @@
                 <div class="question-content">
                     @Html.Raw(replys[count].replyContent)
                 </div>
-                @if (QuestionInfo.quesAnswStatus == 1 && replys[count].isAgree == 1)
+                @if (QuestionInfo.quesAnswStatus == 2 && replys[count].isAgree == 1)
                 {
                     <span class="head-sign">最佳答案</span>
                 }
@@ -113,7 +112,7 @@
                         <input class="getUserId" type="hidden" name="userId" value=@replys[count].userId />
                         @*<input class="getUserId" type="hidden" name="userId" value=@QuestionInfo.userId />*@
                         @*当答案未采纳以及是正确登录以及提问人和登录userid相等的时候显示该按钮*@
-                        @if (QuestionInfo.quesAnswStatus == 2 && IsLoginRight == true && userIdCookie.Value == QuestionInfo.userId.ToString()) 
+                        @if (QuestionInfo.quesAnswStatus == 1 && IsLoginRight == true && userIdCookie.Value == QuestionInfo.userId.ToString()) 
                         {
                             <button class="setAnswer" value=@replys[count].userId>采纳该答案</button>
                         }

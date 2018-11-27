@@ -14,6 +14,9 @@
     font-family:DengXian;
     color:rgb(34, 34, 34);
     border-bottom:1.2px solid rgb(236, 236, 236);
+    overflow:hidden;
+    word-break:break-all;
+    word-wrap:break-word;
 }
 
 .detail-owner{
@@ -39,6 +42,9 @@
     width: 100%;
     padding-top: 10px;
     min-height: 200px;
+    word-break:break-all;
+    word-wrap:break-word;
+    overflow:hidden;
 }
 
 .detail-pic {

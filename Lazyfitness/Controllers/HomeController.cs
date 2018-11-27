@@ -512,6 +512,11 @@ namespace Lazyfitness.Controllers
         /// <returns></returns>
         public ActionResult ArticleDetail(int num = 1)
         {
+            //增加浏览量
+            if(HttpContext.Application["PageViewHelper"] is PageViewHelper helper)
+            {
+                helper.PageViewAdd(0, num, 1);
+            }
             resourceInfo info = Tools.GetArticleInfo(num);
             ViewBag.ArticleInfo = info;
             userInfo userInfo = Tools.GetUserInfo((int)info.userId);
@@ -538,6 +543,11 @@ namespace Lazyfitness.Controllers
         /// <returns></returns>
         public ActionResult QuestionDetail(int num = 1)
         {
+            //增加浏览量
+            if (HttpContext.Application["PageViewHelper"] is PageViewHelper helper)
+            {
+                helper.PageViewAdd(1, num, 1);
+            }
             ViewBag.QuestionId = num;
             ViewBag.IsSolved = false;
             quesAnswInfo info = Tools.GetQuestionInfo(num);
@@ -567,6 +577,11 @@ namespace Lazyfitness.Controllers
         /// <returns></returns>
         public ActionResult forumDetail(int num = 1)
         {
+            //增加浏览量
+            if (HttpContext.Application["PageViewHelper"] is PageViewHelper helper)
+            {
+                helper.PageViewAdd(2, num, 1);
+            }
             ViewBag.ForumId = num;
             ViewBag.ForumInfo = Tools.GetforumInfo(num);
             postReply[] reply = Tools.GetforumReply(num);
@@ -619,9 +634,11 @@ namespace Lazyfitness.Controllers
 
         public JsonResult test()
         {
-            postInfo[] pinfo = Tools.GetForumAll(1);
-            userInfo[] uinfo = Tools.GetUserInfo(pinfo);
-            return Json(uinfo, JsonRequestBehavior.AllowGet);
+            if (HttpContext.Application["PageViewHelper"] is PageViewHelper helper)
+            {
+                helper.SaveToDB();
+            }
+            return Json(true,JsonRequestBehavior.AllowGet);
         }
         #endregion
 

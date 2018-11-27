@@ -63,7 +63,7 @@ namespace Lazyfitness.Controllers
                 quesAnswTime = DateTime.Now,
                 pageView = 0,
                 isPost = 0,
-                quesAnswStatus = 0,               
+                quesAnswStatus = 1,               
                 amount = money,
                 quesAnswContent = editor
             };
@@ -74,7 +74,6 @@ namespace Lazyfitness.Controllers
                 Response.Redirect(Url.Action("QuestionPart", "Home", new { partId = areaId }));
             }
         }
-
         [HttpPost]
         [ValidateInput(false)]
         [LoginStatusFilter]

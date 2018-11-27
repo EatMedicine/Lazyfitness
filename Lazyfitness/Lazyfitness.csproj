@@ -239,6 +239,8 @@
       <DependentUpon>Lazyfitness.tt</DependentUpon>
     </Compile>
     <Compile Include="MyClass\ArticleItem.cs" />
+    <Compile Include="PageViewHelper.cs" />
+    <Compile Include="PageViewRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools.cs" />
   </ItemGroup>
