@@ -165,10 +165,16 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 Response.Redirect("/backStage/manager/login");
                 return Content("未登录");
             }
-
-            resourceArea[] allInfo = toolsHelpers.selectToolsController.selectResourceArea(x => x == x, u => u.areaId);
-            ViewBag.allInfo = allInfo;            
-            return View();
+            try
+            {
+                resourceArea[] allInfo = toolsHelpers.selectToolsController.selectResourceArea(x => x == x, u => u.areaId);
+                ViewBag.allInfo = allInfo;
+                return View();
+            }
+            catch
+            {
+                return Content("查询文章分区名出错！");
+            }
         }
 
         #region 增加分区
@@ -193,9 +199,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    //先检查分区名存不存在
-                    var isExist = db.resourceArea.Where(u => u.areaName == area.areaName.Trim()).ToList();
-                    if (isExist.Count != 0)
+                    //先检查分区名存不存在                
+                    resourceArea[] isExistArea = toolsHelpers.selectToolsController.selectResourceArea(u => u.areaName == area.areaName, u => u.areaId);
+                    if (isExistArea.Length != 0)
                     {
                         return "存在相同的名字";
                     }
@@ -336,7 +342,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     return Content("未登录");
                 }
                 //判断有无此分区
-                if (toolsHelpers.selectToolsController.isExistResourceArea(u => u.areaId == area.areaId) == false)
+                if (toolsHelpers.selectToolsController.selectResourceArea(u => u.areaId == area.areaId, u=>u.areaId).Length == 0)
                 {
                     return Content("没有此分区");
                 }

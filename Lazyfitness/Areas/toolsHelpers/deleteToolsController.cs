@@ -37,6 +37,34 @@ namespace Lazyfitness.Areas.toolsHelpers
         }
 
         /// <summary>
+        /// 删除论坛分区表中的数据
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <returns></returns>
+        public static Boolean deletePostArea(Expression<Func<postArea, bool>> whereLambda)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<postArea> dbDelete = db.postArea.Where(whereLambda) as DbQuery<postArea>;
+                    List<postArea> obDelete = dbDelete.ToList();
+                    if (obDelete.Count == 0)
+                    {
+                        return true;
+                    }
+                    db.postArea.RemoveRange(obDelete);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// 删除发帖表中符合的数据 
         /// </summary>
         /// <param name="whereLambda"></param>
@@ -270,6 +298,46 @@ namespace Lazyfitness.Areas.toolsHelpers
                 if (flag1 == flag2 == true)
                 {
                     return true;
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static Boolean deleteAllPostAreaInfo(int areaId)
+        {
+            try
+            {
+                //首先查出这个分区里面有多少个帖子
+                postInfo[] infoList = selectToolsController.selectPostInfo(u => u.areaId == areaId, u => u.postId);
+                //先删除每个帖子回复表中的回帖数据
+                Boolean flag1 = true;
+                foreach (var item in infoList)
+                {
+                   if(deletePostReply(u => u.postId == item.postId) == false)
+                    {
+                        flag1 = false;
+                    }
+                }
+                //再删除每个帖子表中的数据
+                Boolean flag2 = true;
+                foreach (var item in infoList)
+                {
+                    if (deletePostInfo(u=>u.postId == item.postId) == false)
+                    {
+                        flag2 = false;
+                    }
+                }
+                if (flag1 == flag2 == true)
+                {
+                    //删除论坛分区表
+                    if(deletePostArea(u=>u.areaId == areaId) == true)
+                    {
+                        return true;
+                    }
                 }
                 return false;
             }

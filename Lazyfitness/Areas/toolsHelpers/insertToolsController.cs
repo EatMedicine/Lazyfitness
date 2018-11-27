@@ -100,5 +100,27 @@ namespace Lazyfitness.Areas.toolsHelpers
                 return false;
             }
         }
+
+        /// <summary>
+        /// 论坛表增长数据
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Boolean insertPostArea(postArea info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    db.postArea.Add(info);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

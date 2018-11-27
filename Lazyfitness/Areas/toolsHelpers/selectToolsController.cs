@@ -109,26 +109,54 @@ namespace Lazyfitness.Areas.toolsHelpers
             }
         }
 
-        #region 判断有无数据
-        public static Boolean isExistResourceArea(Expression<Func<resourceArea, bool>> whereLambda)
+        /// <summary>
+        /// 查找论坛分区表中的数据
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="whereLambda"></param>
+        /// <param name="orderBy"></param>
+        /// <returns></returns>
+        public static postArea[] selectPostArea<TKey>(Expression<Func<postArea, bool>> whereLambda, Expression<Func<postArea, TKey>> orderBy)
         {
             try
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    DbQuery<resourceArea> dataObject = db.resourceArea.Where(whereLambda) as DbQuery<resourceArea>;
-                    if (dataObject.ToList().Count == 0)
-                    {
-                        return false;
-                    }
-                    return true;
+                    DbQuery<postArea> dataObject = db.postArea.Where(whereLambda).OrderBy(orderBy) as DbQuery<postArea>;
+                    postArea[] infoList = dataObject.ToArray();
+                    return infoList;
                 }
             }
             catch
             {
-                return false;
+                postArea[] nullInfo = new postArea[0];
+                return nullInfo;
             }
         }
-        #endregion
+
+        /// <summary>
+        /// 查找论坛信息表中的数据
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="whereLambda"></param>
+        /// <param name="orderBy"></param>
+        /// <returns></returns>
+        public static postInfo[] selectPostInfo<TKey>(Expression<Func<postInfo, bool>> whereLambda, Expression<Func<postInfo, TKey>> orderBy)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<postInfo> dataObject = db.postInfo.Where(whereLambda).OrderBy(orderBy) as DbQuery<postInfo>;
+                    postInfo[] infoList = dataObject.ToArray();
+                    return infoList;
+                }
+            }
+            catch
+            {
+                postInfo[] nullInfo = new postInfo[0];
+                return nullInfo;
+            }
+        }
     }
 }
