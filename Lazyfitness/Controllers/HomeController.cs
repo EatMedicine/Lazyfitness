@@ -8,6 +8,7 @@ using Lazyfitness.MyClass;
 using System.Data.Entity.Infrastructure;
 using Lazyfitness.Filter;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 namespace Lazyfitness.Controllers
 {
@@ -678,7 +679,7 @@ namespace Lazyfitness.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult PersonalData(userInfo info)
+        public ActionResult PersonalDataUpdate(userInfo info)
         {
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
@@ -686,16 +687,87 @@ namespace Lazyfitness.Controllers
                 userInfo _userInfo = dbsearch.FirstOrDefault();
                 if (_userInfo != null)
                 {
-                    _userInfo.userName = info.userName;
-                    _userInfo.userAge = info.userAge;
+                    if(info.userHeaderPic == null)
+                    {
+                        _userInfo.userHeaderPic = "/Resource/picture/DefaultHeadPic1.png";
+                    }
+                    else
+                    {
+                        _userInfo.userHeaderPic = info.userHeaderPic;
+                    }
+                    if (info.userName == null)
+                    {
+                        _userInfo.userName = "默认用户名";
+                    }
+                    else
+                    {
+                        _userInfo.userName = info.userName;
+                    }
+                    if (info.userAge == null)
+                    {
+                        _userInfo.userAge = 0;
+                    }
+                    else
+                    {
+                        _userInfo.userAge = info.userAge;
+                    }
                     _userInfo.userSex = info.userSex;
                     _userInfo.userEmail = info.userEmail;
-                    _userInfo.userIntroduce = info.userIntroduce;
+                    if(info.userIntroduce == null)
+                    {
+                        _userInfo.userIntroduce = "这个人很懒，没有写简介";
+                    }
+                    else
+                    {
+                        _userInfo.userIntroduce = info.userIntroduce;
+                    }
                     db.SaveChanges();
                 }
             }
-            return Content("<script >window.window.history.back(-1)</script >", "text/html");
+            Response.Redirect("/Home/PersonalData");
+            return Content("sueccess");
         }
+        #region 上传图片
+        [HttpPost]
+        public ActionResult SaveImage(int userId)
+        {
+            HttpPostedFileBase imageName = Request.Files["image"];// 从前台获取文件
+            if (imageName == null)
+            {
+                return Content("(error)未获取到文件");
+            }
+            string file = imageName.FileName;
+            string fileFormat = file.Split('.')[file.Split('.').Length - 1]; // 以“.”截取，获取“.”后面的文件后缀
+            Regex imageFormat = new Regex(@"^(bmp)|(png)|(gif)|(jpg)|(jpeg)"); // 验证文件后缀的表达式（自己写的，不规范别介意哈）
+            if (string.IsNullOrEmpty(file) || !imageFormat.IsMatch(fileFormat)) // 验证后缀，判断文件是否是所要上传的格式
+            {
+                return Content("(error)文件格式支持(bmp)|(png)|(gif)|(jpg)|(jpeg)");
+            }
+            else
+            {
+                string timeStamp = DateTime.Now.Ticks.ToString(); // 获取当前时间的string类型
+                string firstFileName = timeStamp.Substring(0, timeStamp.Length - 4); // 通过截取获得文件名
+                string imageStr = "/upload/"; // 获取保存图片的项目文件夹
+                string uploadPath = Server.MapPath("~/" + imageStr); // 将项目路径与文件夹合并
+                string pictureFormat = file.Split('.')[file.Split('.').Length - 1];// 设置文件格式
+                string fileName = firstFileName + "." + fileFormat;// 设置完整（文件名+文件格式） 
+                string saveFile = uploadPath + fileName;//文件路径
+                imageName.SaveAs(saveFile);// 保存文件
+                // 如果单单是上传，不用保存路径的话，下面这行代码就不需要写了！
+                string image = imageStr + fileName;// 设置数据库保存的路径
+
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<userInfo> dbsearch = db.userInfo.Where(u => u.userId == userId) as DbQuery<userInfo>;
+                    userInfo _userInfo = dbsearch.FirstOrDefault();
+                    _userInfo.userHeaderPic = image;
+                    db.SaveChanges();
+                }
+            }
+            Response.Redirect("/Home/PersonalData");
+            return Content("sueccess");
+        }
+        #endregion
         #endregion
 
         #region 采纳回答
