@@ -662,23 +662,23 @@ namespace Lazyfitness.Controllers
                 userInfo _userInfo = dbsearch.FirstOrDefault();
                 if (_userInfo != null)
                 {
-                    if(_userInfo.userHeaderPic == null)
+                    if(info.userHeaderPic == null)
                     {
-                        _userInfo.userHeaderPic = "";
+                        _userInfo.userHeaderPic = "/Resource/picture/DefaultHeadPic1.png";
                     }
                     else
                     {
                         _userInfo.userHeaderPic = info.userHeaderPic;
                     }
-                    if (_userInfo.userName == null)
+                    if (info.userName == null)
                     {
-                        _userInfo.userName = "";
+                        _userInfo.userName = "默认用户名";
                     }
                     else
                     {
                         _userInfo.userName = info.userName;
                     }
-                    if (_userInfo.userAge == null)
+                    if (info.userAge == null)
                     {
                         _userInfo.userAge = 0;
                     }
@@ -688,9 +688,9 @@ namespace Lazyfitness.Controllers
                     }
                     _userInfo.userSex = info.userSex;
                     _userInfo.userEmail = info.userEmail;
-                    if(_userInfo.userIntroduce == null)
+                    if(info.userIntroduce == null)
                     {
-                        _userInfo.userIntroduce = "";
+                        _userInfo.userIntroduce = "这个人很懒，没有写简介";
                     }
                     else
                     {

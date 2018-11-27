@@ -31,5 +31,5 @@ function changeInput() {
 
     var userIntroduce = document.getElementById("userIntroduce");
     var userIntroduce_new = userIntroduce.innerHTML;
-    userIntroduce.innerHTML = "<textarea rows='3' cols='20' type='text' id='userIntroduce' name='userIntroduce' class='input' />" + userIntroduce_new+"</textarea>";
+    userIntroduce.innerHTML = "<input type='text' id='userAge' name='userAge' class='input' value='" + userIntroduce_new + "'/>";
 }
