@@ -1,7 +1,11 @@
 ﻿@model Lazyfitness.Models.postArea
+@using Lazyfitness.Models;
 @{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.title = "论坛分区管理";
+}
+@{ 
+    postArea[] forumAreaList = ViewBag.forumAreaList as postArea[];
 }
 <!--/sidebar-->
 <div class="main-wrap">
@@ -24,7 +28,7 @@
         </div>
     </div>
     <div class="result-content">
-        <form action="~/backStage/forumManagement/forumAreaDelete" method="post">
+        <form action="~/backStage/forumManagement/forumAreaDelete" method="post" autocomplete="off">
             <table class="insert-tab">
                 <tr><th></th><td class="show-title">删除分区</td></tr>
                 <tr>
@@ -32,11 +36,11 @@
                         分区名称
                     </th>
                     <td>
-                        <select name="areaName">
+                        <select name="areaId">
                             @{
-                                foreach (var areaName in @ViewBag.areaName)
+                                foreach (var forumArea in @forumAreaList)
                                 {
-                                    <option class="dropdown-list" value="@areaName">@areaName</option>
+                                    <option class="dropdown-list" value="@forumArea.areaId">@forumArea.areaName</option>
                                 }
                             }
                         </select>
@@ -52,6 +56,3 @@
         </form>
     </div>
 </div>
-    </div>
-</body>
-</html>

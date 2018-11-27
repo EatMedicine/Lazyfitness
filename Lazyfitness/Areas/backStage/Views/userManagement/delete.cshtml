@@ -24,16 +24,16 @@
     </div>
 </div>
 <div class="result-content">
-    <form action="~/backStage/userManagement/delete" method="post">
+    <form action="~/backStage/userManagement/delete" method="post" autocomplete="off">
         <table class="insert-tab">
             <tr><th></th><td class="show-title">删除用户</td></tr>
             <tr>
                 <th>
-                    用户名
+                    用户ID
                 </th>
                 <td>
-                    @Html.TextBoxFor(u => u.Info.userName, new { @name = "userName", @type = "text", @class = "input-content" })
-                    <div class="error-mes">@Html.ValidationMessageFor(u => u.Info.userName)</div>
+                    @Html.TextBoxFor(u => u.Info.userId, new { @name = "userId", @type = "text", @class = "input-content" })
+                    <div class="error-mes">@Html.ValidationMessageFor(u => u.Info.userId)</div>
                 </td>
             </tr>
             <tr>

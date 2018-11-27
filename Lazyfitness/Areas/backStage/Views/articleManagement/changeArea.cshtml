@@ -1,7 +1,11 @@
 ﻿@model Lazyfitness.Models.resourceArea
+@using Lazyfitness.Models;    
 @{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.Title = "修改分区";
+}
+@{ 
+    resourceArea info = ViewBag.info as resourceArea;
 }
 <script src="~/Areas/jQuery/userManagement.js"></script>
 
@@ -25,18 +29,24 @@
         </div>
     </div>
     <div class="result-content">
-        <form method="post" action="~/backStage/articleManagement/changeArea">
-            @if (ViewBag.info.areaId != null)
+        <form method="post" action="~/backStage/articleManagement/updateArea" autocomplete="off">
+            @if (info != null)
             {
-                <input type="text" name="areaId" id="areaId" hidden="hidden" value="@ViewBag.info.areaId" />
+                <input type="text" name="areaId" id="areaId" hidden="hidden" value="@info.areaId" />
                 <table class="insert-tab">
                     <tr><th></th><td class="show-title">修改分区</td></tr>
+                    <tr>
+                        <th>分区Id</th>
+                        <td>
+                            <input class="input-content txt-unchange" readonly="readonly" name="areaId" id="areaId" value="@info.areaId" />
+                        </td>
+                    </tr>
                     <tr>
                         <th>
                             分区名
                         </th>
                         <td>
-                            @Html.TextBoxFor(t => t.areaName, new { @class = "input-content", Value = @ViewBag.info.areaName })
+                            @Html.TextBoxFor(t => t.areaName, new { @class = "input-content", Value = @info.areaName })
                             <div class="error-mes">@Html.ValidationMessageFor(t => t.areaName)</div>
                         </td>
                     </tr>
@@ -45,7 +55,7 @@
                             分区简介
                         </th>
                         <td>
-                            @Html.TextBoxFor(t => t.areaBrief, new { @class = "input-content", Value = @ViewBag.info.areaBrief })
+                            @Html.TextBoxFor(t => t.areaBrief, new { @class = "input-content", Value = @info.areaBrief })
                             <div class="error-mes">@Html.ValidationMessageFor(t => t.areaBrief)</div>
                         </td>
                     </tr>

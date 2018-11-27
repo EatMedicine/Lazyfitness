@@ -27,17 +27,20 @@
     </div>
 
     <div class="result-content">
-        <form method="post" action="~/backStage/articleManagement/findArticleList">
+        <form method="post" action="~/backStage/articleManagement/articleList" autocomplete="off">
             <input type="text" hidden="hidden" value="1" name="id"/>
             <table class="insert-tab">
                 <tr>
                     <th></th>
-                    <td>查找文章名字</td>
+                    <td>查找文章</td>
                 </tr>
                 <tr>
-                    <th>文章名字</th>
+                    <th>文章ID</th>
                     <td>
-                        <input class="input-content" type="text" name="resourceName" />
+                        @Html.TextBoxFor(u=>u.resourceId, new { @class="input-content"})
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u=>u.resourceId)
+                        </div>
                     </td>
                 </tr>
                 <tr>

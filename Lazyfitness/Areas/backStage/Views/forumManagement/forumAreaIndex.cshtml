@@ -1,7 +1,13 @@
 ﻿@model Lazyfitness.Areas.DbTable.tables
+@using Lazyfitness.Models
 @{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.title = "论坛分区管理";
+}
+@{ 
+    int nowPage = Convert.ToInt32(ViewBag.nowPage);
+    int sumPage = Convert.ToInt32(ViewBag.sumPage);
+    postArea[] allInfo = ViewBag.allInfo as postArea[];
 }
 <!--/sidebar-->
 <div class="main-wrap">
@@ -31,23 +37,23 @@
             <th>分区描述</th>
             <th colspan="2">可选操作</th>
         </tr>
-        @if (ViewBag.allInfo != null)
+        @if (allInfo != null && allInfo.Length != 0)
         {
-            foreach (var item in @ViewBag.allInfo)
+            foreach (var item in @allInfo)
             {
                 <tr>
                     <td>@item.areaName</td>
                     <td id="areaId">@item.areaId</td>
                     <td>@item.areaBrief</td>
                     <td>
-                        <form method="post" action="~/backStage/forumManagement/forumAreaSearch">
-                            <input type="text" name="areaName" id="areaName" value="@item.areaName" hidden="hidden" />
+                        <form method="post" action="~/backStage/forumManagement/changeforumArea">
+                            <input type="text" name="areaId" id="areaId" value="@item.areaId" hidden="hidden" />
                             <input class="index-btn" type="submit" value="修改">
                         </form>
                     </td>
                     <td>
                         <form method="post" action="~/backStage/forumManagement/forumAreaDelete">
-                            <input type="text" name="areaName" id="areaName" value=@item.areaName hidden="hidden" />
+                            <input type="text" name="areaid" id="areaId" value=@item.areaId hidden="hidden" />
                             <input class="index-btn" type="submit" value="删除">
                         </form>
                     </td>
@@ -59,7 +65,7 @@
     <div class="page-number">
         <ul>
             @{
-                for (int i = 1; i <= ViewBag.sumPage; i++)
+                for (int i = 1; i <= sumPage; i++)
                 {
 
                     <li style="float:left">
@@ -70,10 +76,7 @@
                     </li>
                 }
             }
-            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @ViewBag.nowPage 页, 共 @ViewBag.sumPage 页" /></li>
+            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @nowPage 页, 共 @sumPage 页" /></li>
         </ul>
     </div>
 </div>
-    </div>
-</body>
-</html>

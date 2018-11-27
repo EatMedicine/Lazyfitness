@@ -1,6 +1,10 @@
-﻿@{
+﻿@using Lazyfitness.Models
+@{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.Title = "资源分区管理";
+}
+@{ 
+    resourceArea[] allInfo = ViewBag.allInfo as resourceArea[];
 }
 <script src="~/Areas/jQuery/userManagement.js"></script>
 <!--/sidebar-->
@@ -31,9 +35,9 @@
                 <td>分区简介</td>
             </tr>
             @{
-                if (ViewBag.allInfo != null)
+                if (allInfo != null && allInfo.Length != 0)
                 {
-                    foreach (var item in ViewBag.allInfo)
+                    foreach (var item in allInfo)
                     {
                         <tr>
                             <td>@item.areaId</td>

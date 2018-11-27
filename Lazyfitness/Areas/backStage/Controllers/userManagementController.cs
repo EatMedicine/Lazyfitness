@@ -21,12 +21,12 @@ namespace Lazyfitness.Areas.backStage.Controllers
         /// <param name="whereLambda">条件 lambda表达式</param>
         /// <param name="orderBy">排列 lambda表达式</param>
         /// <returns></returns>
-        public List<userInfo> GetPagedList<TKey>(int pageIndex, int pageSize, Expression<Func<userInfo, bool>> whereLambda, Expression<Func<userInfo, TKey>> orderBy)
+        public userInfo[] GetPagedList<TKey>(int pageIndex, int pageSize, Expression<Func<userInfo, bool>> whereLambda, Expression<Func<userInfo, TKey>> orderBy)
         {
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 //分页时一定注意：Skip之前一定要OrderBy
-                return db.userInfo.Where(whereLambda).OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                return db.userInfo.Where(whereLambda).OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToArray();
             }
         }
 
@@ -36,6 +36,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 int listSum = db.userInfo.ToList().Count;
+                if (listSum % pageSize == 0)
+                {
+                    return (listSum / pageSize);
+                }
                 return ((listSum / pageSize) + 1);
             }
         }
@@ -58,7 +62,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
             ViewBag.nowPage = 1;
             ViewBag.sumPage = GetSumPage(10);
             ViewBag.allInfo = GetPagedList(1, 10, x=>x == x , u => u.userId);
-
+            //通过用户状态表中的的数据返回对应的状态名
+            userStatusName[] nameArray = toolsHelpers.selectToolsController.selectUserStatusName(x => x == x, u => u.userStatus);
+            ViewBag.nameArray = nameArray;
             return View();
         }
         [HttpPost]
@@ -79,6 +85,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
             ViewBag.nowPage = id;
             ViewBag.sumPage = GetSumPage(10);
             ViewBag.allInfo = GetPagedList(Convert.ToInt32(id), 10, x=>x == x, u => u.userId);
+            //通过用户状态表中的的数据返回对应的状态名
+            userStatusName[] nameArray = toolsHelpers.selectToolsController.selectUserStatusName(x => x == x, u => u.userStatus);
+            ViewBag.nameArray = nameArray;
             return View();
         }
 
@@ -86,6 +95,16 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #region 增加用户
         public ActionResult add()
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return Content("未登录");
+            }
             return View();
         }
         [HttpPost]
@@ -116,19 +135,17 @@ namespace Lazyfitness.Areas.backStage.Controllers
                         loginId = security.loginId,
                         userPwd = MD5Helper.MD5Helper.encrypt(security.userPwd)
                     };
-                    db.userSecurity.Add(user);
-                    db.SaveChanges();
-
-                    //把userInfo表写入默认数据
-                    int uniformId;
-                    var dbUser = db.userSecurity.Where(u => u.loginId == security.loginId.Trim());
-                    var obUser = dbUser.FirstOrDefault();
-                    uniformId = obUser.userId;
+                    //得到插入成功的数据对象以获得userId
+                    userSecurity successUser = toolsHelpers.insertToolsController.insertUserSecurity(user);
+                    if (successUser == null)
+                    {
+                        return "false";
+                    }                    
                     //把这个userId写入userInfo表中
                     userInfo newUserInfo = new userInfo
                     {
-                        userId = uniformId,
-                        userName = obUser.loginId,
+                        userId = successUser.userId,
+                        userName = successUser.loginId,
                         userAge = 0,
                         userSex = 2,
                         userEmail = null,
@@ -137,14 +154,20 @@ namespace Lazyfitness.Areas.backStage.Controllers
                         userIntroduce = "这个人很懒，没有说什么",
                         userHeaderPic = "/Resource/picture/DefaultHeadPic1.png",
                     };
-                    db.userInfo.Add(newUserInfo);
-                    db.SaveChanges();
-                }
-                return "增加成功";
+                    if (toolsHelpers.insertToolsController.insertUserInfo(newUserInfo) == true)
+                    {
+                        Response.Redirect("/backStage/userManagement/Index");
+                        return "success";
+                    }
+                    else
+                    {
+                        return "false";
+                    }
+                }      
             }
             catch
             {
-                return ("增加失败");
+                return "false";
             }
         }
         #endregion
@@ -169,28 +192,28 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             try
             {
-                //根据不可重复的用户名找到userSecurity里面的userId,将其删除    应与触发器一起使用
+                //此处判断有没有这个userId
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-
-                    DbQuery<userInfo> dbInfo = db.userInfo.Where(u => u.userName == info.userName.Trim()) as DbQuery<userInfo>;
-                    userInfo obInfo = dbInfo.FirstOrDefault();
-
-                    //创建一个要删除的对象
-                    userSecurity deleSecurity = new userSecurity
+                    DbQuery<userSecurity> dataObject = db.userSecurity.Where(u => u.userId == info.userId) as DbQuery<userSecurity>;
+                    int dataNum = dataObject.ToList().Count;
+                    if (dataNum == 0)
                     {
-                        userId = obInfo.userId,
-                    };
-                    //附加到ef中
-                    db.userSecurity.Attach(deleSecurity);
-                    //标记为删除--标记当前对象为删除状态
-                    db.userSecurity.Remove(deleSecurity);
-                    db.Entry<userInfo>(obInfo).State = System.Data.Entity.EntityState.Deleted;
-                    db.SaveChanges();
+                        return "没有此用户！";
+                    }
+                }
+                if (toolsHelpers.deleteToolsController.deleteUserUserId(info.userId))
+                {
+                    Response.Redirect("/backStage/userManagement/Index");
                     return "success";
                 }
+                else
+                {
+                    return "false";
+                }
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return ex.ToString();
             }
@@ -205,7 +228,6 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 //获取Cookies的值
                 HttpCookie cookieName = Request.Cookies["managerId"];
                 var cookieText = Server.HtmlEncode(cookieName.Value);
-                @ViewBag.managerId = cookieText.ToString();
             }
             else
             {
@@ -214,7 +236,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult search(userInfo info)
+        public ActionResult searchList(userInfo info)
         {
             if (Request.Cookies["managerId"] != null)
             {
@@ -227,36 +249,23 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 return Content("未登录");
             }
             try
-            {
-                ViewBag.IsSearchSuccess = false;
-                using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {         
+
+                //通过用户名查询用户信息
+                userInfo[] infoArray = toolsHelpers.selectToolsController.selectUserInfo(u => u.userName == info.userName, u=>u.userId);
+                if (infoArray.Length == 0)
                 {
-                    DbQuery<userInfo> dbInfosearch = db.userInfo.Where(u => u.userName == info.userName.Trim()) as DbQuery<userInfo>;
-                    userInfo _userInfo = dbInfosearch.FirstOrDefault();
-                    DbQuery<userSecurity> dbSecuritysearch = db.userSecurity.Where(u => u.userId == _userInfo.userId) as DbQuery<userSecurity>;
-                    userSecurity _userSecurity = dbSecuritysearch.FirstOrDefault();
-                    if (_userInfo != null)
-                    {
-                        ViewBag.userName = _userInfo.userName;
-                        ViewBag.userAge = _userInfo.userAge;
-                        ViewBag.userSex = _userInfo.userSex;
-                        ViewBag.userEmail = _userInfo.userEmail;
-                        ViewBag.userStatus = _userInfo.userStatus;
-                        ViewBag.userAccount = _userInfo.userAccount;
-                        ViewBag.userIntroduce = _userInfo.userIntroduce;
-                        //db.SaveChanges();
-                    }
-                    else
-                    {
-                        return View("update");
-                    }
+                    return Content("没有此用户");
                 }
-                ViewBag.IsSearchSuccess = true;
-                return View("update");
+                ViewBag.infoArray = infoArray;
+                //通过用户状态表中的的数据返回对应的状态名
+                userStatusName[] nameArray = toolsHelpers.selectToolsController.selectUserStatusName(x => x == x, u => u.userStatus);
+                ViewBag.nameArray = nameArray;
+                return View();
             }
             catch
             {
-                return View("update");
+                return Content("查询失败");
             }
         }
         #endregion
@@ -275,21 +284,27 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 return Content("未登录");
             }
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            try
             {
-                var userInfo = db.userInfo.Where(u => u.userName == info.userName.Trim()).FirstOrDefault();
-                var userSecurity = db.userSecurity.Where(u => u.loginId == info.userName.Trim()).FirstOrDefault();
-                ViewBag.userInfo = userInfo;
-                ViewBag.userSecurity = userSecurity;
-
-                var statusList = db.userStatusName.ToList();
-                ViewBag.statusNameList = statusList;
-            }          
-
-            return View();
+                userInfo[] List = toolsHelpers.selectToolsController.selectUserInfo(u => u.userId == info.userId, u => u.userId);
+                if (List == null)
+                {
+                    return Content("查询用户失败");
+                }
+                userInfo userInformation = List[0];
+                ViewBag.userInformation = userInformation;
+                //获取用户状态表中的数据
+                userStatusName[] nameArray = toolsHelpers.selectToolsController.selectUserStatusName(x => x == x, u => u.userStatus);
+                ViewBag.nameArray = nameArray;
+                return View();
+            }
+            catch
+            {
+                return Content("查询用户出错");
+            }
         }
         [HttpPost]
-        public string updateUserInfo(userInfo info, userSecurity security)
+        public string updateUserInfo(userInfo info)
         {
             if (Request.Cookies["managerId"] != null)
             {
@@ -303,31 +318,19 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             try
             {
-                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                if (toolsHelpers.updateToolsController.updateUserInfo(u=>u.userId == info.userId, info) == true)
                 {
-                    DbQuery<userInfo> dbInfosearch = db.userInfo.Where(u => u.userName == info.userName) as DbQuery<userInfo>;
-                    userInfo _userInfo = dbInfosearch.FirstOrDefault();
-                    DbQuery<userSecurity> dbSecuritysearch = db.userSecurity.Where(u => u.userId == _userInfo.userId) as DbQuery<userSecurity>;
-                    userSecurity _userSecurity = dbSecuritysearch.FirstOrDefault();
-                    //将要修改的值，放到数据上下文中
-                    //_userSecurity.userId = security.userId;
-                    //_userSecurity.loginId = security.loginId;
-                    //_userSecurity.userPwd = security.userPwd;
-                    //_userInfo.userId = info.userId;
-                    _userInfo.userName = info.userName;
-                    _userInfo.userAge = info.userAge;
-                    _userInfo.userSex = info.userSex;
-                    _userInfo.userEmail = info.userEmail;
-                    _userInfo.userStatus = info.userStatus;
-                    _userInfo.userAccount = info.userAccount;
-                    _userInfo.userIntroduce = info.userIntroduce;
-                    db.SaveChanges(); //将修改之后的值保存到数据库中
+                    Response.Redirect("/backStage/userManagement/Index");
+                    return "success";
                 }
-                return "修改成功";
+                else
+                {
+                    return "修改失败";
+                }
             }
-            catch(Exception ex)
+            catch
             {
-                return ex.ToString();
+                return "false";
             }
         }
         #endregion

@@ -1,0 +1,79 @@
+﻿@model Lazyfitness.Models.postArea
+@using Lazyfitness.Models
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.title = "论坛分区管理";
+}
+@{
+    postArea areaInfo = ViewBag.areaInfo as postArea;
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加分区", "forumAreaAdd", "forumManagement")
+                @Html.ActionLink("删除分区", "forumAreaDelete", "forumManagement")
+                @Html.ActionLink("修改分区信息", "forumAreaSearch", "forumManagement")
+            </div>
+        </div>
+    </div>
+    <div class="result-content">
+        <form action="~/backStage/forumManagement/forumAreaUpdate" method="post" autocomplete="off">
+            <table class="insert-tab">
+                <tbody>
+                    <tr><th></th><td class="show-title">修改分区信息</td></tr>
+                    @{
+                        if (areaInfo != null)
+                        {
+                            <tr>
+                                <th>
+                                    分区Id
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(u => u.areaId, new { @Value = areaInfo.areaId, @class = "input-content txt-unchange", @readonly = "readonly" })
+                                    <div class="error-mes">
+                                        @Html.ValidationMessageFor(u => u.areaId)
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    分区名称
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(u => u.areaName, new { @Value = areaInfo.areaName, @type = "text", @class = "input-content" })
+                                    <div class="error-mes">@Html.ValidationMessageFor(x => x.areaName)</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    分区描述
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(u => u.areaBrief, new { @Value = areaInfo.areaBrief, @type = "text", @class = "input-content" })
+                                    <div class="error-mes">@Html.ValidationMessageFor(x => x.areaBrief)</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="修改" />
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>

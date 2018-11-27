@@ -9,8 +9,6 @@
     resourceInfo[] allInfo = ViewBag.allInfo as resourceInfo[];
     ArrayList areaNameList = ViewBag.areaNameList as ArrayList;
     ArrayList userNameList = ViewBag.userNameList as ArrayList;
-    int nowPage = Convert.ToInt32(ViewBag.nowPage);
-    int sumPage = Convert.ToInt32(ViewBag.sumPage);
 }
 <script src="~/Areas/jQuery/articleManagement.js"></script>
 
@@ -50,8 +48,7 @@
             <th>内容</th>
             <th colspan="2">可选操作</th>
         </tr>
-        @*值得注意的是要先判断userNameList areaNameList是否为空, 再判断他们长度是否为0是否. 否则报错*@
-        @if (allInfo != null && areaNameList != null && userNameList != null && allInfo.Length != 0 && areaNameList.Count != 0 && userNameList.Count != 0 )
+        @if (allInfo != null && areaNameList != null && userNameList != null)
         {
             int counter = 0;
             foreach (var item in allInfo)
@@ -87,15 +84,15 @@
                             @item.pageView
                         </div>
                     </td>
-                    @if (item.isTop == 0 || item.isTop == null)
-                    {                        
+                    @if (@item.isTop == 0 || item.isTop == null)
+                    {
                         <td>
-                            <div class="numberDiv"> 
+                            <div class="numberDiv">
                                 否
                             </div>
                         </td>
                     }
-                    @if (item.isTop == 1)
+                    @if (item.isTop != 0)
                     {
                         <td>
                             <div class="numberDiv">
@@ -114,11 +111,11 @@
                                 <input type="text" name="resourceId" id="resourceId" value="@item.resourceId" hidden="hidden" />
                                 <input class="index-btn" type="submit" value="修改">
                             </form>
-                        </div>                       
+                        </div>
                     </td>
                     <td>
                         <div class="numberDiv">
-                            <button class="index-btn delete-data deleteArticle" type="button" value="@item.resourceId">删除</button>   
+                            <button class="index-btn delete-data deleteArticle" type="button" value="@item.resourceId">删除</button>
                         </div>
                     </td>
                 </tr>
@@ -126,22 +123,4 @@
             }
         }
     </table>
-
-    <div class="page-number">
-        <ul>
-            @{
-                for (int i = 1; i <= sumPage; i++)
-                {
-
-                    <li style="float:left">
-                        <form method="post" action="~/backStage/articleManagement/Index">
-                            <input class="id" id="id" name="id" type="text" value=@i hidden="hidden" />
-                            <input type="submit" class="btn-submit" value=@i />
-                        </form>
-                    </li>
-                }
-            }
-            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @nowPage 页, 共 @sumPage 页" /></li>
-        </ul>
-    </div>
 </div>

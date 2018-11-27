@@ -58,6 +58,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -164,6 +165,10 @@
     <Compile Include="Areas\DbTable\tables.cs" />
     <Compile Include="Areas\informationOfUser\informationOfUserAreaRegistration.cs" />
     <Compile Include="Areas\MD5Helper\MD5Helper.cs" />
+    <Compile Include="Areas\toolsHelpers\deleteToolsController.cs" />
+    <Compile Include="Areas\toolsHelpers\insertToolsController.cs" />
+    <Compile Include="Areas\toolsHelpers\selectToolsController.cs" />
+    <Compile Include="Areas\toolsHelpers\updateToolsController.cs" />
     <Compile Include="certificateTools.cs" />
     <Compile Include="Content\utf8-net\net\App_Code\Config.cs" />
     <Compile Include="Content\utf8-net\net\App_Code\ConfigHandler.cs" />
@@ -656,7 +661,6 @@
     <Content Include="Areas\backStage\Views\pageView\quesAnswInvitationUpdate.cshtml" />
     <Content Include="Areas\backStage\Views\pageView\articleUpdate.cshtml" />
     <Content Include="Areas\backStage\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\backStage\Views\articleManagement\findArticleList.cshtml" />
     <Content Include="Areas\informationOfUser\Views\web.config" />
     <Content Include="Areas\account\Views\passwordManager\findUserame.cshtml" />
     <EntityDeploy Include="Models\Lazyfitness.edmx">
@@ -683,6 +687,9 @@
     <Content Include="Areas\backStage\Views\displayManagement\Add.cshtml" />
     <Content Include="Areas\backStage\Views\displayManagement\Index.cshtml" />
     <Content Include="Areas\backStage\Views\displayManagement\showResult.cshtml" />
+    <Content Include="Areas\backStage\Views\userManagement\searchList.cshtml" />
+    <Content Include="Areas\backStage\Views\articleManagement\articleList.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\changeforumArea.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -753,6 +760,7 @@
     <Folder Include="System\Data\" />
     <Folder Include="upload\" />
     <Folder Include="Views\APIontroller\" />
+    <Folder Include="Views\deleteTools\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

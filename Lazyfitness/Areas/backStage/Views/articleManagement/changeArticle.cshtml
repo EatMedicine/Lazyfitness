@@ -1,9 +1,13 @@
 ﻿@model Lazyfitness.Models.resourceInfo
+@using Lazyfitness.Models
 @{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.Title = "修改文章";
 }
-
+@{ 
+    resourceInfo allInfo = ViewBag.allInfo as resourceInfo;
+    resourceArea[] areaList = ViewBag.areaList as resourceArea[];
+}
 <link href="~/Css/Editor.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.all.min.js"></script>
@@ -43,113 +47,129 @@
     </div>
 </div>
 <div class="result-content">
-    <form method="post" action="~/backStage/articleManagement/changeArticleInfo">
-        @Html.TextBoxFor(u => u.resourceId, new { value = ViewBag.allInfo.resourceId, hidden = "hidden" })
+    <form method="post" action="~/backStage/articleManagement/changeArticleInfo" autocomplete="off">       
         <table class="insert-tab">
             <tbody>
-                <tr>
-                    <th>分区名称</th>
-                    <td>
-                        <select name="areaId">
-                            @foreach (var item in ViewBag.areaList)
-                            {
-                                if (item.areaId == ViewBag.allInfo.areaId)
+                @if (allInfo != null && (areaList != null || areaList.Length != 0))
+                {
+                    <tr>
+                        <th>分区名称</th>
+                        <td>
+                            <select name="areaId">
+                                @foreach (var item in areaList)
                                 {
-                                    <option class="dropdown-list" selected="selected" value=@item.areaId id="userStatus" name="userStatus">@item.areaName</option>
+                                    if (item.areaId == allInfo.areaId)
+                                    {
+                                        <option class="dropdown-list" selected="selected" value=@item.areaId id="userStatus" name="userStatus">@item.areaName</option>
+                                    }
+                                }
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>文章Id</th>
+                        <td>
+                            @Html.TextBoxFor(u => u.resourceId, new { value = allInfo.resourceId, @readonly="readonly", @class="input-content txt-unchange" })
+                            <div class="error-mes">
+                                @Html.ValidationMessageFor(u=>u.resourceId)
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            文章名称
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.resourceName, new { Value = allInfo.resourceName, @class = "input-content" })
+                            <div class="error-mes">
+                                @Html.ValidationMessageFor(u => u.resourceName)
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            发布的用户Id
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.userId, new { Value = allInfo.userId, @readonly = "readonly", @class = "input-content txt-unchange" })
+                            <div class="error-mes">
+                                @Html.ValidationMessageFor(u=>u.userId)
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            发布的时间
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.resourceTime, new { Value = allInfo.resourceTime, @class = "input-content no-border txt-unchange", @readonly = "readonly" })
+                            <div class="error-mes">
+                                @Html.ValidationMessageFor(u => u.resourceTime)
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            浏览量
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(u => u.pageView, new { Value = allInfo.pageView, @class = "input-content" })
+                            <div class="error-mes">
+                                @Html.ValidationMessageFor(u => u.pageView)
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            是否置顶
+                        </th>
+                        <td>
+
+                            @{
+                                if (allInfo.isTop == 0 || allInfo.isTop == null)
+                                {
+                                    @Html.RadioButtonFor(u => u.isTop, 0, new { @checked = "checked", @class = "radio-dis" }) <label> 否 </label>
+                                    @Html.RadioButtonFor(u => u.isTop, 1, new { @class = "radio-dis" }) <label>是</label>
+                                }
+                                else
+                                {
+                                    @Html.RadioButtonFor(u => u.isTop, 0, new { @class = "radio-dis" }) <label> 否 </label>
+                                    @Html.RadioButtonFor(u => u.isTop, 1, new { @checked = "checked", @class = "radio-dis" }) <label>是</label>
                                 }
                             }
-                        </select>
-                    </td>
-                </tr>
+                            <div class="error-mes">
+                                @Html.ValidationMessageFor(u=>u.isTop)
+                            </div>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <th>
-                        文章名称
-                    </th>
-                    <td>
-                        @Html.TextBoxFor(u => u.resourceName, new { Value = ViewBag.allInfo.resourceName, @class = "input-content" })
-                        <div class="error-mes">
-                            @Html.ValidationMessageFor(u => u.resourceName)
-                        </div>
-                    </td>
-                </tr>
+                    <tr>
+                        <th>
+                            内容
+                        </th>
+                        <td style="padding:10px">
+                            <input type="hidden" id="getContent" value="@allInfo.resourceContent" />
+                            <textarea id="resourceContent" name="resourceContent"></textarea>
+                            <script>
+                                $(document).ready(function () {
+                                    var getContent = $("#getContent").val();
+                                    $("#resourceContent").val(getContent);
+                                })
+                            </script>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <th>
-                        发布的用户
-                    </th>
-                    <td class="txt-unchange">
-                        @ViewBag.senderName
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>
-                        发布的时间
-                    </th>
-                    <td>
-                        @Html.TextBoxFor(u => u.resourceTime, new { Value = ViewBag.allInfo.resourceTime, @class = "input-content no-border txt-unchange", @readonly = "readonly" })
-                        <div class="error-mes">
-                            @Html.ValidationMessageFor(u => u.resourceTime)
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>
-                        浏览量
-                    </th>
-                    <td>
-                        @Html.TextBoxFor(u => u.pageView, new { Value = ViewBag.allInfo.pageView, @class = "input-content" })
-                        <div class="error-mes">
-                            @Html.ValidationMessageFor(u => u.pageView)
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>
-                        是否置顶
-                    </th>
-                    <td>
-
-                        @{
-                            if (ViewBag.allInfo.isTop == 0)
-                            {
-                                @Html.RadioButtonFor(u => u.isTop, 0, new { @checked = "checked", @class = "radio-dis" }) <label> 否 </label>
-                                @Html.RadioButtonFor(u => u.isTop, 1, new { @class = "radio-dis" }) <label>是</label>
-                            }
-                            else
-                            {
-                                @Html.RadioButtonFor(u => u.isTop, 0, new { @class = "radio-dis" }) <label> 否 </label>
-                                @Html.RadioButtonFor(u => u.isTop, 1, new { @checked = "checked", @class = "radio-dis" }) <label>是</label>
-                            }
-                        }
-
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>
-                        内容
-                    </th>
-                    <td style="padding:10px">
-                        <input type="hidden" id="getContent" value=@ViewBag.allInfo.resourceContent/>
-                        <textarea id="resourceContent" name="resourceContent"></textarea>
-                        <script>
-                            $(document).ready(function () {
-                                var getContent = $("#getContent").val();
-                                $("#resourceContent").val(getContent);
-                            })
-                        </script>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th></th>
-                    <td><input class="btn-submit show-border" type="submit" value="保存修改" /></td>
-                </tr>
-
+                    <tr>
+                        <th></th>
+                        <td><input class="btn-submit show-border" type="submit" value="保存修改" /></td>
+                    </tr>
+                }
             </tbody>
         </table>
 

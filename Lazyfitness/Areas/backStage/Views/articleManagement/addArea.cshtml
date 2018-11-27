@@ -1,9 +1,9 @@
 ﻿@model Lazyfitness.Models.resourceArea
-
 @{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.Title = "增加分区";
 }
+
 <script src="~/Areas/jQuery/userManagement.js"></script>
 
 <!--/sidebar-->
@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="result-content">
-        <form method="post" action="~/backStage/articleManagement/addArea">
+        <form method="post" action="~/backStage/articleManagement/addArea" autocomplete="off">
             <table class="insert-tab">
                 <tr><th></th><td class="show-title">增加分区</td></tr>
                 <tr>
@@ -44,6 +44,9 @@
                     </th>
                     <td>
                         @Html.TextAreaFor(t => t.areaBrief, new { @class = "textArea" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u=>u.areaBrief)
+                        </div>
                     </td>
                 </tr>
                 <tr>

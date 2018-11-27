@@ -1,7 +1,17 @@
 ﻿@model Lazyfitness.Areas.DbTable.tables
+@using Lazyfitness.Models
+@using System.Collections
 @{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.title = "论坛帖子管理";
+}
+@{
+    postInfo[] allInfo = ViewBag.allInfo as postInfo[];
+    ArrayList areaNameList = ViewBag.areaNameList as ArrayList;
+    ArrayList userNameList = ViewBag.userNameList as ArrayList;
+    int nowPage = Convert.ToInt32(ViewBag.nowPage);
+    int postsumPage = Convert.ToInt32(ViewBag.postsumPage);
+
 }
 <!--/sidebar-->
 <div class="main-wrap">
@@ -38,46 +48,87 @@
             <th>内容</th>
             <th colspan="2">可选操作</th>
         </tr>
-        @if (ViewBag.allInfo != null)
+        @*值得注意的是要先判断userNameList areaNameList是否为空, 再判断他们长度是否为0是否. 否则报错*@
+        @if (allInfo != null && areaNameList != null && userNameList != null && allInfo.Length != 0 && areaNameList.Count != 0 && userNameList.Count != 0)
         {
             int counter = 0;
-            foreach (var item in @ViewBag.allInfo)
+            foreach (var item in allInfo)
             {
                 <tr>
-                    <td><input class="no-border" type="text" value=@ViewBag.areaNameList[counter] readonly /> </td>
-                    <td id="postId">@item.postId</td>
-                    <td>@item.postTitle</td>
-                    <td>@ViewBag.userNameList[counter]</td>
-                    <td>@item.postTime</td>
-                    <td>@item.pageView</td>
-                    @if (@item.isPost == 0)
+                    <td>
+                        <div class="contentDiv">
+                            <input class="no-border" type="text" value=@areaNameList[counter] readonly />
+                        </div>
+                    </td>
+                    <td id="postId">
+                        <div class="numberDiv">
+                            @item.postId
+                        </div>
+                    </td>
+                    <td>
+                        <div class="numberDiv">
+                            @item.postTitle
+                        </div>
+                    </td>
+                    <td>
+                        <div class="contentDiv">
+                            @userNameList[counter]
+                        </div>
+                    </td>
+                    <td>
+                        <div class="contentDiv">
+                            @item.postTime
+                        </div>
+                    </td>
+                    <td>
+                        <div class="numberDiv">
+                            @item.pageView
+                        </div>
+                    </td>
+                    @if (item.isPost == 0 || item.isPost == null)
                     {
-                        <td>否</td>
+                        <td>
+                            <div class="numberDiv">
+                                否
+                            </div>
+                        </td>
                     }
-                    @if (item.isPost != 0)
+                    @if (item.isPost == 1)
                     {
-                        <td>是</td>
+                        <td>
+                            <div class="numberDiv">
+                                是
+                            </div>
+                        </td>
                     }
-                    <td>@item.amount</td>
-                    @if (@item.postStatus == 0)
+                    <td>
+                        <div class="numberDiv">
+                            @item.amount
+                        </div>
+                    </td>
+                    @if (item.postStatus == 0 || item.postStatus == null)
                     {
-                        <td>隐藏</td>
+                        <td>
+                            <div class="numberDiv">
+                                关闭
+                            </div>
+                        </td>
                     }
                     @if (item.postStatus == 1)
                     {
-                        <td>不可回复</td>
-                    }
-                    @if (@item.postStatus == 2)
-                    {
-                        <td>可回复</td>
-                    }
                         <td>
-                            <div class="contentDiv">
-                                @item.postContent
+                            <div class="numberDiv">
+                                正常
                             </div>
                         </td>
+                    }
                     <td>
-                        <form method="post" action="~/backStage/forumManagement/forumInvitationSearch">
+                        <div class="contentDiv">
+                            @item.postContent
+                        </div>
+                    </td>
+                    <td>
+                        <form method="post" action="~/backStage/forumManagement/changeForum">
                             <input type="text" name="postId" id="postId" value="@item.postId" hidden="hidden" />
                             <input class="index-btn" type="submit" value="修改">
                         </form>
@@ -97,7 +148,7 @@
     <div class="page-number">
         <ul>
             @{
-                for (int i = 1; i <= ViewBag.postsumPage; i++)
+                for (int i = 1; i <= postsumPage; i++)
                 {
 
                     <li style="float:left">
@@ -108,7 +159,7 @@
                     </li>
                 }
             }
-            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @ViewBag.nowPage 页, 共 @ViewBag.postsumPage 页" /></li>
+            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @nowPage 页, 共 @postsumPage 页" /></li>
         </ul>
     </div>
 </div>
