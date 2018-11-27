@@ -232,6 +232,11 @@ namespace Lazyfitness.Areas.toolsHelpers
             }
         }        
 
+        /// <summary>
+        /// 删除文章分区表中的数据
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <returns></returns>
         public static Boolean deleteResourceAreaInfo(Expression<Func<resourceArea, bool>> whereLambda)
         {
             try
@@ -251,6 +256,11 @@ namespace Lazyfitness.Areas.toolsHelpers
             }
         }
 
+        /// <summary>
+        /// 通过areaId删除和文章相关表中所有与areaId相关的数据
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
         public static Boolean deleteResourceArea(int areaId)
         {
             try

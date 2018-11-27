@@ -58,38 +58,45 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 Response.Redirect("/backStage/manager/login");
                 return Content("未登录");
             }
-            int sumPage = GetSumPage(10);
-            int nowPage = 1;
-            resourceInfo[] allInfo = GetPagedList(1, 10, x => x == x, u => u.userId);
-
-
-            ViewBag.nowPage = nowPage;
-            ViewBag.sumPage = sumPage;            
-            ViewBag.allInfo = allInfo;
-            if (allInfo == null || allInfo.Length == 0)
+            try
             {
+                int sumPage = GetSumPage(10);
+                int nowPage = 1;
+                resourceInfo[] allInfo = GetPagedList(1, 10, x => x == x, u => u.userId);
+
+
+                ViewBag.nowPage = nowPage;
+                ViewBag.sumPage = sumPage;
+                ViewBag.allInfo = allInfo;
+                if (allInfo == null || allInfo.Length == 0)
+                {
+                    return View();
+                }
+                ArrayList areaNameList = new ArrayList();
+                ArrayList userNameList = new ArrayList();
+
+                foreach (var item in allInfo)
+                {
+                    //依次获得分区名
+                    int areaId = item.areaId;
+                    resourceArea[] areaName = toolsHelpers.selectToolsController.selectResourceArea(u => u.areaId == areaId, u => u.areaId);
+                    //依次获得用户名
+                    int userId = item.userId.Value;
+                    userInfo[] userName = toolsHelpers.selectToolsController.selectUserInfo(u => u.userId == userId, u => u.userId);
+                    if (areaName != null && areaName.Length != 0 && userName != null && userName.Length != 0)
+                    {
+                        areaNameList.Add(areaName[0].areaName);
+                        userNameList.Add(userName[0].userName);
+                    }
+                }
+                ViewBag.areaNameList = areaNameList;
+                ViewBag.userNameList = userNameList;
                 return View();
             }
-            ArrayList areaNameList = new ArrayList();
-            ArrayList userNameList = new ArrayList();
-
-            for (int i = 0; i < allInfo.Length; i++)
+            catch
             {
-                //依次获得分区名
-                int areaId = allInfo[i].areaId;
-                resourceArea[] areaName = toolsHelpers.selectToolsController.selectResourceArea(u => u.areaId == areaId, u => u.areaId);
-                //依次获得用户名
-                int userId = allInfo[i].userId.Value;
-                userInfo[] userName = toolsHelpers.selectToolsController.selectUserInfo(u => u.userId == userId, u => u.userId);
-                if (areaName != null && areaName.Length != 0 && userName != null && userName.Length != 0)
-                {
-                    areaNameList.Add(areaName[0].areaName);
-                    userNameList.Add(userName[0].userName);
-                }               
+                return Content("加载出错！");
             }
-            ViewBag.areaNameList = areaNameList;
-            ViewBag.userNameList = userNameList;
-            return View();
         }
         [HttpPost]
         public ActionResult Index(string id)
@@ -105,29 +112,43 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 Response.Redirect("/backStage/manager/login");
                 return Content("未登录");
             }
-            ViewBag.nowPage = id;
-            ViewBag.sumPage = GetSumPage(10);
-            var allInfo = GetPagedList(Convert.ToInt32(id), 10, x => x == x, u => u.userId);
-            ViewBag.allInfo = allInfo;
-            ArrayList areaNameList = new ArrayList();
-            ArrayList userNameList = new ArrayList();
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            try
             {
-                for (int i = 0; i < allInfo.Length; i++)
+                int sumPage = GetSumPage(10);
+                int nowPage = Convert.ToInt32(id);
+                resourceInfo[] allInfo = GetPagedList(Convert.ToInt32(id), 10, x => x == x, u => u.userId);
+
+                ViewBag.nowPage = nowPage;
+                ViewBag.sumPage = sumPage;
+                ViewBag.allInfo = allInfo;
+                if (allInfo == null || allInfo.Length == 0)
                 {
-                    int userId = allInfo[i].userId.Value;
-                    var obUser = db.userInfo.Where(u => u.userId == userId).FirstOrDefault();
-                    string userName = obUser.userName;
-                    int areaId = allInfo[i].areaId;
-                    var obArea = db.resourceArea.Where(u => u.areaId == areaId).FirstOrDefault();
-                    string areaName = obArea.areaName;
-                    areaNameList.Add(areaName);
-                    userNameList.Add(userName);
+                    return View();
                 }
+                ArrayList areaNameList = new ArrayList();
+                ArrayList userNameList = new ArrayList();
+                foreach (var item in allInfo)
+                {
+                    //依次获得分区名
+                    int areaId = item.areaId;
+                    resourceArea[] areaName = toolsHelpers.selectToolsController.selectResourceArea(u => u.areaId == areaId, u => u.areaId);
+                    //依次获得用户名
+                    int userId = item.userId.Value;
+                    userInfo[] userName = toolsHelpers.selectToolsController.selectUserInfo(u => u.userId == userId, u => u.userId);
+                    if (areaName != null && areaName.Length != 0 && userName != null && userName.Length != 0)
+                    {
+                        areaNameList.Add(areaName[0].areaName);
+                        userNameList.Add(userName[0].userName);
+                    }
+                }
+                ViewBag.areaNameList = areaNameList;
+                ViewBag.userNameList = userNameList;
+                return View();
             }
-            ViewBag.areaNameList = areaNameList;
-            ViewBag.userNameList = userNameList;
-            return View();
+            catch
+            {
+                return Content("加载出错！");
+            }
         }
 
         #region 资源文章分区管理
@@ -145,11 +166,8 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 return Content("未登录");
             }
 
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
-            {
-                var allInfo = db.resourceArea.ToList();
-                ViewBag.allInfo = allInfo;
-            }
+            resourceArea[] allInfo = toolsHelpers.selectToolsController.selectResourceArea(x => x == x, u => u.areaId);
+            ViewBag.allInfo = allInfo;            
             return View();
         }
 
@@ -375,6 +393,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     return Content("未登录");
                 }
 
+                if (toolsHelpers.selectToolsController.selectUserInfo(u=>u.userId == resource.userId, u=>u.userId).Length == 0)
+                {
+                    return Content("没有此用户，不能增加文章");
+                }
                 resource.resourceTime = DateTime.Now;
                 resource.pageView = 0;
                 if (toolsHelpers.insertToolsController.insertResourceInfo(resource) == true)
@@ -408,7 +430,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult findArticleList(string id, string resourceName)
+        public ActionResult articleList(int resourceId)
         {
             if (Request.Cookies["managerId"] != null)
             {
@@ -421,36 +443,40 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 Response.Redirect("/backStage/manager/login");
                 return Content("未登录");
             }
-            ViewBag.nowPage = id;
-            ViewBag.sumPage = GetSumPage(10);
-            var allInfo = GetPagedList(Convert.ToInt32(id), 10, x => x.resourceName == resourceName.Trim(), u => u.userId);
-            ViewBag.allInfo = allInfo;
-            ViewBag.resourceName = resourceName;
-
-            ArrayList areaNameList = new ArrayList();
-            ArrayList userNameList = new ArrayList();
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            try
             {
-                for (int i = 0; i < allInfo.Length; i++)
+                resourceInfo[] allInfo = toolsHelpers.selectToolsController.selectResourceInfo(u => u.resourceId == resourceId, u => u.resourceId);
+                if (allInfo.Length == 0 || allInfo == null)
                 {
-                    int userId = allInfo[i].userId.Value;
-                    var obUser = db.userInfo.Where(u => u.userId == userId).FirstOrDefault();
-                    string userName = obUser.userName;
-                    int areaId = allInfo[i].areaId;
-                    var obArea = db.resourceArea.Where(u => u.areaId == areaId).FirstOrDefault();
-                    string areaName = obArea.areaName;
-                    areaNameList.Add(areaName);
-                    userNameList.Add(userName);
+                    return Content("没有此文章");
                 }
+                ArrayList areaNameList = new ArrayList();
+                ArrayList userNameList = new ArrayList();
+
+                foreach (var item in allInfo)
+                {
+                    //依次获得分区名
+                    int areaId = item.areaId;
+                    resourceArea[] areaName = toolsHelpers.selectToolsController.selectResourceArea(u => u.areaId == areaId, u => u.areaId);
+                    //依次获得用户名
+                    int userId = item.userId.Value;
+                    userInfo[] userName = toolsHelpers.selectToolsController.selectUserInfo(u => u.userId == userId, u => u.userId);
+                    if (areaName != null && areaName.Length != 0 && userName != null && userName.Length != 0)
+                    {
+                        areaNameList.Add(areaName[0].areaName);
+                        userNameList.Add(userName[0].userName);
+                    }
+                }
+                ViewBag.allInfo = allInfo;
+                ViewBag.areaNameList = areaNameList;
+                ViewBag.userNameList = userNameList;
+                return View();
             }
-            ViewBag.areaNameList = areaNameList;
-            ViewBag.userNameList = userNameList;
-
-
-            return View();
+            catch
+            {
+                return Content("加载出错！");
+            }
         }
-
-        /*1111111111111111111111111111111111111111111111*/
         #endregion
 
         #region 删除文章
@@ -467,15 +493,19 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 return "未登录";
             }
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            try
             {
-                var obDelete = db.resourceInfo.Where(u => u.resourceId == resourceId).FirstOrDefault();
-                //标记为删除对象
-                db.resourceInfo.Remove(obDelete);
-                //执行删除sql语句
-                db.SaveChanges();
-                return "success";
+                if (toolsHelpers.deleteToolsController.deleteResourceInfo(u => u.resourceId == resourceId) == true)
+                {
+                    return "success";
+                }
+                return "false";
             }
+            catch
+            {
+                return "false";
+            }
+            
         }
         #endregion
 
@@ -493,17 +523,23 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 return Content("未登录");
             }
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            try
             {
-                resourceInfo obResource = db.resourceInfo.Where(u => u.resourceId == resourceId).FirstOrDefault();
-                ViewBag.allInfo = obResource;
-
-                var areaList = db.resourceArea.ToList();
-                ViewBag.areaList = areaList;
-
-                var senderName = db.userInfo.Where(u => u.userId == obResource.userId).FirstOrDefault().userName;
-                ViewBag.senderName = senderName;
-                return View();
+                //获取对应文章信息
+                resourceInfo[] info = toolsHelpers.selectToolsController.selectResourceInfo(u => u.resourceId == resourceId, u => u.resourceId);
+                if (info == null || info.Length == 0)
+                {
+                    return Content("没有此文章！");
+                }
+                ViewBag.allInfo = info[0];
+                //获取全部分区信息
+                resourceArea[] area = toolsHelpers.selectToolsController.selectResourceArea(x => x == x, u => u.areaId);
+                ViewBag.areaList = area;
+                return View();       
+            }
+            catch
+            {
+                return Content("获取文章信息出错！");
             }
         }
         [HttpPost]
@@ -520,17 +556,20 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 return Content("未登录");
             }
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            try
             {
-                var obResource = db.resourceInfo.Where(u => u.resourceId == resource.resourceId).FirstOrDefault();
-                obResource.areaId = resource.areaId;
-                obResource.resourceName = resource.resourceName;
-                obResource.pageView = resource.pageView;
-                obResource.isTop = resource.isTop;
-                obResource.resourceContent = resource.resourceContent;
-                db.SaveChanges();
-                return Content("修改成功!");
+                if (toolsHelpers.updateToolsController.updateResourceInfo(u => u.resourceId == resource.resourceId, resource) == true)
+                {
+                    Response.Redirect("/backStage/articleManagement/Index");
+                    return Content("success");
+                }
+                return Content("修改失败！");
             }
+            catch
+            {
+                return Content("修改出错！");
+            }
+            
         }
         #endregion
     }

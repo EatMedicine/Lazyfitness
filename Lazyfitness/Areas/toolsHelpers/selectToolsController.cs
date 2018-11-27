@@ -84,6 +84,31 @@ namespace Lazyfitness.Areas.toolsHelpers
             }
         }
 
+        /// <summary>
+        /// 查找文章信息表中的数据
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="whereLambda"></param>
+        /// <param name="orderBy"></param>
+        /// <returns></returns>
+        public static resourceInfo[] selectResourceInfo<TKey>(Expression<Func<resourceInfo, bool>> whereLambda, Expression<Func<resourceInfo, TKey>> orderBy)
+        {
+            try
+            {
+                using(LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<resourceInfo> dataObject = db.resourceInfo.Where(whereLambda).OrderBy(orderBy) as DbQuery<resourceInfo>;
+                    resourceInfo[] infoList = dataObject.ToArray();
+                    return infoList;
+                }
+            }
+            catch
+            {
+                resourceInfo[] nullInfo = new resourceInfo[0];
+                return nullInfo;
+            }
+        }
+
         #region 判断有无数据
         public static Boolean isExistResourceArea(Expression<Func<resourceArea, bool>> whereLambda)
         {

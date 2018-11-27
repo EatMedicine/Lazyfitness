@@ -68,5 +68,28 @@ namespace Lazyfitness.Areas.toolsHelpers
                 return false;
             }
         }
+
+        public static Boolean updateResourceInfo(Expression<Func<resourceInfo, bool>> whereLambda, resourceInfo info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<resourceInfo> dataObject = db.resourceInfo.Where(whereLambda) as DbQuery<resourceInfo>;
+                    resourceInfo oldInfo = dataObject.FirstOrDefault();
+                    oldInfo.areaId = info.areaId;
+                    oldInfo.resourceName = info.resourceName;
+                    oldInfo.pageView = info.pageView;
+                    oldInfo.isTop = info.isTop;
+                    oldInfo.resourceContent = info.resourceContent;
+                    db.SaveChanges();
+                    return true;
+                }            
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
