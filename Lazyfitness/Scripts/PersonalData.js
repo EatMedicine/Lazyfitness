@@ -30,6 +30,6 @@ function changeInput() {
     userAge.innerHTML = "<input type='text' id='userAge' name='userAge' class='input' value='" + userAge_new + "'/>";
 
     var userIntroduce = document.getElementById("userIntroduce");
-    var userIntroduce_new = userIntroduce.innerHTML;
-    userIntroduce.innerHTML = "<input type='text' id='userAge' name='userAge' class='input' value='" + userIntroduce_new + "'/>";
+    var userIntroduce_new = userIntroduce.innerText;
+    userIntroduce.innerHTML = "<input type='text' id='userIntroduce' name='userIntroduce' class='input' value='" + userIntroduce_new + "'/>";
 }
