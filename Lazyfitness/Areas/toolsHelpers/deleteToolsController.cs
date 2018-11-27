@@ -307,6 +307,11 @@ namespace Lazyfitness.Areas.toolsHelpers
             }
         }
 
+        /// <summary>
+        /// 删除帖子分区表的所有内容
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
         public static Boolean deleteAllPostAreaInfo(int areaId)
         {
             try
@@ -335,6 +340,38 @@ namespace Lazyfitness.Areas.toolsHelpers
                 {
                     //删除论坛分区表
                     if(deletePostArea(u=>u.areaId == areaId) == true)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        public static Boolean deleteAllPostInfo(int postId)
+        {
+            try
+            {
+                //查出这个论坛下有多少个回帖
+                postReply[] prList = selectToolsController.selectPostReply(u => u.postId == postId, u => u.postId);
+                //删除所有的回帖
+                Boolean flag1 = true;
+                foreach (var item in prList)
+                {
+                    if (deletePostReply(u=>u.postId == postId) == false)
+                    {
+                        flag1 = false;
+                    }
+                }
+                if (flag1 == true)
+                {
+                    //删除帖子
+                    if (deletePostInfo(u=>u.postId == postId) == true)
                     {
                         return true;
                     }

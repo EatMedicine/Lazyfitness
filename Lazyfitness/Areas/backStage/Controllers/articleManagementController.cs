@@ -34,7 +34,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
                 int listSum = db.resourceInfo.ToList().Count;
-                if (listSum % pageSize == 0)
+                if ((listSum != 0) && listSum % pageSize == 0)
                 {
                     return (listSum / pageSize);
                 }
@@ -550,6 +550,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 ViewBag.allInfo = info[0];
                 //获取全部分区信息
                 resourceArea[] area = toolsHelpers.selectToolsController.selectResourceArea(x => x == x, u => u.areaId);
+                if (area == null || area.Length == 0)
+                {
+                    return Content("没有分区，请添加至少一个分区！");
+                }
                 ViewBag.areaList = area;
                 return View();       
             }

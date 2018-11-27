@@ -123,5 +123,30 @@ namespace Lazyfitness.Areas.toolsHelpers
                 return false;
             }
         }
+
+        public static Boolean updatePostInfo(Expression<Func<postInfo, bool>> whereLambda, postInfo info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<postInfo> dataObject = db.postInfo.Where(whereLambda) as DbQuery<postInfo>;
+                    postInfo oldInfo = dataObject.FirstOrDefault();
+                    oldInfo.areaId = info.areaId;
+                    oldInfo.postTitle = info.postTitle;
+                    oldInfo.pageView = info.pageView;
+                    oldInfo.isPost = info.isPost;
+                    oldInfo.amount = info.amount;
+                    oldInfo.postStatus = info.postStatus;
+                    oldInfo.postContent = info.postContent;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

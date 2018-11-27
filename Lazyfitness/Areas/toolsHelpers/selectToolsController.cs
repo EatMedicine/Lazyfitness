@@ -158,5 +158,30 @@ namespace Lazyfitness.Areas.toolsHelpers
                 return nullInfo;
             }
         }
+
+        /// <summary>
+        /// 查找论坛回复表中的数据
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="whereLambda"></param>
+        /// <param name="orderBy"></param>
+        /// <returns></returns>
+        public static postReply[] selectPostReply<TKey>(Expression<Func<postReply, bool>> whereLambda, Expression<Func<postReply, TKey>> orderBy)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<postReply> dataObject = db.postReply.Where(whereLambda).OrderBy(orderBy) as DbQuery<postReply>;
+                    postReply[] infoList = dataObject.ToArray();
+                    return infoList;
+                }
+            }
+            catch
+            {
+                postReply[] nullInfo = new postReply[0];
+                return nullInfo;
+            }
+        }
     }
 }

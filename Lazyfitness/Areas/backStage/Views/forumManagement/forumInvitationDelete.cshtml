@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="result-content">
-        <form action="~/backStage/forumManagement/forumInvitationDelete" method="post">
+        <form action="~/backStage/forumManagement/forumInvitationDelete" method="post" autocomplete="off">
             <table class="insert-tab">
                 <tr><th></th><td class="show-title">删除帖子</td></tr>
                 <tr>
@@ -32,14 +32,8 @@
                         帖子ID
                     </th>
                     <td>
-                        <select name="postId">
-                            @{
-                                foreach (var postInfo in @ViewBag.postInfo)
-                                {
-                                    <option class="dropdown-list" value="@postInfo.postId">@postInfo.postId &nbsp&nbsp @postInfo.postTitle</option>
-                                }
-                            }
-                        </select>
+                        @Html.TextBoxFor(u => u.postId, new { @class = "input-content" })
+                        <div class="error-mes">@Html.ValidationMessageFor(x => x.postId)</div>
                     </td>
                 </tr>
                 <tr>
@@ -52,6 +46,3 @@
         </form>
     </div>
 </div>
-    </div>
-</body>
-</html>

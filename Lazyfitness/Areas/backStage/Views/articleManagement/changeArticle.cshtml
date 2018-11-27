@@ -132,7 +132,7 @@
                         <td>
 
                             @{
-                                if (allInfo.isTop == 0)
+                                if (allInfo.isTop == 0 || allInfo.isTop == null)
                                 {
                                     @Html.RadioButtonFor(u => u.isTop, 0, new { @checked = "checked", @class = "radio-dis" }) <label> 否 </label>
                                     @Html.RadioButtonFor(u => u.isTop, 1, new { @class = "radio-dis" }) <label>是</label>

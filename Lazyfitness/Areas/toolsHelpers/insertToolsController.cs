@@ -102,7 +102,7 @@ namespace Lazyfitness.Areas.toolsHelpers
         }
 
         /// <summary>
-        /// 论坛表增长数据
+        /// 论坛分区表增加数据
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
@@ -113,6 +113,28 @@ namespace Lazyfitness.Areas.toolsHelpers
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
                     db.postArea.Add(info);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 论坛表增加数据
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Boolean insertPostInfo(postInfo info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    db.postInfo.Add(info);
                     db.SaveChanges();
                     return true;
                 }

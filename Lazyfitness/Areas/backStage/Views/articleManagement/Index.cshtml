@@ -50,7 +50,8 @@
             <th>内容</th>
             <th colspan="2">可选操作</th>
         </tr>
-        @if (allInfo != null && areaNameList != null && userNameList != null)
+        @*值得注意的是要先判断userNameList areaNameList是否为空, 再判断他们长度是否为0是否. 否则报错*@
+        @if (allInfo != null && areaNameList != null && userNameList != null && allInfo.Length != 0 && areaNameList.Count != 0 && userNameList.Count != 0 )
         {
             int counter = 0;
             foreach (var item in allInfo)
@@ -86,7 +87,7 @@
                             @item.pageView
                         </div>
                     </td>
-                    @if (@item.isTop == 0 || item.isTop == null)
+                    @if (item.isTop == 0 || item.isTop == null)
                     {                        
                         <td>
                             <div class="numberDiv"> 
