@@ -284,58 +284,64 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 return Content("未登录");
             }
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
-            {
-                var areaInfo = db.postArea.ToList();
-                if (areaInfo != null)
-                {
-                    ViewBag.areaInfo = areaInfo;
-                }
-                else
-                {
-                    return View();
-                }
-            }
-            return View();
-        }
-        [HttpPost]
-        public ActionResult forumAreaSearch(postArea area)
-        {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return View("Index");
-            }
             try
             {
-                //先查询
-                ViewBag.IsSearchSuccess = false;
-                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                postArea[] areaInfo = toolsHelpers.selectToolsController.selectPostArea(x => x == x, u => u.areaId);
+                if (areaInfo.Length == 0 || areaInfo == null)
                 {
-                    DbQuery<postArea> dbAreasearch = db.postArea.Where(u => u.areaId == area.areaId) as DbQuery<postArea>;
-                    postArea _postArea = dbAreasearch.FirstOrDefault();
-                    if (_postArea != null)
-                    {
-                        ViewBag.postArea = _postArea;
-                    }
-                    else
-                    {
-                        return View("forumAreaUpdate");
-                    }
+                    return Content("没有分区请先增加一个分区！");
                 }
-                ViewBag.IsSearchSuccess = true;
-                return View("forumAreaUpdate");
+                ViewBag.areaInfo = areaInfo;
+                return View();
             }
             catch
             {
-                return View("forumAreaUpdate");
+                return Content("查询分区出错！");
             }
         }
+        //[HttpPost]
+        //public ActionResult forumAreaSearch(postArea area)
+        //{
+        //    if (Request.Cookies["managerId"] != null)
+        //    {
+        //        //获取Cookies的值
+        //        HttpCookie cookieName = Request.Cookies["managerId"];
+        //        var cookieText = Server.HtmlEncode(cookieName.Value);
+        //    }
+        //    else
+        //    {
+        //        return View("Index");
+        //    }
+        //    try
+        //    {
+        //        //先查询
+
+        //        postArea[] postArea = toolsHelpers.selectToolsController.selectPostArea(u => u.areaId == area.areaId, u => u.areaId);
+        //        ViewBag.postArea = postArea;
+
+
+        //        ViewBag.IsSearchSuccess = false;
+        //        using (LazyfitnessEntities db = new LazyfitnessEntities())
+        //        {
+        //            DbQuery<postArea> dbAreasearch = db.postArea.Where(u => u.areaId == area.areaId) as DbQuery<postArea>;
+        //            postArea _postArea = dbAreasearch.FirstOrDefault();
+        //            if (_postArea != null)
+        //            {
+        //                ViewBag.postArea = _postArea;
+        //            }
+        //            else
+        //            {
+        //                return View("forumAreaUpdate");
+        //            }
+        //        }
+        //        ViewBag.IsSearchSuccess = true;
+        //        return View("forumAreaUpdate");
+        //    }
+        //    catch
+        //    {
+        //        return View("forumAreaUpdate");
+        //    }
+        //}
         #endregion
         #region 删除
         public ActionResult forumAreaDelete()
@@ -353,6 +359,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
             try
             {
                 postArea[] forumAreaList = toolsHelpers.selectToolsController.selectPostArea(x => x == x, u => u.areaId);
+                if (forumAreaList.Length == 0 || forumAreaList == null)
+                {
+                    return Content("没有分区，请先增加一个分区！");
+                }
                 ViewBag.forumAreaList = forumAreaList;
                 return View();
             }
@@ -375,13 +385,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 return "未登录";
             }
             try
-            {
-
-                //判断areaId是否存在
-                if (toolsHelpers.selectToolsController.selectPostArea(u=>u.areaId == area.areaId, u=>u.areaId).Length == 0)
-                {
-                    return "此分区不存在，无法删除";
-                }
+            {               
                 //删除论坛回复表中的信息，论坛表中的信息和论坛分区表中的信息
                 if (toolsHelpers.deleteToolsController.deleteAllPostAreaInfo(area.areaId) == true)
                 {
@@ -397,9 +401,23 @@ namespace Lazyfitness.Areas.backStage.Controllers
         }
         #endregion
         #region 修改
-        public ActionResult forumAreaUpdate()
+        public ActionResult changeforumArea(int areaId)
         {
-            return View();
+            try
+            {
+                postArea[] areaInfoList = toolsHelpers.selectToolsController.selectPostArea(x => x == x, u => u.areaId);
+                if (areaInfoList.Length == 0 || areaInfoList == null)
+                {
+                    return Content("没有这个分区！");
+                }
+                postArea areaInfo = areaInfoList[0];
+                ViewBag.areaInfo = areaInfo;
+                return View();
+            }
+            catch
+            {
+                return Content("加载出错！");
+            }
         }
         [HttpPost]
         public string forumAreaUpdate(postArea area)
@@ -416,23 +434,21 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             try
             {
-                using (LazyfitnessEntities db = new LazyfitnessEntities())
+
+                if (toolsHelpers.updateToolsController.updatePostArea(u=>u.areaId == area.areaId, area) == true)
                 {
-                    DbQuery<postArea> dbArea = db.postArea.Where(u => u.areaId == area.areaId) as DbQuery<postArea>;
-                    postArea _postArea = dbArea.FirstOrDefault();
-                    //将要修改的值，放到数据上下文中
-                    _postArea.areaName = area.areaName;
-                    _postArea.areaBrief = area.areaBrief;
-                    db.SaveChanges(); //将修改之后的值保存到数据库中
+                    Response.Redirect("/backStage/forumManagement/forumAreaIndex");
+                    return "success";
                 }
-                return "论坛分区修改成功";
+                return "修改失败";
             }
-            catch(Exception ex)
+            catch
             {
-                return ex.ToString();
+                return "修改出错！";
             }
         }
         #endregion
+
         #endregion
 
         #region 论坛帖子管理

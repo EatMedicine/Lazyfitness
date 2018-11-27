@@ -1,9 +1,13 @@
-﻿@model Lazyfitness.Models.postArea
+﻿@using Lazyfitness.Models
+@model Lazyfitness.Models.postArea
 @{ 
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.title = "论坛分区管理";
 }
-        <!--/sidebar-->
+@{ 
+    postArea[] areaInfo = ViewBag.areaInfo as postArea[];
+}
+<!--/sidebar-->
 <div class="main-wrap">
     <div class="crumb-wrap">
         <div class="crumb-list">
@@ -24,7 +28,7 @@
         </div>
     </div>
     <div class="result-content">
-        <form action="~/backStage/forumManagement/forumAreaSearch" method="post">
+        <form action="~/backStage/forumManagement/forumAreaUpdate" method="post">
             <table class="insert-tab">
                 <tr><th></th><td class="show-title">修改分区信息</td></tr>
                 <tr>
@@ -34,7 +38,7 @@
                     <td>
                         <select name="areaId">
                             @{
-                                foreach (var item in @ViewBag.areaInfo)
+                                foreach (var item in areaInfo)
                                 {
                                     <option class="dropdown-list" value="@item.areaId" id="">@item.areaName</option>
                                 }

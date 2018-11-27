@@ -30,21 +30,21 @@
                     <tr><th></th><td class="show-title">修改分区信息</td></tr>
                     <tr>
                         <th>
-                            查询成功
+                            分区Id
                         </th>
                         <td>
-                            <h2>@ViewBag.IsSearchSuccess</h2>
+                            @Html.TextBoxFor(u => u.areaId, new { @Value = @ViewBag.postArea.areaId, @class = "input-content txt-unchange", @readonly = "readonly" })
+                            <div class="error-mes">
+                                @Html.ValidationMessageFor(u => u.areaId)
+                            </div>
                         </td>
-                    </tr>
-                    <tr>
-                        @Html.TextBoxFor(u => u.areaId, new { @Value = @ViewBag.postArea.areaId, @type = "hidden", @class = "input-content", @id = "areaId", @name = "areaId", @readonly = "readonly" })
                     </tr>
                     <tr>
                         <th>
                             分区名称
                         </th>
                         <td>
-                            @Html.TextBoxFor(u => u.areaName, new { @Value = @ViewBag.postArea.areaName, @type = "text", @class = "input-content", @id = "areaName", @name = "areaName" })
+                            @Html.TextBoxFor(u => u.areaName, new { @Value = @ViewBag.postArea.areaName, @type = "text", @class = "input-content" })
                             <div class="error-mes">@Html.ValidationMessageFor(x => x.areaName)</div>
                         </td>
                     </tr>
@@ -53,7 +53,7 @@
                             分区描述
                         </th>
                         <td>
-                            @Html.TextBoxFor(u => u.areaBrief, new { @Value = @ViewBag.postArea.areaBrief, @type = "text", @class = "input-content", @id = "areaBrief", @name = "areaBrief" })
+                            @Html.TextBoxFor(u => u.areaBrief, new { @Value = @ViewBag.postArea.areaBrief, @type = "text", @class = "input-content" })
                             <div class="error-mes">@Html.ValidationMessageFor(x => x.areaBrief)</div>
                         </td>
                     </tr>

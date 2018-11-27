@@ -686,6 +686,7 @@
     <Content Include="Areas\backStage\Views\displayManagement\showResult.cshtml" />
     <Content Include="Areas\backStage\Views\userManagement\searchList.cshtml" />
     <Content Include="Areas\backStage\Views\articleManagement\articleList.cshtml" />
+    <Content Include="Areas\backStage\Views\forumManagement\changeforumArea.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

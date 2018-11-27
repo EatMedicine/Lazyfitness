@@ -69,6 +69,12 @@ namespace Lazyfitness.Areas.toolsHelpers
             }
         }
 
+        /// <summary>
+        /// 修改文章表中的数据
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
         public static Boolean updateResourceInfo(Expression<Func<resourceInfo, bool>> whereLambda, resourceInfo info)
         {
             try
@@ -85,6 +91,32 @@ namespace Lazyfitness.Areas.toolsHelpers
                     db.SaveChanges();
                     return true;
                 }            
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 修改论坛分区表中的数据
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Boolean updatePostArea(Expression<Func<postArea, bool>> whereLambda, postArea info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<postArea> dataObject = db.postArea.Where(whereLambda) as DbQuery<postArea>;
+                    postArea oldInfo = dataObject.FirstOrDefault();
+                    oldInfo.areaBrief = info.areaBrief;
+                    oldInfo.areaName = info.areaName;
+                    db.SaveChanges();
+                    return true;
+                }
             }
             catch
             {

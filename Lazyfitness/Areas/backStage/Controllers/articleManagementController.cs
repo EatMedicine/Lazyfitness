@@ -242,6 +242,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
             try
             {
                 resourceArea[] allInfo = toolsHelpers.selectToolsController.selectResourceArea(x => x == x, u => u.areaId);
+                if (allInfo.Length == 0 || allInfo == null)
+                {
+                    return Content("没有分区，请添加一个分区");
+                }
                 ViewBag.allInfo = allInfo;
                 return View();
             }
@@ -291,11 +295,13 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #region 查询分区
         public ActionResult findArea()
         {
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
+
+            resourceArea[] allInfo = toolsHelpers.selectToolsController.selectResourceArea(x => x == x, u => u.areaId);
+            if (allInfo.Length == 0 || allInfo == null)
             {
-                var allInfo = db.resourceArea.ToList();
-                ViewBag.allInfo = allInfo;
+                return Content("没有分区，请添加分区！");
             }
+            ViewBag.allInfo = allInfo;       
             return View();
         }
         #endregion
@@ -379,6 +385,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 return Content("未登录");
             }
             resourceArea[] areaList = toolsHelpers.selectToolsController.selectResourceArea(x => x == x, u => u.areaId);
+            if (areaList.Length == 0 | areaList == null)
+            {
+                return Content("还没有所属分区不能增加文章，请先添加分区！");
+            }
             ViewBag.areaList = areaList;
             return View();
         }
