@@ -467,19 +467,21 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 return Content("未登录");
             }
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            try
             {
-                var quesArea = db.quesArea.ToList();
-                if (quesArea != null)
+                //获取论坛有的分区
+                quesArea[] areaList = toolsHelpers.selectToolsController.selectQuesArea(x => x == x, u => u.areaId);
+                if (areaList.Length == 0 || areaList == null)
                 {
-                    ViewBag.quesArea = quesArea;
+                    return Content("增加问答帖子需要有分区，现在没有分区，请先添加一个分区再发帖！");
                 }
-                else
-                {
-                    return View();
-                }
+                ViewBag.quesArea = areaList;
+                return View();
             }
-            return View();
+            catch
+            {
+                return Content("获取发问答帖需要的分区出错！");
+            }
         }
         [HttpPost]
         [ValidateInput(false)]
@@ -495,37 +497,27 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 return "未登录";
             }
+
             try
             {
-                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                if (toolsHelpers.selectToolsController.selectUserInfo(u => u.userId == info.userId, u => u.userId).Length == 0)
                 {
-                    //先判断登录Id是否可用
-                    var ispostId = db.quesAnswInfo.Where(u => u.quesAnswId == info.quesAnswId);
-                    if (ispostId.ToList().Count != 0)
-                    {
-                        return "问答帖子ID已存在";
-                    }
-                    quesAnswInfo _info = new quesAnswInfo
-                    {
-                        areaId = info.areaId,
-                        quesAnswTitle = info.quesAnswTitle,
-                        userId = info.userId,
-                        quesAnswTime = DateTime.Now,
-                        pageView = 0,
-                        isPost = info.isPost,
-                        quesAnswStatus = info.quesAnswStatus,
-                        amount = info.amount,
-                        quesAnswContent = info.quesAnswContent
-                    };
-                    db.quesAnswInfo.Add(_info);
-                    db.SaveChanges();
+                    return "没有此用户，不能增加论坛帖子";
                 }
-                return "问答帖子增加成功";
+                info.quesAnswTime = DateTime.Now;
+                info.pageView = 0;
+                if (toolsHelpers.insertToolsController.insertQuesAnswInfo(info) == true)
+                {
+                    Response.Redirect("/backStage/quesAnswManagement/quesAnswInvitationIndex");
+                    return "success";
+                }
+                return "false";
+
             }
             catch
             {
-                return ("问答帖子增加失败");
-            }
+                return ("论坛帖子增加出错！");
+            }          
         }
         #endregion
         #region 查询
@@ -541,76 +533,8 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 return Content("未登录");
             }
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
-            {
-                var quesAnswInfo = db.quesAnswInfo.ToList();
-                if (quesAnswInfo != null)
-                {
-                    ViewBag.quesAnswInfo = quesAnswInfo;
-                }
-                else
-                {
-                    return View();
-                }
-            }
             return View();
-        }
-        [HttpPost]
-        public ActionResult quesAnswInvitationSearch(quesAnswInfo info)
-        {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
-            try
-            {
-                //先查询,后修改
-                ViewBag.IsSearchSuccess = false;
-                using (LazyfitnessEntities db = new LazyfitnessEntities())
-                {
-                    var quesAnswInfo = db.quesAnswInfo.Where(u => u.quesAnswId == info.quesAnswId).FirstOrDefault();
-                    if (quesAnswInfo != null)
-                    {
-                        ViewBag.quesAnswInfo = quesAnswInfo;
-
-                        var quesArea = db.quesArea.ToList();
-                        if (quesArea != null)
-                        {
-                            ViewBag.quesArea = quesArea;
-                        }
-                        else
-                        {
-                            return Content("帖子分区已被注销！无法查看！！！");
-                        }
-                        var userInfo = db.userInfo.Where(u => u.userId == quesAnswInfo.userId).FirstOrDefault();
-                        if (userInfo != null)
-                        {
-                            ViewBag.userInfo = userInfo;
-                        }
-                        else
-                        {
-                            return Content("帖子拥有者已被注销！无法查看！！！");
-                        }
-                    }
-                    else
-                    {
-                        return View("quesAnswInvitationUpdate");
-                    }
-                }
-                ViewBag.IsSearchSuccess = true;
-                return View("quesAnswInvitationUpdate");
-            }
-            catch
-            {
-                return View("quesAnswInvitationUpdate");
-            }
-        }
+        }      
         #endregion
         #region 删除
         public ActionResult quesAnswInvitationDelete()
@@ -624,20 +548,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             else
             {
                 return Content("未登录");
-            }
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
-            {
-                var quesAnswInfo = db.quesAnswInfo.ToList();
-                if (quesAnswInfo != null)
-                {
-                    ViewBag.quesAnswInfo = quesAnswInfo;
-                }
-                else
-                {
-                    return View();
-                }
-            }
-            return View();
+            }           
             return View();
         }
         [HttpPost]
@@ -655,36 +566,28 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             try
             {
-                //根据不可重复的用户名找到quesAnswInfo里面的quesAnswId,将其删除
-                using (LazyfitnessEntities db = new LazyfitnessEntities())
+
+                //判断postId是否存在
+                if (toolsHelpers.selectToolsController.selectQuesAnswInfo(u => u.quesAnswId == info.quesAnswId, u => u.quesAnswId).Length == 0)
                 {
-
-                    DbQuery<quesAnswInfo> dbInvitation = db.quesAnswInfo.Where(u => u.quesAnswId == info.quesAnswId) as DbQuery<quesAnswInfo>;
-                    quesAnswInfo _quesAnswInfo = dbInvitation.FirstOrDefault();
-
-                    if (_quesAnswInfo == null)
-                    {
-                        return "删除的问答帖子不存在";
-                    }
-                    db.Entry<quesAnswInfo>(_quesAnswInfo).State = System.Data.Entity.EntityState.Deleted;
-                    db.SaveChanges();
-                    return "问答帖子删除成功";
+                    return "此问答帖子不存在！";
                 }
+                if (toolsHelpers.deleteToolsController.deleteAllQuesAnswInfo(info.quesAnswId) == true)
+                {
+                    Response.Redirect("/backStage/quesAnswManagement/quesAnswInvitationIndex");
+                    return "succes";
+                }
+                return "删除失败！";
             }
             catch
             {
-                return "问答帖子删除失败";
+                return "论坛帖子删除出错！";
             }
         }
         #endregion
         #region 修改
-        public ActionResult quesAnswInvitationUpdate()
-        {
-            return View();
-        }
-        [HttpPost]
-        [ValidateInput(false)]
-        public string quesAnswInvitationUpdate(quesAnswInfo info)
+        [HttpPost]    
+        public ActionResult quesAnswInvitationUpdate(quesAnswInfo info)
         {
             if (Request.Cookies["managerId"] != null)
             {
@@ -694,28 +597,62 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             else
             {
-                return "未登录";
+                return Content("未登录");
             }
+
             try
             {
-                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                //读取数据
+                quesAnswInfo[] infoList = toolsHelpers.selectToolsController.selectQuesAnswInfo(u => u.quesAnswId == info.quesAnswId, u => u.quesAnswId);
+                if (infoList == null || infoList.Length == 0)
                 {
-                    DbQuery<quesAnswInfo> dbInvitation = db.quesAnswInfo.Where(u => u.quesAnswId == info.quesAnswId) as DbQuery<quesAnswInfo>;
-                    quesAnswInfo _quesAnswInfo = dbInvitation.FirstOrDefault();
-                    //将要修改的值，放到数据上下文中
-                    _quesAnswInfo.areaId = info.areaId;
-                    _quesAnswInfo.quesAnswTitle = info.quesAnswTitle;
-                    _quesAnswInfo.amount = info.amount;
-                    _quesAnswInfo.isPost = info.isPost;
-                    _quesAnswInfo.quesAnswStatus = info.quesAnswStatus;
-                    _quesAnswInfo.quesAnswContent = info.quesAnswContent;
-                    db.SaveChanges(); //将修改之后的值保存到数据库中
+                    return Content("没有此问答帖子！");
                 }
-                return "问答帖子修改成功";
+                //获取分区列表
+                quesArea[] areaList = toolsHelpers.selectToolsController.selectQuesArea(x => x == x, u => u.areaId);
+                if (areaList == null || areaList.Length == 0)
+                {
+                    return Content("没有分区，请至少添加一个分区！");
+                }
+                ViewBag.quesArea = areaList;
+                ViewBag.allInfo = infoList[0];
+                return View();
             }
             catch
             {
-                return "问答帖子修改失败";
+                return Content("查询问答帖子出错！");
+            }
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult changeQuesAnswInfo(quesAnswInfo info)
+        {
+            string cookieText = null;
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                cookieText = Server.HtmlEncode(cookieName.Value).ToString();
+            }
+            else
+            {
+                return Content("未登录");
+            }
+
+
+            try
+            {
+                if (toolsHelpers.updateToolsController.updateQuesAnswInfo(u => u.quesAnswId == info.quesAnswId, info) == true)
+                {
+                    Response.Redirect("/backStage/quesAnswManagement/quesAnswInvitationIndex");
+                    return Content("success");
+                }
+                return Content("修改问答帖子失败！");
+            }
+            catch
+            {
+                return Content("修改问答帖子出错！");
             }
         }
         #endregion

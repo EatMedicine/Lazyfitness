@@ -26,20 +26,14 @@
     <div class="result-content">
         <form action="~/backStage/quesAnswManagement/quesAnswInvitationDelete" method="post">
             <table class="insert-tab">
-                <tr><th></th><td class="show-title">删除问答帖子</td></tr>
+                <tr><th></th><td class="show-title">删除帖子</td></tr>
                 <tr>
                     <th>
                         帖子ID
                     </th>
                     <td>
-                        <select name="quesAnswId">
-                            @{
-                                foreach (var quesAnswInfo in @ViewBag.quesAnswInfo)
-                                {
-                                    <option value="@quesAnswInfo.quesAnswId">@quesAnswInfo.quesAnswId &nbsp&nbsp @quesAnswInfo.quesAnswTitle</option>
-                                }
-                            }
-                        </select>
+                        @Html.TextBoxFor(u => u.quesAnswId, new { @class = "input-content" })
+                        <div class="error-mes">@Html.ValidationMessageFor(x => x.quesAnswId)</div>
                     </td>
                 </tr>
                 <tr>

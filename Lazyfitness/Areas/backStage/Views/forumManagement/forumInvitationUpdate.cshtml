@@ -45,26 +45,25 @@
                 @Html.ActionLink("修改帖子信息", "forumInvitationSearch", "forumManagement")
             </div>
         </div>
-    </div>
+    </div>   
     <div class="result-content">
         <form method="post" action="/backStage/forumManagement/changeForum" autocomplete="off">
             @if (allInfo != null && areaList != null && areaList.Length != 0)
             {
-                
-                <table class="insert-tab">
-                    <tr>
-                        <th>论坛帖子Id</th>
-                        <td>
-                            @Html.TextBoxFor(u=>u.postId, new { @Value=allInfo.postId, @class="txt-unchange, input-content", @readonly="readonly"})
-                            <div class="error-mes">
-                                @Html.ValidationMessageFor(u=>u.postId)
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>分区名</th>
-                        <td>
-                            @{
+            <table class="insert-tab">
+                <tr>
+                    <th>论坛帖子Id</th>
+                    <td>
+                        @Html.TextBoxFor(u => u.postId, new { allInfo.postId, @class = "input-content txt-unchange", @readonly = "readonly" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.postId)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>分区名</th>
+                    <td>
+                        @{
                             <select id="areaId" name="areaId">
                                 @foreach (var item in areaList)
                                 {
@@ -78,111 +77,111 @@
                                     }
                                 }
                             </select>
-                            }
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>帖子名称</th>
-                        <td>
-                            @Html.TextBoxFor(u => u.postTitle, new { @Value = allInfo.postTitle, @class = "input-content" })
-                            <div class="error-mes">
-                                @Html.ValidationMessageFor(u => u.postTitle)
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            发布的用户Id
-                        </th>
-                        <td>
-                            @Html.TextBoxFor(u => u.userId, new { Value = allInfo.userId, @readonly = "readonly", @class = "input-content txt-unchange" })
-                            <div class="error-mes">
-                                @Html.ValidationMessageFor(u => u.userId)
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            发布的时间
-                        </th>
-                        <td>
-                            @Html.TextBoxFor(u => u.postTime, new { Value = allInfo.postTime, @class = "input-content no-border txt-unchange", @readonly = "readonly" })
-                            <div class="error-mes">
-                                @Html.ValidationMessageFor(u => u.postTime)
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>访问量</th>
-                        <td>
-                            @Html.TextBoxFor(u => u.pageView, new { allInfo.pageView, @class = "input-content" })
-                            <div class="error-mes">
-                                @Html.ValidationMessageFor(u => u.pageView)
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>是否置顶</th>
-                        <td>
-                            @{
-                                if (allInfo.isPost == 0 || allInfo.isPost == null)
-                                {
-                                    @Html.RadioButtonFor(u => u.isPost, 0, new { @checked = "checked", @class = "radio-dis" }) <label> 否 </label>
-                                    @Html.RadioButtonFor(u => u.isPost, 1, new { @class = "radio-dis" }) <label>是</label>
-                                }
-                                else
-                                {
-                                    @Html.RadioButtonFor(u => u.isPost, 0, new { @class = "radio-dis" }) <label> 否 </label>
-                                    @Html.RadioButtonFor(u => u.isPost, 1, new { @checked = "checked", @class = "radio-dis" }) <label>是</label>
-                                }
-                            }
-                            <div class="error-mes">
-                                @Html.ValidationMessageFor(u => u.isPost)
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>付费金额</th>
-                        <td>
-                            @Html.TextBoxFor(u => u.amount, new {@Value= @allInfo.amount, @class = "input-content" })
-                            <div class="error-mes">
-                                @Html.ValidationMessageFor(u => u.amount)
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>帖子状态</th>
-                        <td>
-                            @if (allInfo.postStatus == 0 || allInfo.postStatus == null)
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>帖子名称</th>
+                    <td>
+                        @Html.TextBoxFor(u => u.postTitle, new { @Value = allInfo.postTitle, @class = "input-content" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.postTitle)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        发布的用户Id
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.userId, new { Value = allInfo.userId, @readonly = "readonly", @class = "input-content txt-unchange" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.userId)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        发布的时间
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(u => u.postTime, new { Value = allInfo.postTime, @class = "input-content no-border txt-unchange", @readonly = "readonly" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.postTime)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>访问量</th>
+                    <td>
+                        @Html.TextBoxFor(u => u.pageView, new { allInfo.pageView, @class = "input-content" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.pageView)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>是否置顶</th>
+                    <td>
+                        @{
+                            if (allInfo.isPost == 0 || allInfo.isPost == null)
                             {
-                                @Html.RadioButtonFor(u => u.postStatus, 0, new { @clas = "radio-dis", @checked = "checked" })<lable>关闭</lable>
-                                @Html.RadioButtonFor(u => u.postStatus, 1, new { @clas = "radio-dis" })<lable>正常</lable>
+                                @Html.RadioButtonFor(u => u.isPost, 0, new { @checked = "checked", @class = "radio-dis" }) <label> 否 </label>
+                                @Html.RadioButtonFor(u => u.isPost, 1, new { @class = "radio-dis" }) <label>是</label>
                             }
-                            @if (allInfo.postStatus == 1)
+                            else
                             {
-                                @Html.RadioButtonFor(u => u.postStatus, 0, new { @clas = "radio-dis" })<lable>关闭</lable>
-                                @Html.RadioButtonFor(u => u.postStatus, 1, new { @clas = "radio-dis", @checked = "checked" })<lable>正常</lable>
+                                @Html.RadioButtonFor(u => u.isPost, 0, new { @class = "radio-dis" }) <label> 否 </label>
+                                @Html.RadioButtonFor(u => u.isPost, 1, new { @checked = "checked", @class = "radio-dis" }) <label>是</label>
                             }
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>帖子内容</th>
-                        <td style="padding:10px">
-                            <input type="hidden" id="getContent" value=@allInfo.postContent />
-                            <textarea id="postContent" name="postContent"></textarea>
-                            <script>
-                                $(document).ready(function () {
-                                    var getContent = $("#getContent").val();
-                                    $("#postContent").val(getContent);
-                                })
-                            </script>
-                        </td>>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td><input type="submit" class="input-btn show-border" value="修改" /></td>
-                    </tr>
-                </table>
+                        }
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.isPost)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>付费金额</th>
+                    <td>
+                        @Html.TextBoxFor(u => u.amount, new { @Value = @allInfo.amount, @class = "input-content" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.amount)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>帖子状态</th>
+                    <td>
+                        @if (allInfo.postStatus == 0 || allInfo.postStatus == null)
+                        {
+                            @Html.RadioButtonFor(u => u.postStatus, 0, new { @clas = "radio-dis", @checked = "checked" })<lable>关闭</lable>
+                            @Html.RadioButtonFor(u => u.postStatus, 1, new { @clas = "radio-dis" })<lable>正常</lable>
+                        }
+                        @if (allInfo.postStatus == 1)
+                        {
+                            @Html.RadioButtonFor(u => u.postStatus, 0, new { @clas = "radio-dis" })<lable>关闭</lable>
+                            @Html.RadioButtonFor(u => u.postStatus, 1, new { @clas = "radio-dis", @checked = "checked" })<lable>正常</lable>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>帖子内容</th>
+                    <td style="padding:10px">
+                        <input type="hidden" id="getContent" value=@allInfo.postContent />
+                        <textarea id="postContent" name="postContent"></textarea>
+                        <script>
+                            $(document).ready(function () {
+                                var getContent = $("#getContent").val();
+                                $("#postContent").val(getContent);
+                            })
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td><input type="submit" class="input-btn show-border" value="修改" /></td>
+                </tr>
+            </table>             
             }
         </form>
     </div>

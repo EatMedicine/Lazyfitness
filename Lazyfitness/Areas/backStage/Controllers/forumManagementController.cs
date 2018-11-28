@@ -626,7 +626,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             catch
             {
-                return Content("查询文章出错！");
+                return Content("查询论坛帖子出错！");
             }
         }
         [HttpPost]

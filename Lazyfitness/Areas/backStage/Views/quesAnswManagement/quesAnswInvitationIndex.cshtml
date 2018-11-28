@@ -137,62 +137,7 @@
                         </div>
                     </td>
                     <td>
-                        <form method="post" action="~/backStage/quesAnswManagement/quesAnswInvitationSearch">
-                            <input type="text" name="postId" id="postId" value="@item.quesAnswId" hidden="hidden" />
-                            <input class="index-btn" type="submit" value="修改">
-                        </form>
-                    </td>
-                    <td>
-                        <form method="post" action="~/backStage/quesAnswManagement/quesAnswInvitationDelete">
-                            <input type="text" name="postId" id="postId" value=@item.quesAnswId hidden="hidden" />
-                            <input class="index-btn" type="submit" value="删除">
-                        </form>
-                    </td>
-                </tr>
-                        counter++;
-                    }
-
-            @*foreach (var item in allInfo)
-            {
-                <tr>
-                    <td><input class="no-border" type="text" value=@ViewBag.areaNameList[counter] readonly /> </td>
-                    <td id="quesAnswId">@item.quesAnswId</td>
-                    <td>@item.quesAnswTitle</td>
-                    <td>@ViewBag.userNameList[counter]</td>
-                    <td>@item.quesAnswTime</td>
-                    <td>@item.pageView</td>
-                    @if (@item.isPost == 0)
-                    {
-                        <td>否</td>
-                    }
-                    @if (item.isPost != 0)
-                    {
-                        <td>是</td>
-                    }
-                    <td>@item.amount</td>
-                    @if (@item.quesAnswStatus == 0)
-                    {
-                        <td>所有人可见</td>
-                    }
-                    @if (item.quesAnswStatus == 1)
-                    {
-                        <td>好友可见</td>
-                    }
-                    @if (@item.quesAnswStatus == 2)
-                    {
-                        <td>仅自己可见</td>
-                    }
-                    @if (item.quesAnswStatus == 3)
-                    {
-                        <td>隐藏</td>
-                    }
-                    <td>
-                        <div class="contentDiv">
-                            @item.quesAnswContent
-                        </div>
-                    </td>
-                    <td>
-                        <form method="post" action="~/backStage/quesAnswManagement/quesAnswInvitationSearch">
+                        <form method="post" action="~/backStage/quesAnswManagement/quesAnswInvitationUpdate">
                             <input type="text" name="quesAnswId" id="quesAnswId" value="@item.quesAnswId" hidden="hidden" />
                             <input class="index-btn" type="submit" value="修改">
                         </form>
@@ -204,8 +149,8 @@
                         </form>
                     </td>
                 </tr>
-                counter++;
-            }*@
+                        counter++;
+                    }
         }
     </table>
 

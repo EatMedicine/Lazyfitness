@@ -461,5 +461,43 @@ namespace Lazyfitness.Areas.toolsHelpers
                 return false;
             }
         }
+
+
+        /// <summary>
+        /// 删除问答帖子表中所有符合条件的数据
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <returns></returns>
+        public static Boolean deleteAllQuesAnswInfo(int quesAnswId)
+        {
+            try
+            {
+                //查出这个论坛下有多少个回帖
+                quesAnswReply[] prList = selectToolsController.selectQuesAnswReply(u => u.quesAnswId == quesAnswId, u => u.quesAnswId);
+                //删除所有的回帖
+                Boolean flag1 = true;
+                foreach (var item in prList)
+                {
+                    if (deleteQuesAnswReply(u => u.quesAnswId == quesAnswId) == false)
+                    {
+                        return false;
+                    }
+                }
+                if (flag1 == true)
+                {
+                    //删除帖子
+                    if (deleteQuesAnswInfo(u => u.quesAnswId == quesAnswId) == true)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
     }
 }

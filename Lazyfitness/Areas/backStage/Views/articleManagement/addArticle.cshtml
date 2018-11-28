@@ -75,7 +75,6 @@
                         文章名
                     </th>
                     <td>
-                        @*<input class="input-content" type="text" id="resourceName" name="resourceName" />*@
                         @Html.TextBoxFor(u=>u.resourceName, new { @class="input-content"})
                         <div class="error-mes">
                             @Html.ValidationMessageFor(u => u.resourceName)
