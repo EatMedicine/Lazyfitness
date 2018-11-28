@@ -13,6 +13,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
 {
     public class forumManagementController : Controller
     {
+        #region 分页类
         /// <summary>
         /// 分页查询
         /// </summary>
@@ -45,6 +46,38 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
         }
 
+        //论坛帖子分区
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">页容量</param>
+        /// <param name="whereLambda">条件 lambda表达式</param>
+        /// <param name="orderBy">排列 lambda表达式</param>
+        /// <returns></returns>
+        public postInfo[] GetPagedListpost<TKey>(int pageIndex, int pageSize, Expression<Func<postInfo, bool>> whereLambda, Expression<Func<postInfo, TKey>> orderBy)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                //分页时一定注意：Skip之前一定要OrderBy
+                return db.postInfo.Where(whereLambda).OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToArray();
+            }
+        }
+
+        public int GetSumPagepost(int pageSize)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                int listSum = db.postInfo.ToList().Count;
+                if ((listSum != 0) && listSum % pageSize == 0)
+                {
+                    return (listSum / pageSize);
+                }
+                return ((listSum / pageSize) + 1);
+            }
+        }
+        #endregion
         public ActionResult Index()
         {
             ViewBag.managerId = null;
@@ -62,6 +95,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             return View();
         }
+        #region 论坛分区主页
         // GET: backStage/forumManagement
         //论坛分区主页
         public ActionResult forumAreaIndex()
@@ -113,40 +147,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
             ViewBag.allInfo = allInfo;
             return View();
         }
+        #endregion
 
-
-        //论坛帖子分区
-        /// <summary>
-        /// 分页查询
-        /// </summary>
-        /// <typeparam name="TKey"></typeparam>
-        /// <param name="pageIndex">页码</param>
-        /// <param name="pageSize">页容量</param>
-        /// <param name="whereLambda">条件 lambda表达式</param>
-        /// <param name="orderBy">排列 lambda表达式</param>
-        /// <returns></returns>
-        public postInfo[] GetPagedListpost<TKey>(int pageIndex, int pageSize, Expression<Func<postInfo, bool>> whereLambda, Expression<Func<postInfo, TKey>> orderBy)
-        {
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
-            {
-                //分页时一定注意：Skip之前一定要OrderBy
-                return db.postInfo.Where(whereLambda).OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToArray();
-            }
-        }
-
-        public int GetSumPagepost(int pageSize)
-        {
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
-            {
-                int listSum = db.postInfo.ToList().Count;
-                if ((listSum != 0) && listSum % pageSize == 0)
-                {
-                    return (listSum / pageSize);
-                }
-                return ((listSum / pageSize) + 1);
-            }
-        }
-
+        #region 论坛主页
         public ActionResult forumInvitationIndex()
         {
             ViewBag.managerId = null;
@@ -170,7 +173,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 postInfo[] allInfo = GetPagedListpost(1, 10, x => x == x, u => u.userId);
 
                 ViewBag.nowPage = nowPage;
-                ViewBag.postsumPage = GetSumPagepost(10);
+                ViewBag.postsumPage = postsumPage;
                 ViewBag.allInfo = allInfo;
                 if (allInfo.Length == 0 || allInfo == null)
                 {
@@ -191,6 +194,11 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     {
                         areaNameList.Add(areaName[0].areaName);
                         userNameList.Add(userName[0].userName);
+                    }
+                    else
+                    {
+                        areaNameList.Add("【出错数据】");
+                        userNameList.Add("【出错数据】");
                     }
                 }
                 ViewBag.areaNameList = areaNameList;
@@ -247,6 +255,11 @@ namespace Lazyfitness.Areas.backStage.Controllers
                         areaNameList.Add(areaName[0].areaName);
                         userNameList.Add(userName[0].userName);
                     }
+                    else
+                    {
+                        areaNameList.Add("【出错数据】");
+                        userNameList.Add("【出错数据】");
+                    }
                 }
                 ViewBag.areaNameList = areaNameList;
                 ViewBag.userNameList = userNameList;
@@ -257,11 +270,22 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 return Content("加载出错！");
             }        
         }
+        #endregion
 
         #region 论坛分区管理
         #region 增加
         public ActionResult forumAreaAdd()
         {
+            if (Request.Cookies["managerId"] != null)
+            {
+                //获取Cookies的值
+                HttpCookie cookieName = Request.Cookies["managerId"];
+                var cookieText = Server.HtmlEncode(cookieName.Value);
+            }
+            else
+            {
+                return Content("未登录");
+            }
             return View();
         }
         [HttpPost]
@@ -286,7 +310,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 }
                 if (toolsHelpers.insertToolsController.insertPostArea(area) == true)
                 {
-                    Response.Redirect("/backStage/forumManagement/");
+                    Response.Redirect("/backStage/forumManagement/forumAreaIndex");
                     return "success";
                 }
                 return "增加论坛分区失败";

@@ -88,6 +88,11 @@ namespace Lazyfitness.Areas.backStage.Controllers
                         areaNameList.Add(areaName[0].areaName);
                         userNameList.Add(userName[0].userName);
                     }
+                    else
+                    {
+                        areaNameList.Add("【出错数据】");
+                        userNameList.Add("【出错数据】");
+                    }
                 }
                 ViewBag.areaNameList = areaNameList;
                 ViewBag.userNameList = userNameList;
@@ -139,6 +144,11 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     {
                         areaNameList.Add(areaName[0].areaName);
                         userNameList.Add(userName[0].userName);
+                    }
+                    else
+                    {
+                        areaNameList.Add("【出错数据】");
+                        userNameList.Add("【出错数据】");
                     }
                 }
                 ViewBag.areaNameList = areaNameList;

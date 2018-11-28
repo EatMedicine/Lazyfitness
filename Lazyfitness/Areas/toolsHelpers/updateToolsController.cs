@@ -124,6 +124,12 @@ namespace Lazyfitness.Areas.toolsHelpers
             }
         }
 
+        /// <summary>
+        /// 修改论坛帖子表中的数据
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
         public static Boolean updatePostInfo(Expression<Func<postInfo, bool>> whereLambda, postInfo info)
         {
             try
@@ -139,6 +145,63 @@ namespace Lazyfitness.Areas.toolsHelpers
                     oldInfo.amount = info.amount;
                     oldInfo.postStatus = info.postStatus;
                     oldInfo.postContent = info.postContent;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 修改问答分区表中的数据
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Boolean updateQuesArea(Expression<Func<quesArea, bool>> whereLambda, quesArea info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<quesArea> dataObject = db.quesArea.Where(whereLambda) as DbQuery<quesArea>;
+                    quesArea oldInfo = dataObject.FirstOrDefault();
+                    oldInfo.areaBrief = info.areaBrief;
+                    oldInfo.areaName = info.areaName;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 修改问答帖子表中的数据
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Boolean updateQuesAnswInfo(Expression<Func<quesAnswInfo, bool>> whereLambda, quesAnswInfo info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<quesAnswInfo> dataObject = db.quesAnswInfo.Where(whereLambda) as DbQuery<quesAnswInfo>;
+                    quesAnswInfo oldInfo = dataObject.FirstOrDefault();
+                    oldInfo.areaId = info.areaId;
+                    oldInfo.quesAnswTitle = info.quesAnswTitle;
+                    oldInfo.pageView = info.pageView;
+                    oldInfo.isPost = info.isPost;
+                    oldInfo.amount = info.amount;
+                    oldInfo.quesAnswStatus = info.quesAnswStatus;
+                    oldInfo.quesAnswContent = info.quesAnswContent;
                     db.SaveChanges();
                     return true;
                 }

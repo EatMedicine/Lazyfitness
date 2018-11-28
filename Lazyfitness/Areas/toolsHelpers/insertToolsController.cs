@@ -144,5 +144,49 @@ namespace Lazyfitness.Areas.toolsHelpers
                 return false;
             }
         }
+
+        /// <summary>
+        /// 问答分区表增加数据
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Boolean insertQuesArea(quesArea info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    db.quesArea.Add(info);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 问答表增加数据
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Boolean insertQuesAnswInfo(quesAnswInfo info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    db.quesAnswInfo.Add(info);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

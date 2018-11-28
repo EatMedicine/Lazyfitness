@@ -1,7 +1,17 @@
 ﻿@model Lazyfitness.Areas.DbTable.tables
+@using Lazyfitness.Models
+@using System.Collections
 @{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.title = "问答帖子管理";
+}
+@{
+    quesAnswInfo[] allInfo = ViewBag.allInfo as quesAnswInfo[];
+    ArrayList areaNameList = ViewBag.areaNameList as ArrayList;
+    ArrayList userNameList = ViewBag.userNameList as ArrayList;
+    int nowPage = Convert.ToInt32(ViewBag.nowPage);
+    int sumPage = Convert.ToInt32(ViewBag.sumPage);
+
 }
 <!--/sidebar-->
 <div class="main-wrap">
@@ -38,10 +48,111 @@
             <th>内容</th>
             <th colspan="2">可选操作</th>
         </tr>
-        @if (ViewBag.allInfo != null)
+        @*值得注意的是要先判断userNameList areaNameList是否为空, 再判断他们长度是否为0是否. 否则报错*@
+        @if (allInfo != null && areaNameList != null && userNameList != null && allInfo.Length != 0 && areaNameList.Count != 0 && userNameList.Count != 0)
         {
             int counter = 0;
-            foreach (var item in @ViewBag.allInfo)
+
+            foreach (var item in allInfo)
+            {
+                <tr>
+                    <td>
+                        <div class="contentDiv">
+                            <input class="no-border" type="text" value=@areaNameList[counter] readonly />
+                        </div>
+                    </td>
+                    <td id="quesAnswId">
+                        <div class="numberDiv">
+                            @item.quesAnswId
+                        </div>
+                    </td>
+                    <td>
+                        <div class="numberDiv">
+                            @item.quesAnswTitle
+                        </div>
+                    </td>
+                    <td>
+                        <div class="contentDiv">
+                            @userNameList[counter]
+                        </div>
+                    </td>
+                    <td>
+                        <div class="contentDiv">
+                            @item.quesAnswTime
+                        </div>
+                    </td>
+                    <td>
+                        <div class="numberDiv">
+                            @item.pageView
+                        </div>
+                    </td>
+                    @if (item.isPost == 0 || item.isPost == null)
+                    {
+                        <td>
+                            <div class="numberDiv">
+                                否
+                            </div>
+                        </td>
+                    }
+                    @if (item.isPost == 1)
+                    {
+                        <td>
+                            <div class="numberDiv">
+                                是
+                            </div>
+                        </td>
+                    }
+                    <td>
+                        <div class="numberDiv">
+                            @item.amount
+                        </div>
+                    </td>
+                    @if (item.quesAnswStatus == 0 || item.quesAnswStatus == null)
+                    {
+                        <td>
+                            <div class="numberDiv">
+                                关闭
+                            </div>
+                        </td>
+                    }
+                    @if (item.quesAnswStatus == 1)
+                    {
+                        <td>
+                            <div class="numberDiv">
+                                未解决
+                            </div>
+                        </td>
+                    }
+                    @if (item.quesAnswStatus == 2)
+                    {
+                        <td>
+                            <div class="numberDiv">
+                                已解决
+                            </div>
+                        </td>
+                    }
+                    <td>
+                        <div class="contentDiv">
+                            @item.quesAnswContent
+                        </div>
+                    </td>
+                    <td>
+                        <form method="post" action="~/backStage/quesAnswManagement/quesAnswInvitationSearch">
+                            <input type="text" name="postId" id="postId" value="@item.quesAnswId" hidden="hidden" />
+                            <input class="index-btn" type="submit" value="修改">
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" action="~/backStage/quesAnswManagement/quesAnswInvitationDelete">
+                            <input type="text" name="postId" id="postId" value=@item.quesAnswId hidden="hidden" />
+                            <input class="index-btn" type="submit" value="删除">
+                        </form>
+                    </td>
+                </tr>
+                        counter++;
+                    }
+
+            @*foreach (var item in allInfo)
             {
                 <tr>
                     <td><input class="no-border" type="text" value=@ViewBag.areaNameList[counter] readonly /> </td>
@@ -75,11 +186,11 @@
                     {
                         <td>隐藏</td>
                     }
-                                            <td>
-                            <div class="contentDiv">
-                                @item.quesAnswContent
-                            </div>
-                        </td>
+                    <td>
+                        <div class="contentDiv">
+                            @item.quesAnswContent
+                        </div>
+                    </td>
                     <td>
                         <form method="post" action="~/backStage/quesAnswManagement/quesAnswInvitationSearch">
                             <input type="text" name="quesAnswId" id="quesAnswId" value="@item.quesAnswId" hidden="hidden" />
@@ -94,14 +205,14 @@
                     </td>
                 </tr>
                 counter++;
-            }
+            }*@
         }
     </table>
 
     <div class="page-number">
         <ul>
             @{
-                for (int i = 1; i <= ViewBag.sumPage; i++)
+                for (int i = 1; i <= sumPage; i++)
                 {
 
                     <li style="float:left">
@@ -112,11 +223,7 @@
                     </li>
                 }
             }
-            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @ViewBag.nowPage 页, 共 @ViewBag.sumPage 页" /></li>
+            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @nowPage 页, 共 @sumPage 页" /></li>
         </ul>
     </div>
 </div>
-    </div>
-</body>
-</html>
-

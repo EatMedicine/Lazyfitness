@@ -1,7 +1,11 @@
 ﻿@model Lazyfitness.Models.quesArea
+@using Lazyfitness.Models
 @{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.title = "问答分区管理";
+}
+@{
+    quesArea [] areaInfo = ViewBag.areaInfo as quesArea [];
 }
 <!--/sidebar-->
 <div class="main-wrap">
@@ -24,7 +28,7 @@
         </div>
     </div>
     <div class="result-content">
-        <form action="~/backStage/quesAnswManagement/quesAnswAreaSearch" method="post">
+        <form action="~/backStage/quesAnswManagement/changeQuesAnswArea" method="post" autocomplete="off">
             <table class="insert-tab">
                 <tr><th></th><td class="show-title">修改问答分区信息</td></tr>
                 <tr>
@@ -34,9 +38,9 @@
                     <td>
                         <select name="areaId">
                             @{
-                                foreach (var item in @ViewBag.areaInfo)
+                                foreach (var item in areaInfo)
                                 {
-                                    <option class="dropdown-list"s value=@item.areaId>@item.areaName</option>
+                                    <option class="dropdown-list" value="@item.areaId" id="">@item.areaName</option>
                                 }
                             }
                         </select>

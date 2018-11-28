@@ -1,7 +1,11 @@
-﻿@model Lazyfitness.Models.postArea
+﻿@using Lazyfitness.Models
+@model Lazyfitness.Models.quesArea
 @{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
-    ViewBag.title = "论坛分区管理";
+    ViewBag.title = "问答分区管理";
+}
+@{
+    quesArea areaInfo = ViewBag.areaInfo as quesArea;
 }
 <!--/sidebar-->
 <div class="main-wrap">
@@ -17,23 +21,23 @@
         </div>
         <div class="result-content">
             <div class="short-wrap">
-                @Html.ActionLink("增加分区", "forumAreaAdd", "forumManagement")
-                @Html.ActionLink("删除分区", "forumAreaDelete", "forumManagement")
-                @Html.ActionLink("修改分区信息", "forumAreaSearch", "forumManagement")
+                @Html.ActionLink("增加问答分区", "quesAnswAreaAdd", "quesAnswManagement")
+                @Html.ActionLink("删除问答分区", "quesAnswAreaDelete", "quesAnswManagement")
+                @Html.ActionLink("修改问答分区信息", "quesAnswAreaSearch", "quesAnswManagement")
             </div>
         </div>
     </div>
     <div class="result-content">
-        <form action="~/backStage/forumManagement/forumAreaUpdate" method="post" autocomplete="off">
+        <form action="~/backStage/quesAnswManagement/quesAnswAreaUpdate" method="post" autocomplete="off">
             <table class="insert-tab">
                 <tbody>
-                    <tr><th></th><td class="show-title">修改分区信息</td></tr>
+                    <tr><th></th><td class="show-title">修改问答分区信息</td></tr>
                     <tr>
                         <th>
                             分区Id
                         </th>
                         <td>
-                            @Html.TextBoxFor(u => u.areaId, new { @Value = @ViewBag.postArea.areaId, @class = "input-content txt-unchange", @readonly = "readonly" })
+                            @Html.TextBoxFor(u => u.areaId, new { @Value = areaInfo.areaId, @class = "input-content txt-unchange", @readonly = "readonly" })
                             <div class="error-mes">
                                 @Html.ValidationMessageFor(u => u.areaId)
                             </div>
@@ -44,7 +48,7 @@
                             分区名称
                         </th>
                         <td>
-                            @Html.TextBoxFor(u => u.areaName, new { @Value = @ViewBag.postArea.areaName, @type = "text", @class = "input-content" })
+                            @Html.TextBoxFor(u => u.areaName, new { @Value = areaInfo.areaName, @type = "text", @class = "input-content" })
                             <div class="error-mes">@Html.ValidationMessageFor(x => x.areaName)</div>
                         </td>
                     </tr>
@@ -53,7 +57,7 @@
                             分区描述
                         </th>
                         <td>
-                            @Html.TextBoxFor(u => u.areaBrief, new { @Value = @ViewBag.postArea.areaBrief, @type = "text", @class = "input-content" })
+                            @Html.TextBoxFor(u => u.areaBrief, new { @Value = areaInfo.areaBrief, @type = "text", @class = "input-content" })
                             <div class="error-mes">@Html.ValidationMessageFor(x => x.areaBrief)</div>
                         </td>
                     </tr>
@@ -68,3 +72,4 @@
         </form>
     </div>
 </div>
+

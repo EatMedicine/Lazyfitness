@@ -31,7 +31,7 @@ namespace Lazyfitness.Areas.toolsHelpers
             {
                 userInfo[] nullInfo = new userInfo[0];
                 return nullInfo;
-            }         
+            }
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Lazyfitness.Areas.toolsHelpers
         {
             try
             {
-                using(LazyfitnessEntities db = new LazyfitnessEntities())
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
                     DbQuery<resourceInfo> dataObject = db.resourceInfo.Where(whereLambda).OrderBy(orderBy) as DbQuery<resourceInfo>;
                     resourceInfo[] infoList = dataObject.ToArray();
@@ -180,6 +180,83 @@ namespace Lazyfitness.Areas.toolsHelpers
             catch
             {
                 postReply[] nullInfo = new postReply[0];
+                return nullInfo;
+            }
+        }
+
+        /// <summary>
+        /// 查找问答分区表中的数据
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="whereLambda"></param>
+        /// <param name="orderBy"></param>
+        /// <returns></returns>
+        public static quesArea[] selectQuesArea<TKey>(Expression<Func<quesArea, bool>> whereLambda, Expression<Func<quesArea, TKey>> orderBy)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<quesArea> dataObject = db.quesArea.Where(whereLambda).OrderBy(orderBy) as DbQuery<quesArea>;
+                    quesArea[] infoList = dataObject.ToArray();
+                    return infoList;
+                }
+            }
+            catch
+            {
+                quesArea[] nullInfo = new quesArea[0];
+                return nullInfo;
+            }
+        }
+
+
+        /// <summary>
+        /// 查找问答表中的数据
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="whereLambda"></param>
+        /// <param name="orderBy"></param>
+        /// <returns></returns>
+        public static quesAnswInfo[] selectQuesAnswInfo<TKey>(Expression<Func<quesAnswInfo, bool>> whereLambda, Expression<Func<quesAnswInfo, TKey>> orderBy)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<quesAnswInfo> dataObject = db.quesAnswInfo.Where(whereLambda).OrderBy(orderBy) as DbQuery<quesAnswInfo>;
+                    quesAnswInfo[] infoList = dataObject.ToArray();
+                    return infoList;
+                }
+            }
+            catch
+            {
+                quesAnswInfo[] nullInfo = new quesAnswInfo[0];
+                return nullInfo;
+            }
+        }
+
+
+        /// <summary>
+        /// 查找问答回复表中的数据
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="whereLambda"></param>
+        /// <param name="orderBy"></param>
+        /// <returns></returns>
+        public static quesAnswReply[] selectQuesAnswReply<TKey>(Expression<Func<quesAnswReply, bool>> whereLambda, Expression<Func<quesAnswReply, TKey>> orderBy)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<quesAnswReply> dataObject = db.quesAnswReply.Where(whereLambda).OrderBy(orderBy) as DbQuery<quesAnswReply>;
+                    quesAnswReply[] infoList = dataObject.ToArray();
+                    return infoList;
+                }
+            }
+            catch
+            {
+                quesAnswReply[] nullInfo = new quesAnswReply[0];
                 return nullInfo;
             }
         }

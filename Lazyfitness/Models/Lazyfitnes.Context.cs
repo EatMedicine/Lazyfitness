@@ -13,15 +13,13 @@ namespace Lazyfitness.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-
     public partial class LazyfitnessEntities : DbContext
     {
         public LazyfitnessEntities()
             : base("name=LazyfitnessEntities")
         {
-
         }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

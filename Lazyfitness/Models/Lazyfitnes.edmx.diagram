@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ea05f84c7f0d45f5911834154fde5fb5" Name="Diagram1">
+      <Diagram DiagramId="c5d4f93cfb6c4fdb84eaec41a775273e" Name="Diagram1">
         <EntityTypeShape EntityType="LazyfitnessModel.backManager" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LazyfitnessModel.postArea" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LazyfitnessModel.postInfo" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />

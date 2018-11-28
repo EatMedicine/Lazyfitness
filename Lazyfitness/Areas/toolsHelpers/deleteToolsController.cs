@@ -150,6 +150,35 @@ namespace Lazyfitness.Areas.toolsHelpers
         }
 
         /// <summary>
+        /// 删除问答分区表中符合的数据
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <returns></returns>
+        public static Boolean deleteQuesArea(Expression<Func<quesArea, bool>> whereLambda)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<quesArea> dbDelete = db.quesArea.Where(whereLambda) as DbQuery<quesArea>;
+                    List<quesArea> obDelete = dbDelete.ToList();
+                    if (obDelete.Count == 0)
+                    {
+                        return true;
+                    }
+                    db.quesArea.RemoveRange(obDelete);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        /// <summary>
         /// 删除回答表中符合的数据
         /// </summary>
         /// <param name="whereLambda"></param>
@@ -308,7 +337,7 @@ namespace Lazyfitness.Areas.toolsHelpers
         }
 
         /// <summary>
-        /// 删除帖子分区表的所有内容
+        /// 删除帖子分区表的所有符合条件的内容
         /// </summary>
         /// <param name="areaId"></param>
         /// <returns></returns>
@@ -324,7 +353,7 @@ namespace Lazyfitness.Areas.toolsHelpers
                 {
                    if(deletePostReply(u => u.postId == item.postId) == false)
                     {
-                        flag1 = false;
+                        return false;
                     }
                 }
                 //再删除每个帖子表中的数据
@@ -333,7 +362,7 @@ namespace Lazyfitness.Areas.toolsHelpers
                 {
                     if (deletePostInfo(u=>u.postId == item.postId) == false)
                     {
-                        flag2 = false;
+                        return false;
                     }
                 }
                 if (flag1 == flag2 == true)
@@ -352,7 +381,11 @@ namespace Lazyfitness.Areas.toolsHelpers
             }
         }
 
-
+        /// <summary>
+        /// 删除论坛帖子表中所有符合条件的数据
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <returns></returns>
         public static Boolean deleteAllPostInfo(int postId)
         {
             try
@@ -365,13 +398,58 @@ namespace Lazyfitness.Areas.toolsHelpers
                 {
                     if (deletePostReply(u=>u.postId == postId) == false)
                     {
-                        flag1 = false;
+                        return false;
                     }
                 }
                 if (flag1 == true)
                 {
                     //删除帖子
                     if (deletePostInfo(u=>u.postId == postId) == true)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 删除问答分区表的所有内容
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        public static Boolean deleteAllQuesAreaInfo(int areaId)
+        {
+            try
+            {
+                //首先查出这个分区里面有多少个帖子
+                quesAnswInfo[] infoList = selectToolsController.selectQuesAnswInfo(u => u.areaId == areaId, u => u.quesAnswId);
+                //先删除每个问答帖子回复表中的回帖数据
+                Boolean flag1 = true;
+                foreach (var item in infoList)
+                {
+                    if (deleteQuesAnswReply(u => u.quesAnswId == item.quesAnswId) == false)
+                    {
+                        return false;
+                    }
+                }
+                //再删除每个帖子表中的数据
+                Boolean flag2 = true;
+                foreach (var item in infoList)
+                {
+                    if (deleteQuesAnswInfo(u => u.quesAnswId == item.quesAnswId) == false)
+                    {
+                        return false;
+                    }
+                }
+                if (flag1 == flag2 == true)
+                {
+                    //删除论坛分区表
+                    if (deleteQuesArea(u => u.areaId == areaId) == true)
                     {
                         return true;
                     }
