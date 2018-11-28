@@ -499,5 +499,29 @@ namespace Lazyfitness.Areas.toolsHelpers
             }
         }
 
+
+        /// <summary>
+        /// 删除充值卡表中符合的数据
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <returns></returns>
+        public static Boolean deleteRecharge(Expression<Func<recharge, bool>> whereLambda)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<recharge> dbDelete = db.recharge.Where(whereLambda) as DbQuery<recharge>;
+                    List<recharge> obDelete = dbDelete.ToList();                
+                    db.recharge.RemoveRange(obDelete);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

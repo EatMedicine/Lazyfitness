@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Lazyfitness.Models.postInfo
+@{
     ViewBag.Title = "论坛评论管理";
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
 }
@@ -23,13 +24,16 @@
         </div>
     </div>
     <div class="result-content">
-        <form method="post" action="/backStage/commentManagement/sureReply">
+        <form method="post" action="/backStage/commentManagement/sureReply" autocomplete="off">
             <table class="insert-tab">
                 <tr><th></th><td class="show-title">删除论坛评论</td></tr>
                 <tr>
                     <th>输入论坛帖子Id</th>
                     <td>
-                        <input type="number" class="input-content" id="postId" name="postId" />
+                        @Html.TextBoxFor(u=>u.postId, new { @class=""})
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u=>u.postId)
+                        </div>
                     </td>
                 </tr>
                 <tr>

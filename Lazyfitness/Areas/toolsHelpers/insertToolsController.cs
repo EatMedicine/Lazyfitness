@@ -146,6 +146,50 @@ namespace Lazyfitness.Areas.toolsHelpers
         }
 
         /// <summary>
+        /// 向论坛回复表中插入信息
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Boolean insertPostReply(postReply info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    db.postReply.Add(info);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 向问答回复表中插入信息
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Boolean insertQuesAnswReply(quesAnswReply info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    db.quesAnswReply.Add(info);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// 问答分区表增加数据
         /// </summary>
         /// <param name="info"></param>
@@ -179,6 +223,29 @@ namespace Lazyfitness.Areas.toolsHelpers
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
                     db.quesAnswInfo.Add(info);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        /// <summary>
+        /// 充值卡表增加数据
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Boolean insertRecharge(recharge info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    db.recharge.Add(info);
                     db.SaveChanges();
                     return true;
                 }

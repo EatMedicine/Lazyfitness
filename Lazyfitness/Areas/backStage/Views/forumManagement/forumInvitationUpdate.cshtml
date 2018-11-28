@@ -54,7 +54,7 @@
                 <tr>
                     <th>论坛帖子Id</th>
                     <td>
-                        @Html.TextBoxFor(u => u.postId, new { allInfo.postId, @class = "input-content txt-unchange", @readonly = "readonly" })
+                        @Html.TextBoxFor(u => u.postId, new {@Value=allInfo.postId, @class = "input-content txt-unchange", @readonly = "readonly" })
                         <div class="error-mes">
                             @Html.ValidationMessageFor(u => u.postId)
                         </div>

@@ -260,5 +260,28 @@ namespace Lazyfitness.Areas.toolsHelpers
                 return nullInfo;
             }
         }
+
+        /// <summary>
+        /// 查询充值卡表
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <returns></returns>
+        public static recharge[] selectRecharge(Expression<Func<recharge, bool>> whereLambda)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<recharge> dataObject = db.recharge.Where(whereLambda) as DbQuery<recharge>;
+                    recharge[] infoList = dataObject.ToArray();
+                    return infoList;
+                }
+            }
+            catch
+            {
+                recharge[] nullInfo = new recharge[0];
+                return nullInfo;
+            }
+        }
     }
 }

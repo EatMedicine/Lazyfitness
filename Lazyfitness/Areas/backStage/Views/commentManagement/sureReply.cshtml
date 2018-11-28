@@ -3,6 +3,11 @@
     ViewBag.Title = "删除论坛评论";
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
 }
+@{ 
+    int nowPage = Convert.ToInt32(ViewBag.nowPage);
+    int sumPage = Convert.ToInt32(ViewBag.sumPage);
+    int rightPostId = Convert.ToInt32(ViewBag.rightPostId);
+}
 <!--/sidebar-->
 <div class="main-wrap">
     <div class="crumb-wrap">
@@ -39,8 +44,16 @@
                         foreach (var item in ViewBag.replyList)
                         {
                             <tr>
-                                <th>@item.id</th>
-                                <th>@item.postId</th>
+                                <th>
+                                    <div class="numberDiv">
+                                        @item.id
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="numberDiv">
+                                        @item.postId
+                                    </div>
+                                </th>
                                 <th>@item.userId</th>
                                 <th>@item.replyTime</th>
                                 <th>
@@ -58,6 +71,25 @@
             </table>
 
         </div>
-
     </div>
+
+    <div class="page-number">
+        <ul>
+            @{
+                for (int i = 1; i <= sumPage; i++)
+                {
+
+                    <li style="float:left">
+                        <form method="post" action="~/backStage/commentManagement/sureReply">
+                            <input class="id" id="id" name="id" type="text" value=@i hidden="hidden" />
+                            <input class="postId" name="postId" type="hidden" value="@rightPostId"/>
+                            <input type="submit" class="btn-submit" value=@i />
+                        </form>
+                    </li>
+                }
+            }
+            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @nowPage 页, 共 @sumPage 页" /></li>
+        </ul>
+    </div>
+
 </div>

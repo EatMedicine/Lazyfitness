@@ -211,5 +211,33 @@ namespace Lazyfitness.Areas.toolsHelpers
                 return false;
             }
         }
+
+
+        /// <summary>
+        /// 往充值卡表修改数据
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Boolean updateRecharge(Expression<Func<recharge, bool>> whereLambda, recharge info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<recharge> dataObject = db.recharge.Where(whereLambda) as DbQuery<recharge>;
+                    recharge oldInfo = dataObject.FirstOrDefault();
+                    oldInfo.rechargePwd = info.rechargePwd;
+                    oldInfo.amount = info.amount;
+                    oldInfo.isAvailable = info.isAvailable;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
