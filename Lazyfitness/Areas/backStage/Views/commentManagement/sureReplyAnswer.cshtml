@@ -1,7 +1,14 @@
 ﻿<script src="~/Areas/jQuery/deleteAnswer.js"></script>
+@using Lazyfitness.Models
 @{
     ViewBag.Title = "删除回答";
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+}
+@{
+    quesAnswReply[] replyList = ViewBag.allInfo;
+    int nowPage = Convert.ToInt32(ViewBag.nowPage);
+    int sumPage = Convert.ToInt32(ViewBag.sumPage);
+    int rightQuesAnswId = Convert.ToInt32(ViewBag.rightQuesAnswId);
 }
 <!--/sidebar-->
 <div class="main-wrap">
@@ -22,42 +29,85 @@
                 @Html.ActionLink("评论管理", "Index", "commentManagement")
             </div>
         </div>
-
-        <div class="result-content">
-            <table class="result-tab">
-                <tr>
-                    <th>id</th>
-                    <th>问题帖子Id</th>
-                    <th>用户Id</th>
-                    <th>回复时间</th>
-                    <th>回复内容</th>
-                    <th>可选操作</th>
-                </tr>
-                @{
-                    if (ViewBag.replyList != null)
-                    {
-                        foreach (var item in ViewBag.replyList)
-                        {
-                            <tr>
-                                <th>@item.id</th>
-                                <th>@item.quesAnswId</th>
-                                <th>@item.userId</th>
-                                <th>@item.replyTime</th>
-                                <th>
-                                    <div class="contentDiv ">
-                                        @item.replyContent
-                                    </div>
-                                </th>
-                                <th>
-                                    <button class="index-btn delete-data deleteReply" type="button" value="@item.id">删除</button>
-                                </th>
-                            </tr>
-                        }
-                    }
-                }
-            </table>
-
-        </div>
-
     </div>
+</div>
+
+<div class="result-content">
+
+    <table class="result-tab">
+        <tr>
+            <th>id</th>
+            <th>问答帖子Id</th>
+            <th>用户Id</th>
+            <th>回复时间</th>
+            <th>回复内容</th>
+            <th>是否采纳</th>
+            <th>可选操作</th>
+        </tr>
+        @{
+            if (replyList != null && replyList.Length != 0)
+            {
+                foreach (var item in replyList)
+                {
+                    <tr>
+                        <th>
+                            <div class="numberDiv">
+                                @item.id
+                            </div>
+                        </th>
+                        <th>
+                            <div class="numberDiv">
+                                @item.quesAnswId
+                            </div>
+                        </th>
+                        <th>@item.userId</th>
+                        <th>@item.replyTime</th>
+                        <th>
+                            <div class="contentDiv">
+                                @item.replyContent
+                            </div>
+                        </th>
+                        <th>
+                            @if (item.isAgree == 0 || item.isAgree == null)
+                            {
+                                <div class="numberDiv">
+                                    <span>否</span>
+                                </div>
+                            }
+                            @if (item.isAgree == 1)
+                            {
+                                <div class="numberDiv">
+                                    <span>是</span>
+                                </div>
+                            }
+                        </th>
+                        <th>
+                            <button class="index-btn delete-data deleteReply" type="button" value="@item.id">删除</button>
+                        </th>
+                    </tr>
+                }
+            }
+        }
+    </table>
+
+
+    <div class="page-number">
+        <ul>
+            @{
+                for (int i = 1; i <= sumPage; i++)
+                {
+
+                    <li style="float:left">
+                        <form method="post" action="~/backStage/commentManagement/sureReplyAnswer">
+                            <input class="id" id="id" name="id" type="text" value=@i hidden="hidden" />
+                            <input class="quesAnswId" name="quesAnswId" type="hidden" value="@rightQuesAnswId" />
+                            <input type="submit" class="btn-submit" value=@i />
+                        </form>
+                    </li>
+                }
+            }
+            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @nowPage 页, 共 @sumPage 页" /></li>
+        </ul>
+    </div>
+
 </div>

@@ -11,8 +11,11 @@
                     //刷新当前页面
                     window.location.reload();
                 }
-                else {
+                if (data == "F") {
                     alert("删除失败");
+                }
+                if (data == "NF") {
+                    alert("删除出错");               
                 }
             }
         })

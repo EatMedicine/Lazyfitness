@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Lazyfitness.Models.quesAnswInfo
+@{
     ViewBag.Title = "增加回答";
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
 }
@@ -29,7 +30,10 @@
                 <tr>
                     <th>输入问题帖子Id</th>
                     <td>
-                        <input type="number" class="input-content" id="quesAnswId" name="quesAnswId" />
+                        @Html.TextBoxFor(u =>u.quesAnswId, new { @class = "input-content" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.quesAnswId)
+                        </div>
                     </td>
                 </tr>
                 <tr>

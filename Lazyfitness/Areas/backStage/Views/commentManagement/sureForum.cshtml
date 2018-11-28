@@ -9,6 +9,9 @@
     string areaName = ViewBag.areaName as string;
     postInfo forumInfo = ViewBag.forumInfo as postInfo;
 }
+
+
+<link href="~/Css/Editor.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.all.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/lang/zh-cn/zh-cn.js"></script>
@@ -45,9 +48,9 @@
         </div>
 
         <div class="result-content">
-            <table class="insert-tab">
-                @using (Html.BeginForm("add", "commentManagement", FormMethod.Post))
-                {
+            <form method="post" action="~/backStage/commentManagement/add" autocomplete="off">
+                <table class="insert-tab">
+
                     <tr>
                         <th>帖子名称</th>
                         <td>
@@ -79,28 +82,29 @@
                     <tr>
                         <th>帖子Id</th>
                         <td>
-                            @Html.TextBoxFor(u=>u.postId, new { @Value = forumInfo.postId, @class="input-content txt-unchange", @readonly="readonly"})
+                            @Html.TextBoxFor(u => u.postId, new { @Value = forumInfo.postId, @class = "input-content txt-unchange", @readonly = "readonly" })
                         </td>
                     </tr>
                     <tr>
                         <th>回帖人Id</th>
                         <td>
-                            @Html.TextBoxFor(u=>u.userId, new { @class="input-content"})
+                            @Html.TextBoxFor(u => u.userId, new { @class = "input-content" })
                             <div class="error-mes">
-                                @Html.ValidationMessageFor(u=>u.userId)
+                                @Html.ValidationMessageFor(u => u.userId)
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th>回帖内容</th>
-                        <td style="padding:10px"><textarea id="replyContent" name="replyContent"></textarea></td>
+                        <td><textarea id="replyContent" name="replyContent"></textarea></td>
                     </tr>
                     <tr>
                         <th></th>
-                        <td> <input id="submit" class="btn-submit show-border" type="submit" value="发布" /></td>
+                        <td> <input class="btn-submit show-border" type="submit" value="发布" /></td>
                     </tr>
-                }
-            </table>
+                </table>
+            </form>
+            
         </div>
     </div>
 </div>
