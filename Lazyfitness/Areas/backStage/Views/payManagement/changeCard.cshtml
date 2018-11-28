@@ -1,0 +1,100 @@
+﻿@model Lazyfitness.Models.recharge
+@using Lazyfitness.Models
+@{
+    ViewBag.Title = "充值管理";
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+}
+@{ 
+    recharge allInfo = ViewBag.allInfo as recharge;
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("增加充值卡", "addCard", "payManagement")
+                @Html.ActionLink("删除充值卡", "deleteCard", "payManagement")
+                @Html.ActionLink("修改充值卡", "searchCard", "payManagement")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="result-content">
+    <form action="~/backStage/payManagement/changeCardInfo" method="post" autocomplete="off">
+        <table class="insert-tab">
+            <tbody>
+                <tr><th></th><td class="show-title">修改充值卡信息</td></tr>
+                @{
+                    if (allInfo != null)
+                    {
+                        <tr>
+                            <th>
+                                充值卡序列号
+                            </th>
+                            <td>
+                                @Html.TextBoxFor(u => u.rechargeId, new { @Value = allInfo.rechargeId, @class = "input-content txt-unchange", @readonly = "readonly" })
+                                <div class="error-mes">
+                                    @Html.ValidationMessageFor(u => u.rechargeId)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                充值卡密码
+                            </th>
+                            <td>
+                                @Html.TextBoxFor(u => u.rechargePwd, new { @Value = allInfo.rechargePwd, @type = "text", @class = "input-content" })
+                                <div class="error-mes">@Html.ValidationMessageFor(x => x.rechargePwd)</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                充值卡金额
+                            </th>
+                            <td>
+                                @Html.TextBoxFor(u => u.amount, new { @Value = allInfo.amount, @type = "text", @class = "input-content" })
+                                <div class="error-mes">@Html.ValidationMessageFor(x => x.amount)</div>
+                            </td>
+                        </tr>
+                         <tr>
+                            <th>
+                                是否可用
+                            </th>
+                            <td>
+                                @{ 
+                                    if(allInfo.isAvailable == 0 || allInfo.isAvailable == null)
+                                    {
+                                        @Html.RadioButtonFor(t => t.isAvailable, 0, new { @checked = "checked", @class = "radio-dis" })<lable>否</lable>
+                                        @Html.RadioButtonFor(u => u.isAvailable, 1, new { @class = "radio-dis" })<lable>是</lable>
+                                    }
+                                    if(allInfo.isAvailable == 1)
+                                    {
+                                        @Html.RadioButtonFor(t => t.isAvailable, 0, new { @class = "radio-dis" })<lable>否</lable>
+                                        @Html.RadioButtonFor(u => u.isAvailable, 1, new { @checked = "checked", @class = "radio-dis" })<lable>是</lable>
+                                    }
+                                }
+                                <div class="error-mes">
+                                    @Html.ValidationMessageFor(u => u.isAvailable)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="修改" />
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </form>
+</div>

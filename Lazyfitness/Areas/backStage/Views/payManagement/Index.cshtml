@@ -1,6 +1,12 @@
-﻿@{
+﻿@model Lazyfitness.Models.recharge
+@using Lazyfitness.Models
+@{
     ViewBag.Title = "充值管理";
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+}
+@{
+    int nowPage = Convert.ToInt32(ViewBag.nowPage);
+    int sumPage = Convert.ToInt32(ViewBag.sumPage);
 }
 <!--/sidebar-->
 <div class="main-wrap">
@@ -15,10 +21,94 @@
         </div>
         <div class="result-content">
             <div class="short-wrap">
-                @Html.ActionLink("用户账户管理", "userAccountManagement")
-                @Html.ActionLink("充值卡管理", "refillCardManagement")
+                @Html.ActionLink("增加充值卡", "addCard", "payManagement")
+                @Html.ActionLink("删除充值卡", "deleteCard", "payManagement")
+                @Html.ActionLink("修改充值卡", "searchCard", "payManagement")
             </div>
         </div>
     </div>
 </div>
+<div class="result-content">
 
+    @if (ViewBag.allInfo != null)
+    {
+        <table class="result-tab">
+            <tr>
+                <th>卡号</th>
+                <th>卡密</th>
+                <th>充值的金额</th>
+                <th>是否可用</th>
+                <th colspan="2">可选操作</th>
+            </tr>
+            @{
+                foreach (var item in ViewBag.allInfo)
+                {
+                    <tr>
+                        <td>
+                            <div class="contentDiv">
+                                @item.rechargeId
+                            </div>
+                        </td>
+                        <td>
+                            <div class="contentDiv">
+                                @item.rechargePwd
+                            </div>
+                        </td>
+                        <td>
+                            <div class="numberDiv">
+                                @item.amount
+                            </div>
+                        </td>
+                        <td>
+                            <div class="numberDiv">
+                                @if (item.isAvailable == 0)
+                                {
+                                    <label>否</label>
+                                }
+                                @if (item.isAvailable == 1)
+                                {
+                                    <label>是</label>
+                                }
+                            </div>
+                        </td>
+                        <td>
+                            <div class="numberDiv">
+                                <form method="post" action="~/backStage/payManagement/changeCard">
+                                    <input type="text" name="rechargeId" id="rechargeId" value="@item.rechargeId" hidden="hidden" />
+                                    <input class="index-btn" type="submit" value="修改">
+                                </form>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="numberDiv">
+                                <form method="post" action="~/backStage/payManagement/deleteCard">
+                                    <input type="text" name="rechargeId" id="rechargeId" value="@item.rechargeId" hidden="hidden" />
+                                    <input class="index-btn" type="submit" value="删除">
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </table>
+        <div class="page-number">
+            <ul>
+                @{
+                    for (int i = 1; i <= sumPage; i++)
+                    {
+
+                        <li style="float:left">
+                            <form method="post" action="~/backStage/payManagement/Index">
+                                <input class="id" id="id" name="id" type="text" value=@i hidden="hidden" />
+                                <input type="submit" class="btn-submit" value=@i />
+                            </form>
+                        </li>
+                    }
+                }
+                <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @nowPage 页, 共 @sumPage 页" /></li>
+            </ul>
+        </div>
+    }
+
+</div>

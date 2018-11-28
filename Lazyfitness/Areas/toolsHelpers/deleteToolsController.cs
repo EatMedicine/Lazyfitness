@@ -512,7 +512,11 @@ namespace Lazyfitness.Areas.toolsHelpers
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
                     DbQuery<recharge> dbDelete = db.recharge.Where(whereLambda) as DbQuery<recharge>;
-                    List<recharge> obDelete = dbDelete.ToList();                
+                    List<recharge> obDelete = dbDelete.ToList();
+                    if(obDelete.Count == 0)
+                    {
+                        return false;
+                    }
                     db.recharge.RemoveRange(obDelete);
                     db.SaveChanges();
                     return true;

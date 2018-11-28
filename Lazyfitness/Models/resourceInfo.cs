@@ -22,5 +22,7 @@ namespace Lazyfitness.Models
         public Nullable<int> pageView { get; set; }
         public Nullable<int> isTop { get; set; }
         public string resourceContent { get; set; }
+    
+        public virtual resourceArea resourceArea { get; set; }
     }
 }

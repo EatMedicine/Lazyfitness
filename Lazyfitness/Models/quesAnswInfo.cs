@@ -24,5 +24,7 @@ namespace Lazyfitness.Models
         public Nullable<int> quesAnswStatus { get; set; }
         public Nullable<int> amount { get; set; }
         public string quesAnswContent { get; set; }
+    
+        public virtual quesArea quesArea { get; set; }
     }
 }

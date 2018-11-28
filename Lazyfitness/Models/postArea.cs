@@ -14,8 +14,17 @@ namespace Lazyfitness.Models
     
     public partial class postArea
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public postArea()
+        {
+            this.postInfo = new HashSet<postInfo>();
+        }
+    
         public int areaId { get; set; }
         public string areaName { get; set; }
         public string areaBrief { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<postInfo> postInfo { get; set; }
     }
 }
