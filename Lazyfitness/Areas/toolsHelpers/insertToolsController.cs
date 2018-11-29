@@ -255,5 +255,28 @@ namespace Lazyfitness.Areas.toolsHelpers
                 return false;
             }
         }
+
+
+        /// <summary>
+        /// 展示表增加数据
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Boolean insertServerShowInfo(serverShowInfo info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    db.serverShowInfo.Add(info);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

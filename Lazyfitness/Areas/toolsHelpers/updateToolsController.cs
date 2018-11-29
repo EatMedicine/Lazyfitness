@@ -239,5 +239,34 @@ namespace Lazyfitness.Areas.toolsHelpers
                 return false;
             }
         }
+
+
+        /// <summary>
+        /// 往展示表修改数据
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Boolean updateServerShowInfo(Expression<Func<serverShowInfo, bool>> whereLambda, serverShowInfo info)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<serverShowInfo> dataObject = db.serverShowInfo.Where(whereLambda) as DbQuery<serverShowInfo>;
+                    serverShowInfo oldInfo = dataObject.FirstOrDefault();
+                    oldInfo.title = info.title;
+                    oldInfo.pictureAdr = info.pictureAdr;
+                    oldInfo.url = info.url;
+                    oldInfo.Infostatus = info.Infostatus;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

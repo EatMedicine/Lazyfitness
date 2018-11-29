@@ -1,7 +1,11 @@
 ﻿@model Lazyfitness.Models.serverShowInfo
+@using Lazyfitness.Models
 @{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.Title = "查询结果";
+}
+@{ 
+    serverShowInfo[] allInfo = ViewBag.allInfo as serverShowInfo[];
 }
 <!--/sidebar-->
 <div class="main-wrap">
@@ -16,9 +20,7 @@
         </div>
         <div class="result-content">
             <div class="short-wrap">
-                @Html.ActionLink("增加展示", "Add", "displayManagement")
-                @Html.ActionLink("删除展示", "displaySearch", "displayManagement")
-                @Html.ActionLink("修改展示内容", "displaySearch", "displayManagement")
+                @Html.ActionLink("返回上一级", "displaySearch", "displayManagement")
             </div>
         </div>
     </div>
@@ -34,9 +36,9 @@
                 <th>状态</th>
                 <th colspan="2">可选操作</th>
             </tr>
-        @if (ViewBag.serverShowInfo != null)
+        @if (allInfo != null)
         {
-            foreach (var item in @ViewBag.serverShowInfo)
+            foreach (var item in allInfo)
             {
                 <tr>
                     <td>@item.id</td>

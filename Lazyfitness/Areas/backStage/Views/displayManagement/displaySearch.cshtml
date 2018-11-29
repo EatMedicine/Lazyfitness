@@ -16,15 +16,13 @@
         </div>
         <div class="result-content">
             <div class="short-wrap">
-                @Html.ActionLink("增加展示", "Add", "displayManagement")
-                @Html.ActionLink("删除展示", "displaySearch", "displayManagement")
-                @Html.ActionLink("修改展示内容", "displaySearch", "displayManagement")
+                @Html.ActionLink("返回上一级", "Index", "displayManagement")
             </div>
         </div>
     </div>
 </div>
 <div class="result-content">
-    <form action="~/backStage/displayManagement/displaySearch" method="post">
+    <form action="~/backStage/displayManagement/displaySearch" method="post" autocomplete="off">
         <table class="insert-tab">
             <tr><th></th><td class="show-title">查询展示</td></tr>
             <tr>

@@ -17,17 +17,15 @@
         </div>
         <div class="result-content">
             <div class="short-wrap">
-                @Html.ActionLink("增加展示", "Add", "displayManagement")
-                @Html.ActionLink("删除展示", "displaySearch", "displayManagement")
-                @Html.ActionLink("修改展示内容", "displaySearch", "displayManagement")
+                @Html.ActionLink("返回上一级", "Add", "displayManagement")
             </div>
         </div>
     </div>
 </div>
 <div class="result-content">
-    @if (ViewBag.flag == 0)
+    @if (ViewBag.serverShowInfo.flag == 0)
     {
-        <form action="~/backStage/displayManagement/SaveImage" method="post" enctype="multipart/form-data">
+        <form action="~/backStage/displayManagement/SaveImage" method="post" enctype="multipart/form-data" autocomplete="off">
 
             <table class="insert-tab">
                 <tr><th></th><td class="show-title">增加展示</td></tr>
@@ -35,11 +33,11 @@
                     <th>
                         类型
                     </th>
-                    @if (@ViewBag.flag == 0)
+                    @if (@ViewBag.serverShowInfo.flag == 0)
                     {
                         <td>轮播图</td>
                     }
-                    @if (@ViewBag.flag == 1)
+                    @if (@ViewBag.serverShowInfo.flag == 1)
                     {
                         <td>公告</td>
                     }
@@ -48,13 +46,18 @@
                     <td>图片选择：</td>
                     <td>
                         <input id="image" name="image" type="file" />
+                        <input type="text" name="flag" id="flag" value=@ViewBag.serverShowInfo.flag hidden="hidden" />
+                        <input type="text" name="areaId" id="areaId" value=@ViewBag.serverShowInfo.areaId hidden="hidden" />
+                        <input type="text" name="title" id="title" value=@ViewBag.serverShowInfo.title hidden="hidden" />
+                        <input type="text" name="url" id="url" value=@ViewBag.url hidden="hidden" />
+                        <input type="text" name="Infostatus" id="Infostatus" value=@ViewBag.serverShowInfo.Infostatus hidden="hidden" />
                         <input type="submit" value="保存" />
                     </td>
                 </tr>
             </table>
         </form>
-        <form action="~/backStage/displayManagement/displayAddGo" method="post">
-            <input type="text" id="flag" name="flag" value="@ViewBag.flag" hidden="hidden" />
+        <form action="~/backStage/displayManagement/displayAddInfo" method="post" autocomplete="off">
+            <input type="text" id="flag" name="flag" value="@ViewBag.serverShowInfo.flag" hidden="hidden" />
             <table class="insert-tab">
                 <tr>
                     <th>
@@ -118,21 +121,21 @@
 
 
     }
-    @if (ViewBag.flag == 1)
+    @if (ViewBag.serverShowInfo.flag == 1)
     {
-        <form action="~/backStage/displayManagement/displayAddGo" method="post">
-            <input type="text" id="flag" name="flag" value="@ViewBag.flag" hidden="hidden" />
+        <form action="~/backStage/displayManagement/displayAddInfo" method="post" autocomplete="off">
+            <input type="text" id="flag" name="flag" value="@ViewBag.serverShowInfo.flag" hidden="hidden" />
             <table class="insert-tab">
                 <tr><th></th><td class="show-title">增加展示</td></tr>
                 <tr>
                     <th>
                         类型
                     </th>
-                    @if (@ViewBag.flag == 0)
+                    @if (@ViewBag.serverShowInfo.flag == 0)
                     {
                         <td>轮播图</td>
                     }
-                    @if (@ViewBag.flag == 1)
+                    @if (@ViewBag.serverShowInfo.flag == 1)
                     {
                         <td>公告</td>
                     }

@@ -527,5 +527,34 @@ namespace Lazyfitness.Areas.toolsHelpers
                 return false;
             }
         }
+
+
+        /// <summary>
+        /// 删除展示表中符合的数据
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <returns></returns>
+        public static Boolean deleteServerShowInfo(Expression<Func<serverShowInfo, bool>> whereLambda)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<serverShowInfo> dbDelete = db.serverShowInfo.Where(whereLambda) as DbQuery<serverShowInfo>;
+                    List<serverShowInfo> obDelete = dbDelete.ToList();
+                    if (obDelete.Count == 0)
+                    {
+                        return false;
+                    }
+                    db.serverShowInfo.RemoveRange(obDelete);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

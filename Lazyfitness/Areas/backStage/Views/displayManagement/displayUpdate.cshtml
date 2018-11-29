@@ -16,9 +16,7 @@
         </div>
         <div class="result-content">
             <div class="short-wrap">
-                @Html.ActionLink("增加展示", "Add", "displayManagement")
-                @Html.ActionLink("删除展示", "displaySearch", "displayManagement")
-                @Html.ActionLink("修改展示内容", "displaySearch", "displayManagement")
+                @Html.ActionLink("返回上一级", "displaySearch", "displayManagement")
             </div>
         </div>
     </div>
@@ -44,7 +42,7 @@
                 </tr>
             </table>
         </form>
-        <form action="~/backStage/displayManagement/displayUpdateGo" method="post">
+        <form action="~/backStage/displayManagement/displayUpdateInfo" method="post">
             <input type="text" name="id" id="id" value="@ViewBag.serverShowInfo.id" hidden="hidden" />
             <input type="text" name="flag" id="flag" value=@ViewBag.serverShowInfo.flag hidden="hidden" />
             <table class="insert-tab">
@@ -140,7 +138,7 @@
     }
     @if (ViewBag.serverShowInfo.flag == 1)
     {
-        <form action="~/backStage/displayManagement/displayUpdateGo" method="post">
+        <form action="~/backStage/displayManagement/displayUpdateInfo" method="post">
             <input type="text" name="id" id="id" value=@ViewBag.serverShowInfo.id hidden="hidden" />
             <input type="text" name="flag" id="flag" value=@ViewBag.serverShowInfo.flag hidden="hidden" />
             <table class="insert-tab">
