@@ -153,6 +153,14 @@ namespace Lazyfitness.Areas.backStage.Controllers
             try
             {
                 int sumPage = GetSumPage(10);
+                if (sumPage <= Convert.ToInt32(id))
+                {
+                    id = sumPage.ToString();
+                }  
+                if (Convert.ToInt32(id) <= 0)
+                {
+                    id = 1.ToString();
+                }
                 int nowPage = Convert.ToInt32(id);
                 resourceInfo[] allInfo = GetPagedList(Convert.ToInt32(id), 10, x => x == x, u => u.userId);
 
@@ -214,8 +222,16 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 {
                     id = 1.ToString();
                 }
-                int nowPage = Convert.ToInt32(id);
                 int sumPage = GetSumPageArea(10);
+                if (sumPage <= Convert.ToInt32(id))
+                {
+                    id = sumPage.ToString();
+                }
+                if (Convert.ToInt32(id) <= 0)
+                {
+                    id = 1.ToString();
+                }
+                int nowPage = Convert.ToInt32(id);
                 resourceArea[] allInfo = GetPagedListArea(nowPage, 10, x => x == x, u => u.areaId);
 
                 ViewBag.nowPage = nowPage;

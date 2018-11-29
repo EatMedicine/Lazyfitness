@@ -139,8 +139,17 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 return Content("未登录");
             }
 
-            int nowPage = id;
+           
             int sumPage = GetSumPage(10);
+            if (sumPage <= id)
+            {
+                id = sumPage;
+            }
+            if (id <= 0)
+            {
+                id = 1;
+            }
+            int nowPage = id;
             postArea[] allInfo = GetPagedList(Convert.ToInt32(id), 10, x => x == x, u => u.areaId);
             ViewBag.nowPage = nowPage;
             ViewBag.sumPage = sumPage;
@@ -168,8 +177,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
 
             try
             {
-                int nowPage = 1;
+               
                 int postsumPage = GetSumPagepost(10);
+                int nowPage = 1;
                 postInfo[] allInfo = GetPagedListpost(1, 10, x => x == x, u => u.userId);
 
                 ViewBag.nowPage = nowPage;
@@ -228,8 +238,17 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             try
             {
-                int nowPage = id;
+           
                 int postsumPage = GetSumPagepost(10);
+                if (postsumPage <= id)
+                {
+                    id = postsumPage;
+                }
+                if (id <= 0)
+                {
+                    id = 1;
+                }
+                int nowPage = id;
                 postInfo[] allInfo = GetPagedListpost(id, 10, x => x == x, u => u.userId);
 
                 ViewBag.nowPage = nowPage;

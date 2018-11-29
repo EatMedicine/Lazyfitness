@@ -10,7 +10,7 @@
     ArrayList areaNameList = ViewBag.areaNameList as ArrayList;
     ArrayList userNameList = ViewBag.userNameList as ArrayList;
     int nowPage = Convert.ToInt32(ViewBag.nowPage);
-    int postsumPage = Convert.ToInt32(ViewBag.postsumPage);
+    int sumPage = Convert.ToInt32(ViewBag.postsumPage);
 
 }
 <!--/sidebar-->
@@ -147,22 +147,27 @@
 
     <div class="page-number">
         <ul>
-            @{
-                for (int i = 1; i <= postsumPage; i++)
-                {
-
-                    <li style="float:left">
-                        <form method="post" action="~/backStage/forumManagement/forumInvitationIndex">
-                            <input class="id" id="id" name="id" type="text" value=@i hidden="hidden" />
-                            <input type="submit" class="btn-submit" value=@i />
-                        </form>
-                    </li>
-                }
-            }
-            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @nowPage 页, 共 @postsumPage 页" /></li>
+            <li style="float:left">
+                <form method="post" action="~/backStage/forumManagement/forumInvitationIndex" style="float:left" autocomplete="off">
+                    @{
+                        int leftNumber = nowPage - 1;
+                    }
+                    <span><button class="left_rightIcon" type="submit" name="id" value="@leftNumber"><strong><</strong></button></span>
+                </form>
+                <form method="post" action="~/backStage/forumManagement/forumInvitationIndex" style="float:left" autocomplete="off">
+                    <input required name="id" style="width:60px" type="number" />
+                    <button class="skip" type="submit">跳转</button>
+                </form>
+                <form method="post" action="~/backStage/forumManagement/forumInvitationIndex" style="float:left" autocomplete="off">
+                    @{
+                        int rightNumber = nowPage + 1;
+                    }
+                    <span><button class="left_rightIcon" type="submit" name="id" value="@rightNumber"><strong>></strong></button></span>
+                </form>
+            </li>
+            <li style="float:left">
+                <input class="text-summer" readonly="readonly" value="当前第 @nowPage 页, 共 @sumPage 页" />
+            </li>
         </ul>
     </div>
 </div>
-    </div>
-</body>
-</html>

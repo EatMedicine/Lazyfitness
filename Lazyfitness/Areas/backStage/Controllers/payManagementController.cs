@@ -46,6 +46,17 @@ namespace Lazyfitness.Areas.backStage.Controllers
             {
                 return Content("未登录");
             }
+            
+            int sumPage = GetSumPageCard(10);
+            if (sumPage <= id)
+            {
+                id = sumPage;
+            }
+            if (id <= 0)
+            {
+                id = 1;
+            }
+            int nowPage = id;
             ViewBag.nowPage = id;
             ViewBag.sumPage = GetSumPageCard(10);
             ViewBag.allInfo = GetPagedListCard(Convert.ToInt32(id), 10, x => x == x, u => u.rechargeId);

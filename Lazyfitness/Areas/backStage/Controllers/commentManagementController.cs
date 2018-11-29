@@ -264,6 +264,14 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     id = 1.ToString();
                 }
                 int sumPage = GetSumPage(10);
+                if (sumPage <= Convert.ToInt32(id))
+                {
+                    id = sumPage.ToString();
+                }
+                if( Convert.ToInt32(id) <= 0)
+                {
+                    id = 1.ToString();
+                }
                 int nowPage = Convert.ToInt32(id);
                 postReply[] allInfo = GetPagedList(Convert.ToInt32(id), 10, x => x == x, u => u.replyTime);
 
@@ -462,6 +470,14 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     id = 1.ToString();
                 }
                 int sumPage = GetSumPageQues(10);
+                if (sumPage <= Convert.ToInt32(id))
+                {
+                    id = sumPage.ToString();
+                }
+                if (Convert.ToInt32(id) <= 0)
+                {
+                    id = 1.ToString();
+                }
                 int nowPage = Convert.ToInt32(id);
                 quesAnswReply[] allInfo = GetPagedListQues(Convert.ToInt32(id), 10, x => x == x, u => u.replyTime);
 

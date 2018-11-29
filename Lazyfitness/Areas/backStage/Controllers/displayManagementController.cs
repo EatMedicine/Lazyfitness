@@ -158,7 +158,6 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     //Response.Redirect("/backStage/displayManagement/showResult");
                     return View("showResult");
                 }
-                return Content("查询成功");
             }
             catch
             {
