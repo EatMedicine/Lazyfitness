@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
+using Lazyfitness.Filter;
 using Lazyfitness.Models;
 namespace Lazyfitness.Areas.backStage.Controllers
 {
@@ -77,7 +78,6 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #endregion
 
         // GET: backStage/articleManagement
-
         public ActionResult Index()
         {
             if (Request.Cookies["managerId"] != null)

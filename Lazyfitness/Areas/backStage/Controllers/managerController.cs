@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using Lazyfitness.Models;
+using Lazyfitness.Filter;
 namespace Lazyfitness.Areas.backStage.Controllers
 {    
     public class managerController : Controller
@@ -35,10 +36,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     backManager obSurePwd = dbManagerPwd.FirstOrDefault();
                     if (obSurePwd != null)
                     {
-                        HttpCookie cookieName = new HttpCookie("managerId");
-                        cookieName.Value = managerId.ToString().Trim();
-                        cookieName.Expires = DateTime.Now.AddHours(1);
-                        Response.Cookies.Add(cookieName);
+                        Response.Cookies.Add(CookiesHelper.CookiesHelper.creatCookieHours("managerId", managerId.ToString().Trim(), 1));
+
+                        string CertifacationValue = certificateTools.makeCertification(managerId.ToString());
+                        Response.Cookies.Add(CookiesHelper.CookiesHelper.creatCookieHours("managerCertification", CertifacationValue, 1));
                         //登录成功
                         Response.Redirect("/backStage/manager/Index");
                         return "success";
@@ -58,21 +59,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #endregion
 
         #region 登录后默认的界面
+        [BackStageFilter]
         public ActionResult Index()
-        {
-            ViewBag.managerId = null;
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-                ViewBag.managerId = cookieText;
-            }
-            else
-            {
-                return Content("未登录");
-            }
-           
+        {          
             return View();
         }
         

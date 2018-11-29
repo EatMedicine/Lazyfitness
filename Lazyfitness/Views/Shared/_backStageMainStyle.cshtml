@@ -26,15 +26,7 @@
             <div class="top-info-wrap">
                 <ul class="top-info-list clearfix">
                     @{
-                        if (ViewBag.managerId == null)
-                        {
-                            <li>@Html.ActionLink("管理员登录", "login", "manager")</li>
-                        }
-                        else
-                        {
-                            <li>@ViewBag.managerId</li>
-                            <li>@Html.ActionLink("退出", "loginOut", "manager")</li>
-                        }
+                        <li>@Html.ActionLink("退出", "loginOut", "manager")</li>
                     }
                 </ul>
             </div>
