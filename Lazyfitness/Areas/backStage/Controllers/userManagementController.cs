@@ -236,7 +236,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult searchList(userInfo info)
+        public ActionResult searchList(userInfo info, string id)
         {
             if (Request.Cookies["managerId"] != null)
             {
@@ -249,18 +249,29 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 return Content("未登录");
             }
             try
-            {         
+            {
 
-                //通过用户名查询用户信息
-                userInfo[] infoArray = toolsHelpers.selectToolsController.selectUserInfo(u => u.userName == info.userName, u=>u.userId);
+                //通过用户名查询用户信息 
+                if (id == null)
+                {
+                    id = 1.ToString();
+                }
+                int sumPage = GetSumPage(10);
+                int nowPage = Convert.ToInt32(id);
+                userInfo[] infoArray = GetPagedList(nowPage, 10, u=>u.userName == info.userName, u => u.userId);                 
                 if (infoArray.Length == 0)
                 {
                     return Content("没有此用户");
                 }
+                ViewBag.nowPage = nowPage;
+                ViewBag.sumPage = sumPage;
+                ViewBag.rightName = info.userName;
                 ViewBag.infoArray = infoArray;
                 //通过用户状态表中的的数据返回对应的状态名
                 userStatusName[] nameArray = toolsHelpers.selectToolsController.selectUserStatusName(x => x == x, u => u.userStatus);
                 ViewBag.nameArray = nameArray;
+
+              
                 return View();
             }
             catch
