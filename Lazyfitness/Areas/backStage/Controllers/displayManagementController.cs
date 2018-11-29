@@ -8,12 +8,45 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using Lazyfitness.Filter;
+using System.Linq.Expressions;
 
 namespace Lazyfitness.Areas.backStage.Controllers
 {
     public class displayManagementController : Controller
     {
         // GET: backStage/displayManagement
+        #region 分页类
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">页容量</param>
+        /// <param name="whereLambda">条件 lambda表达式</param>
+        /// <param name="orderBy">排列 lambda表达式</param>
+        /// <returns></returns>
+        public serverShowInfo[] GetPagedList<TKey>(int pageIndex, int pageSize, Expression<Func<serverShowInfo, bool>> whereLambda, Expression<Func<serverShowInfo, TKey>> orderBy)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                //分页时一定注意：Skip之前一定要OrderBy
+                return db.serverShowInfo.Where(whereLambda).OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToArray();
+            }
+        }
+
+        public int GetSumPage(int pageSize, Expression<Func<serverShowInfo, bool>> whereLambda)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                int listSum = db.serverShowInfo.Where(whereLambda).ToList().Count;
+                if ((listSum != 0) && listSum % pageSize == 0)
+                {
+                    return (listSum / pageSize);
+                }
+                return ((listSum / pageSize) + 1);
+            }
+        }
+        #endregion
         [BackStageFilter]
         public ActionResult Index()
         {
@@ -67,33 +100,68 @@ namespace Lazyfitness.Areas.backStage.Controllers
         }
         [HttpPost]
         [BackStageFilter]
-        public ActionResult displaySearch(serverShowInfo serverShowInfo)
+        public ActionResult displaySearch(serverShowInfo serverShowInfo,int pageId)
         {
             try
             {
-                if(serverShowInfo.title == null)
+                ViewBag.pageAreaId = serverShowInfo.areaId;
+                ViewBag.pageFlag = serverShowInfo.flag;
+                ViewBag.pageTitle = serverShowInfo.title;
+                if (serverShowInfo.title == null)
                 {
-                    serverShowInfo[] info = toolsHelpers.selectToolsController.selectServerShowInfo(u => u.areaId == serverShowInfo.areaId && u.flag == serverShowInfo.flag);
-                    if (info == null || info.Length == 0)
+                    //serverShowInfo[] info = toolsHelpers.selectToolsController.selectServerShowInfo(u => u.areaId == serverShowInfo.areaId && u.flag == serverShowInfo.flag);
+                    if(pageId == 0)
                     {
-                        return Content("没有此展示！");
+                        serverShowInfo[] info = GetPagedList(1, 10, u => u.areaId == serverShowInfo.areaId && u.flag == serverShowInfo.flag, u => u.id);
+                        ViewBag.nowPage = 1;
+                        if (info == null || info.Length == 0)
+                        {
+                            return Content("没有此展示！");
+                        }
+                        ViewBag.allInfo = info;
                     }
-                    ViewBag.allInfo = info;
+                    else
+                    {
+                        serverShowInfo[] info = GetPagedList(Convert.ToInt32(pageId), 10, u => u.areaId == serverShowInfo.areaId && u.flag == serverShowInfo.flag, u => u.id);
+                        ViewBag.nowPage = pageId;
+                        if (info == null || info.Length == 0)
+                        {
+                            return Content("没有此展示！");
+                        }
+                        ViewBag.allInfo = info;
+                    }
+                    
+                    ViewBag.sumPage = GetSumPage(10, u => u.areaId == serverShowInfo.areaId && u.flag == serverShowInfo.flag);
                     //Response.Redirect("/backStage/displayManagement/showResult");
                     return View("showResult");
                 }
                 else
                 {
-                    serverShowInfo[] info = toolsHelpers.selectToolsController.selectServerShowInfo(u => u.areaId == serverShowInfo.areaId && u.flag == serverShowInfo.flag && u.title == serverShowInfo.title);
-                    if (info == null || info.Length == 0)
+                    if(pageId == 0)
                     {
-                        return Content("没有此展示！");
+                        serverShowInfo[] info = GetPagedList(1, 10, u => u.areaId == serverShowInfo.areaId && u.flag == serverShowInfo.flag && u.title == serverShowInfo.title, u => u.id);
+                        ViewBag.nowPage = 1;
+                        if (info == null || info.Length == 0)
+                        {
+                            return Content("没有此展示！");
+                        }
+                        ViewBag.allInfo = info;
                     }
-                    ViewBag.allInfo = info;
+                    else
+                    {
+                        serverShowInfo[] info = GetPagedList(Convert.ToInt32(pageId), 10, u => u.areaId == serverShowInfo.areaId && u.flag == serverShowInfo.flag && u.title == serverShowInfo.title, u => u.id);
+                        ViewBag.nowPage = pageId;
+                        if (info == null || info.Length == 0)
+                        {
+                            return Content("没有此展示！");
+                        }
+                        ViewBag.allInfo = info;
+                    }
+                    ViewBag.sumPage = GetSumPage(10, u => u.areaId == serverShowInfo.areaId && u.flag == serverShowInfo.flag && u.title == serverShowInfo.title);
+                    //serverShowInfo[] info = toolsHelpers.selectToolsController.selectServerShowInfo(u => u.areaId == serverShowInfo.areaId && u.flag == serverShowInfo.flag && u.title == serverShowInfo.title);
                     //Response.Redirect("/backStage/displayManagement/showResult");
                     return View("showResult");
                 }
-                return Content("查询成功");
             }
             catch
             {

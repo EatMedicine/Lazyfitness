@@ -6,6 +6,8 @@
 }
 @{ 
     serverShowInfo[] allInfo = ViewBag.allInfo as serverShowInfo[];
+    int sumPage = Convert.ToInt32(ViewBag.sumPage);
+    int nowPage = Convert.ToInt32(ViewBag.nowPage);
 }
 <!--/sidebar-->
 <div class="main-wrap">
@@ -26,47 +28,47 @@
     </div>
 </div>
 <div class="result-content">
-        <table class="result-tab">
-            <tr>
-                <th>ID</th>
-                <th>分区名称</th>
-                <th>标题</th>
-                <th>图片</th>
-                <th>类型</th>
-                <th>状态</th>
-                <th colspan="2">可选操作</th>
-            </tr>
+    <table class="result-tab">
+        <tr>
+            <th>ID</th>
+            <th>分区名称</th>
+            <th>标题</th>
+            <th>图片</th>
+            <th>类型</th>
+            <th>状态</th>
+            <th colspan="2">可选操作</th>
+        </tr>
         @if (allInfo != null)
         {
             foreach (var item in allInfo)
             {
                 <tr>
                     <td>@item.id</td>
-                    @if(item.areaId == 0)
+                    @if (item.areaId == 0)
                     {
                         <td>首页</td>
                     }
-                    @if(item.areaId == 1)
+                    @if (item.areaId == 1)
                     {
                         <td>资源</td>
                     }
                     <td>@item.title</td>
-                    
-                    @if(item.flag == 0)
+
+                    @if (item.flag == 0)
                     {
-                        <td ><img src="@item.pictureAdr"/></td>
+                        <td><img src="@item.pictureAdr" /></td>
                         <td>轮播图</td>
                     }
-                    @if(item.flag == 1)
+                    @if (item.flag == 1)
                     {
-                        <td >公告无图片</td>
+                        <td>公告无图片</td>
                         <td>公告</td>
                     }
-                    @if(item.Infostatus == 0)
+                    @if (item.Infostatus == 0)
                     {
                         <td>禁止</td>
                     }
-                    @if(item.Infostatus == 1)
+                    @if (item.Infostatus == 1)
                     {
                         <td>启用</td>
                     }
@@ -86,4 +88,24 @@
             }
         }
     </table>
+    <div class="page-number">
+        <ul>
+            @{
+                for (int i = 1; i <= sumPage; i++)
+                {
+
+                    <li style="float:left">
+                        <form method="post" action="~/backStage/displayManagement/displaySearch">
+                            <input  id="areaId" name="areaId" type="text" value=@ViewBag.pageAreaId hidden="hidden" />
+                            <input  id="title" name="title" type="text" value=@ViewBag.pageTitle hidden="hidden" />
+                            <input  id="flag" name="flag" type="text" value=@ViewBag.pageFlag hidden="hidden" />
+                            <input  id="pageId" name="pageId" type="text" value=@i hidden="hidden" />
+                            <input type="submit" class="btn-submit" value=@i />
+                        </form>
+                    </li>
+                }
+            }
+            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @nowPage 页, 共 @sumPage 页" /></li>
+        </ul>
+    </div>
 </div>
