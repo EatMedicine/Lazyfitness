@@ -18,13 +18,13 @@ figure{margin:0}
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
 .emstyle{font-style:italic}
 .clear{clear:both}
-.topbar-wrap {height:50px;line-height:50px;background:#1A1A1A;}
+.topbar-wrap {width:100%;min-width:1200px; height:50px;line-height:50px;background:#1A1A1A;}
 .white,.white a:link,.white a:visited {color:#fff;}
 .white,.white a:link,.white a:visited{color:#fff;}
 .white a:hover{color:#ff0;}
 .clearfix {*height:1%;}
 .clearfix:after {content:".";display:block;height:0;clear:both;visibility:hidden;}
-.topbar-inner {font-size:18px;padding:0 20px;}
+.topbar-inner {font-size:18px}
 .topbar-logo-wrap {float:left;}
 .none {display:none}
 .topbar-logo {float:left;width:150px;text-align:center;}
@@ -39,8 +39,8 @@ navbar-list li {float:left;}
 .top-info-list li a{float:left;margin-left:5px;padding:0 20px;display:inline;zoom:1;}
 .top-info-list li a:hover{background:#343434;}
 /*-----------------------------------------sidebar-----------------------------------------------------------------*/
-.sidebar-wrap{float: left;width: 189px;min-height:700px;background: #f2f2f2;border-right:1px solid #ccc;/*cursor:e-resize;*/}
-.main-wrap{margin-left: 190px;min-height:100%;}
+.sidebar-wrap{position:absolute;left:0;width:15%;min-width:150px;min-height:700px;background: #f2f2f2;border-right:1px solid #ccc;/*cursor:e-resize;*/}
+.main-wrap{width:100%;min-width:1000px; min-height:100%;}
 .sidebar-title{height: 40px;line-height: 40px;text-indent:1em;font-size: 24px;text-align: left;}
 .sidebar-title h1{font-weight: normal;}
 .sidebar-content{padding-top: 5px;}
@@ -65,3 +65,30 @@ navbar-list li {float:left;}
 }
 .short-wrap a{margin-right: 20px;}
 .short-wrap a i{margin-right: 5px;}
+
+.container{
+    position:relative;
+
+}
+
+.rightContent{
+    position:absolute;
+    right:0px;
+    width:85%;
+    min-width:1000px;
+    overflow:hidden;
+
+}
+
+
+.result-content{
+    width:100%;
+    min-width:1000px;
+    overflow:hidden;
+}
+
+.container-main{
+    position:relative;
+    width:100%;
+    min-width:1200px;
+}

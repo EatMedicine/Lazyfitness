@@ -4,25 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6d1fea279b6e472fa3d37eb7d456a9ff" Name="Diagram1">
-        <EntityTypeShape EntityType="LazyfitnessModel.backManager" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LazyfitnessModel.postArea" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LazyfitnessModel.postInfo" Width="1.5" PointX="8" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="LazyfitnessModel.postReply" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LazyfitnessModel.quesAnswInfo" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="LazyfitnessModel.quesAnswReply" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LazyfitnessModel.quesArea" Width="1.5" PointX="5.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="LazyfitnessModel.recharge" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LazyfitnessModel.resourceArea" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="LazyfitnessModel.resourceInfo" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="LazyfitnessModel.serverShowInfo" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
+      <Diagram DiagramId="898fc76bfe2c445d8c3719ad44a8fe54" Name="Diagram1">
+        <EntityTypeShape EntityType="LazyfitnessModel.backManager" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LazyfitnessModel.postArea" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LazyfitnessModel.postInfo" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LazyfitnessModel.postReply" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LazyfitnessModel.quesAnswInfo" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LazyfitnessModel.quesAnswReply" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LazyfitnessModel.quesArea" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LazyfitnessModel.recharge" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LazyfitnessModel.resourceArea" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LazyfitnessModel.resourceInfo" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LazyfitnessModel.serverShowInfo" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LazyfitnessModel.userInfo" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="LazyfitnessModel.userSecurity" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="LazyfitnessModel.userStatusName" Width="1.5" PointX="6.75" PointY="10.75" IsExpanded="true" />
-        <AssociationConnector Association="LazyfitnessModel.FK__postInfo__areaId__2180FB33" ManuallyRouted="false" />
-        <AssociationConnector Association="LazyfitnessModel.FK__quesAnswI__areaI__2645B050" ManuallyRouted="false" />
-        <AssociationConnector Association="LazyfitnessModel.FK__resourceI__areaI__1EA48E88" ManuallyRouted="false" />
-        <AssociationConnector Association="LazyfitnessModel.FK__userInfo__userId__17036CC0" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LazyfitnessModel.userStatusName" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="LazyfitnessModel.FK__userInfo__userId__0519C6AF" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

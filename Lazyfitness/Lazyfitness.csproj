@@ -671,13 +671,6 @@
     <Content Include="Areas\backStage\Views\articleManagement\articleList.cshtml" />
     <Content Include="Areas\backStage\Views\forumManagement\changeforumArea.cshtml" />
     <Content Include="Areas\backStage\Views\quesAnswManagement\changeQuesAnswArea.cshtml" />
-    <EntityDeploy Include="Models\Lazyfitness.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Lazyfitness.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Lazyfitness.edmx.diagram">
-      <DependentUpon>Lazyfitness.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\backStage\Views\payManagement\addCard.cshtml" />
     <Content Include="Areas\backStage\Views\payManagement\changeCard.cshtml" />
     <Content Include="Areas\backStage\Views\payManagement\deleteCard.cshtml" />
@@ -690,6 +683,13 @@
     <Content Include="Areas\backStage\Views\InformationStatistics\forumInfo.cshtml" />
     <Content Include="Areas\backStage\Views\InformationStatistics\articleInfo.cshtml" />
     <Content Include="Areas\backStage\Views\InformationStatistics\userInfoStatistics.cshtml" />
+    <EntityDeploy Include="Models\Lazyfitness.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Lazyfitness.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Lazyfitness.edmx.diagram">
+      <DependentUpon>Lazyfitness.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

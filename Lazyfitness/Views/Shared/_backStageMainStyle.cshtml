@@ -33,31 +33,34 @@
         </div>
     </div>
     <div class="container clearfix">
-        <div class="sidebar-wrap">
-            <div class="sidebar-title">
-                <h1>菜单</h1>
+        <div class="container-main">
+            <div class="sidebar-wrap">
+                <div class="sidebar-title">
+                    <h1>菜单</h1>
+                </div>
+                <div class="sidebar-content">
+                    <ul class="sidebar-list">
+                        <li>
+                            <ul class="sub-menu">
+                                <li>@Html.ActionLink("用户管理", "Index", "userManagement")</li>
+                                <li>@Html.ActionLink("资源文章管理", "Index", "articleManagement")</li>
+                                <li>@Html.ActionLink("论坛管理", "Index", "forumManagement")</li>
+                                <li>@Html.ActionLink("问答专区管理", "Index", "quesAnswManagement")</li>
+                                <li>@Html.ActionLink("评论管理", "Index", "commentManagement")</li>
+                                <li>@Html.ActionLink("充值管理", "Index", "payManagement")</li>
+                                <li>@Html.ActionLink("展示管理", "Index", "displayManagement")</li>
+                                <li>@Html.ActionLink("统计报表管理", "Index", "InformationStatistics")</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="sidebar-content">
-                <ul class="sidebar-list">
-                    <li>
-                        <ul class="sub-menu">
-                            <li>@Html.ActionLink("用户管理", "Index", "userManagement")</li>
-                            <li>@Html.ActionLink("资源文章管理", "Index", "articleManagement")</li>
-                            <li>@Html.ActionLink("论坛管理", "Index", "forumManagement")</li>
-                            <li>@Html.ActionLink("问答专区管理", "Index", "quesAnswManagement")</li>
-                            <li>@Html.ActionLink("评论管理", "Index", "commentManagement")</li>
-                            <li>@Html.ActionLink("充值管理", "Index", "payManagement")</li>
-                            <li>@Html.ActionLink("展示管理", "Index", "displayManagement")</li>
-                            <li>@Html.ActionLink("统计报表管理", "Index", "InformationStatistics")</li>
-                        </ul>
-                    </li>
-                </ul>
+            <!--/sidebar-->
+            <div class="rightContent">
+                @RenderBody()
             </div>
         </div>
-        <!--/sidebar-->
-        <div class="rightContent">
-            @RenderBody()
-        </div>      
+        
     </div>
     </body>
 </html>

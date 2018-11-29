@@ -11,11 +11,9 @@ namespace Lazyfitness.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class recharge
     {
-        [Required(ErrorMessage ="充值卡序列号为必填字段！")]
         public string rechargeId { get; set; }
         public string rechargePwd { get; set; }
         public Nullable<int> amount { get; set; }

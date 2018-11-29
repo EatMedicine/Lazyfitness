@@ -7,8 +7,7 @@
 .contentDiv{
     padding:0px;margin:0px;min-width:190px;  max-width:290px; max-height:35px; overflow:hidden 
 }
-.result-tab{margin-top:30px; margin-left:50px;}
-.result-tab{width:1200px; border-collapse:collapse;border: 1px solid #ddd;}
+.result-tab{ border-collapse:collapse;border: 1px solid #ddd;}
 .result-tab th{font-weight: normal;font-size: 15px;text-align: left;background: url(../images/tab-thbg.png) #f9f9f9 0 bottom repeat-x;}
 .result-tab th,.result-tab td{padding:5px;border-bottom: 1px solid #ddd;border-right: 1px solid #e1e1e1;}
 .result-tab tr{line-height:35px;}
@@ -17,7 +16,7 @@
 .result-tab tr:nth-child(odd){background: #f9f9f9;}
 .result-tab tr:hover{background: #f1f1f1;}
 .result-tab tr.even-tr{background: #e9fff2;}
-.page-number{position:absolute;left:700px;top:720px;}
+.page-number{position:relative;height:50px;line-height:50px;margin:0 auto;width:400px;text-align:center}
 .btn-submit{border:0; padding:0; background:none;margin-right:5px; cursor:pointer; font-size:19px;}
 .btn-submit:hover{color:red}
 .text-summer{border:0; padding:0; background:none;margin-right:5px;font-size:19px}
@@ -55,3 +54,21 @@
 
 .right{float:right}
 .show-border-btn{border:1px solid rgba(0, 0, 0, 0.4); padding:1px}
+
+.result-tab{
+    table-layout:fixed;
+    width:100%;
+    min-width:1000px;
+}
+.result-tab tr{
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.result-tab th{
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.result-tab td{
+    overflow:hidden;
+    text-overflow:ellipsis;
+}

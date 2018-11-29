@@ -14,17 +14,8 @@ namespace Lazyfitness.Models
     
     public partial class resourceArea
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public resourceArea()
-        {
-            this.resourceInfo = new HashSet<resourceInfo>();
-        }
-    
         public int areaId { get; set; }
         public string areaName { get; set; }
         public string areaBrief { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<resourceInfo> resourceInfo { get; set; }
     }
 }
