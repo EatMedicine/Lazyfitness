@@ -25,12 +25,14 @@ namespace Lazyfitness.Filter
                 certificateTools.IsCookieEmpty(certificationCookie)==false)
             {
                 filterContext.HttpContext.Response.Redirect("/Home/Index");
+                return;
             }
             string userId = userIdCookie.Value;
             string certifcation = certificationCookie.Value;
             if (certificateTools.verifyCertification(userId, certifcation) == false)
             {
                 filterContext.HttpContext.Response.Redirect("/Home/Index");
+                return;
             }
             filterContext.Controller.ViewBag.UserId = userId;
 

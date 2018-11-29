@@ -1,0 +1,35 @@
+﻿@model Lazyfitness.Models.recharge
+@{
+    Layout = "~/Views/Shared/_MainStyle.cshtml";
+    ViewBag.Title = "充值--小懒人健身";
+    ViewBag.IsDefaultContent = true;
+
+}
+@{ 
+    userInfo user = ViewBag.UserInfo as userInfo;
+}
+@using Lazyfitness.Models;
+<link href="~/Css/Recharge.css" rel="stylesheet" type="text/css" />
+<div class="recharge-main">
+    <div class="recharge-leftbar">
+        <div class="leftbar-name">
+            <span>@user.userName</span>
+        </div>
+        <div class="leftbar-name">
+            <span>余额：@user.userAccount</span>
+        </div>
+    </div>
+    <div class="recharge-content">
+        <form action="@Url.Action("Recharge","Home")" method="post" autocomplete="off">
+            <div class="recharge-card">
+                @Html.TextBoxFor(card => card.rechargeId, new { @class = "recharge-input", @placeholder = "充值卡号" })
+            </div>
+            <div class="recharge-card">
+                @Html.TextBoxFor(card => card.rechargePwd, new { @type="password",@class = "recharge-input", @placeholder = "充值卡密" })
+            </div>
+            <div class="recharge-card" style="border:0px">
+                <input class="recharge-submit" type="submit" id="submit" name="submit" value="充值"/>
+            </div>
+        </form>
+    </div>
+</div>

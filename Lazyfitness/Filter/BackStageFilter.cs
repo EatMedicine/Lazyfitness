@@ -22,6 +22,7 @@ namespace Lazyfitness.Filter
                 certificateTools.IsCookieEmpty(managerCertificationCookie) == false)
             {
                 filterContext.HttpContext.Response.Redirect("/BackStage/Manager/Login");
+                return;
             }
             //获取值
             string managerId = managerIdCookie.Value;
@@ -30,10 +31,15 @@ namespace Lazyfitness.Filter
             if (certificateTools.verifyCertification(managerId, certifcation) == false)
             {
                 filterContext.HttpContext.Response.Redirect("/BackStage/Manager/Login");
+                return;
             }
             //判断是不是管理员的函数
             if (certificateTools.IsBackStageManager(managerId) == false)
+            {
                 filterContext.HttpContext.Response.Redirect("/BackStage/Manager/Login");
+                return;
+            }
+                
             filterContext.Controller.ViewBag.managerId = managerId;
         }
 

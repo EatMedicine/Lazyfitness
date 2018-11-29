@@ -805,5 +805,50 @@ namespace Lazyfitness.Controllers
             }
         }
         #endregion
+
+        #region 充值
+        [LoginStatusFilter]
+        public ActionResult Recharge()
+        {
+            int userId = Int32.Parse(ViewBag.UserId);
+            userInfo user = Tools.GetUserInfo(userId);
+            //因为是从Login过滤器里面过来的 所以肯定存在
+            ViewBag.UserInfo = user;
+            return View();
+        }
+        [LoginStatusFilter]
+        [HttpPost]
+        public ActionResult Recharge(recharge card)
+        {
+            //充值代码
+            using(LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                recharge searchCard = db.recharge.Where(c => c.rechargeId == card.rechargeId).FirstOrDefault();
+                if(searchCard == null)
+                {
+                    Tools.AlertAndRedirect("卡号或卡密错误", Url.Action("Recharge", "Home"));
+                    return View();
+                }
+                if (searchCard.rechargePwd != card.rechargePwd)
+                {
+                    Tools.AlertAndRedirect("卡号或卡密错误", Url.Action("Recharge", "Home"));
+                    return View();
+                }
+                if (searchCard.isAvailable == 0)
+                {
+                    Tools.AlertAndRedirect("该卡已被使用", Url.Action("Recharge", "Home"));
+                    return View();
+                }
+                int userId = Int32.Parse(ViewBag.UserId);
+                userInfo user = db.userInfo.Where(u => u.userId == userId).FirstOrDefault();
+                user.userAccount += searchCard.amount;
+                searchCard.isAvailable = 0;
+                ViewBag.UserInfo = user;
+                db.SaveChanges();
+            }
+            Tools.AlertAndRedirect("充值成功", Url.Action("Recharge", "Home"));
+            return View();
+        }
+        #endregion
     }
 }

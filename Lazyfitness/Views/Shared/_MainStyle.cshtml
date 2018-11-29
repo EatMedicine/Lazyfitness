@@ -15,7 +15,7 @@
     }
     if (ViewData["IsSearch"] == null)
     {
-        ViewBag.Title = true;
+        ViewData["IsSearch"] = false;
     }
     if (ViewBag.IsDefaultContent == null)
     {
@@ -79,6 +79,7 @@
             <!--个人栏-->
             <div id="user-info" class="user-info">
                 <a href="@Url.Action("changePassword","passwordManager",new { area="account"})"><div class="info-item">修改密码</div></a>
+                <a href="@Url.Action("Recharge","Home",new { area=""})"><div class="info-item">充值</div></a>
                 <a href="@Url.Action("Logout","userManagement",new { area="account"})"><div class="info-item">注销</div></a>
             </div>
             <div class="nav-menu">

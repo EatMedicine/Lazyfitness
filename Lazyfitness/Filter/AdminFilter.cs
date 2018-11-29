@@ -25,12 +25,14 @@ namespace Lazyfitness.Filter
                 certificateTools.IsCookieEmpty(certificationCookie) == false)
             {
                 filterContext.HttpContext.Response.Redirect("/Home/Index");
+                return;
             }
             string userId = userIdCookie.Value;
             string certifcation = certificationCookie.Value;
             if (certificateTools.verifyCertification(userId, certifcation) == false)
             {
                 filterContext.HttpContext.Response.Redirect("/Home/Index");
+                return;
             }
             //判断是不是管理员的函数
             if (certificateTools.IsAdmin(userId) == false)

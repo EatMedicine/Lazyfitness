@@ -1433,6 +1433,18 @@ namespace Lazyfitness
                 }
             }
         }
+
+        /// <summary>
+        /// 弹窗并跳到指定Url
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="Url"></param>
+        public static void AlertAndRedirect(string msg,string Url)
+        {
+            string js = "<script language=javascript>alert('{0}');window.location.replace('{1}')</script>";
+            HttpContext.Current.Response.Write(string.Format(js, msg, Url));
+            HttpContext.Current.Response.End();
+        }
     }
             
 }

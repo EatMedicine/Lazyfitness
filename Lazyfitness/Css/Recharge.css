@@ -1,0 +1,71 @@
+﻿.recharge-main{
+    position:relative;
+    margin:0 auto;
+    width:1000px;
+    padding-top:20px;
+
+}
+.recharge-leftbar{
+    position:absolute; 
+    width:20%;
+    height:110px;
+    left:0px;
+    background-color:white;
+    box-shadow:1px 1px 5px rgb(150, 150, 150);
+
+}
+.recharge-content {
+    position: absolute;
+    left: 20%;
+    margin: 0px 2% 0px 2%;
+    width: 80%;
+    background-color: white;
+    box-shadow: 1px 1px 5px rgb(150, 150, 150);
+    overflow:hidden;
+}
+
+.leftbar-name{
+    position:relative;
+    margin:0 auto;
+    padding-top:10px;
+    height:30px;
+    line-height:30px;
+    text-align:center;
+    font-size:15px;
+    font-family:YouYuan;
+    font-weight:800;
+}
+.recharge-card{
+    position:relative;
+    width:400px;
+    height:50px;
+    margin:25px auto;
+    text-align:center;
+    line-height:50px;
+    border:1px solid rgb(250, 207, 25);
+    border-radius:10px;
+}
+.recharge-input{
+    position:relative;
+    width:300px;
+    height:50px;
+    outline:none;
+    border:0px;
+    font-size:20px;
+    margin:0 auto;
+}
+.recharge-submit{
+    outline:none;
+    border:1px solid rgb(149, 149, 149);
+    background-color:rgb(62, 201, 0);
+    color:rgb(82, 82, 82);
+    font-size:15px;
+    width:100px;
+    height:30px;
+    line-height:30px;
+    border-radius:5px;
+    transition:all 1s ease 0s;
+}
+.recharge-submit:hover{
+    background-color:rgb(97, 247, 30);
+}
