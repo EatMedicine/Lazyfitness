@@ -43,9 +43,21 @@
             foreach (var item in @allInfo)
             {
                 <tr>
-                    <td>@item.areaName</td>
-                    <td id="areaId">@item.areaId</td>
-                    <td>@item.areaBrief</td>
+                    <td>
+                        <div class="contentDiv">
+                            @item.areaName
+                        </div>
+                    </td>
+                    <td id="areaId">
+                        <div class="numberDiv">
+                            @item.areaId
+                        </div>
+                    </td>
+                    <td>
+                        <div class="contentDiv">
+                            @item.areaBrief
+                        </div>
+                    </td>
                     <td>
                         <form method="post" action="~/backStage/forumManagement/changeforumArea">
                             <input type="text" name="areaId" id="areaId" value="@item.areaId" hidden="hidden" />

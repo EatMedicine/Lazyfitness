@@ -1,0 +1,84 @@
+﻿
+@using Lazyfitness.Models
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.title = "用户统计";
+}
+@{
+    int totallUserNumber = ViewBag.totallUserNumber;
+    int totallZeroUser = ViewBag.totallZeroUser;
+    int totallOneUser = ViewBag.totallOneUser;
+    int totallTwoUser = ViewBag.totallTwoUser;
+    int totallThreeUser = ViewBag.totallThreeUser;
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("用户信息统计", "userInfoStatistics", "InformationStatistics")
+                @Html.ActionLink("文章信息统计", "articleInfo", "InformationStatistics")
+                @Html.ActionLink("论坛信息统计", "forumInfo", "InformationStatistics")
+                @Html.ActionLink("问答信息统计", "quesAnswInfo", "InformationStatistics")
+                @Html.ActionLink("评论信息统计", "commentInfo", "InformationStatistics")
+                @Html.ActionLink("充值卡信息统计", "rechargeInfo", "InformationStatistics")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="result-content">
+    <table class="result-tab">
+        <tr>
+            <th>统计信息</th>
+            <th>数据</th>
+        </tr>
+        <tr>
+            <td>用户总人数</td>
+            <td>
+                <div class="numberDiv">
+                    <span>@totallUserNumber</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>禁言人数</td>
+            <td>
+                <div class="numberDiv">
+                    <span>@totallZeroUser</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>注册会员人数</td>
+            <td>
+                <div class="numberDiv">
+                    <span>@totallOneUser</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>正式会员人数</td>
+            <td>
+                <div class="numberDiv">
+                    <span>@totallTwoUser</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>管理员人数</td>
+            <td>
+                <div class="numberDiv">
+                    <span>@totallThreeUser</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

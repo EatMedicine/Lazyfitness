@@ -155,7 +155,7 @@
     <Compile Include="Areas\backStage\Controllers\commentManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\displayManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\forumManagementController.cs" />
-    <Compile Include="Areas\backStage\Controllers\pageViewController.cs" />
+    <Compile Include="Areas\backStage\Controllers\InformationStatisticsController.cs" />
     <Compile Include="Areas\backStage\Controllers\quesAnswManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\articleManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\userManagementController.cs" />
@@ -647,17 +647,10 @@
     <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswInvitationUpdate.cshtml" />
     <Content Include="Areas\backStage\Views\quesAnswManagement\Index.cshtml" />
     <Content Include="Areas\backStage\Views\forumManagement\Index.cshtml" />
-    <Content Include="Areas\backStage\Views\pageView\Index.cshtml" />
     <Content Include="Areas\backStage\Views\forumManagement\forumAreaIndex.cshtml" />
     <Content Include="Areas\backStage\Views\forumManagement\forumInvitationIndex.cshtml" />
     <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswAreaIndex.cshtml" />
     <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswInvitationIndex.cshtml" />
-    <Content Include="Areas\backStage\Views\pageView\articlePageViewIndex.cshtml" />
-    <Content Include="Areas\backStage\Views\pageView\forumPageViewIndex.cshtml" />
-    <Content Include="Areas\backStage\Views\pageView\quesAnswPageViewIndex.cshtml" />
-    <Content Include="Areas\backStage\Views\pageView\forumInvitationUpdate.cshtml" />
-    <Content Include="Areas\backStage\Views\pageView\quesAnswInvitationUpdate.cshtml" />
-    <Content Include="Areas\backStage\Views\pageView\articleUpdate.cshtml" />
     <Content Include="Areas\backStage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\informationOfUser\Views\web.config" />
     <Content Include="Areas\account\Views\passwordManager\findUserame.cshtml" />
@@ -689,6 +682,13 @@
       <DependentUpon>Lazyfitnes.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\backStage\Views\quesAnswManagement\changeQuesAnswArea.cshtml" />
+    <Content Include="Areas\backStage\Views\InformationStatistics\Index.cshtml" />
+    <Content Include="Areas\backStage\Views\InformationStatistics\rechargeInfo.cshtml" />
+    <Content Include="Areas\backStage\Views\InformationStatistics\commentInfo.cshtml" />
+    <Content Include="Areas\backStage\Views\InformationStatistics\quesAnswInfo.cshtml" />
+    <Content Include="Areas\backStage\Views\InformationStatistics\forumInfo.cshtml" />
+    <Content Include="Areas\backStage\Views\InformationStatistics\articleInfo.cshtml" />
+    <Content Include="Areas\backStage\Views\InformationStatistics\userInfoStatistics.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
