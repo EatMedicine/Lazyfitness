@@ -7,74 +7,36 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using Lazyfitness.Filter;
 
 namespace Lazyfitness.Areas.backStage.Controllers
 {
     public class displayManagementController : Controller
     {
         // GET: backStage/displayManagement
+        [BackStageFilter]
         public ActionResult Index()
         {
-            ViewBag.managerId = null;
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-                ViewBag.managerId = cookieText.ToString();
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return Content("未登录");
-            }
             return View();
         }
 
         #region 增加
+        [BackStageFilter]
         public ActionResult Add()
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
             return View();
         }
         [HttpPost]
+        [BackStageFilter]
         public ActionResult displayAdd(serverShowInfo serverShowInfo)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
             ViewBag.serverShowInfo = serverShowInfo;
             return View();
         }
         [HttpPost]
+        [BackStageFilter]
         public ActionResult displayAddInfo(serverShowInfo info)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
             try
             {
                 if (toolsHelpers.insertToolsController.insertServerShowInfo(info) == true)
@@ -93,47 +55,20 @@ namespace Lazyfitness.Areas.backStage.Controllers
 
 
         #region 查询
+        [BackStageFilter]
         public ActionResult displaySearch()
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
             return View();
         }
+        [BackStageFilter]
         public ActionResult showResult()
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
             return View();
         }
         [HttpPost]
+        [BackStageFilter]
         public ActionResult displaySearch(serverShowInfo serverShowInfo)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return View("Index");
-            }
             try
             {
                 if(serverShowInfo.title == null)
@@ -184,18 +119,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
         //    return View();
         //}
         [HttpPost]
+        [BackStageFilter]
         public string displayDelete(serverShowInfo info)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return "未登录";
-            }
             try
             {
                 if(toolsHelpers.deleteToolsController.deleteServerShowInfo(u=>u.id == info.id) == true)
@@ -232,18 +158,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
         //    return View();
         //}
         [HttpPost]
+        [BackStageFilter]
         public ActionResult displayUpdate(int id)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
             try
             {
                 //获取对应充值卡信息
@@ -261,18 +178,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
         }
         [HttpPost]
+        [BackStageFilter]
         public string displayUpdateInfo(serverShowInfo serverShowInfo)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return "未登录";
-            }
             try
             {
                 if (toolsHelpers.updateToolsController.updateServerShowInfo(u => u.id == serverShowInfo.id, serverShowInfo) == true)

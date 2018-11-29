@@ -8,6 +8,7 @@ using Lazyfitness.Models;
 using System.Data.Entity.Infrastructure;
 using Lazyfitness.Areas.DbTable;
 using System.Collections;
+using Lazyfitness.Filter;
 
 namespace Lazyfitness.Areas.backStage.Controllers
 {
@@ -68,41 +69,17 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
         }
         #endregion
+        [BackStageFilter]
         public ActionResult Index()
         {
-            ViewBag.managerId = null;
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-                ViewBag.managerId = cookieText.ToString();
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return Content("未登录");
-            }
             return View();
         }
         #region 问答分区主页
         // GET: backStage/forumManagement
         //问答分区主页
+        [BackStageFilter]
         public ActionResult quesAnswAreaIndex()
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-                ViewBag.managerId = cookieText.ToString();
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return Content("未登录");
-            }
-
             int nowPage = 1;
             int sumPage = GetSumPage(10);
             quesArea[] allInfo = GetPagedList(1, 10, x => x == x, u => u.areaId);
@@ -114,20 +91,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
             return View();
         }
         [HttpPost]
+        [BackStageFilter]
         public ActionResult quesAnswAreaIndex(int id)
         {
-            ViewBag.managerId = null;
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-                ViewBag.managerId = cookieText.ToString();
-            }
-            else
-            {
-                return Content("未登录");
-            }
 
             int nowPage = id;
             int sumPage = GetSumPage(10);
@@ -141,21 +107,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #endregion
 
         #region 问答区主页
+        [BackStageFilter]
         public ActionResult quesAnswInvitationIndex()
         {
-            ViewBag.managerId = null;
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-                ViewBag.managerId = cookieText.ToString();
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return Content("未登录");
-            }
 
             try
             {
@@ -203,20 +157,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
         }
         // GET: backStage/forumManagement
         [HttpPost]
+        [BackStageFilter]
         public ActionResult quesAnswInvitationIndex(int id)
         {
-            ViewBag.managerId = null;
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-                ViewBag.managerId = cookieText.ToString();
-            }
-            else
-            {
-                return Content("未登录");
-            }
 
             try
             {
@@ -267,34 +210,15 @@ namespace Lazyfitness.Areas.backStage.Controllers
 
         #region 问答分区管理
         #region 增加
+        [BackStageFilter]
         public ActionResult quesAnswAreaAdd()
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
             return View();
         }
         [HttpPost]
+        [BackStageFilter]
         public string quesAnswAreaAdd(quesArea area)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return "未登录";
-            }
-
             try
             {
                 //检查是否存在相同的分区名
@@ -316,18 +240,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
         }
         #endregion
         #region 查询
+        [BackStageFilter]
         public ActionResult quesAnswAreaSearch()
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
             try
             {
                 quesArea[] areaInfo = toolsHelpers.selectToolsController.selectQuesArea(x => x == x, u => u.areaId);
@@ -343,21 +258,12 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 return Content("查询分区出错！");
             }          
         }
-              
+
         #endregion
         #region 删除
+        [BackStageFilter]
         public ActionResult quesAnswAreaDelete()
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
             try
             {
                 quesArea[] quesAreaList = toolsHelpers.selectToolsController.selectQuesArea(x => x == x, u => u.areaId);
@@ -374,18 +280,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
         }
         [HttpPost]
+        [BackStageFilter]
         public string quesAnswAreaDelete(quesArea area)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return "未登录";
-            }
             try
             {
                 //删除问答回复表中的信息，问答表中的信息和问答分区表中的信息
@@ -403,6 +300,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         }
         #endregion
         #region 修改
+        [BackStageFilter]
         public ActionResult changeQuesAnswArea()
         {
             try
@@ -422,18 +320,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
         }
         [HttpPost]
+        [BackStageFilter]
         public string quesAnswAreaUpdate(quesArea area)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return "未登录";
-            }
             try
             {
 
@@ -454,19 +343,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
 
         #region 问答帖子管理
         #region 增加
-
+        [BackStageFilter]
         public ActionResult quesAnswInvitationAdd()
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
             try
             {
                 //获取论坛有的分区
@@ -485,19 +364,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
         }
         [HttpPost]
         [ValidateInput(false)]
+        [BackStageFilter]
         public string quesAnswInvitationAdd(quesAnswInfo info)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return "未登录";
-            }
-
             try
             {
                 if (toolsHelpers.selectToolsController.selectUserInfo(u => u.userId == info.userId, u => u.userId).Length == 0)
@@ -521,49 +390,23 @@ namespace Lazyfitness.Areas.backStage.Controllers
         }
         #endregion
         #region 查询
+        [BackStageFilter]
         public ActionResult quesAnswInvitationSearch()
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
             return View();
-        }      
+        }
         #endregion
         #region 删除
+        [BackStageFilter]
+
         public ActionResult quesAnswInvitationDelete()
-        {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }           
+        {       
             return View();
         }
         [HttpPost]
+        [BackStageFilter]
         public string quesAnswInvitationDelete(quesAnswInfo info)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return "未登录";
-            }
             try
             {
 
@@ -586,20 +429,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
         }
         #endregion
         #region 修改
-        [HttpPost]    
+        [HttpPost]
+        [BackStageFilter]
         public ActionResult quesAnswInvitationUpdate(quesAnswInfo info)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
-
             try
             {
                 //读取数据
@@ -626,20 +459,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [BackStageFilter]
         public ActionResult changeQuesAnswInfo(quesAnswInfo info)
         {
-            string cookieText = null;
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                cookieText = Server.HtmlEncode(cookieName.Value).ToString();
-            }
-            else
-            {
-                return Content("未登录");
-            }
-
 
             try
             {

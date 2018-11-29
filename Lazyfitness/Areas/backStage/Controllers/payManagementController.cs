@@ -5,26 +5,15 @@ using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using Lazyfitness.Models;
+using Lazyfitness.Filter;
 namespace Lazyfitness.Areas.backStage.Controllers
 {
     public class payManagementController : Controller
     {
         // GET: backStage/payManagement
+        [BackStageFilter]
         public ActionResult Index()
         {
-            ViewBag.managerId = null;
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-                ViewBag.managerId = cookieText.ToString();
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return Content("未登录");
-            }
 
             ViewBag.nowPage = 1;
             ViewBag.sumPage = GetSumPageCard(10);
@@ -32,20 +21,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
             return View();
         }
         [HttpPost]
+        [BackStageFilter]
         public ActionResult Index(int id)
         {
-            ViewBag.managerId = null;
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-                ViewBag.managerId = cookieText.ToString();
-            }
-            else
-            {
-                return Content("未登录");
-            }
             ViewBag.nowPage = id;
             ViewBag.sumPage = GetSumPageCard(10);
             ViewBag.allInfo = GetPagedListCard(Convert.ToInt32(id), 10, x => x == x, u => u.rechargeId);
@@ -83,35 +61,17 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
         }
         #region 增加充值卡
+        [BackStageFilter]
         public ActionResult addCard()
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
             return View();
         }
         [HttpPost]
+        [BackStageFilter]
         public ActionResult addCard(recharge recharge)
         {
             try
             {
-                if (Request.Cookies["managerId"] != null)
-                {
-                    //获取Cookies的值
-                    HttpCookie cookieName = Request.Cookies["managerId"];
-                    var cookieText = Server.HtmlEncode(cookieName.Value);
-                }
-                else
-                {
-                    return Content("未登录");
-                }
                 if (toolsHelpers.selectToolsController.selectRecharge(u => u.rechargeId == recharge.rechargeId).Length != 0)
                 {
                     return Content("已存在此序列号充值卡！");
@@ -130,49 +90,22 @@ namespace Lazyfitness.Areas.backStage.Controllers
         }
         #endregion
         #region 修改充值卡信息
+        [BackStageFilter]
         public ActionResult searchCard()
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
             return View();
         }
         //详细充值卡信息界面
+        [BackStageFilter]
         public ActionResult changeCard()
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
             return View();
         }
         //查询对应序列号的充值卡
         [HttpPost]
+        [BackStageFilter]
         public ActionResult changeCard(string rechargeId)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
             try
             {
                 //获取对应充值卡信息
@@ -191,18 +124,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
         }
         //修改提交信息
         [HttpPost]
+        [BackStageFilter]
         public ActionResult changeCardInfo(recharge recharge)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
             try
             {
                 //获取对应充值卡信息
@@ -226,33 +150,15 @@ namespace Lazyfitness.Areas.backStage.Controllers
 
         #endregion
         #region 删除充值卡
+        [BackStageFilter]
         public ActionResult deleteCard()
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
             return View();
         }
         [HttpPost]
+        [BackStageFilter]
         public string deleteCard(string rechargeId)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return "未登录";
-            }
             try
             {
                 if (toolsHelpers.deleteToolsController.deleteRecharge(u => u.rechargeId == rechargeId) == true)

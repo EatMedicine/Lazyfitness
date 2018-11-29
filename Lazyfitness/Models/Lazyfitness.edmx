@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LazyfitnessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="LazyfitnessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="backManager">
           <Key>
             <PropertyRef Name="managerId" />
@@ -153,7 +153,7 @@
           <Property Name="userStatus" Type="int" Nullable="false" />
           <Property Name="statusName" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK__userInfo__userId__0519C6AF">
+        <Association Name="FK__userInfo__userId__1273C1CD">
           <End Role="userSecurity" Type="Self.userSecurity" Multiplicity="1" />
           <End Role="userInfo" Type="Self.userInfo" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -180,7 +180,7 @@
           <EntitySet Name="userInfo" EntityType="Self.userInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userSecurity" EntityType="Self.userSecurity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userStatusName" EntityType="Self.userStatusName" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__userInfo__userId__0519C6AF" Association="Self.FK__userInfo__userId__0519C6AF">
+          <AssociationSet Name="FK__userInfo__userId__1273C1CD" Association="Self.FK__userInfo__userId__1273C1CD">
             <End Role="userSecurity" EntitySet="userSecurity" />
             <End Role="userInfo" EntitySet="userInfo" />
           </AssociationSet>
@@ -322,7 +322,7 @@
           <Property Name="userAccount" Type="Int32" />
           <Property Name="userIntroduce" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="userHeaderPic" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="userSecurity" Relationship="Self.FK__userInfo__userId__0519C6AF" FromRole="userInfo" ToRole="userSecurity" />
+          <NavigationProperty Name="userSecurity" Relationship="Self.FK__userInfo__userId__1273C1CD" FromRole="userInfo" ToRole="userSecurity" />
         </EntityType>
         <EntityType Name="userSecurity">
           <Key>
@@ -331,7 +331,7 @@
           <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="loginId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="userPwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="userInfo" Relationship="Self.FK__userInfo__userId__0519C6AF" FromRole="userSecurity" ToRole="userInfo" />
+          <NavigationProperty Name="userInfo" Relationship="Self.FK__userInfo__userId__1273C1CD" FromRole="userSecurity" ToRole="userInfo" />
         </EntityType>
         <EntityType Name="userStatusName">
           <Key>
@@ -340,7 +340,7 @@
           <Property Name="userStatus" Type="Int32" Nullable="false" />
           <Property Name="statusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK__userInfo__userId__0519C6AF">
+        <Association Name="FK__userInfo__userId__1273C1CD">
           <End Role="userSecurity" Type="Self.userSecurity" Multiplicity="1" />
           <End Role="userInfo" Type="Self.userInfo" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -367,7 +367,7 @@
           <EntitySet Name="userInfo" EntityType="Self.userInfo" />
           <EntitySet Name="userSecurity" EntityType="Self.userSecurity" />
           <EntitySet Name="userStatusName" EntityType="Self.userStatusName" />
-          <AssociationSet Name="FK__userInfo__userId__0519C6AF" Association="Self.FK__userInfo__userId__0519C6AF">
+          <AssociationSet Name="FK__userInfo__userId__1273C1CD" Association="Self.FK__userInfo__userId__1273C1CD">
             <End Role="userSecurity" EntitySet="userSecurity" />
             <End Role="userInfo" EntitySet="userInfo" />
           </AssociationSet>
