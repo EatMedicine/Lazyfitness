@@ -58,6 +58,37 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 return ((listSum / pageSize) + 1);
             }
         }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">页容量</param>
+        /// <param name="whereLambda">条件 lambda表达式</param>
+        /// <param name="orderBy">排列 lambda表达式</param>
+        /// <returns></returns>
+        public quesAnswReply[] GetPagedListQues<TKey>(int pageIndex, int pageSize, Expression<Func<quesAnswReply, bool>> whereLambda, Expression<Func<quesAnswReply, TKey>> orderBy)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                //分页时一定注意：Skip之前一定要OrderBy
+                return db.quesAnswReply.Where(whereLambda).OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToArray();
+            }
+        }
+
+        public int GetSumPageQues(int pageSize)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                int listSum = db.quesAnswReply.ToList().Count;
+                if ((listSum != 0) && listSum % pageSize == 0)
+                {
+                    return (listSum / pageSize);
+                }
+                return ((listSum / pageSize) + 1);
+            }
+        }
         #endregion
         #region 论坛评论管理
         //论坛评论管理
@@ -234,7 +265,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 }
                 int sumPage = GetSumPage(10);
                 int nowPage = Convert.ToInt32(id);
-                postReply[] allInfo = GetPagedList(Convert.ToInt32(id), 10, x => x == x, u => u.userId);
+                postReply[] allInfo = GetPagedList(Convert.ToInt32(id), 10, x => x == x, u => u.replyTime);
 
 
                 ViewBag.nowPage = nowPage;
@@ -265,18 +296,15 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             try
             {
-                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                if (toolsHelpers.deleteToolsController.deletePostReply(u=>u.id == id) == true)
                 {
-                    var dbReply = db.postReply.Where(u => u.id == id);
-                    var obReply = dbReply.FirstOrDefault();
-                    db.postReply.Remove(obReply);
-                    db.SaveChanges();
                     return "T";
                 }
+                return "F";
             }
             catch
             {
-                return "F";
+                return "NF";
             }
             
         }
@@ -321,29 +349,45 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 return Content("未登录");
             }
 
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            try
             {
-                var dbQues = db.quesAnswInfo.Where(u => u.quesAnswId == quesAnswId);
-                if (dbQues == null)
+                //有此帖子时候返回帖子所属分区名，帖子的作者，帖子的信息
+
+                //先返回帖子信息
+                quesAnswInfo[] infoList = toolsHelpers.selectToolsController.selectQuesAnswInfo(u => u.quesAnswId == quesAnswId, u => u.quesAnswId);
+                //查看有无此贴
+                if (infoList == null || infoList.Length == 0)
                 {
-                    return Content("没有这个问题");
+                    return Content("没有这篇问答帖子");
                 }
-                var obQuesInfo = dbQues.FirstOrDefault();
-                if (obQuesInfo != null)
+                //得到分区名
+                int areaId = infoList[0].areaId;
+                quesArea[] areaList = toolsHelpers.selectToolsController.selectQuesArea(u => u.areaId == areaId, u => u.areaId);
+                //得到帖子作者
+                int userId = infoList[0].userId.Value;
+                userInfo[] userList = toolsHelpers.selectToolsController.selectUserInfo(u => u.userId == userId, u => u.userId);
+                if (areaList == null || userList == null || areaList.Length == 0 || userList.Length == 0)
                 {
-                    string areaName = db.quesArea.Where(u => u.areaId == obQuesInfo.areaId).FirstOrDefault().areaName;
-                    string ownerName = db.userInfo.Where(u => u.userId == obQuesInfo.userId).FirstOrDefault().userName;
-                    ViewBag.areaName = areaName;
-                    ViewBag.ownerName = ownerName;
-                    ViewBag.obQuesInfo = obQuesInfo;
+                    return Content("此片问答帖子存在错误信息不可读，请及时删除此问答帖子");
                 }
+                quesAnswInfo quesAnswInfo = infoList[0];
+                string areaName = areaList[0].areaName;
+                string ownerName = userList[0].userName;
+                ViewBag.areaName = areaName;
+                ViewBag.ownerName = ownerName;
+                ViewBag.quesAnswInfo = quesAnswInfo;
+
+                return View();
             }
-            return View();
+            catch
+            {
+                return Content("获取问答帖子信息出错！");
+            }
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult addAnswer(int quesAnswId, string replyContent)
+        public ActionResult addAnswer(quesAnswReply info)
         {
             string cookieText = null;
             if (Request.Cookies["managerId"] != null)
@@ -358,22 +402,31 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 return Content("未登录");
             }
 
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
+
+            try
             {
-
-                var getUserId = Int32.Parse(cookieText);
-
-                quesAnswReply obReply = new quesAnswReply
+                //先判断有无回复的userId
+                if (toolsHelpers.selectToolsController.selectUserInfo(u => u.userId == info.userId, u => u.userId).Length == 0)
                 {
-                    quesAnswId = quesAnswId,
-                    userId = getUserId,
-                    replyTime = DateTime.Now,
-                    replyContent = replyContent,
-                    isAgree = 0
-                };
-                db.quesAnswReply.Add(obReply);
-                db.SaveChanges();
-                return Content("T");
+                    return Content("回复者不存在，请重新输入回复者Id");
+                }
+                //判断有误此postId
+                if (toolsHelpers.selectToolsController.selectQuesAnswInfo(u => u.quesAnswId == info.quesAnswId, u => u.quesAnswId).Length == 0)
+                {
+                    return Content("此论坛不存在！");
+                }
+                info.replyTime = DateTime.Now;
+                info.isAgree = 0;
+                //判断插入是否成功
+                if (toolsHelpers.insertToolsController.insertQuesAnswReply(info) == true)
+                {
+                    return Content("增加回答成功！");
+                }
+                return Content("增加回答失败！");
+            }
+            catch
+            {
+                return Content("增加回答出错！");
             }
         }
 
@@ -383,7 +436,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult sureReplyAnswer(int quesAnswId)
+        public ActionResult sureReplyAnswer(int quesAnswId, string id)
         {
             if (Request.Cookies["managerId"] != null)
             {
@@ -396,11 +449,32 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 Response.Redirect("/backStage/manager/login");
                 return Content("未登录");
             }
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
+
+            try
             {
-                var replyList = db.quesAnswReply.Where(u => u.quesAnswId == quesAnswId).ToList();
-                ViewBag.replyList = replyList;
+                //先判断此quesAnswId是否存在
+                if (toolsHelpers.selectToolsController.selectQuesAnswInfo(u => u.quesAnswId == quesAnswId, u => u.quesAnswId).Length == 0)
+                {
+                    return Content("没有此问答帖子！");
+                }
+                if (id == null)
+                {
+                    id = 1.ToString();
+                }
+                int sumPage = GetSumPageQues(10);
+                int nowPage = Convert.ToInt32(id);
+                quesAnswReply[] allInfo = GetPagedListQues(Convert.ToInt32(id), 10, x => x == x, u => u.replyTime);
+
+
+                ViewBag.nowPage = nowPage;
+                ViewBag.sumPage = sumPage;
+                ViewBag.allInfo = allInfo;
+                ViewBag.rightQuesAnswId = quesAnswId;
                 return View();
+            }
+            catch
+            {
+                return Content("查找论坛帖子出错！");
             }
         }
         [HttpPost]
@@ -417,20 +491,18 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 Response.Redirect("/backStage/manager/login");
                 return "未登录";
             }
+
             try
             {
-                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                if (toolsHelpers.deleteToolsController.deleteQuesAnswReply(u => u.id == id) == true)
                 {
-                    var dbReply = db.quesAnswReply.Where(u => u.id == id);
-                    var obReply = dbReply.FirstOrDefault();
-                    db.quesAnswReply.Remove(obReply);
-                    db.SaveChanges();
                     return "T";
                 }
+                return "F";
             }
             catch
             {
-                return "F";
+                return "NF";
             }
         }
         #endregion

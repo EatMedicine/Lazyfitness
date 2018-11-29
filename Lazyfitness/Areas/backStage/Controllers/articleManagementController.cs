@@ -11,6 +11,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
     public class articleManagementController : Controller
     {
 
+        #region 分页类
         /// <summary>
         /// 分页查询
         /// </summary>
@@ -42,6 +43,38 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
         }
 
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">页容量</param>
+        /// <param name="whereLambda">条件 lambda表达式</param>
+        /// <param name="orderBy">排列 lambda表达式</param>
+        /// <returns></returns>
+        public resourceArea[] GetPagedListArea<TKey>(int pageIndex, int pageSize, Expression<Func<resourceArea, bool>> whereLambda, Expression<Func<resourceArea, TKey>> orderBy)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                //分页时一定注意：Skip之前一定要OrderBy
+                return db.resourceArea.Where(whereLambda).OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToArray();
+            }
+        }
+
+        public int GetSumPageArea(int pageSize)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                int listSum = db.resourceArea.ToList().Count;
+                if ((listSum != 0) && listSum % pageSize == 0)
+                {
+                    return (listSum / pageSize);
+                }
+                return ((listSum / pageSize) + 1);
+            }
+        }
+
+        #endregion
 
         // GET: backStage/articleManagement
 
@@ -162,7 +195,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         }
 
         #region 资源文章分区管理
-        public ActionResult areaManagement()
+        public ActionResult areaManagement(string id)
         {
             if (Request.Cookies["managerId"] != null)
             {
@@ -177,13 +210,22 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             try
             {
-                resourceArea[] allInfo = toolsHelpers.selectToolsController.selectResourceArea(x => x == x, u => u.areaId);
+                if (id == null)
+                {
+                    id = 1.ToString();
+                }
+                int nowPage = Convert.ToInt32(id);
+                int sumPage = GetSumPageArea(10);
+                resourceArea[] allInfo = GetPagedListArea(nowPage, 10, x => x == x, u => u.areaId);
+
+                ViewBag.nowPage = nowPage;
+                ViewBag.sumPage = sumPage;
                 ViewBag.allInfo = allInfo;
                 return View();
             }
             catch
             {
-                return Content("查询文章分区名出错！");
+                return Content("显示文章分区名出错！");
             }
         }
 

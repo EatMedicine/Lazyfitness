@@ -3,8 +3,10 @@
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
     ViewBag.Title = "资源分区管理";
 }
-@{ 
+@{
     resourceArea[] allInfo = ViewBag.allInfo as resourceArea[];
+    int nowPage = Convert.ToInt32(ViewBag.nowPage);
+    int sumPage = Convert.ToInt32(ViewBag.sumPage);
 }
 <script src="~/Areas/jQuery/userManagement.js"></script>
 <!--/sidebar-->
@@ -23,6 +25,7 @@
                 @Html.ActionLink("增加分区", "addArea", "articleManagement")
                 @Html.ActionLink("删除分区", "deleteArea", "articleManagement")
                 @Html.ActionLink("查询分区", "findArea", "articleManagement")
+                @Html.ActionLink("返回上一级", "index", "articleManagement")
             </div>
         </div>
     </div>
@@ -46,7 +49,26 @@
                         </tr>
                     }
                 }
-            }            
-        </table>        
+            }
+        </table>
     </div>
+
+    <div class="page-number">
+        <ul>
+            @{
+                for (int i = 1; i <= sumPage; i++)
+                {
+
+                    <li style="float:left">
+                        <form method="post" action="~/backStage/articleManagement/areaManagement">
+                            <input class="id" id="id" name="id" type="text" value=@i hidden="hidden" />
+                            <input type="submit" class="btn-submit" value=@i />
+                        </form>
+                    </li>
+                }
+            }
+            <li style="float:left;"><input class="text-summer" readonly="readonly" value="当前第 @nowPage 页, 共 @sumPage 页" /></li>
+        </ul>
+    </div>
+
 </div>

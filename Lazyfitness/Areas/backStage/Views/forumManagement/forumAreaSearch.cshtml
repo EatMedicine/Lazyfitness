@@ -21,14 +21,15 @@
         </div>
         <div class="result-content">
             <div class="short-wrap">
-                @Html.ActionLink("增加分区", "forumAreaAdd", "forumManagement")
+                @*@Html.ActionLink("增加分区", "forumAreaAdd", "forumManagement")
                 @Html.ActionLink("删除分区", "forumAreaDelete", "forumManagement")
-                @Html.ActionLink("修改分区信息", "forumAreaSearch", "forumManagement")
+                @Html.ActionLink("修改分区信息", "forumAreaSearch", "forumManagement")*@
+                @Html.ActionLink("返回上一级", "forumAreaIndex", "forumManagement")
             </div>
         </div>
     </div>
     <div class="result-content">
-        <form action="~/backStage/forumManagement/forumAreaUpdate" method="post" autocomplete="off">
+        <form action="~/backStage/forumManagement/changeforumArea" method="post" autocomplete="off">
             <table class="insert-tab">
                 <tr><th></th><td class="show-title">修改分区信息</td></tr>
                 <tr>

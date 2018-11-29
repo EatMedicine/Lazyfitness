@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Lazyfitness.Models.quesAnswInfo
+@{
     ViewBag.Title = "回答管理";
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
 }
@@ -23,13 +24,16 @@
         </div>
     </div>
     <div class="result-content">
-        <form method="post" action="/backStage/commentManagement/sureReplyAnswer">
+        <form method="post" action="/backStage/commentManagement/sureReplyAnswer" autocomplete="off">
             <table class="insert-tab">
                 <tr><th></th><td class="show-title">删除回答</td></tr>
                 <tr>
                     <th>输入问题帖子Id</th>
                     <td>
-                        <input type="number" class="input-content" id="quesAnswId" name="quesAnswId" />
+                        @Html.TextBoxFor(u => u.quesAnswId, new { @class = "input-content" })
+                        <div class="error-mes">
+                            @Html.ValidationMessageFor(u => u.quesAnswId)
+                        </div>
                     </td>
                 </tr>
                 <tr>

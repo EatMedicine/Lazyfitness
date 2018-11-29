@@ -1,9 +1,11 @@
-﻿<script src="~/Areas/jQuery/deleteReply.js"></script>
+﻿@using Lazyfitness.Models
+<script src="~/Areas/jQuery/deleteReply.js"></script>
 @{
     ViewBag.Title = "删除论坛评论";
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
 }
-@{ 
+@{
+    postReply[] replyList = ViewBag.allInfo;
     int nowPage = Convert.ToInt32(ViewBag.nowPage);
     int sumPage = Convert.ToInt32(ViewBag.sumPage);
     int rightPostId = Convert.ToInt32(ViewBag.rightPostId);
@@ -27,51 +29,51 @@
                 @Html.ActionLink("评论管理", "Index", "commentManagement")
             </div>
         </div>
-
-        <div class="result-content">
-            <table class="result-tab">
-                <tr>
-                    <th>id</th>
-                    <th>论坛帖子Id</th>
-                    <th>用户Id</th>
-                    <th>回复时间</th>
-                    <th>回复内容</th>
-                    <th>可选操作</th>
-                </tr>
-                @{
-                    if (ViewBag.replyList != null)
-                    {
-                        foreach (var item in ViewBag.replyList)
-                        {
-                            <tr>
-                                <th>
-                                    <div class="numberDiv">
-                                        @item.id
-                                    </div>
-                                </th>
-                                <th>
-                                    <div class="numberDiv">
-                                        @item.postId
-                                    </div>
-                                </th>
-                                <th>@item.userId</th>
-                                <th>@item.replyTime</th>
-                                <th>
-                                    <div class="contentDiv">
-                                        @item.replyContent
-                                    </div>
-                                </th>
-                                <th>
-                                    <button class="index-btn delete-data deleteReply" type="button" value="@item.id">删除</button>
-                                </th>
-                            </tr>
-                        }
-                    }
-                }
-            </table>
-
-        </div>
     </div>
+</div>
+<div class="result-content">
+
+    <table class="result-tab">
+        <tr>
+            <th>id</th>
+            <th>论坛帖子Id</th>
+            <th>用户Id</th>
+            <th>回复时间</th>
+            <th>回复内容</th>
+            <th>可选操作</th>
+        </tr>
+        @{
+            if (replyList != null && replyList.Length != 0)
+            {
+                foreach (var item in replyList)
+                {
+                    <tr>
+                        <th>
+                            <div class="numberDiv">
+                                @item.id
+                            </div>
+                        </th>
+                        <th>
+                            <div class="numberDiv">
+                                @item.postId
+                            </div>
+                        </th>
+                        <th>@item.userId</th>
+                        <th>@item.replyTime</th>
+                        <th>
+                            <div class="contentDiv">
+                                @item.replyContent
+                            </div>
+                        </th>
+                        <th>
+                            <button class="index-btn delete-data deleteReply" type="button" value="@item.id">删除</button>
+                        </th>
+                    </tr>
+                }
+            }
+        }
+    </table>
+
 
     <div class="page-number">
         <ul>
@@ -82,7 +84,7 @@
                     <li style="float:left">
                         <form method="post" action="~/backStage/commentManagement/sureReply">
                             <input class="id" id="id" name="id" type="text" value=@i hidden="hidden" />
-                            <input class="postId" name="postId" type="hidden" value="@rightPostId"/>
+                            <input class="postId" name="postId" type="hidden" value="@rightPostId" />
                             <input type="submit" class="btn-submit" value=@i />
                         </form>
                     </li>

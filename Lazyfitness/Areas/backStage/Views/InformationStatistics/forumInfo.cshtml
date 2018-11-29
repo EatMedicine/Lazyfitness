@@ -1,0 +1,57 @@
+﻿
+@using Lazyfitness.Models
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.title = "论坛统计";
+}
+@{
+    int areaNumber = ViewBag.areaNumber;
+    int postNumber = ViewBag.postNumber;
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("用户信息统计", "userInfoStatistics", "InformationStatistics")
+                @Html.ActionLink("文章信息统计", "articleInfo", "InformationStatistics")
+                @Html.ActionLink("论坛信息统计", "forumInfo", "InformationStatistics")
+                @Html.ActionLink("问答信息统计", "quesAnswInfo", "InformationStatistics")
+                @Html.ActionLink("评论信息统计", "commentInfo", "InformationStatistics")
+                @Html.ActionLink("充值卡信息统计", "rechargeInfo", "InformationStatistics")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="result-content">
+    <table class="result-tab">
+        <tr>
+            <th>统计信息</th>
+            <th>数据</th>
+        </tr>
+        <tr>
+            <td>分区总数</td>
+            <td>
+                <div class="numberDiv">
+                    <span>@areaNumber</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>论坛帖子总数</td>
+            <td>
+                <div class="numberDiv">
+                    <span>@postNumber</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

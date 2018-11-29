@@ -1,7 +1,15 @@
-﻿@{
+﻿@using Lazyfitness.Models
+@model Lazyfitness.Models.quesAnswReply
+@{
     ViewBag.Title = "增加回答";
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
 }
+@{
+    string ownerName = ViewBag.ownerName as string;
+    string areaName = ViewBag.areaName as string;
+    quesAnswInfo quesAnswInfo = ViewBag.quesAnswInfo as quesAnswInfo;
+}
+
 <script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/ueditor.all.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="~/Content/utf8-net/lang/zh-cn/zh-cn.js"></script>
@@ -38,37 +46,62 @@
         </div>
 
         <div class="result-content">
-            <table class="result-tab">
-                <tr>
-                    <th>分区名</th>
-                    <th>问题名</th>
-                    <th>发布者</th>
-                    <th>发布时间</th>
-                    <th>问题简略内容</th>
-                </tr>
-                <tr>
-                    <td>@ViewBag.areaName</td>
-                    <td>@ViewBag.obQuesInfo.quesAnswTitle</td>
-                    <td>@ViewBag.ownerName</td>
-                    <td>@ViewBag.obQuesInfo.quesAnswTime</td>
-                    <td>
-                        <div class="contentDiv">
-                            @ViewBag.obQuesInfo.quesAnswContent
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
 
-        <div class="editor">
-            @using (Html.BeginForm("addAnswer", "commentManagement", FormMethod.Post))
-            {
-                <input id="quesAnswId" name="quesAnswId" type="hidden" value=@ViewBag.obQuesInfo.quesAnswId />
-                <textarea id="replyContent" name="replyContent"></textarea>
-                <input id="submit" type="submit" value="发布" />
-            }
-        </div>
+            <form method="post" action="~/backStage/commentManagement/addAnswer" autocomplete="off">
+                <table class="insert-tab">
 
-
+                    <tr>
+                        <th>问答帖子名称</th>
+                        <td>
+                            <span class="input-content">
+                                @quesAnswInfo.quesAnswTitle
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            发布的用户名
+                        </th>
+                        <td>
+                            <span class="input-content">
+                                @ownerName
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            发布的时间
+                        </th>
+                        <td>
+                            <span class="input-content">
+                                @quesAnswInfo.quesAnswTime
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>问答帖子Id</th>
+                        <td>
+                            @Html.TextBoxFor(u => u.quesAnswId, new { @Value = quesAnswInfo.quesAnswId, @class = "input-content txt-unchange", @readonly = "readonly" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>回答人Id</th>
+                        <td>
+                            @Html.TextBoxFor(u => u.userId, new { @class = "input-content" })
+                            <div class="error-mes">
+                                @Html.ValidationMessageFor(u => u.userId)
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>回答内容</th>
+                        <td><textarea id="replyContent" name="replyContent"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td> <input class="btn-submit show-border" type="submit" value="发布" /></td>
+                    </tr>
+                </table>
+            </form>
     </div>
 </div>
