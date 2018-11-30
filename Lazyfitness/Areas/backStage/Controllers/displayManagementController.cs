@@ -50,11 +50,11 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
         }
 
-        public int GetSumPage(int pageSize)
+        public int GetSumPage(int pageSize,Expression<Func<serverShowInfo, bool>> whereLambda)
         {
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                int listSum = db.serverShowInfo.ToList().Count;
+                int listSum = db.serverShowInfo.Where(whereLambda).ToList().Count;
                 if ((listSum != 0) && listSum % pageSize == 0)
                 {
                     return (listSum / pageSize);
@@ -154,29 +154,30 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             try
             {
-                int sumPage = GetSumPage(10);
-                if (id == null)
-                {
-                    id = 1.ToString();
-                }
-                if (sumPage <= Convert.ToInt32(id))
-                {
-                    id = sumPage.ToString();
-                }
-                if (Convert.ToInt32(id) <= 0)
-                {
-                    id = 1.ToString();
-                }
-                int nowPage = Convert.ToInt32(id);
-
+                
 
                 if (showInfo.title == null)
                 {
+                    int sumPage = GetSumPage(10, u => u.areaId == showInfo.areaId && u.flag == showInfo.flag);
+                    if (id == null)
+                    {
+                        id = 1.ToString();
+                    }
+                    if (sumPage <= Convert.ToInt32(id))
+                    {
+                        id = sumPage.ToString();
+                    }
+                    if (Convert.ToInt32(id) <= 0)
+                    {
+                        id = 1.ToString();
+                    }
+                    int nowPage = Convert.ToInt32(id);
                     serverShowInfo[] info = GetPagedList(Convert.ToInt32(id), 10, u => u.areaId == showInfo.areaId && u.flag == showInfo.flag, u => u.id);
                     if (info == null || info.Length == 0)
                     {
                         return Content("没有此展示！");
                     }
+                    
                     ViewBag.nowPage = nowPage;
                     ViewBag.sumPage = sumPage;
                     ViewBag.allInfo = info;
@@ -185,6 +186,20 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 }
                 else
                 {
+                    int sumPage = GetSumPage(10, u => u.areaId == showInfo.areaId && u.flag == showInfo.flag && u.title == showInfo.title);
+                    if (id == null)
+                    {
+                        id = 1.ToString();
+                    }
+                    if (sumPage <= Convert.ToInt32(id))
+                    {
+                        id = sumPage.ToString();
+                    }
+                    if (Convert.ToInt32(id) <= 0)
+                    {
+                        id = 1.ToString();
+                    }
+                    int nowPage = Convert.ToInt32(id);
                     serverShowInfo[] info = GetPagedList(Convert.ToInt32(id), 10, u => u.areaId == showInfo.areaId && u.flag == showInfo.flag && u.title == showInfo.title, u=>u.id); 
                     if (info == null || info.Length == 0)
                     {
