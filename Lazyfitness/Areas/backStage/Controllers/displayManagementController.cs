@@ -53,38 +53,38 @@ namespace Lazyfitness.Areas.backStage.Controllers
         {
             return View();
         }
-        #region 分页类
-        /// <summary>
-        /// 分页查询
-        /// </summary>
-        /// <typeparam name="TKey"></typeparam>
-        /// <param name="pageIndex">页码</param>
-        /// <param name="pageSize">页容量</param>
-        /// <param name="whereLambda">条件 lambda表达式</param>
-        /// <param name="orderBy">排列 lambda表达式</param>
-        /// <returns></returns>
-        public serverShowInfo[] GetPagedList<TKey>(int pageIndex, int pageSize, Expression<Func<serverShowInfo, bool>> whereLambda, Expression<Func<serverShowInfo, TKey>> orderBy)
-        {
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
-            {
-                //分页时一定注意：Skip之前一定要OrderBy
-                return db.serverShowInfo.Where(whereLambda).OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToArray();
-            }
-        }
+        //#region 分页类
+        ///// <summary>
+        ///// 分页查询
+        ///// </summary>
+        ///// <typeparam name="TKey"></typeparam>
+        ///// <param name="pageIndex">页码</param>
+        ///// <param name="pageSize">页容量</param>
+        ///// <param name="whereLambda">条件 lambda表达式</param>
+        ///// <param name="orderBy">排列 lambda表达式</param>
+        ///// <returns></returns>
+        //public serverShowInfo[] GetPagedList<TKey>(int pageIndex, int pageSize, Expression<Func<serverShowInfo, bool>> whereLambda, Expression<Func<serverShowInfo, TKey>> orderBy)
+        //{
+        //    using (LazyfitnessEntities db = new LazyfitnessEntities())
+        //    {
+        //        //分页时一定注意：Skip之前一定要OrderBy
+        //        return db.serverShowInfo.Where(whereLambda).OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToArray();
+        //    }
+        //}
 
-        public int GetSumPage(int pageSize,Expression<Func<serverShowInfo, bool>> whereLambda)
-        {
-            using (LazyfitnessEntities db = new LazyfitnessEntities())
-            {
-                int listSum = db.serverShowInfo.Where(whereLambda).ToList().Count;
-                if ((listSum != 0) && listSum % pageSize == 0)
-                {
-                    return (listSum / pageSize);
-                }
-                return ((listSum / pageSize) + 1);
-            }
-        }
-        #endregion
+        //public int GetSumPage(int pageSize,Expression<Func<serverShowInfo, bool>> whereLambda)
+        //{
+        //    using (LazyfitnessEntities db = new LazyfitnessEntities())
+        //    {
+        //        int listSum = db.serverShowInfo.Where(whereLambda).ToList().Count;
+        //        if ((listSum != 0) && listSum % pageSize == 0)
+        //        {
+        //            return (listSum / pageSize);
+        //        }
+        //        return ((listSum / pageSize) + 1);
+        //    }
+        //}
+        //#endregion
         #region 增加
         [BackStageFilter]
         public ActionResult Add()
