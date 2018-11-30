@@ -29,9 +29,14 @@ namespace Lazyfitness.Areas.account.Controllers
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    DbQuery<userInfo> dbInfo = db.userInfo.Where(u => u.userName == info.userName.Trim()).Where(u => u.userEmail == info.userEmail.Trim()) as DbQuery<userInfo>;
-                    userInfo obInfo = dbInfo.FirstOrDefault();
-                    if (obInfo == null)
+                    userSecurity[] securityInfo = toolsHelpers.selectToolsController.selectUserSecurity(u => u.loginId == security.loginId, u=>u.userId);
+                    if (securityInfo == null || securityInfo.Length == 0)
+                    {
+                        return Content("没有此用户");
+                    }
+                    int userId = securityInfo[0].userId;
+                    userInfo[] user = toolsHelpers.selectToolsController.selectUserInfo(u => u.userId == userId, u => u.userId);
+                    if (user == null || user.Length == 0)
                     {
                         return Content("用户名与邮箱不匹配");
                     }
@@ -43,7 +48,7 @@ namespace Lazyfitness.Areas.account.Controllers
             }
             catch
             {
-                return Content("验证失败");
+                return Content("验证出错");
             }
         }
         #endregion
@@ -97,14 +102,16 @@ namespace Lazyfitness.Areas.account.Controllers
             {
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
-                    var rightOb = db.userInfo.Where(u => u.userEmail == info.userEmail.Trim());
-                    var rightUserName = rightOb.FirstOrDefault().userName;
-                    return Content(rightUserName);
+                    userInfo[] user = toolsHelpers.selectToolsController.selectUserInfo(u => u.userEmail == info.userEmail.Trim(), u => u.userId);
+                    int userId = user[0].userId;
+                    userSecurity[] securityInfo = toolsHelpers.selectToolsController.selectUserSecurity(u => u.userId == userId, u=>u.userId);
+                    string rightLoginName = securityInfo[0].loginId;
+                    return Content(rightLoginName);
                 }
             }
             catch
             {
-                return Content("出错啦");
+                return Content("找用户名出错!");
             }
             
         }

@@ -18,7 +18,7 @@
             <p>找回密码</p>
             <div class="input-item">
                 <div class="input-text-border">
-                    @Html.TextBoxFor(u => u.Info.userName, new { @class = "input-text", @placeholder = "      用户名" })
+                    @Html.TextBoxFor(u => u.Security.loginId, new { @class = "input-text", @placeholder = "      登录名" })
                 </div>
                 <div class="message-style">
                     @Html.ValidationMessageFor(u => u.Info.userName)

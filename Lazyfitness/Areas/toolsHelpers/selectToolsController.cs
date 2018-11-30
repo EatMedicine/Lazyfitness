@@ -12,6 +12,29 @@ namespace Lazyfitness.Areas.toolsHelpers
     {
 
         /// <summary>
+        /// 查找用户安全表中符合条件的信息
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <returns></returns>
+        public static userSecurity[] selectUserSecurity<TKey>(Expression<Func<userSecurity, bool>> whereLambda, Expression<Func<userSecurity, TKey>> orderBy)
+        {
+            try
+            {
+                using (LazyfitnessEntities db = new LazyfitnessEntities())
+                {
+                    DbQuery<userSecurity> dataObject = db.userSecurity.Where(whereLambda).OrderBy(orderBy) as DbQuery<userSecurity>;
+                    userSecurity[] infoList = dataObject.ToArray();
+                    return infoList;
+                }
+            }
+            catch
+            {
+                userSecurity[] nullInfo = new userSecurity[0];
+                return nullInfo;
+            }
+        }
+
+        /// <summary>
         /// 查找用户信息表中符合条件的信息
         /// </summary>
         /// <param name="whereLambda"></param>

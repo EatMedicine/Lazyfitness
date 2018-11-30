@@ -40,7 +40,7 @@ namespace Lazyfitness.Areas.account.Controllers
                 mailMessage.Subject = "小懒人健身注册验证码";
                 //邮件内容。
                 mailMessage.IsBodyHtml = true;
-                mailMessage.Body = "<div>尊敬的<a href='http://www.lazyfitness.cn'>小懒人</a>用户您好：<br/>欢迎注册小懒人健身，您的注册验证码为：<strong>" + code + "</strong>，请妥善保管。验证码30分钟内有效。</div>";
+                mailMessage.Body = "<div>尊敬的<a href='http://www.lazyfitness.cn'>小懒人</a>用户您好：<br/>您的找回用户名的注册验证码为：<strong>" + code + "</strong>，请妥善保管。验证码30分钟内有效。</div>";
                 //实例化一个SmtpClient类。
                 SmtpClient client = new SmtpClient();
                 //在这里我使用的是qq邮箱，所以是smtp.qq.com，如果你使用的是126邮箱，那么就是smtp.126.com。
