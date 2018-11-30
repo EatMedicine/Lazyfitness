@@ -6,25 +6,15 @@ using System.Web.Mvc;
 using Lazyfitness.Models;
 using System.Data.Entity.Infrastructure;
 using System.Linq.Expressions;
+using Lazyfitness.Filter;
 
 namespace Lazyfitness.Areas.backStage.Controllers
 {
     public class commentManagementController : Controller
     {
+        [BackStageFilter]
         public ActionResult Index()
         {
-
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return Content("未登录");
-            }
             return View();
         }
         #region 分页类
@@ -92,54 +82,21 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #endregion
         #region 论坛评论管理
         //论坛评论管理
+        [BackStageFilter]
         public ActionResult forumComment()
         {
-
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return Content("未登录");
-            }
             return View();
         }
         #region 增加论坛评论
+        [BackStageFilter]
         public ActionResult addForumComment()
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return Content("未登录");
-            }
             return View();
         }
         [HttpPost]
+        [BackStageFilter]
         public ActionResult sureForum(int postId)
         {
-
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return Content("未登录");
-            }
-
             try
             {
                 //有此帖子时候返回帖子所属分区名，帖子的作者，帖子的信息
@@ -177,21 +134,10 @@ namespace Lazyfitness.Areas.backStage.Controllers
            
         }
         [HttpPost]
+        [BackStageFilter]
         [ValidateInput(false)]
         public ActionResult add(postReply info)
         {
-            string cookieText = null;
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                cookieText = Server.HtmlEncode(cookieName.Value).ToString();
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return Content("未登录");
-            }
             try
             {
                 //先判断有无回复的userId
@@ -220,38 +166,17 @@ namespace Lazyfitness.Areas.backStage.Controllers
         }
         #endregion
 
+        [BackStageFilter]
         #region 删除评论
         public ActionResult deleteForumComment()
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return Content("未登录");
-            }
             return View();
         }
 
         [HttpPost]
+        [BackStageFilter]
         public ActionResult sureReply(int postId, string id)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return Content("未登录");
-            }
-
             try
             {
                 //先判断此postId是否存在
@@ -289,19 +214,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
         }
 
         [HttpPost]
+        [BackStageFilter]
         public string delete(int id)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return "未登录";
-            }
             try
             {
                 if (toolsHelpers.deleteToolsController.deletePostReply(u=>u.id == id) == true)
@@ -321,42 +236,22 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #endregion
 
         #region 问答评论管理
+        [BackStageFilter]
         public ActionResult quesAnswComment()
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return Content("未登录");
-            }
             return View();
         }
 
         //增加回答
+        [BackStageFilter]
         public ActionResult addQueAnswComment()
         {
             return View();
         }
         [HttpPost]
+        [BackStageFilter]
         public ActionResult sureAnswer(int quesAnswId)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return Content("未登录");
-            }
-
             try
             {
                 //有此帖子时候返回帖子所属分区名，帖子的作者，帖子的信息
@@ -395,22 +290,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [BackStageFilter]
         public ActionResult addAnswer(quesAnswReply info)
         {
-            string cookieText = null;
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                cookieText = Server.HtmlEncode(cookieName.Value).ToString();
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return Content("未登录");
-            }
-
-
             try
             {
                 //先判断有无回复的userId
@@ -439,25 +321,15 @@ namespace Lazyfitness.Areas.backStage.Controllers
         }
 
         //删除回答
+        [BackStageFilter]
         public ActionResult deleteQueAnswComment()
         {
             return View();
         }
         [HttpPost]
+        [BackStageFilter]
         public ActionResult sureReplyAnswer(int quesAnswId, string id)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return Content("未登录");
-            }
-
             try
             {
                 //先判断此quesAnswId是否存在
@@ -494,20 +366,9 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
         }
         [HttpPost]
+        [BackStageFilter]
         public string deleteAnswer(int id)
         {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                Response.Redirect("/backStage/manager/login");
-                return "未登录";
-            }
-
             try
             {
                 if (toolsHelpers.deleteToolsController.deleteQuesAnswReply(u => u.id == id) == true)

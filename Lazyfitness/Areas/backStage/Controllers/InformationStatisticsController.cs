@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Lazyfitness.Models;
+using Lazyfitness.Filter;
 namespace Lazyfitness.Areas.backStage.Controllers
 {
     public class InformationStatisticsController : Controller
@@ -15,6 +16,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         }
 
         #region 用户信息统计
+        [BackStageFilter]
         public ActionResult userInfoStatistics()
         {
             //需要增加验证是否登录
@@ -56,6 +58,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #endregion
 
         #region 文章信息统计
+        [BackStageFilter]
         public ActionResult articleInfo()
         {
             try
@@ -79,6 +82,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #endregion
 
         #region 论坛信息统计
+        [BackStageFilter]
         public ActionResult forumInfo()
         {
             try
@@ -102,6 +106,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #endregion
 
         #region 问答信息统计
+        [BackStageFilter]
         public ActionResult quesAnswInfo()
         {
             try
@@ -125,6 +130,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #endregion
 
         #region 评论信息统计
+        [BackStageFilter]
         public ActionResult commentInfo()
         {
             try
@@ -149,6 +155,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #endregion
 
         #region 充值卡信息统计
+        [BackStageFilter]
         public ActionResult rechargeInfo()
         {
             try
