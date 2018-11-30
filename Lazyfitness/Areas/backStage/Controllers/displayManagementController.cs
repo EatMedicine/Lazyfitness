@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
@@ -30,7 +31,38 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             return View();
         }
+        #region 分页类
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">页容量</param>
+        /// <param name="whereLambda">条件 lambda表达式</param>
+        /// <param name="orderBy">排列 lambda表达式</param>
+        /// <returns></returns>
+        public serverShowInfo[] GetPagedList<TKey>(int pageIndex, int pageSize, Expression<Func<serverShowInfo, bool>> whereLambda, Expression<Func<serverShowInfo, TKey>> orderBy)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                //分页时一定注意：Skip之前一定要OrderBy
+                return db.serverShowInfo.Where(whereLambda).OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToArray();
+            }
+        }
 
+        public int GetSumPage(int pageSize,Expression<Func<serverShowInfo, bool>> whereLambda)
+        {
+            using (LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                int listSum = db.serverShowInfo.Where(whereLambda).ToList().Count;
+                if ((listSum != 0) && listSum % pageSize == 0)
+                {
+                    return (listSum / pageSize);
+                }
+                return ((listSum / pageSize) + 1);
+            }
+        }
+        #endregion
         #region 增加
         public ActionResult Add()
         {
@@ -107,22 +139,8 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             return View();
         }
-        public ActionResult showResult()
-        {
-            if (Request.Cookies["managerId"] != null)
-            {
-                //获取Cookies的值
-                HttpCookie cookieName = Request.Cookies["managerId"];
-                var cookieText = Server.HtmlEncode(cookieName.Value);
-            }
-            else
-            {
-                return Content("未登录");
-            }
-            return View();
-        }
         [HttpPost]
-        public ActionResult displaySearch(serverShowInfo serverShowInfo)
+        public ActionResult showResult(string id, serverShowInfo showInfo)
         {
             if (Request.Cookies["managerId"] != null)
             {
@@ -136,29 +154,63 @@ namespace Lazyfitness.Areas.backStage.Controllers
             }
             try
             {
-                if(serverShowInfo.title == null)
+                
+
+                if (showInfo.title == null)
                 {
-                    serverShowInfo[] info = toolsHelpers.selectToolsController.selectServerShowInfo(u => u.areaId == serverShowInfo.areaId && u.flag == serverShowInfo.flag);
+                    int sumPage = GetSumPage(10, u => u.areaId == showInfo.areaId && u.flag == showInfo.flag);
+                    if (id == null)
+                    {
+                        id = 1.ToString();
+                    }
+                    if (sumPage <= Convert.ToInt32(id))
+                    {
+                        id = sumPage.ToString();
+                    }
+                    if (Convert.ToInt32(id) <= 0)
+                    {
+                        id = 1.ToString();
+                    }
+                    int nowPage = Convert.ToInt32(id);
+                    serverShowInfo[] info = GetPagedList(Convert.ToInt32(id), 10, u => u.areaId == showInfo.areaId && u.flag == showInfo.flag, u => u.id);
                     if (info == null || info.Length == 0)
                     {
                         return Content("没有此展示！");
                     }
+                    
+                    ViewBag.nowPage = nowPage;
+                    ViewBag.sumPage = sumPage;
                     ViewBag.allInfo = info;
-                    //Response.Redirect("/backStage/displayManagement/showResult");
-                    return View("showResult");
+                    ViewBag.rightInfo = showInfo;
+                    return View();
                 }
                 else
                 {
-                    serverShowInfo[] info = toolsHelpers.selectToolsController.selectServerShowInfo(u => u.areaId == serverShowInfo.areaId && u.flag == serverShowInfo.flag && u.title == serverShowInfo.title);
+                    int sumPage = GetSumPage(10, u => u.areaId == showInfo.areaId && u.flag == showInfo.flag && u.title == showInfo.title);
+                    if (id == null)
+                    {
+                        id = 1.ToString();
+                    }
+                    if (sumPage <= Convert.ToInt32(id))
+                    {
+                        id = sumPage.ToString();
+                    }
+                    if (Convert.ToInt32(id) <= 0)
+                    {
+                        id = 1.ToString();
+                    }
+                    int nowPage = Convert.ToInt32(id);
+                    serverShowInfo[] info = GetPagedList(Convert.ToInt32(id), 10, u => u.areaId == showInfo.areaId && u.flag == showInfo.flag && u.title == showInfo.title, u=>u.id); 
                     if (info == null || info.Length == 0)
                     {
                         return Content("没有此展示！");
                     }
+                    ViewBag.nowPage = nowPage;
+                    ViewBag.sumPage = sumPage;
                     ViewBag.allInfo = info;
-                    //Response.Redirect("/backStage/displayManagement/showResult");
-                    return View("showResult");
+                    ViewBag.rightInfo = showInfo;
+                    return View();
                 }
-                return Content("查询成功");
             }
             catch
             {
@@ -217,20 +269,6 @@ namespace Lazyfitness.Areas.backStage.Controllers
 
 
         #region 修改
-        //public ActionResult displayUpdate()
-        //{
-        //    if (Request.Cookies["managerId"] != null)
-        //    {
-        //        //获取Cookies的值
-        //        HttpCookie cookieName = Request.Cookies["managerId"];
-        //        var cookieText = Server.HtmlEncode(cookieName.Value);
-        //    }
-        //    else
-        //    {
-        //        return Content("未登录");
-        //    }
-        //    return View();
-        //}
         [HttpPost]
         public ActionResult displayUpdate(int id)
         {

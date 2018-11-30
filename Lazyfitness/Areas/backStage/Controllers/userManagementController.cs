@@ -81,9 +81,20 @@ namespace Lazyfitness.Areas.backStage.Controllers
             else
             {
                 return Content("未登录");
-            }         
-            ViewBag.nowPage = id;
-            ViewBag.sumPage = GetSumPage(10);
+            }
+          
+            int sumPage = GetSumPage(10);
+            if (sumPage <= Convert.ToInt32(id))
+            {
+                id = sumPage;
+            }
+            if(id <= 0)
+            {
+                id = 1;
+            }
+            int nowPage = id;
+            ViewBag.nowPage = nowPage;
+            ViewBag.sumPage = sumPage;          
             ViewBag.allInfo = GetPagedList(Convert.ToInt32(id), 10, x=>x == x, u => u.userId);
             //通过用户状态表中的的数据返回对应的状态名
             userStatusName[] nameArray = toolsHelpers.selectToolsController.selectUserStatusName(x => x == x, u => u.userStatus);
