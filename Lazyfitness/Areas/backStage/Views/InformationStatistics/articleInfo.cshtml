@@ -7,6 +7,7 @@
 @{
     int areaNumber = ViewBag.areaNumber;
     int resourceNumer = ViewBag.resourceNumer;
+    int allView = ViewBag.allView;
 }
 <!--/sidebar-->
 <div class="main-wrap">
@@ -50,6 +51,14 @@
             <td>
                 <div class="numberDiv">
                     <span>@resourceNumer</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>文章专区总浏览量</td>
+            <td>
+                <div class="numberDiv">
+                    <span>@allView</span>
                 </div>
             </td>
         </tr>

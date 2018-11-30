@@ -69,7 +69,13 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 //获取文章数量
                 resourceInfo[] allResource = toolsHelpers.selectToolsController.selectResourceInfo(x => x == x, u => u.resourceId);
                 int resourceNumer = allResource.Length;
-
+                //获取文章区总浏览量
+                int allView = 0;
+                foreach (var item in allResource)
+                {
+                    allView += item.pageView.Value;
+                }
+                ViewBag.allView = allView;
                 ViewBag.areaNumber = areaNumber;
                 ViewBag.resourceNumer = resourceNumer;
                 return View();
@@ -93,7 +99,13 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 //获取论坛数量
                 postInfo[] allPost = toolsHelpers.selectToolsController.selectPostInfo(x => x == x, u => u.postId);
                 int postNumber = allPost.Length;
-
+                //获取所有论坛的浏览量
+                int allView = 0;
+                foreach (var item in allPost)
+                {
+                    allView += item.pageView.Value;
+                }
+                ViewBag.allView = allView;
                 ViewBag.areaNumber = areaNumber;
                 ViewBag.postNumber = postNumber;
                 return View();
@@ -117,7 +129,13 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 //获取问答帖子数量
                 quesAnswInfo[] allQuesAnsw = toolsHelpers.selectToolsController.selectQuesAnswInfo(x=>x == x, u=>u.quesAnswId);
                 int quesAnswNumber = allQuesAnsw.Length;
-
+                //获取所有问答的浏览量
+                int allView = 0;
+                foreach (var item in allQuesAnsw)
+                {
+                    allView += item.pageView.Value;
+                }
+                ViewBag.allView = allView;
                 ViewBag.areaNumber = areaNumber;
                 ViewBag.quesAnswNumber = quesAnswNumber;
                 return View();
@@ -141,8 +159,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
 
                 //获取问答评论总数
                 quesAnswReply[] allQuesAnswReply = toolsHelpers.selectToolsController.selectQuesAnswReply(x => x == x, u => u.replyTime);
-                int quesAnswNumber = allForumReply.Length;
-
+                int quesAnswNumber = allForumReply.Length;            
                 ViewBag.forumRelpyNumber = forumRelpyNumber;
                 ViewBag.quesAnswNumber = quesAnswNumber;
                 return View();
