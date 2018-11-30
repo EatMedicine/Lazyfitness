@@ -6,6 +6,9 @@
 }
 @{ 
     serverShowInfo[] allInfo = ViewBag.allInfo as serverShowInfo[];
+    int nowPage = Convert.ToInt32(ViewBag.nowPage);
+    int sumPage = Convert.ToInt32(ViewBag.sumPage);
+    serverShowInfo rightInfo = ViewBag.rightInfo;
 }
 <!--/sidebar-->
 <div class="main-wrap">
@@ -90,20 +93,29 @@
     <div class="page-number">
         <ul>
             <li style="float:left">
-                <form method="post" action="~/backStage/payManagement/Index" style="float:left" autocomplete="off">
+                <form method="post" action="/backStage/displayManagement/showResult" style="float:left" autocomplete="off">
                     @{
                         int leftNumber = nowPage - 1;
                     }
+                    <input type="hidden" name="areaId" value="@rightInfo.areaId" />
+                    <input type="hidden" name="flag" value="@rightInfo.flag"/>
+                    <input type="hidden" name="title" value="@rightInfo.title"/>
                     <span><button class="left_rightIcon" type="submit" name="id" value="@leftNumber"><strong><</strong></button></span>
                 </form>
-                <form method="post" action="~/backStage/payManagement/Index" style="float:left" autocomplete="off">
+                <form method="post" action="/backStage/displayManagement/showResult" style="float:left" autocomplete="off">
                     <input required name="id" style="width:60px" type="number" />
+                    <input type="hidden" name="areaId" value="@rightInfo.areaId" />
+                    <input type="hidden" name="flag" value="@rightInfo.flag" />
+                    <input type="hidden" name="title" value="@rightInfo.title" />
                     <button class="skip" type="submit">跳转</button>
                 </form>
-                <form method="post" action="~/backStage/payManagement/Index" style="float:left" autocomplete="off">
+                <form method="post" action="/backStage/displayManagement/showResult" style="float:left" autocomplete="off">
                     @{
                         int rightNumber = nowPage + 1;
                     }
+                    <input type="hidden" name="areaId" value="@rightInfo.areaId" />
+                    <input type="hidden" name="flag" value="@rightInfo.flag" />
+                    <input type="hidden" name="title" value="@rightInfo.title" />
                     <span><button class="left_rightIcon" type="submit" name="id" value="@rightNumber"><strong>></strong></button></span>
                 </form>
             </li>
