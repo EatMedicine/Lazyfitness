@@ -27,10 +27,10 @@
 .input-btn {
     border: 0px;
     font-family: 'Microsoft YaHei';
-    width: 200px;
+    width: 256px;
     height: 50px;
     font-size: 20px;
-    margin: 0 0 50px 50px;
+    margin: 0 0 50px 26px;
     border-radius: 10px;
     background-color: rgb(46, 214, 0);
     border: 1px solid rgb(50, 234, 0);
@@ -163,4 +163,23 @@
     font-family: 'Microsoft YaHei';
 }
 .disabled{   
+}
+
+.user-link {
+    height: 50px;
+    text-align: center;
+}
+.user-link ul{
+    float:right;
+    border:none;
+    padding:0px;
+}
+.user-link ul li{
+    margin-right:30px;
+}
+.user-link ul li a{
+    color:brown;
+}
+.user-link ul li a:hover{
+    color:red;
 }

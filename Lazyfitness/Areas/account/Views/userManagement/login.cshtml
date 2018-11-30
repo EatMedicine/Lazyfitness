@@ -17,20 +17,31 @@
             <p>登录</p>
             <div class="input-item">
                 <div class="input-text-border">
-                    @Html.TextBoxFor(x => x.loginId, new { @class = "input-text" ,@placeholder="      用户名"})
-                </div>
+                    @Html.TextBoxFor(x => x.loginId, new { @class = "input-text", @placeholder = "      用户名" })
                 <div class="message-style">
                     @Html.ValidationMessageFor(x => x.loginId)
                 </div>
             </div>
             <div class="input-item">
                 <div class="input-text-border">
-                    @Html.TextBoxFor(x => x.userPwd, new { @type = "password" ,@class = "input-text" ,@placeholder= "       密码" })
+                    @Html.TextBoxFor(x => x.userPwd, new { @type = "password", @class = "input-text", @placeholder = "       密码" })
                 </div>
                 <div class="message-style">
                     @Html.ValidationMessageFor(x => x.userPwd)
                 </div>
             </div>
+
+            <div class="user-link">
+                <ul>
+                    <li>
+                        @Html.ActionLink("忘记密码?", "VerifyInfo", "passwordManager")
+                    </li>
+                    <li>
+                        @Html.ActionLink("忘记用户名?", "findUserame", "passwordManager")
+                    </li>
+                </ul>
+            </div>
+
             <input type="submit" id="postData" name="postData" class="input-btn login-loginbtn-pos" value="登录" />
         </div>
     </form>
