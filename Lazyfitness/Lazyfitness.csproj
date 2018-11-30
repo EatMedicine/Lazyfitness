@@ -650,7 +650,7 @@
     <Content Include="Areas\backStage\Views\quesAnswManagement\quesAnswInvitationIndex.cshtml" />
     <Content Include="Areas\backStage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\informationOfUser\Views\web.config" />
-    <Content Include="Areas\account\Views\passwordManager\findUserame.cshtml" />
+    <Content Include="Areas\account\Views\passwordManager\findUserName.cshtml" />
     <Content Include="Areas\backStage\Views\commentManagement\Index.cshtml" />
     <Content Include="Areas\backStage\Views\commentManagement\forumComment.cshtml" />
     <Content Include="Areas\backStage\Views\commentManagement\addForumComment.cshtml" />

@@ -91,7 +91,7 @@ namespace Lazyfitness.Areas.account.Controllers
         #endregion
 
         #region 找回用户名
-        public ActionResult findUserame()
+        public ActionResult findUserName()
         {
             return View();
         }
@@ -103,6 +103,10 @@ namespace Lazyfitness.Areas.account.Controllers
                 using (LazyfitnessEntities db = new LazyfitnessEntities())
                 {
                     userInfo[] user = toolsHelpers.selectToolsController.selectUserInfo(u => u.userEmail == info.userEmail.Trim(), u => u.userId);
+                    if (user.Length == 0 || user == null)
+                    {
+                        return Content("此邮箱没有注册！");
+                    }
                     int userId = user[0].userId;
                     userSecurity[] securityInfo = toolsHelpers.selectToolsController.selectUserSecurity(u => u.userId == userId, u=>u.userId);
                     string rightLoginName = securityInfo[0].loginId;
