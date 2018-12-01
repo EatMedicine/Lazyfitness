@@ -480,9 +480,17 @@ namespace Lazyfitness.Controllers
             string[] urls = new string[postInfo.Length];
             for (int i = 0; i < postInfo.Length; i++)
             {
-                Url.Action("forumPart", "Home", new { partId = postId[i] });
+                urls[i] = Url.Action("forumPart", "Home", new { partId = postId[i] });
             }
             ViewBag.PartUrl = urls;
+            //获取高亮ID
+            for(int count = 0; count < postId.Length; count++)
+            {
+                if(postId[count] == partId)
+                {
+                    ViewBag.PartSelect = count;
+                }
+            }
             ViewBag.PartPicUrl = new string[]
             {
                 Url.Content("~/Resource/picture/list-style-dot-red.png"),
