@@ -47,6 +47,10 @@
     overflow:hidden;
 }
 
+.detail-content img {
+    max-width: 100%;
+}
+
 .detail-pic {
     position: absolute;
     left: 50px;

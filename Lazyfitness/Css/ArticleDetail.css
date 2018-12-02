@@ -119,3 +119,6 @@
     word-break:break-all;
     word-wrap:break-word;
 }
+.detail img{
+    max-width:100%;
+}
