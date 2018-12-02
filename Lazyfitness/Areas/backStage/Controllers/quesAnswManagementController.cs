@@ -38,7 +38,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         {
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                int listSum = db.resourceInfo.ToList().Count;
+                int listSum = db.quesArea.ToList().Count;
                 if ((listSum != 0) && listSum % pageSize == 0)
                 {
                     return (listSum / pageSize);
@@ -46,7 +46,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                 return ((listSum / pageSize) + 1);
             }
         }
-
+     
         //问答帖子分区
         public quesAnswInfo[] GetPagedListquesAnsw<TKey>(int pageIndex, int pageSize, Expression<Func<quesAnswInfo, bool>> whereLambda, Expression<Func<quesAnswInfo, TKey>> orderBy)
         {
@@ -60,7 +60,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         {
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                int listSum = db.resourceInfo.ToList().Count;
+                int listSum = db.quesAnswInfo.ToList().Count;
                 if ((listSum != 0) && listSum % pageSize == 0)
                 {
                     return (listSum / pageSize);
