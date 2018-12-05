@@ -35,6 +35,7 @@
     background-color: rgb(46, 214, 0);
     border: 1px solid rgb(50, 234, 0);
     outline: none;
+    transition:all 0.5s ease 0s;
 }
 .input-btn:hover {
     background-color: rgb(38, 179, 0);
@@ -78,6 +79,7 @@
     margin-top:10px
 }
 .input-item{
+    position:relative;
     width:300px;
     height:75px;
     margin-top:25px;
@@ -165,21 +167,19 @@
 .disabled{   
 }
 
-.user-link {
-    height: 50px;
-    text-align: center;
+.user_link{
+    position:absolute;
+    top:35px;
+    left:285px;
+    width:100px;
+    height:15px;
+    font-size:12px;
+    line-height:15px;
+    font-family:'Microsoft YaHei';
 }
-.user-link ul{
-    float:right;
-    border:none;
-    padding:0px;
+.user_link a{
+    transition:all 0.5s ease 0s;
 }
-.user-link ul li{
-    margin-right:30px;
-}
-.user-link ul li a{
-    color:brown;
-}
-.user-link ul li a:hover{
-    color:red;
+.user_link a:hover{
+    color:rgb(255, 86, 86);
 }

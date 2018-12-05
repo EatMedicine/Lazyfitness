@@ -42,8 +42,8 @@
                     string[] partName = ViewBag.PartName as string[];
                     string[] partUrl = ViewBag.PartUrl as string[];
                     string[] partPicUrl = ViewBag.PartPicUrl as string[];
-                    int partSelect = ViewBag.PartId;
-                    ViewBag.Title = partName[partSelect - 1] + "--小懒人健身";
+                    int partSelect = ViewBag.PartSelect;
+                    ViewBag.Title = partName[partSelect] + "--小懒人健身";
                 }
                 <li>
                     <a href="@Url.Action("forum","Home")">
@@ -52,6 +52,7 @@
                     </a>
                 </li>
                 @*分区IDPartID从1开始计数*@
+                @*partSelect 是第几个分区高亮 从0计数*@
                 @for (int count = 0; count < partName.Length; count++)
                 {
                     <li>
@@ -70,7 +71,7 @@
                             {
                                 <img src="@partPicUrl[count]" style="width:15px" />
                             }
-                            @if (count + 1 == partSelect)
+                            @if (count == partSelect)
                             {
                                 <span class="select">@partName[count]</span>
                             }

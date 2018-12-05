@@ -4,6 +4,7 @@
     ViewData["IsSearch"] = true;
     ViewData["IsHeadPic"] = true;
     Layout = "~/Views/Shared/_MainStyle.cshtml";
+    ViewBag.Title = "登录";
 }
 <link href="~/Css/Input.css" rel="stylesheet" type="text/css" />
 
@@ -18,8 +19,12 @@
             <div class="input-item">
                 <div class="input-text-border">
                     @Html.TextBoxFor(x => x.loginId, new { @class = "input-text", @placeholder = "      用户名" })
+                </div>
                 <div class="message-style">
                     @Html.ValidationMessageFor(x => x.loginId)
+                </div>
+                <div class="user_link">
+                    @Html.ActionLink("忘记用户名?", "findUserName", "passwordManager")
                 </div>
             </div>
             <div class="input-item">
@@ -29,17 +34,9 @@
                 <div class="message-style">
                     @Html.ValidationMessageFor(x => x.userPwd)
                 </div>
-            </div>
-
-            <div class="user-link">
-                <ul>
-                    <li>
-                        @Html.ActionLink("忘记密码?", "VerifyInfo", "passwordManager")
-                    </li>
-                    <li>
-                        @Html.ActionLink("忘记用户名?", "findUserame", "passwordManager")
-                    </li>
-                </ul>
+                <div class="user_link">
+                    @Html.ActionLink("忘记密码?", "VerifyInfo", "passwordManager")
+                </div>
             </div>
 
             <input type="submit" id="postData" name="postData" class="input-btn login-loginbtn-pos" value="登录" />
