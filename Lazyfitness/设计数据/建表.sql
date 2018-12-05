@@ -200,9 +200,10 @@ CREATE TABLE serverShowInfo
 	pictureAdr NVARCHAR(200),	--图片地址 若为记录则为空
 	url NVARCHAR(200),	--链接地址
 	flag INT,	--区分公告或是轮播图 0轮播图1公告
-	Infostatus INT	--觉得是否启用
+	Infostatus INT	--决定是否启用
 )
 GO
+
 
 IF EXISTS(SELECT * FROM SYSOBJECTS WHERE name = 'userStatusName')
 DROP TABLE userStatusName

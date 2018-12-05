@@ -38,7 +38,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         {
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                int listSum = db.resourceInfo.ToList().Count;
+                int listSum = db.quesArea.ToList().Count;
                 if ((listSum != 0) && listSum % pageSize == 0)
                 {
                     return (listSum / pageSize);
@@ -60,7 +60,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         {
             using (LazyfitnessEntities db = new LazyfitnessEntities())
             {
-                int listSum = db.resourceInfo.ToList().Count;
+                int listSum = db.quesAnswInfo.ToList().Count;
                 if ((listSum != 0) && listSum % pageSize == 0)
                 {
                     return (listSum / pageSize);
