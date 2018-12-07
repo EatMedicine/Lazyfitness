@@ -11,6 +11,12 @@ namespace Lazyfitness
         //创建盐
         public static string salt = "OliverKaimarEason";
 
+
+        public static string encryptContent(string content)
+        {
+            return Areas.MD5Helper.MD5Helper.encrypt(content + salt);
+        }
+
         /// <summary>
         /// 生成凭证
         /// </summary>

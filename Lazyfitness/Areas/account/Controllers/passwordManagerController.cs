@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using Lazyfitness.Models;
 using System.Data.Entity.Infrastructure;
 using Lazyfitness.Filter;
+using System.Net;
+using System.Text;
+using System.IO;
 
 namespace Lazyfitness.Areas.account.Controllers
 {
@@ -23,7 +26,7 @@ namespace Lazyfitness.Areas.account.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult VerifyInfo(userSecurity security, userInfo info)
+        public ActionResult VerifyInfo(userSecurity security, userInfo info, string code)
         {
             try
             {
@@ -42,10 +45,33 @@ namespace Lazyfitness.Areas.account.Controllers
                         Tools.AlertAndRedirect("登录名与邮箱不匹配", Url.Action("VerifyInfo", "passwordManager", new { area = "account" }));
                         return Content("登录名与邮箱不匹配");
                     }
+                    //获取邮箱
+                    string Email = user[0].userEmail;
+                    //把用户输入的验证码 和邮箱地址进行加密验证
+                    string encryptCode = certificateTools.encryptContent(Email);
+                    string encryptemailAddress = certificateTools.encryptContent(code);
+
+                    //获取Cookies的值
+                    HttpCookie cookieName = Request.Cookies["emailCodePassword"];
+                    var rightCode = Server.HtmlEncode(cookieName.Value);
+
+                    HttpCookie cookieAddress = Request.Cookies["emailAddressPassword"];
+                    var rightEmail = Server.HtmlEncode(cookieAddress.Value);
+
+                    if (rightEmail != encryptCode || rightCode != encryptemailAddress)
+                    {
+                        //验证码错误
+                        Tools.AlertAndRedirect("验证失败！", Url.Action("VerifyInfo", "passwordManager", new { area = "account" }));
+                        return Content("验证失败！");
+                    }
+
                     userSecurity obSecurity = db.userSecurity.Where(u => u.userId == userId).FirstOrDefault();
                     obSecurity.userPwd = MD5Helper.MD5Helper.encrypt(security.userPwd.Trim());
                     db.SaveChanges();
-                    Tools.AlertAndRedirect("修改成功", Url.Action("Index", "Home", new { area = "account" }));
+                    //清空找回密码相关的cookies
+                    Response.Cookies.Add(CookiesHelper.CookiesHelper.clearCookie("emailCodePassword"));
+                    Response.Cookies.Add(CookiesHelper.CookiesHelper.clearCookie("emailAddressPassword"));
+                    Tools.AlertAndRedirect("修改成功", Url.Action("login", "userManagement", new { area = "account" }));
                     return Content("修改成功！");
                 }
             }
