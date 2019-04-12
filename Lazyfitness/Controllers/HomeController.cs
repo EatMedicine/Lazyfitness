@@ -643,10 +643,11 @@ namespace Lazyfitness.Controllers
 
         public JsonResult test()
         {
+            /*
             if (HttpContext.Application["PageViewHelper"] is PageViewHelper helper)
             {
                 helper.SaveToDB();
-            }
+            }*/
             return Json(true,JsonRequestBehavior.AllowGet);
         }
         #endregion
