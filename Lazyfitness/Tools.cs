@@ -1445,6 +1445,16 @@ namespace Lazyfitness
             HttpContext.Current.Response.Write(string.Format(js, msg, Url));
             HttpContext.Current.Response.End();
         }
+
+        /// <summary>
+        /// 获取本网站名字，用于设置网站title后缀
+        /// </summary>
+        /// <returns></returns>
+        public static string GetWebsiteName()
+        {
+            //此处应取出数据，这里先用该数据代替
+            return "小懒人健身";
+        }
     }
             
 }

@@ -5,6 +5,11 @@
     {
         ViewBag.Title = "默认标题";
     }
+    else
+    {
+        //设置网站后缀
+        ViewBag.Title = ViewBag.Title + " -- " + Tools.GetWebsiteName();
+    }
     if (ViewData["IsHeadPic"] == null)
     {
         ViewData["IsHeadPic"] = true;
