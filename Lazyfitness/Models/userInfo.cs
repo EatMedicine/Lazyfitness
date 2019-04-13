@@ -12,7 +12,7 @@ namespace Lazyfitness.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    using System.ComponentModel;
     public partial class userInfo
     {
         public int userId { get; set; }

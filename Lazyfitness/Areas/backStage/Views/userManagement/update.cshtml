@@ -30,7 +30,7 @@
     </div>
 </div>
 <div class="result-content">
-    <form action="~/backStage/userManagement/updateUserInfo" method="post" autocomplete="off">
+    <form action="~/backStage/userManagement/updateUserInfo" method="post" @*autocomplete="off"*@>
         <table class="insert-tab">
             <tbody>
                 <tr><th></th><td class="show-title">修改用户信息</td></tr>
@@ -46,9 +46,10 @@
                     </th>
                     <td>
                         @*<input class="input-content" type="text" id="userName" name="userName" value="@userInformation.userName" />*@
-                        @Html.TextBoxFor(u=>u.userName, new {@Value= @userInformation.userName, @class="input-cntent" })
+                        @Html.TextBoxFor(u => u.userName, new { Value = userInformation.userName,@class = "input-content"
+                    })
                         <div class="error-mes">
-                            @Html.ValidationMessageFor(u=>u.userName)
+                            @Html.ValidationMessageFor(u => u.userName)
                         </div>
                     </td>
                 </tr>
@@ -58,7 +59,7 @@
                     </th>
                     <td>
                         @*<input class="input-content" type="text" id="userAge" name="userAge" value="@userInformation.userAge" />*@
-                        @Html.TextBoxFor(u => u.userAge, new { @Value = @userInformation.userAge, @class = "input-cntent" })
+                        @Html.TextBoxFor(u => u.userAge, new { Value = userInformation.userAge, @class = "input-content" })
                         <div class="error-mes">
                             @Html.ValidationMessageFor(u => u.userAge)
                         </div>
