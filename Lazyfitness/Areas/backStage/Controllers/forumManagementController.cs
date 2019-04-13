@@ -342,7 +342,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
         {
             try
             {
-                postArea[] areaInfoList = toolsHelpers.selectToolsController.selectPostArea(x => x == x, u => u.areaId);
+                postArea[] areaInfoList = toolsHelpers.selectToolsController.selectPostArea(u=>u.areaId == areaId, u => u.areaId);
                 if (areaInfoList.Length == 0 || areaInfoList == null)
                 {
                     return Content("没有这个分区！");

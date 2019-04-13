@@ -319,11 +319,11 @@ namespace Lazyfitness.Areas.backStage.Controllers
         #endregion
         #region 修改
         [BackStageFilter]
-        public ActionResult changeQuesAnswArea()
+        public ActionResult changeQuesAnswArea(int areaId)
         {
             try
             {
-                quesArea[] areaInfoList = toolsHelpers.selectToolsController.selectQuesArea(x => x == x, u => u.areaId);
+                quesArea[] areaInfoList = toolsHelpers.selectToolsController.selectQuesArea(u=>u.areaId == areaId, u => u.areaId);
                 if (areaInfoList.Length == 0 || areaInfoList == null)
                 {
                     return Content("没有这个分区！");

@@ -10,8 +10,8 @@ namespace Lazyfitness.Areas.account.Controllers
 {
     public class sendEmailCodePasswordController : Controller
     {
-        //盐因子
-        protected string saltFactor = "OliverKaimarEason";
+        ////盐因子
+        //protected string saltFactor = "OliverKaimarEason";
 
         //发送邮箱验证码
         [HttpPost]
@@ -22,8 +22,8 @@ namespace Lazyfitness.Areas.account.Controllers
             string code = randomNum.Next(100000, 999999).ToString();
 
             //加密验证码和邮箱地址
-            string encryptCode = MD5Helper.MD5Helper.encrypt(code + saltFactor);
-            string encryptMailAddress = MD5Helper.MD5Helper.encrypt(mailAddress + saltFactor);
+            string encryptCode =   certificateTools.encryptContent(code);
+            string encryptMailAddress = certificateTools.encryptContent(mailAddress.Trim());
 
             //把加密后的邮箱和验证码写入cookie 过期时间为30分钟。
             Response.Cookies.Add(CookiesHelper.CookiesHelper.creatCookieMinutes("emailCodePassword", encryptCode, 30));
@@ -61,6 +61,8 @@ namespace Lazyfitness.Areas.account.Controllers
             }
         }
 
+        int counter = 0;
+
         /// <summary>
         /// 在提交注册页面之前验证邮箱所对应的验证码是否正确
         /// </summary>
@@ -80,21 +82,22 @@ namespace Lazyfitness.Areas.account.Controllers
                 var rightEmail = Server.HtmlEncode(cookieAddress.Value);
 
                 //把用户输入的验证码 和邮箱地址进行加密验证
-                string encryptCode = MD5Helper.MD5Helper.encrypt(code.Trim() + saltFactor);
-                string encryptemailAddress = MD5Helper.MD5Helper.encrypt(emailAddress.Trim() + saltFactor);
+                string encryptCode = certificateTools.encryptContent(code.Trim());
+                string encryptemailAddress = certificateTools.encryptContent(emailAddress.Trim());
                 if (rightEmail != encryptemailAddress || rightCode != encryptCode)
                 {
                     //验证码错误
                     return "CF";
                 }
-                //清空找回密码相关的cookies
-                Response.Cookies.Add(CookiesHelper.CookiesHelper.clearCookie("emailCodePassword"));
-                Response.Cookies.Add(CookiesHelper.CookiesHelper.clearCookie("emailAddressPassword"));
+                ////清空找回密码相关的cookies
+                //Response.Cookies.Add(CookiesHelper.CookiesHelper.clearCookie("emailCodePassword"));
+                //Response.Cookies.Add(CookiesHelper.CookiesHelper.clearCookie("emailAddressPassword"));
                 return "T";
             }
             //验证码为空
             return "F";
         }
+
 
     }
 }

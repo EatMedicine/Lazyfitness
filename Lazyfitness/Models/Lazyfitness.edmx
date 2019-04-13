@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LazyfitnessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="LazyfitnessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="backManager">
           <Key>
             <PropertyRef Name="managerId" />
@@ -22,7 +22,6 @@
         </EntityType>
         <EntityType Name="postInfo">
           <Key>
-            <PropertyRef Name="areaId" />
             <PropertyRef Name="postId" />
           </Key>
           <Property Name="areaId" Type="int" Nullable="false" />
@@ -48,7 +47,6 @@
         </EntityType>
         <EntityType Name="quesAnswInfo">
           <Key>
-            <PropertyRef Name="areaId" />
             <PropertyRef Name="quesAnswId" />
           </Key>
           <Property Name="areaId" Type="int" Nullable="false" />
@@ -100,7 +98,6 @@
         </EntityType>
         <EntityType Name="resourceInfo">
           <Key>
-            <PropertyRef Name="areaId" />
             <PropertyRef Name="resourceId" />
           </Key>
           <Property Name="areaId" Type="int" Nullable="false" />
@@ -207,7 +204,6 @@
         </EntityType>
         <EntityType Name="postInfo">
           <Key>
-            <PropertyRef Name="areaId" />
             <PropertyRef Name="postId" />
           </Key>
           <Property Name="areaId" Type="Int32" Nullable="false" />
@@ -233,7 +229,6 @@
         </EntityType>
         <EntityType Name="quesAnswInfo">
           <Key>
-            <PropertyRef Name="areaId" />
             <PropertyRef Name="quesAnswId" />
           </Key>
           <Property Name="areaId" Type="Int32" Nullable="false" />
@@ -285,7 +280,6 @@
         </EntityType>
         <EntityType Name="resourceInfo">
           <Key>
-            <PropertyRef Name="areaId" />
             <PropertyRef Name="resourceId" />
           </Key>
           <Property Name="areaId" Type="Int32" Nullable="false" />

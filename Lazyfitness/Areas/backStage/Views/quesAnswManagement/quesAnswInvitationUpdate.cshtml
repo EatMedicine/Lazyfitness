@@ -115,7 +115,7 @@
                     <tr>
                         <th>访问量</th>
                         <td>
-                            @Html.TextBoxFor(u => u.pageView, new { allInfo.pageView, @class = "input-content" })
+                            @Html.TextBoxFor(u => u.pageView, new {Value = allInfo.pageView, @class = "input-content" })
                             <div class="error-mes">
                                 @Html.ValidationMessageFor(u => u.pageView)
                             </div>
@@ -176,7 +176,7 @@
                     <tr>
                         <th>帖子内容</th>
                         <td style="padding:10px">
-                            <input type="hidden" id="getContent" value=@allInfo.quesAnswContent />
+                            <input type="hidden" id="getContent" value="@allInfo.quesAnswContent" />
                             <textarea id="quesAnswContent" name="quesAnswContent"></textarea>
                             <script>
                                 $(document).ready(function () {
