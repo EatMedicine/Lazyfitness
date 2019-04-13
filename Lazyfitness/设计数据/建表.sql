@@ -195,11 +195,11 @@ GO
 CREATE TABLE serverShowInfo
 (
 	id INT PRIMARY KEY IDENTITY(1, 1),
-	areaId INT, --用于标记这条记录用于哪个大区
+	areaId INT, --用于标记这条记录用于哪个大区 0为首页 1为文章区 当flag=2的时候（0Hello页的信息，包括图片地址和slogan 1为模板页的图片地址 2为网站名字
 	title NVARCHAR(50),	--标题
 	pictureAdr NVARCHAR(200),	--图片地址 若为记录则为空
 	url NVARCHAR(200),	--链接地址
-	flag INT,	--区分公告或是轮播图 0轮播图1公告
+	flag INT,	--区分公告或是轮播图 0轮播图 1公告 2网站显示信息
 	Infostatus INT	--决定是否启用
 )
 GO
