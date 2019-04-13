@@ -1445,7 +1445,7 @@ namespace Lazyfitness
             HttpContext.Current.Response.Write(string.Format(js, msg, Url));
             HttpContext.Current.Response.End();
         }
-
+        #region 获取网站显示数据
         /// <summary>
         /// 获取本网站名字，用于设置网站title后缀
         /// </summary>
@@ -1455,6 +1455,34 @@ namespace Lazyfitness
             //此处应取出数据，这里先用该数据代替
             return "小懒人健身";
         }
+
+        /// <summary>
+        /// 获取Hello页面的背景大图链接
+        /// </summary>
+        /// <returns></returns>
+        public static string GetHelloPic()
+        {
+            return "/Resource/picture/man-2037255_1920.jpg";
+        }
+        
+        /// <summary>
+        /// 获取Hello页面的Slogan
+        /// </summary>
+        /// <returns></returns>
+        public static string GetHelloSlogan()
+        {
+            return "从汗水中看见进步";
+        }
+        
+        /// <summary>
+        /// 获取模板页面的头图
+        /// </summary>
+        /// <returns></returns>
+        public static string GetLayoutPic()
+        {
+            return "/Resource/picture/running-1705716_1920.jpg";
+        }
+        #endregion
     }
             
 }

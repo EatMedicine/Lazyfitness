@@ -4,6 +4,9 @@
     ViewData["IsHeadPic"] = false; http://localhost:8372/Resource/picture/head.png
     Layout = "~/Views/Shared/_MainStyle.cshtml";
     ViewBag.Title = "Hello";
+    //@Url.Content("~/Resource/picture/man-2037255_1920.jpg")
+    ViewBag.Pic = Tools.GetHelloPic();
+    ViewBag.Slogan = Tools.GetHelloSlogan();
 }
 
 <!DOCTYPE html>
@@ -11,9 +14,9 @@
 <link href="~/Css/Hello.css?v=1201810190012" rel="stylesheet" type="text/css" />
 
 <div class="main-pic">
-    <img src=@Url.Content("~/Resource/picture/man-2037255_1920.jpg") style="width:100%;height:auto" />
+    <img src=@ViewBag.Pic style="width:100%;height:auto" />
     <div class="text slogn-pos">
-        <p>从汗水中看见进步</p>
+        <p>@ViewBag.Slogan</p>
     </div>
     <div class="text learn-pos">
         <p><a href="@Url.Action("Index")" style="color:rgba(255, 255, 255,0.8)">Learn More-></a></p>
