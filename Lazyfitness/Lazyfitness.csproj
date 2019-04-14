@@ -697,6 +697,8 @@
     <Content Include="Areas\backStage\Views\modelsManagement\modelsPicAdd_Index.cshtml" />
     <Content Include="Areas\backStage\Views\modelsManagement\modelsSlgAdd.cshtml" />
     <Content Include="Areas\backStage\Views\modelsManagement\modelsPicAdd_Hello.cshtml" />
+    <Content Include="Areas\backStage\Views\modelsManagement\modelsUpdate.cshtml" />
+    <Content Include="Areas\backStage\Views\modelsManagement\modelsTitleAdd.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

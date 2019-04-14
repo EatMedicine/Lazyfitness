@@ -1,8 +1,9 @@
 ﻿@model Lazyfitness.Models.serverShowInfo
 @{
     Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
-    ViewBag.Title = "增加图片";
+    ViewBag.Title = "增加模板展示";
 }
+
 <!--/sidebar-->
 <div class="main-wrap">
     <div class="crumb-wrap">
@@ -22,39 +23,26 @@
     </div>
 </div>
 <div class="result-content">
-    <form action="~/backStage/modelsManagement/SaveImage" method="post" enctype="multipart/form-data" autocomplete="off">
-        <table class="insert-tab">
-            <tr><th></th><td class="show-title">增加首页模板图片</td></tr>
-            <tr>
-                <td>图片选择：</td>
-                <td>
-                    <input id="image" name="image" type="file" />
-                    <input type="text" name="flag" id="flag" value=2 hidden="hidden" />
-                    <input type="text" name="areaId" id="areaId" value=1 hidden="hidden" />
-                    <input type="submit" value="保存" />
-                </td>
-            </tr>
-        </table>
-    </form>
     <form action="~/backStage/modelsManagement/modelsAddInfo" method="post" autocomplete="off">
         <input type="text" id="flag" name="flag" value="2" hidden="hidden" />
-        <input type="text" id="areaId" name="areaId" value="1" hidden="hidden" />
+        <input type="text" id="areaId" name="areaId" value="3" hidden="hidden" />
         <table class="insert-tab">
+            <tr><th></th><td class="show-title">增加标语</td></tr>
             <tr>
                 <th>
                     类型
                 </th>
                 <td>
-                    首页背景图
+                    Title
                 </td>
             </tr>
             <tr>
                 <th>
-                    图片
+                    标语
                 </th>
                 <td>
-                    <img src="@ViewBag.pictureAdr" />
-                    <input id="pictureAdr" name="pictureAdr" value="@ViewBag.pictureAdr" class="input-content" type="text" hidden="hidden" />
+                    @Html.TextBoxFor(u => u.title, new { @type = "text", @class = "input-content", @id = "title", @name = "title" })
+                    <div class="error-mes">@Html.ValidationMessageFor(u => u.title)</div>
                 </td>
             </tr>
             <tr>
@@ -76,4 +64,5 @@
             </tr>
         </table>
     </form>
+    }
 </div>

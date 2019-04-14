@@ -58,16 +58,45 @@ namespace Lazyfitness.Areas.backStage.Controllers
         [BackStageFilter]
         public ActionResult modelsPicAdd_Hello()
         {
+            serverShowInfo[] info = toolsHelpers.selectToolsController.selectServerShowInfo(u => u.flag == 2 && u.areaId == 0);
+            if(info.Length != 0)
+            {
+                ViewBag.serverShowInfo = info[0];
+                return View("modelsUpdate");
+            }
             return View();
         }
         [BackStageFilter]
         public ActionResult modelsPicAdd_Index()
         {
+            serverShowInfo[] info = toolsHelpers.selectToolsController.selectServerShowInfo(u => u.flag == 2 && u.areaId == 1);
+            if (info.Length != 0)
+            {
+                ViewBag.serverShowInfo = info[0];
+                return View("modelsUpdate");
+            }
             return View();
         }
         [BackStageFilter]
         public ActionResult modelsSlgAdd()
         {
+            serverShowInfo[] info = toolsHelpers.selectToolsController.selectServerShowInfo(u => u.flag == 2 && u.areaId == 0);
+            if (info.Length != 0)
+            {
+                ViewBag.serverShowInfo = info[0];
+                return View("modelsUpdate");
+            }
+            return View();
+        }
+        [BackStageFilter]
+        public ActionResult modelsTitleAdd()
+        {
+            serverShowInfo[] info = toolsHelpers.selectToolsController.selectServerShowInfo(u => u.flag == 2 && u.areaId == 3);
+            if (info.Length != 0)
+            {
+                ViewBag.serverShowInfo = info[0];
+                Response.Redirect("/backStage/modelsManagement/modelsUpdate");
+            }
             return View();
         }
         [HttpPost]
@@ -111,7 +140,7 @@ namespace Lazyfitness.Areas.backStage.Controllers
                     serverShowInfo[] info = GetPagedList(Convert.ToInt32(1), 10, x => x == x, u => u.flag == 2);
                     if (info == null || info.Length == 0)
                     {
-                        return Content("没有此展示！");
+                        Response.Redirect("/backStage/modelsManagement/Index");
                     }
                     ViewBag.nowPage = 1;
                     ViewBag.sumPage = sumPage;
@@ -150,6 +179,45 @@ namespace Lazyfitness.Areas.backStage.Controllers
         }
         #endregion
 
+        #region 修改
+        [HttpPost]
+        [BackStageFilter]
+        public ActionResult modelsUpdate(int areaId)
+        {
+            try
+            {
+                serverShowInfo[] info = toolsHelpers.selectToolsController.selectServerShowInfo(u => u.flag == 2 && u.areaId == areaId);
+                if (info == null || info.Length == 0)
+                {
+                    return Content("没有此展示内容！");
+                }
+                ViewBag.serverShowInfo = info[0];
+                return View();
+            }
+            catch
+            {
+                return Content("进入修改信息界面出错！");
+            }
+        }
+        [HttpPost]
+        [BackStageFilter]
+        public string modelsUpdateInfo(serverShowInfo serverShowInfo)
+        {
+            try
+            {
+                if (toolsHelpers.updateToolsController.updateServerShowInfo(u => u.id == serverShowInfo.id, serverShowInfo) == true)
+                {
+                    Response.Redirect("/backStage/modelsManagement/Index");
+                    return "success";
+                }
+                return "修改失败!";
+            }
+            catch
+            {
+                return "修改失败(ERROR)";
+            }
+        }
+        #endregion
 
         #region 上传图片
 
@@ -188,14 +256,19 @@ namespace Lazyfitness.Areas.backStage.Controllers
 
                     ViewBag.pictureAdr = image;
                     ViewBag.serverShowInfo = info;
-                    if (info.areaId == 1)
+                    if(info.id != 0)
+                    {
+                        return View("modelsUpdate");
+                    }
+                    else if (info.areaId == 1)
                     {
                         return View("modelsPicAdd_Index");
                     }
-                    else
+                    else if (info.areaId == 0)
                     {
-                        return View("modelsPicAdd_Hello"); ;
+                        return View("modelsPicAdd_Hello"); 
                     }
+                    return Content("上传成功！");
                 }
             }
             catch
