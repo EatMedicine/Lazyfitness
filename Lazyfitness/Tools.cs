@@ -1451,7 +1451,7 @@ namespace Lazyfitness
         {
             //此处应取出数据，这里先用该数据代替
             serverShowInfo[] serverInfo = Areas.toolsHelpers.selectToolsController.selectServerShowInfo(u=>u.flag == 2 && u.areaId == 3);
-            string title = "Please contact Oliver Eason or Kaimar";            
+            string title = "Default Name";            
             if (serverInfo.Length == 0 || serverInfo == null)
             {
                 return title;    
@@ -1472,6 +1472,10 @@ namespace Lazyfitness
             {
                 return picAddress;
             }
+            if(serverInfo[0].pictureAdr == "" || serverInfo[0].pictureAdr == null)
+            {
+                return picAddress;
+            }
             picAddress = serverInfo[0].pictureAdr;
             return picAddress;
         }
@@ -1485,6 +1489,10 @@ namespace Lazyfitness
             serverShowInfo[] serverInfo = Areas.toolsHelpers.selectToolsController.selectServerShowInfo(u => u.flag == 2 && u.areaId == 0);
             string slogan = "Please contact Oliver Eason or Kaimar";
             if (serverInfo.Length == 0 || serverInfo == null)
+            {
+                return slogan;
+            }
+            if(serverInfo[0].title == null||serverInfo[0].title == "")
             {
                 return slogan;
             }
