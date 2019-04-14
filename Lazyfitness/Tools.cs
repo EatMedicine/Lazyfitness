@@ -1,17 +1,14 @@
 ﻿using Lazyfitness.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 using System.Data.Entity.Infrastructure;
 using System.Collections;
 using System.Text.RegularExpressions;
 using System.Linq.Expressions;
 using System.Reflection;
-
 namespace Lazyfitness
-{   
+{
     /// <summary>
     /// 工具类
     /// </summary>
@@ -1453,7 +1450,14 @@ namespace Lazyfitness
         public static string GetWebsiteName()
         {
             //此处应取出数据，这里先用该数据代替
-            return "小懒人健身";
+            serverShowInfo[] serverInfo = Areas.toolsHelpers.selectToolsController.selectServerShowInfo(u=>u.flag == 2 && u.areaId == 3);
+            string title = "Please contact Oliver Eason or Kaimar";            
+            if (serverInfo.Length == 0 || serverInfo == null)
+            {
+                return title;    
+            }
+            title = serverInfo[0].title;
+            return title;
         }
 
         /// <summary>
@@ -1462,7 +1466,14 @@ namespace Lazyfitness
         /// <returns></returns>
         public static string GetHelloPic()
         {
-            return "/Resource/picture/man-2037255_1920.jpg";
+            serverShowInfo[] serverInfo = Areas.toolsHelpers.selectToolsController.selectServerShowInfo(u => u.flag == 2 && u.areaId == 0);
+            string picAddress = "/Resource/picture/man-2037255_1920.jpg";
+            if (serverInfo.Length == 0 || serverInfo == null)
+            {
+                return picAddress;
+            }
+            picAddress = serverInfo[0].pictureAdr;
+            return picAddress;
         }
         
         /// <summary>
@@ -1471,7 +1482,14 @@ namespace Lazyfitness
         /// <returns></returns>
         public static string GetHelloSlogan()
         {
-            return "从汗水中看见进步";
+            serverShowInfo[] serverInfo = Areas.toolsHelpers.selectToolsController.selectServerShowInfo(u => u.flag == 2 && u.areaId == 0);
+            string slogan = "Please contact Oliver Eason or Kaimar";
+            if (serverInfo.Length == 0 || serverInfo == null)
+            {
+                return slogan;
+            }
+            slogan = serverInfo[0].title;
+            return slogan;
         }
         
         /// <summary>
@@ -1480,7 +1498,14 @@ namespace Lazyfitness
         /// <returns></returns>
         public static string GetLayoutPic()
         {
-            return "/Resource/picture/running-1705716_1920.jpg";
+            serverShowInfo[] serverInfo = Areas.toolsHelpers.selectToolsController.selectServerShowInfo(u => u.flag == 2 && u.areaId == 1);
+            string headPicAddress = "/Resource/picture/running-1705716_1920.jpg";
+            if (serverInfo.Length == 0 || serverInfo == null)
+            {
+                return headPicAddress;
+            }
+            headPicAddress = serverInfo[0].pictureAdr;
+            return headPicAddress;
         }
         #endregion
     }
