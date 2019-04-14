@@ -156,6 +156,7 @@
     <Compile Include="Areas\backStage\Controllers\displayManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\forumManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\InformationStatisticsController.cs" />
+    <Compile Include="Areas\backStage\Controllers\modelsManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\quesAnswManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\articleManagementController.cs" />
     <Compile Include="Areas\backStage\Controllers\userManagementController.cs" />
@@ -691,6 +692,11 @@
     <Content Include="Models\Lazyfitness.edmx.diagram">
       <DependentUpon>Lazyfitness.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\backStage\Views\modelsManagement\Index.cshtml" />
+    <Content Include="Areas\backStage\Views\modelsManagement\showResult.cshtml" />
+    <Content Include="Areas\backStage\Views\modelsManagement\modelsPicAdd_Index.cshtml" />
+    <Content Include="Areas\backStage\Views\modelsManagement\modelsSlgAdd.cshtml" />
+    <Content Include="Areas\backStage\Views\modelsManagement\modelsPicAdd_Hello.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -756,6 +762,7 @@
     <Folder Include="Areas\account\Models\" />
     <Folder Include="Areas\account\Views\Shared\" />
     <Folder Include="Areas\backStage\Models\" />
+    <Folder Include="Areas\backStage\Views\serverShowInfo\" />
     <Folder Include="Areas\informationOfUser\Controllers\" />
     <Folder Include="Areas\informationOfUser\Models\" />
     <Folder Include="Areas\informationOfUser\Views\Shared\" />

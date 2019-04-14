@@ -1,0 +1,28 @@
+﻿@model Lazyfitness.Models.serverShowInfo
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "模板页管理";
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+                <div class="short-wrap">
+                    @Html.ActionLink("增加Hello模板图片", "modelsPicAdd_Hello", "modelsManagement")
+                    @Html.ActionLink("增加Hello页slogan", "modelsSlgAdd", "modelsManagement")
+                    @Html.ActionLink("增加首页图片", "modelsPicAdd_Index", "modelsManagement")
+                    @Html.ActionLink("查询模板展示内容", "showResult", "modelsManagement")
+                </div>
+        </div>
+    </div>
+</div>
+<div class="result-content">
+</div>
