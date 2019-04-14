@@ -1,0 +1,68 @@
+﻿@model Lazyfitness.Models.serverShowInfo
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "增加模板展示";
+}
+
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("返回上一级", "Index", "modelsManagement")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="result-content">
+    <form action="~/backStage/modelsManagement/modelsAddInfo" method="post" autocomplete="off">
+        <input type="text" id="flag" name="flag" value="2" hidden="hidden" />
+        <input type="text" id="areaId" name="areaId" value="0" hidden="hidden" />
+        <table class="insert-tab">
+            <tr><th></th><td class="show-title">增加标语</td></tr>
+            <tr>
+                <th>
+                    类型
+                </th>
+                <td>
+                    Slogan
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    标语
+                </th>
+                <td>
+                    @Html.TextBoxFor(u => u.title, new { @type = "text", @class = "input-content", @id = "title", @name = "title" })
+                    <div class="error-mes">@Html.ValidationMessageFor(u => u.title)</div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    状态
+                </th>
+                <td>
+                    <select name="Infostatus">
+                        <option class="dropdown-list" value="0">禁止</option>
+                        <option class="dropdown-list" value="1">启用</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="增加" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    }
+</div>

@@ -1,0 +1,79 @@
+﻿@model Lazyfitness.Models.serverShowInfo
+@{
+    Layout = "~/Views/Shared/_backStageMainStyle.cshtml";
+    ViewBag.Title = "增加图片";
+}
+<!--/sidebar-->
+<div class="main-wrap">
+    <div class="crumb-wrap">
+        <div class="crumb-list">
+            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <div class="result-title">
+            <h1>可选操作</h1>
+        </div>
+        <div class="result-content">
+            <div class="short-wrap">
+                @Html.ActionLink("返回上一级", "Index", "modelsManagement")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="result-content">
+    <form action="~/backStage/modelsManagement/SaveImage" method="post" enctype="multipart/form-data" autocomplete="off">
+        <table class="insert-tab">
+            <tr><th></th><td class="show-title">增加hello页模板图片</td></tr>
+            <tr>
+                <td>图片选择：</td>
+                <td>
+                    <input id="image" name="image" type="file" />
+                    <input type="text" name="flag" id="flag" value=2 hidden="hidden" />
+                    <input type="text" name="areaId" id="areaId" value=1 hidden="hidden" />
+                    <input type="submit" value="保存" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <form action="~/backStage/modelsManagement/modelsAddInfo" method="post" autocomplete="off">
+        <input type="text" id="flag" name="flag" value="2" hidden="hidden" />
+        <input type="text" id="areaId" name="areaId" value="1" hidden="hidden" />
+        <table class="insert-tab">
+            <tr>
+                <th>
+                    类型
+                </th>
+                <td>
+                    首页背景图
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    图片
+                </th>
+                <td>
+                    <img src="@ViewBag.pictureAdr" />
+                    <input id="pictureAdr" name="pictureAdr" value="@ViewBag.pictureAdr" class="input-content" type="text" hidden="hidden" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    状态
+                </th>
+                <td>
+                    <select name="Infostatus">
+                        <option class="dropdown-list" value="0">禁止</option>
+                        <option class="dropdown-list" value="1">启用</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <input class="btn-submit show-border" type="submit" id="postData" name="postData" value="增加" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
