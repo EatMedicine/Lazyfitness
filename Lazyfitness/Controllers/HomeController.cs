@@ -31,7 +31,6 @@ namespace Lazyfitness.Controllers
         public ActionResult Index()
         {
             #region 数据
-            ViewBag.Title = "小懒人健身网站";
             ViewBag.IsLogin = true;
             ViewBag.headPicadr = Url.Content("~/Resource/picture/DefaultHeadPic.jpg");
             //获取首页轮播图数据

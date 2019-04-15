@@ -8,7 +8,7 @@
 <div class="main-wrap">
     <div class="crumb-wrap">
         <div class="crumb-list">
-            <i class="icon-font">🔈</i><span>欢迎使用小懒人共享健身后台管理系统</span>
+            <i class="icon-font">🔈</i><span>欢迎使用TPAS后台管理系统</span>
         </div>
     </div>
     <div class="result-wrap">
@@ -27,18 +27,18 @@
         <input type="text" id="flag" name="flag" value="2" hidden="hidden" />
         <input type="text" id="areaId" name="areaId" value="3" hidden="hidden" />
         <table class="insert-tab">
-            <tr><th></th><td class="show-title">增加标语</td></tr>
+            <tr><th></th><td class="show-title">设置网站名字</td></tr>
             <tr>
                 <th>
                     类型
                 </th>
                 <td>
-                    Title
+                    网站名字
                 </td>
             </tr>
             <tr>
                 <th>
-                    标语
+                    网站名字
                 </th>
                 <td>
                     @Html.TextBoxFor(u => u.title, new { @type = "text", @class = "input-content", @id = "title", @name = "title" })
