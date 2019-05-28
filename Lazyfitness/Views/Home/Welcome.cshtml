@@ -1,0 +1,129 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_MainStyle.cshtml";
+    ViewBag.Title = "网站初始化";
+}
+
+<link href="~/Css/Welcome.css" rel="stylesheet" type="text/css" />
+<link href="~/Css/bootstrapmin.css" rel="stylesheet" type="text/css" />
+@Scripts.Render("~/Scripts/vue.js")
+@Scripts.Render("~/Scripts/Welcome.js")
+@Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+@Scripts.Render("~/Scripts/bootstrapmin.js")
+<div id="app" v-cloak>
+    <form autocomplete="off" method="post" action="@Url.Action("Welcome","Home")" >
+        <transition-group name="fade" tag="div" mode="out-in">
+            <!--后台管理员-->
+            <div id="page1" class="container" v-show="pageNum === 1" v-bind:key="1">
+                <div class="row text-center" style="margin-bottom:50px">
+                    <h1>欢迎使用本建站系统</h1>
+                    <h3>首先，请设置一个后台管理员密码吧~</h3>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="form-group col-lg-4 col-lg-offset-4">
+                            <label class="control-label">密码</label>
+                            <input class="form-control" type="password" name="password" placeholder="密码" v-model="submitData.password" />
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:20px">
+                        <transition name="fade">
+                            <button type="button" v-show="submitData.password!=''" v-on:click="AddPageNum()" class="col-lg-2 col-lg-offset-5 btn btn-default">下一步</button>
+                        </transition>
+
+                    </div>
+                </div>
+            </div>
+            <!--网站名字-->
+            <div id="page2" class="container" v-show="pageNum === 2" v-bind:key="2">
+                <div class="row text-center" style="margin-bottom:50px">
+                    <h3>然后为你的网站起一个名字吧~</h3>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="form-group col-lg-4 col-lg-offset-4">
+                            <label class="control-label">网站名</label>
+                            <input class="form-control" type="text" name="webname" placeholder="网站名" v-model="submitData.webname" />
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:20px">
+                        <transition name="fade">
+                            <button type="button" v-show="submitData.webname!=''" v-on:click="AddPageNum()" class="col-lg-2 col-lg-offset-5 btn btn-default">下一步</button>
+                        </transition>
+                    </div>
+                </div>
+            </div>
+            <!--文章分区-->
+            <div id="page3" class="container" v-show="pageNum === 3" v-bind:key="3">
+                <div class="row text-center" style="margin-bottom:50px">
+                    <h3>设置下文章的分区吧！</h3>
+                </div>
+                <div>
+                    <transition-group name="list-complete" tag="div">
+                        <div class="row list-complete-item" v-for="item in submitData.articlePartData" v-bind:key="item">
+                            <div class="form-group col-lg-4 col-lg-offset-4">
+                                <label class="control-label">分区名</label>
+                                <input class="form-control" type="text" placeholder="分区名" v-model="item.pname" />
+                            </div>
+                        </div>
+                    </transition-group>
+                    <button type="button" v-on:click="AddArticlePartNum()" class="btn btn-default col-lg-offset-4">+</button>
+                    @*{{submitData.articlePartData}}*@
+                    <div class="row" style="margin-top:20px">
+                        <transition name="fade">
+                            <button type="button" v-show="submitData.articlePartData[0].pname!=''" v-on:click="AddPageNum()" class="col-lg-2 col-lg-offset-5 btn btn-default">下一步</button>
+                        </transition>
+                    </div>
+                </div>
+            </div>
+            <!--论坛分区-->
+            <div id="page4" class="container" v-show="pageNum === 4" v-bind:key="4">
+                <div class="row text-center" style="margin-bottom:50px">
+                    <h3>然后是设置下论坛的分区吧！</h3>
+                </div>
+                <div>
+                    <transition-group name="list-complete" tag="div">
+                        <div class="row list-complete-item" v-for="item in submitData.forumPartData" v-bind:key="item">
+                            <div class="form-group col-lg-4 col-lg-offset-4">
+                                <label class="control-label">分区名</label>
+                                <input class="form-control" type="text" placeholder="分区名" v-model="item.pname" />
+                            </div>
+                        </div>
+                    </transition-group>
+                    <button type="button" v-on:click="AddForumPartNum()" class="btn btn-default col-lg-offset-4">+</button>
+                    @*{{submitData.forumPartData}}*@
+                    <div class="row" style="margin-top:20px">
+                        <transition name="fade">
+                            <button type="button" v-show="submitData.forumPartData[0].pname!=''" v-on:click="AddPageNum()" class="col-lg-2 col-lg-offset-5 btn btn-default">下一步</button>
+                        </transition>
+                    </div>
+                </div>
+            </div>
+            <!--问答分区-->
+            <div id="page5" class="container" v-show="pageNum === 5" v-bind:key="5">
+                <div class="row text-center" style="margin-bottom:50px">
+                    <h3>然后是设置下问答的分区吧！</h3>
+                </div>
+                <div>
+                    <transition-group name="list-complete" tag="div">
+                        <div class="row list-complete-item" v-for="item in submitData.quesPartData" v-bind:key="item">
+                            <div class="form-group col-lg-4 col-lg-offset-4">
+                                <label class="control-label">分区名</label>
+                                <input class="form-control" type="text" placeholder="分区名" v-model="item.pname" />
+                            </div>
+                        </div>
+                    </transition-group>
+                    <button type="button" v-on:click="AddQuesPartNum()" class="btn btn-default col-lg-offset-4">+</button>
+                    @*{{submitdata.quespartdata}}*@
+                    <div class="row" style="margin-top:20px">
+                        <transition name="fade">
+                            <button type="submit" v-show="submitData.quesPartData[0].pname!=''" class="col-lg-2 col-lg-offset-5 btn btn-default">完成</button>
+                        </transition>
+                    </div>
+                </div>
+            </div>
+
+        </transition-group>
+        <input type="hidden" name="jsonData" v-model="submitJson"/>
+    </form>
+</div>

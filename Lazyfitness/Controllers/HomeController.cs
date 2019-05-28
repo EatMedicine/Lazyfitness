@@ -9,6 +9,8 @@ using System.Data.Entity.Infrastructure;
 using Lazyfitness.Filter;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
+using Lazyfitness.json;
+using Lazyfitness.json.model;
 
 namespace Lazyfitness.Controllers
 {
@@ -855,6 +857,19 @@ namespace Lazyfitness.Controllers
                 db.SaveChanges();
             }
             Tools.AlertAndRedirect("充值成功", Url.Action("Recharge", "Home"));
+            return View();
+        }
+        #endregion
+
+        #region 初次使用设置
+        public ActionResult Welcome()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Welcome(string jsonData)
+        {
+            SubmitData data = JsonHelper.JsonDeserialize<SubmitData>(jsonData);
             return View();
         }
         #endregion

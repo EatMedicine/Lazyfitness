@@ -1,0 +1,29 @@
+﻿[v-cloak] {
+    display: none;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .3s;
+}
+
+.fade-enter, .fade-leave-to  {
+    opacity: 0;
+}
+
+.flip-list-move {
+    transition: transform 1s;
+}
+
+.list-complete-item {
+    transition: all 1s;
+}
+
+.list-complete-enter, .list-complete-leave-to
+/* .list-complete-leave-active for below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateX(200px);
+}
+
+.list-complete-leave-active {
+    position: absolute;
+}
