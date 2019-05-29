@@ -183,6 +183,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filter\AdminFilter.cs" />
     <Compile Include="Filter\BackStageFilter.cs" />
+    <Compile Include="Filter\FirstFilter.cs" />
     <Compile Include="Filter\LoginStatusFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -251,6 +252,7 @@
     <Compile Include="PageViewRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools.cs" />
+    <Compile Include="WebConfigHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\img\show.jpg" />

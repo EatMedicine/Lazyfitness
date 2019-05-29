@@ -91,11 +91,13 @@ namespace Lazyfitness.Areas.backStage.Controllers
         [BackStageFilter]
         public ActionResult modelsTitleAdd()
         {
-            serverShowInfo[] info = toolsHelpers.selectToolsController.selectServerShowInfo(u => u.flag == 2 && u.areaId == 3);
+            serverShowInfo[] info = toolsHelpers.selectToolsController.selectServerShowInfo(u => u.flag == 2 && u.areaId == 2);
             if (info.Length != 0)
             {
                 ViewBag.serverShowInfo = info[0];
-                Response.Redirect("/backStage/modelsManagement/modelsUpdate");
+                ///backStage/modelsManagement/
+                //Response.Redirect("modelsUpdate");
+                return View("modelsUpdate");
             }
             return View();
         }

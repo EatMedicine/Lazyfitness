@@ -33,11 +33,11 @@ namespace Lazyfitness.Areas.account.Controllers
                 //实例化一个发送邮件类。
                 MailMessage mailMessage = new MailMessage();
                 //发件人邮箱地址，方法重载不同，可以根据需求自行选择。
-                mailMessage.From = new MailAddress("1092519577@qq.com", "自主建站系统团队");
+                mailMessage.From = new MailAddress("1092519577@qq.com", "TPAS自主建站系统团队");
                 //收件人邮箱地址。
                 mailMessage.To.Add(new MailAddress(mailAddress));
                 //邮件标题。          
-                mailMessage.Subject = "验证码";
+                mailMessage.Subject = "找回用户名验证码";
                 //邮件内容。
                 mailMessage.IsBodyHtml = true;
                 mailMessage.Body = "<div>尊敬的用户您好：<br/>您的找回用户名的注册验证码为：<strong>" + code + "</strong>，请妥善保管。验证码30分钟内有效。</div>";

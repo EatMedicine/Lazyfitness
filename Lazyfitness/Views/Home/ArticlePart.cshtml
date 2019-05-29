@@ -42,7 +42,7 @@
         <div style="width:100%">
             <h2 style="font-family:YouYuan;position:relative;padding-left:120px;width:200px;">@ViewBag.PartName</h2>
             @{ 
-                ViewBag.Title = ViewBag.PartName
+                ViewBag.Title = ViewBag.PartName;
             }
             @*只有管理员才可以显示这个按钮*@
             @if (IsAdmin == true)

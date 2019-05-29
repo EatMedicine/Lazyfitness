@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <title>PersonalData</title>
     <link href="~/Css/PersonalData.css" rel="stylesheet" />
-    <script src="~/Scripts/PersonalData.js"></script>
+    <script src="~/Scripts/PersonalData.js?v=2000"></script>
 </head>
 <body>
     <div class="content-body">
@@ -55,11 +55,11 @@
                                         <td>
                                             @if (@ViewBag.userSex == 0)
                                             {
-                                                <span id="userSex">女</span>
+                                                <span id="userSex">男</span>
                                             }
                                             @if (@ViewBag.userSex == 1)
                                             {
-                                                <span id="userSex">男</span>
+                                                <span id="userSex">女</span>
                                             }
                                             @if (@ViewBag.userSex == 2)
                                             {

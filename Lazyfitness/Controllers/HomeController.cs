@@ -11,6 +11,7 @@ using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using Lazyfitness.json;
 using Lazyfitness.json.model;
+using Lazyfitness.Areas.toolsHelpers;
 
 namespace Lazyfitness.Controllers
 {
@@ -862,14 +863,91 @@ namespace Lazyfitness.Controllers
         #endregion
 
         #region 初次使用设置
+        public JsonResult NotFirst()
+        {
+            string isFirst = WebConfigHelper.GetAppSetting("FirstOpen");
+            if (isFirst == "true")
+                WebConfigHelper.SetAppSetting("FirstOpen", "false");
+            else
+                WebConfigHelper.SetAppSetting("FirstOpen", "true");
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        [FirstFilter]
         public ActionResult Welcome()
         {
             return View();
         }
         [HttpPost]
+        [FirstFilter]
         public ActionResult Welcome(string jsonData)
         {
             SubmitData data = JsonHelper.JsonDeserialize<SubmitData>(jsonData);
+            #region 检测是否有网站名字
+            string webName = Tools.GetWebsiteName();
+            serverShowInfo nameInfo = new serverShowInfo()
+            {
+                flag = 2,
+                areaId = 2,
+                title = data.webname,
+                pictureAdr = null,
+                url = null,
+                Infostatus = 1
+            };
+            if (webName == Tools.DefaultWebsiteName)
+            {
+                //直接插入数据
+                insertToolsController.insertServerShowInfo(nameInfo);
+            }
+            else
+            {
+                //更新数据
+                updateToolsController.updateServerShowInfo(i => i.flag == 2 && i.areaId == 2, nameInfo);
+            }
+            #endregion
+            #region 设置网站管理员
+            int managerId = Tools.InsertBackManagerInfo(data.password);
+            #endregion
+            #region 设置分区
+            //文章区
+            foreach(SubmitData.ArticlePartData item in data.articlePartData)
+            {
+                if (item.pname == "")
+                    continue;
+                resourceArea area = new resourceArea()
+                {
+                    areaName = item.pname,
+                    areaBrief = Tools.DefaultAreaBrief
+                };
+                insertToolsController.insertResourceArea(area);
+            }
+            //问答区
+            foreach (SubmitData.QuesPartData item in data.quesPartData)
+            {
+                if (item.pname == "")
+                    continue;
+                quesArea area = new quesArea()
+                {
+                    areaName = item.pname,
+                    areaBrief = Tools.DefaultAreaBrief
+                };
+                insertToolsController.insertQuesArea(area);
+            }
+            //论坛区
+            foreach (SubmitData.ForumPartData item in data.forumPartData)
+            {
+                if (item.pname == "")
+                    continue;
+                postArea area = new postArea()
+                {
+                    areaName = item.pname,
+                    areaBrief = Tools.DefaultAreaBrief
+                };
+                insertToolsController.insertPostArea(area);
+            }
+            #endregion
+            //设置已经搞定
+            WebConfigHelper.SetAppSetting("FirstOpen", "false");
+            Tools.AlertAndRedirect(string.Format("网站已初始化成功，管理员id为：{0}", managerId), Url.Action("Hello", "Home"));
             return View();
         }
         #endregion

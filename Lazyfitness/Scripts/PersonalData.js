@@ -11,14 +11,14 @@ function changeInput() {
 
     var userSex = document.getElementById("userSex");
     var userSex_new = userSex.innerHTML;
-    if (userSex_new == '男') {
-        userSex.innerHTML = "<input type='radio' id='userSex' name='userSex' class='input' value='1' checked='checked'/>男 <input type= 'radio' id= 'userSex' name= 'userSex' class='input' value= '0' />女<input type= 'radio' id= 'userSex' name= 'userSex' class='input' value= '2' />保密";
+    if (userSex_new === '男') {
+        userSex.innerHTML = "<input type='radio' id='userSex' name='userSex' class='input' value='0' checked='checked'/>男 <input type= 'radio' id= 'userSex' name= 'userSex' class='input' value= '1' />女<input type= 'radio' id= 'userSex' name= 'userSex' class='input' value= '2' />保密";
     }
-    if (userSex_new == '女') {
-        userSex.innerHTML = "<input type='radio' id='userSex' name='userSex' class='input' value='1'/>男<input type= 'radio' name= 'userSex' id= 'userSex' class='input' value= '0' checked= 'checked' />女<input type= 'radio' id= 'userSex' name= 'userSex' class='input' value= '2' />保密";
+    if (userSex_new === '女') {
+        userSex.innerHTML = "<input type='radio' id='userSex' name='userSex' class='input' value='0'/>男<input type= 'radio' name= 'userSex' id= 'userSex' class='input' value= '1' checked= 'checked' />女<input type= 'radio' id= 'userSex' name= 'userSex' class='input' value= '2' />保密";
     }
-    if (userSex_new == '保密') {
-        userSex.innerHTML = "<input type='radio' id='userSex' name='userSex' class='input' value='1'/>男<input type= 'radio' name= 'userSex' id= 'userSex' class='input' value= '0' />女<input type= 'radio' id= 'userSex' name= 'userSex' class='input' value= '2' checked= 'checked'/>保密";
+    if (userSex_new === '保密') {
+        userSex.innerHTML = "<input type='radio' id='userSex' name='userSex' class='input' value='0'/>男<input type= 'radio' name= 'userSex' id= 'userSex' class='input' value= '1' />女<input type= 'radio' id= 'userSex' name= 'userSex' class='input' value= '2' checked= 'checked'/>保密";
     }
     var userEmail = document.getElementById("userEmail");
     var userEmail_new = userEmail.innerHTML;

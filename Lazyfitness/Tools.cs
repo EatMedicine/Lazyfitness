@@ -7,6 +7,8 @@ using System.Collections;
 using System.Text.RegularExpressions;
 using System.Linq.Expressions;
 using System.Reflection;
+using Lazyfitness.Areas.MD5Helper;
+
 namespace Lazyfitness
 {
     /// <summary>
@@ -14,6 +16,8 @@ namespace Lazyfitness
     /// </summary>
     public static class Tools
     {
+        public static string DefaultWebsiteName = "Default Name";
+        public static string DefaultAreaBrief = "Default Name";
         //每页显示的数据条数
         static int pageSize = 5;
         //更改这里后 3个大区的Ajax里的Js代码也要相应修改
@@ -1364,6 +1368,8 @@ namespace Lazyfitness
                 }
                 for (int count = 0; count < listLenth && count < 3; count++)
                 {
+                    if (url[count] == null)
+                        url[count] = "#";
                     info[count] = new serverShowInfo
                     {
                         id = count,
@@ -1431,6 +1437,40 @@ namespace Lazyfitness
             }
         }
 
+        public static int InsertBackManagerInfo(string psw)
+        {
+            string md5Psw = MD5Helper.encrypt(psw.Trim());
+            using(LazyfitnessEntities db = new LazyfitnessEntities())
+            {
+                int num = 1;
+                while (true)
+                {
+                    if (GetBackManagerInfo(num) == null)
+                    {
+                        break;
+                    }
+                    else
+                        num++;
+                }
+                backManager manager = new backManager()
+                {
+                    managerId = num,
+                    managerPwd = md5Psw
+                };
+                try
+                {
+                    db.backManager.Add(manager);
+                    db.SaveChanges();
+                }
+                catch
+                {
+                    return -1;
+                }
+                
+                return num;
+            }
+        }
+
         /// <summary>
         /// 弹窗并跳到指定Url
         /// </summary>
@@ -1450,8 +1490,8 @@ namespace Lazyfitness
         public static string GetWebsiteName()
         {
             //此处应取出数据，这里先用该数据代替
-            serverShowInfo[] serverInfo = Areas.toolsHelpers.selectToolsController.selectServerShowInfo(u=>u.flag == 2 && u.areaId == 3);
-            string title = "Default Name";            
+            serverShowInfo[] serverInfo = Areas.toolsHelpers.selectToolsController.selectServerShowInfo(u=>u.flag == 2 && u.areaId == 2);
+            string title = DefaultWebsiteName;            
             if (serverInfo.Length == 0 || serverInfo == null)
             {
                 return title;    

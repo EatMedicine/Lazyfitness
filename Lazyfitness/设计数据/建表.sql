@@ -219,3 +219,7 @@ GO
 
 
 insert into backManager values('666', 'E10ADC3949BA59ABBE56E057F20F883E')
+insert into userStatusName values('0','禁言')
+insert into userStatusName values('1','注册会员')
+insert into userStatusName values('2','正式会员')
+insert into userStatusName values('3','管理员')
