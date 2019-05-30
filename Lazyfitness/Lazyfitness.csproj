@@ -184,6 +184,7 @@
     <Compile Include="Filter\AdminFilter.cs" />
     <Compile Include="Filter\BackStageFilter.cs" />
     <Compile Include="Filter\FirstFilter.cs" />
+    <Compile Include="Filter\FirstRedirectFilter.cs" />
     <Compile Include="Filter\LoginStatusFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

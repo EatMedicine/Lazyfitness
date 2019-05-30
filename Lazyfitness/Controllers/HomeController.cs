@@ -31,6 +31,7 @@ namespace Lazyfitness.Controllers
             return View("~/Views/Shared/err.cshtml");
         }
         //首页
+        [FirstRedirectFilter]
         public ActionResult Index()
         {
             #region 数据
@@ -98,6 +99,7 @@ namespace Lazyfitness.Controllers
             return View();
         }
         //文章资源
+        [FirstRedirectFilter]
         public ActionResult Article()
         {
 
@@ -151,7 +153,8 @@ namespace Lazyfitness.Controllers
             #endregion
             return View();
         }
-         //问答
+        //问答
+        [FirstRedirectFilter]
         public ActionResult Question()
         {
             //获取大区信息
@@ -193,6 +196,7 @@ namespace Lazyfitness.Controllers
             return View();
         }
         //论坛
+        [FirstRedirectFilter]
         public ActionResult forum()
         {
             //获取大区信息
@@ -947,7 +951,8 @@ namespace Lazyfitness.Controllers
             #endregion
             //设置已经搞定
             WebConfigHelper.SetAppSetting("FirstOpen", "false");
-            Tools.AlertAndRedirect(string.Format("网站已初始化成功，管理员id为：{0}", managerId), Url.Action("Hello", "Home"));
+            WebConfigHelper.Save();
+            Tools.AlertAndRedirect(string.Format("网站已初始化成功，管理员id为：{0}", managerId), Url.Action("login", "manager", new { area = "backStage" }));
             return View();
         }
         #endregion
