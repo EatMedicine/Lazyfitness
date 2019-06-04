@@ -9,7 +9,7 @@ namespace Lazyfitness
 {
     public static class WebConfigHelper
     {
-        private static Configuration config = WebConfigurationManager.OpenWebConfiguration("~/Web.config");
+        private static Configuration config = WebConfigurationManager.OpenWebConfiguration("~");
         /// <summary>     
         /// 设置应用程序配置节点，如果已经存在此节点，则会修改该节点的值，否则添加此节点    
         /// </summary>     
